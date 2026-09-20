@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pei, lon | 裴冷</title>
+    <style>
+        /* reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --border-color: #ffffff;
+        }
+
+        /* global typography */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, 'PingFang TC', 'SF Pro TC', 'Microsoft JhengHei Light', 'Microsoft JhengHei', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-bottom: 5vh;
+        }
+
+        a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        /* support banner */
+        .support-banner {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            border-bottom: 2px solid var(--border-color);
+            padding: 1.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+        }
+
+        .banner-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .link-group {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .support-banner a {
+            color: var(--bg-color);
+            border-bottom: 2px solid var(--bg-color);
+            width: fit-content;
+        }
+
+        .support-banner a:hover {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        /* payment methods */
+        .payment-methods {
+            font-size: 0.85rem;
+            font-weight: 300; 
+            opacity: 0.9;
+            letter-spacing: 1px;
+        }
+
+        /* container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+        }
+
+        /* header */
+        header {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: normal;
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+
+        /* zh letter spacing */
+        .name-zh {
+            letter-spacing: 0.25em;
+        }
+
+        /* social links */
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            font-size: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.6rem 0;
+        }
+
+        .social-links a:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+
+        /* utils */
+        .nowrap {
+            white-space: nowrap;
+        }
+
+        .arrow {
+            margin-left: 0.5rem;
+            opacity: 0.7;
+            font-family: sans-serif;
+        }
+
+        /* statement */
+        .statement {
+            font-size: 1rem;
+            line-height: 2;
+            letter-spacing: 0.5px;
+            text-align: left;
+            max-width: 800px;
+            border-left: 4px solid var(--border-color);
+            padding-left: 2rem;
+            font-weight: 300;
+        }
+
+        .statement p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        /* portfolio */
+        .section-title {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+            font-weight: 300;
+        }
+
+        .portfolio-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .portfolio-item {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 2rem;
+            align-items: baseline;
+        }
+
+        .year {
+            font-weight: 300;
+            font-size: 1.2rem;
+        }
+
+        .details h3 {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+
+        .details p {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        /* footer */
+        footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.85rem;
+            opacity: 0.6;
+            text-align: left;
+            font-weight: 300;
+        }
+
+        /* mobile media queries */
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            .portfolio-item {
+                grid-template-columns: 80px 1fr;
+                gap: 1rem;
+            }
+            .statement {
+                padding-left: 1rem;
+                border-left: 2px solid var(--border-color);
+            }
+            .support-banner { 
+                padding: 1.5rem; 
+            }
+            .link-group {
+                flex-direction: column;
+                gap: 0.2rem;
+            }
+            .social-links a {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- support banner -->
+    <div class="support-banner">
+        <span class="banner-title">Fuel the Art & Code / 贊助一杯咖啡，支持數位創作與深夜除錯</span>
+        
+        <div class="link-group">
+            <a href="https://ko-fi.com/lonsthx" target="_blank">ko-fi.com/lonsthx</a>
+            <span class="payment-methods">( PayPal )</span>
+        </div>
+
+        <div class="link-group">
+            <a href="https://p.ecpay.com.tw/E639809" target="_blank">p.ecpay.com.tw/E639809</a>
+            <span class="payment-methods">( 信用卡 / 轉帳 / 超商 / ApplePay )</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- header & social -->
+        <header>
+            <h1>pei, lon<br><br><span class="name-zh">裴 冷</span></h1>
+            <div class="social-links">
+                <a href="mailto:con.peilon@gmail.com">
+                    <span class="nowrap">contact: con.peilon@gmail.com<span class="arrow">&#x2197;&#xFE0E;</span></span>
+                </a>
+                <a href="https://instagram.com/pei.lon" target="_blank">
+                    <span class="nowrap">instagram: @pei.lon<span class="arrow">&#x2197;&#xFE0E;</span></span>
+                </a>
+                <a href="https://youtube.com/@arts.peilon" target="_blank">
+                    <span>youtube: @arts.peilon</span>
+                    <span class="nowrap">(arts_ 創作)<span class="arrow">&#x2197;&#xFE0E;</span></span>
+                </a>
+                <a href="https://youtube.com/@lons.gaming" target="_blank">
+                    <span>youtube: @lons.gaming</span>
+                    <span class="nowrap">(games 遊戲)<span class="arrow">&#x2197;&#xFE0E;</span></span>
+                </a>
+            </div>
+        </header>
+
+        <!-- statement -->
+        <section>
+            <div class="statement">
+                <!-- lang: zh -->
+                <p>歡迎來到我的主頁！（中文 / English / Deutsch）</p>
+                <p>我是冷冷，一名遊走於數位媒體、視覺藝術與程式碼之間的科技藝術家與開發者。</p>
+                <p>我的創作軌跡主要分為兩個平行的領域：</p>
+                <p>1. 數位與錄像藝術：<br>
+                我的藝術實踐聚焦於錄像藝術、多媒體行為裝置、AI 生成工作流（如 ComfyUI），以及傳統的水印木刻版畫。我的數位與視覺作品曾於雅典、威尼斯、蘇黎世以及波茲南等歐洲藝術節與跨國展覽中展出。</p>
+                <p>2. RimWorld 模組開發與實況：<br>
+                在遊戲領域，我同時也是一名 RimWorld 模組作者。我致力於編寫 C# 底層邏輯補丁，修復破壞沉浸感的翻譯亂碼、解決複雜的模組衝突並淨化遊戲機制。此外，我也會透過實況分享我的遊戲日常與創作過程。</p>
+                <p>為什麼需要你的支持？<br>
+                無論你是剛被我的補丁拯救了存檔的邊緣世界玩家、實況台的觀眾，還是在歐洲的展覽中對我的錄像作品產生共鳴的觀展人——都非常感謝你來到這裡。</p>
+                <p>你們贊助的每一杯咖啡，都將直接化為我升級硬體設備、維持深夜除錯的咖啡因濃度，以及投入下一件跨領域藝術專案的最大動力。☕✨</p>
+                
+                <hr style="border: 0; border-top: 1px dashed var(--border-color); opacity: 0.3; margin: 3rem 0;">
+
+                <!-- lang: en -->
+                <p>Welcome to my creative space!</p>
+                <p>I am Lon, a tech artist and developer navigating the intersections of digital media, visual arts, and code.</p>
+                <p>My creative journey is split into two main parallel tracks:</p>
+                <p>1. Digital & Video Art:<br>
+                My artistic practice focuses on video art, multimedia installations, AI generative workflows (such as ComfyUI), and traditional woodcut printmaking. My visual works and installations have been exhibited at digital art festivals and galleries across Europe, including Athens, Venice, Zurich, and Poznań.</p>
+                <p>2. RimWorld Modding & Streaming:<br>
+                In the gaming sphere, I develop C# core-logic patches and quality-of-life mods for RimWorld. I focus on sanitizing game mechanics, fixing immersion-breaking bugs, and resolving complex mod conflicts. I also stream my gameplay and creative processes to connect with the community.</p>
+                <p>Why support?<br>
+                Whether you are a RimWorld colonist whose savefile I just rescued, a viewer hanging out in my streams, or an audience member who connected with my video art at an exhibition in Europe—thank you for being here.</p>
+                <p>Your tips and coffees directly fund my caffeine supply, hardware maintenance, and upcoming cross-disciplinary art projects. Every contribution keeps the momentum going for both my late-night coding sessions and digital creations. ☕✨</p>
+
+                <hr style="border: 0; border-top: 1px dashed var(--border-color); opacity: 0.3; margin: 3rem 0;">
+
+                <!-- lang: de -->
+                <p>Willkommen auf meiner Seite!</p>
+                <p>Ich bin Lon, ein Tech-Künstler und Entwickler, der sich an der Schnittstelle von digitalen Medien, visueller Kunst und Programmierung bewegt.</p>
+                <p>Meine kreative Reise teilt sich hauptsächlich in zwei parallele Bereiche auf:</p>
+                <p>1. Digitale & Videokunst:<br>
+                Meine künstlerische Praxis konzentriert sich auf Videokunst, multimediale Installationen, KI-gestützte Workflows (wie ComfyUI) und traditionellen Holzschnitt. Meine visuellen Werke und Installationen wurden bereits auf digitalen Kunstfestivals und in Galerien in ganz Europa ausgestellt, darunter in Athen, Venedig, Zürich und Posen (Poznań).</p>
+                <p>2. RimWorld Modding & Streaming:<br>
+                Im Gaming-Bereich entwickle ich C#-Core-Logic-Patches und Quality-of-Life-Mods für RimWorld. Mein Fokus liegt darauf, Spielmechaniken zu bereinigen, störende Bugs zu beheben und komplexe Mod-Konflikte zu lösen. Außerdem streame ich meinen Spiel- und Arbeitsprozess, um mich mit der Community auszutauschen.</p>
+                <p>Warum unterstützen?<br>
+                Ob du ein RimWorld-Kolonist bist, dessen Spielstand ich gerade gerettet habe, ein Zuschauer in meinem Stream oder ein Besucher, den meine Videokunst auf einer Ausstellung in Europa berührt hat – vielen Dank, dass du hier bist.</p>
+                <p>Eure Spenden und Kaffees fließen direkt in meinen Koffeinnachschub, die Instandhaltung meiner Hardware und in kommende interdisziplinäre Kunstprojekte. Jeder Beitrag ist ein riesiger Motivationsschub für meine nächtlichen Programmier-Sessions und digitalen Kreationen. ☕✨</p>
+
+                <hr style="border: 0; border-top: 1px dashed var(--border-color); opacity: 0.3; margin: 3rem 0;">
+            </div>
+        </section>
+
+        <!-- portfolio -->
+        <section>
+            <div class="section-title">Exhibitions & Portfolio</div>
+            <ul class="portfolio-list">
+                
+                <li class="portfolio-item">
+                    <div class="year">2026</div>
+                    <div class="details">
+                        <h3>&lt;雙重演算&gt; (Planned)</h3>
+                        <p>Multi-media behavior and video art installation, Poznań Game Arena, Poznań, Poland</p>
+                    </div>
+                </li>
+
+                <li class="portfolio-item">
+                    <div class="year">2025</div>
+                    <div class="details">
+                        <h3>&lt;studies on incest&gt;</h3>
+                        <p>Group Exhibition in Toni-Areal of ZHdK, Zurich, Switzerland</p>
+                    </div>
+                </li>
+
+                <li class="portfolio-item">
+                    <div class="year"></div>
+                    <div class="details">
+                        <h3>&lt;studies on synchronicity&gt;</h3>
+                        <p>Group Trans-disciplinary Performance in Galeri Lorong, Yogyakarta, Indonesia</p>
+                    </div>
+                </li>
+
+                <li class="portfolio-item">
+                    <div class="year">2024</div>
+                    <div class="details">
+                        <h3>&lt;finale: white 最終章：白色&gt;</h3>
+                        <p>Art Book / Exhibited at Art Book Fair of Venice Biennale (Venice, Italy), National Center of Photography and Images (Taipei, Taiwan), Taipei Art Book Fair, and Kraków, Poland</p>
+                    </div>
+                </li>
+
+                <li class="portfolio-item">
+                    <div class="year"></div>
+                    <div class="details">
+                        <h3>&lt;wind continues in motion 風行不止&gt;</h3>
+                        <p>Video Art / Athens Digital Arts Festival (Athens, Greece) & Experimental Theater of NTU (Taipei, Taiwan)</p>
+                    </div>
+                </li>
+
+                <li class="portfolio-item">
+                    <div class="year">2023</div>
+                    <div class="details">
+                        <h3>&lt;seeping 滲人&gt;</h3>
+                        <p>Collaborative Performance & Theater / Umay Theater, Taipei, Taiwan</p>
+                    </div>
+                </li>
+
+                <li class="portfolio-item">
+                    <div class="year"></div>
+                    <div class="details">
+                        <h3>《從波依斯藝術探討美學對社會的轉化》</h3>
+                        <p>Thesis / 發表於第七屆臺灣教育哲學年會暨國際學術研討會</p>
+                    </div>
+                </li>
+
+                <li class="portfolio-item">
+                    <div class="year">2022</div>
+                    <div class="details">
+                        <h3>&lt;carnival to alice, a story of reconstruction 愛麗絲的新生&gt;</h3>
+                        <p>Video and Performance / Experimental Theater of NTU, Taipei, Taiwan</p>
+                    </div>
+                </li>
+
+            </ul>
+        </section>
+
+        <!-- footer -->
+        <footer>
+            &copy; 2026 pei, lon. All Rights Reserved.
+        </footer>
+    </div>
+
+</body>
+</html>
