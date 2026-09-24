@@ -117,20 +117,32 @@
             letter-spacing: 0.25em;
         }
 
-        /* social links */
+        /* -------------------------------------
+           社群連結 (絕對右牆對齊系統)
+        -------------------------------------- */
         .social-links {
+            /* [參數中控台] 控制所有連結的「右側絕對對齊牆」 */
+            --wall: 320px; 
+            
+            /* 上半部群組 (保留你原本錯落有致的起點) */
+            --col-label-top: 170px;
+            --col-middle: 90px;
+            --col-right-top: calc(var(--wall) - var(--col-label-top) - var(--col-middle));
+            
+            /* 下半部群組 (保留 IG 專屬的起點) */
+            --col-label-bot: 100px;
+            --col-right-bot: calc(var(--wall) - var(--col-label-bot));
+
             display: flex;
             flex-direction: column;
             font-size: 1rem;
         }
 
+        /* 共同的底線與滑鼠懸停效果 */
         .social-links a {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            gap: 1rem;
             border-bottom: 1px solid var(--border-color);
             padding: 0.6rem 0;
+            transition: all 0.2s ease;
         }
 
         .social-links a:hover {
@@ -140,11 +152,35 @@
             padding-right: 0.5rem;
         }
 
-        /* utils */
-        .nowrap {
+        /* 1. 上半部：三點定位 (標籤 | 括號前半 | 靠右對齊的文字與括號 | 留白延伸保留底線) */
+        .social-links a.grid-link-top {
+            display: grid;
+            grid-template-columns: var(--col-label-top) var(--col-middle) var(--col-right-top) 1fr; 
+            align-items: center;
+        }
+
+        /* 2. 下半部：雙點定位 (標籤 | 靠右對齊的完整括號 | 留白延伸保留底線) */
+        .social-links a.grid-link-bottom {
+            display: grid;
+            grid-template-columns: var(--col-label-bot) var(--col-right-bot) 1fr; 
+            align-items: center;
+        }
+
+        /* 共用工具類 */
+        .link-label, .link-middle {
+            white-space: nowrap;
+        }
+        
+        .link-right {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; /* 終極核心：所有內容強制黏死在右側牆壁！左邊自由延展 */
             white-space: nowrap;
         }
 
+        .nowrap {
+            white-space: nowrap;
+        }
         .arrow {
             margin-left: 0.5rem;
             opacity: 0.7;
@@ -222,9 +258,20 @@
             font-weight: 300;
         }
 
-        /* mobile media queries */
+        /* -------------------------------------
+           手機版微調 (自動牆壁縮放)
+        -------------------------------------- */
         @media (max-width: 768px) {
             h1 { font-size: 3rem; }
+            
+            /* [參數中控台 - 手機版] 只需稍微往內縮，右牆引擎會自動完美重算所有距離 */
+            .social-links {
+                --wall: 340px; 
+                --col-label-top: 190px;
+                --col-middle: 80px;
+                --col-label-bot: 80px;
+            }
+
             .portfolio-item {
                 grid-template-columns: 80px 1fr;
                 gap: 1rem;
@@ -241,8 +288,7 @@
                 gap: 0.2rem;
             }
             .social-links a {
-                flex-wrap: wrap;
-                gap: 0.5rem;
+                padding: 0.8rem 0;
             }
         }
     </style>
@@ -254,17 +300,15 @@
         <span class="banner-title">Fuel the Art & Code / 贊助一杯咖啡，支持數位創作與深夜除錯</span>
         
         <div class="link-group">
-            
-            
             <a href="https://" target="_blank">信用卡 超商</a>
-            <a href="https://" target="_blank">街口 Line Pay</a>
+            <a href="https://" target="_blank">LinePay</a>
+            <a href="https://" target="_blank">街口支付</a>
             <a href="https://ko-fi.com/lonsthx" target="_blank">PayPal</a>
+            <span class="payment-methods"></span>
             <span class="payment-methods">( 支付功能開通中 )</span>
         </div>
 
         <div class="link-group">
-            
-            
         </div>
     </div>
 
@@ -272,27 +316,45 @@
         <!-- header & social -->
         <header>
             <h1>lonlon<br><br><span class="name-zh">冷冷</span></h1>
+            
             <div class="social-links">
-                <a href="https://" target="_blank">
-                    <span class="nowrap">shop 商店 ( 版畫 / 攝影 )<span class="arrow">&#x2197;&#xFE0E;</span></span>
-                </a>
-                <a href="mailto:arts.lonp@gmail.com">
-                    <span class="nowrap">contact arts.lonp@gmail.com<span class="arrow">&#x2197;&#xFE0E;</span></span>
+                
+                <!-- 上半部群組：文字與右括號綁定，並強制貼齊右牆 -->
+                <a href="https://" target="_blank" class="grid-link-top">
+                    <span class="link-label">shop 商店</span>
+                    <span class="link-middle">( 版畫 / </span>
+                    <span class="link-right">攝影 )<span class="arrow">&#x2197;&#xFE0E;</span></span>
                 </a>
                 
-                <a href="https://youtube.com/@arts.lonlon" target="_blank">
-                    <span class="nowrap">youtube  _( arts_ 創作 )<span class="arrow">&#x2197;&#xFE0E;</span></span>
-                </a>
-                <a href="https://youtube.com/@lons.gaming" target="_blank">
-                    <span class="nowrap">youtube _( games 遊戲 )<span class="arrow">&#x2197;&#xFE0E;</span></span>
-                </a>
-                <a href="https://instagram.com/arts.lonlon" target="_blank">
-                    <span class="nowrap">instagram @arts.lonlon<span class="arrow">&#x2197;&#xFE0E;</span></span>
-                </a>
-                <a href="https://instagram.com/lons_gaming" target="_blank">
-                    <span class="nowrap">instagram @lons_gaming<span class="arrow">&#x2197;&#xFE0E;</span></span>
+                <a href="https://youtube.com/@arts.lonlon" target="_blank" class="grid-link-top">
+                    <span class="link-label">youtube</span>
+                    <span class="link-middle">( arts </span>
+                    <span class="link-right">創作 )<span class="arrow">&#x2197;&#xFE0E;</span></span>
                 </a>
                 
+                <a href="https://youtube.com/@lons.gaming" target="_blank" class="grid-link-top">
+                    <span class="link-label">youtube</span>
+                    <span class="link-middle">( games </span>
+                    <span class="link-right">遊戲 )<span class="arrow">&#x2197;&#xFE0E;</span></span>
+                </a>
+                
+                <!-- 下半部群組：所有帳號皆有括號，右括號自動黏牆，左括號依照字串長度自然錯落！ -->
+                <a href="https://instagram.com/arts.lonlon" target="_blank" class="grid-link-bottom">
+                    <span class="link-label">instagram</span>
+                    <span class="link-right">( @arts.lonlon )<span class="arrow">&#x2197;&#xFE0E;</span></span>
+                </a>
+                
+                <a href="https://instagram.com/lons_gaming" target="_blank" class="grid-link-bottom">
+                    <span class="link-label">instagram</span>
+                    <span class="link-right">( @lons_gaming )<span class="arrow">&#x2197;&#xFE0E;</span></span>
+                </a>
+                
+                <!-- 由於 email 字串最長，它的左括號會自動往左延伸，但最右邊的 m ) 永遠與上方絕對對齊 -->
+                <a href="mailto:arts.lonp@gmail.com" class="grid-link-bottom">
+                    <span class="link-label">email</span>
+                    <span class="link-right">( arts.lonp@gmail.com )<span class="arrow">&#x2197;&#xFE0E;</span></span>
+                </a>
+
             </div>
         </header>
 
