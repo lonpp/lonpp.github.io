@@ -118,27 +118,23 @@
         }
 
         /* -------------------------------------
-           社群連結 (絕對右牆對齊系統)
+           社群連結排版設定
         -------------------------------------- */
         .social-links {
-            /* [參數中控台] 控制所有連結的「右側絕對對齊牆」 */
-            --wall: 320px; 
+            /* 網格系統變數 */
+            --wall: 240px; 
             
-            /* 上半部群組 (保留你原本錯落有致的起點) */
-            --col-label-top: 170px;
+            /* 上半部連結寬度設定 */
+            --col-label-top: 90px;
             --col-middle: 90px;
             --col-right-top: calc(var(--wall) - var(--col-label-top) - var(--col-middle));
-            
-            /* 下半部群組 (保留 IG 專屬的起點) */
-            --col-label-bot: 100px;
-            --col-right-bot: calc(var(--wall) - var(--col-label-bot));
 
             display: flex;
             flex-direction: column;
             font-size: 1rem;
         }
 
-        /* 共同的底線與滑鼠懸停效果 */
+        /* 連結底線與懸停設定 */
         .social-links a {
             border-bottom: 1px solid var(--border-color);
             padding: 0.6rem 0;
@@ -152,21 +148,20 @@
             padding-right: 0.5rem;
         }
 
-        /* 1. 上半部：三點定位 (標籤 | 括號前半 | 靠右對齊的文字與括號 | 留白延伸保留底線) */
+        /* 上半部連結：三欄位網格排版 */
         .social-links a.grid-link-top {
             display: grid;
             grid-template-columns: var(--col-label-top) var(--col-middle) var(--col-right-top) 1fr; 
             align-items: center;
         }
 
-        /* 2. 下半部：雙點定位 (標籤 | 靠右對齊的完整括號 | 留白延伸保留底線) */
+        /* 下半部連結：預設彈性排版 */
         .social-links a.grid-link-bottom {
-            display: grid;
-            grid-template-columns: var(--col-label-bot) var(--col-right-bot) 1fr; 
+            display: flex;
             align-items: center;
         }
 
-        /* 共用工具類 */
+        /* 輔助類別 */
         .link-label, .link-middle {
             white-space: nowrap;
         }
@@ -174,13 +169,10 @@
         .link-right {
             display: flex;
             align-items: center;
-            justify-content: flex-end; /* 終極核心：所有內容強制黏死在右側牆壁！左邊自由延展 */
+            justify-content: flex-end; /* 內容靠右對齊 */
             white-space: nowrap;
         }
 
-        .nowrap {
-            white-space: nowrap;
-        }
         .arrow {
             margin-left: 0.5rem;
             opacity: 0.7;
@@ -259,17 +251,16 @@
         }
 
         /* -------------------------------------
-           手機版微調 (自動牆壁縮放)
+           手機版設定
         -------------------------------------- */
         @media (max-width: 768px) {
             h1 { font-size: 3rem; }
             
-            /* [參數中控台 - 手機版] 只需稍微往內縮，右牆引擎會自動完美重算所有距離 */
+            /* 手機版網格變數覆寫 */
             .social-links {
-                --wall: 340px; 
-                --col-label-top: 190px;
+                --wall: 240px; 
+                --col-label-top: 90px;
                 --col-middle: 80px;
-                --col-label-bot: 80px;
             }
 
             .portfolio-item {
@@ -300,9 +291,8 @@
         <span class="banner-title">Fuel the Art & Code / 贊助一杯咖啡，支持數位創作與深夜除錯</span>
         
         <div class="link-group">
-            <a href="https://" target="_blank">信用卡 超商</a>
-            <a href="https://" target="_blank">LinePay</a>
-            <a href="https://" target="_blank">街口支付</a>
+            <a href="https://" target="_blank">信用卡 轉帳 超商</a>
+            <a href="https://" target="_blank">街口支付 LinePay Alipay</a>
             <a href="https://ko-fi.com/lonsthx" target="_blank">PayPal</a>
             <span class="payment-methods"></span>
             <span class="payment-methods">( 支付功能開通中 )</span>
@@ -319,7 +309,7 @@
             
             <div class="social-links">
                 
-                <!-- 上半部群組：文字與右括號綁定，並強制貼齊右牆 -->
+                <!-- 上半部連結：包含括號與右側對齊 -->
                 <a href="https://" target="_blank" class="grid-link-top">
                     <span class="link-label">shop 商店</span>
                     <span class="link-middle">( 版畫 / </span>
@@ -338,21 +328,18 @@
                     <span class="link-right">遊戲 )<span class="arrow">&#x2197;&#xFE0E;</span></span>
                 </a>
                 
-                <!-- 下半部群組：所有帳號皆有括號，右括號自動黏牆，左括號依照字串長度自然錯落！ -->
+                <!-- 下半部連結：無括號，自然靠左對齊 -->
                 <a href="https://instagram.com/arts.lonlon" target="_blank" class="grid-link-bottom">
-                    <span class="link-label">instagram</span>
-                    <span class="link-right">( @arts.lonlon )<span class="arrow">&#x2197;&#xFE0E;</span></span>
+                    <span class="link-label">instagram @arts.lonlon<span class="arrow">&#x2197;&#xFE0E;</span></span>
                 </a>
                 
                 <a href="https://instagram.com/lons_gaming" target="_blank" class="grid-link-bottom">
-                    <span class="link-label">instagram</span>
-                    <span class="link-right">( @lons_gaming )<span class="arrow">&#x2197;&#xFE0E;</span></span>
+                    <span class="link-label">instagram @lons_gaming<span class="arrow">&#x2197;&#xFE0E;</span></span>
                 </a>
                 
-                <!-- 由於 email 字串最長，它的左括號會自動往左延伸，但最右邊的 m ) 永遠與上方絕對對齊 -->
+                <!-- Email 連結 -->
                 <a href="mailto:arts.lonp@gmail.com" class="grid-link-bottom">
-                    <span class="link-label">email</span>
-                    <span class="link-right">( arts.lonp@gmail.com )<span class="arrow">&#x2197;&#xFE0E;</span></span>
+                    <span class="link-label">email arts.lonp@gmail.com<span class="arrow">&#x2197;&#xFE0E;</span></span>
                 </a>
 
             </div>
@@ -362,7 +349,7 @@
         <section>
             <div class="statement">
                 <!-- lang: zh -->
-                <p>歡迎來到我的主頁！（中文 / English / Deutsch）</p>
+                <p>歡迎來到我的主頁！（中文 / EN / DE）</p>
                 <p>我是冷冷，一名遊走於數位媒體、視覺藝術與程式碼之間的科技藝術家與開發者。</p>
                 <p>我的創作軌跡主要分為兩個平行的領域：</p>
                 <p>1. 數位與錄像藝術：<br>
