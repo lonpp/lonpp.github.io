@@ -19,6 +19,10 @@
         }
 
         /* global typography */
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -118,13 +122,10 @@
         }
 
         /* -------------------------------------
-           社群連結排版設定
+           social links
         -------------------------------------- */
         .social-links {
-            /* 網格系統變數 */
             --wall: 240px; 
-            
-            /* 上半部連結寬度設定 */
             --col-label-top: 90px;
             --col-middle: 90px;
             --col-right-top: calc(var(--wall) - var(--col-label-top) - var(--col-middle));
@@ -134,7 +135,6 @@
             font-size: 1rem;
         }
 
-        /* 連結底線與懸停設定 */
         .social-links a {
             border-bottom: 1px solid var(--border-color);
             padding: 0.6rem 0;
@@ -148,20 +148,17 @@
             padding-right: 0.5rem;
         }
 
-        /* 上半部連結：三欄位網格排版 */
         .social-links a.grid-link-top {
             display: grid;
             grid-template-columns: var(--col-label-top) var(--col-middle) var(--col-right-top) 1fr; 
             align-items: center;
         }
 
-        /* 下半部連結：預設彈性排版 */
         .social-links a.grid-link-bottom {
             display: flex;
             align-items: center;
         }
 
-        /* 輔助類別 */
         .link-label, .link-middle {
             white-space: nowrap;
         }
@@ -169,7 +166,7 @@
         .link-right {
             display: flex;
             align-items: center;
-            justify-content: flex-end; /* 內容靠右對齊 */
+            justify-content: flex-end;
             white-space: nowrap;
         }
 
@@ -179,7 +176,9 @@
             font-family: sans-serif;
         }
 
-        /* statement */
+        /* -------------------------------------
+           statement & language toggle
+        -------------------------------------- */
         .statement {
             font-size: 1rem;
             line-height: 2;
@@ -196,7 +195,37 @@
             opacity: 0.9;
         }
 
-        /* portfolio */
+        /* 語言切換選單樣式 */
+        .lang-btn {
+            opacity: 0.4;
+            transition: opacity 0.2s ease;
+            cursor: pointer;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            opacity: 1;
+        }
+
+        /* 隱藏未啟用的語言區塊與問候語 */
+        .lang-section, .greeting {
+            display: none;
+        }
+
+        .lang-section.active {
+            display: block;
+        }
+        
+        .greeting.active {
+            display: inline;
+        }
+
+        /* -------------------------------------
+           portfolio
+        -------------------------------------- */
+        #portfolio {
+            scroll-margin-top: 160px; /* 電腦版緩衝高度 */
+        }
+
         .section-title {
             font-size: 1.5rem;
             text-transform: uppercase;
@@ -251,16 +280,20 @@
         }
 
         /* -------------------------------------
-           手機版設定
+           mobile media queries
         -------------------------------------- */
         @media (max-width: 768px) {
             h1 { font-size: 3rem; }
             
-            /* 手機版網格變數覆寫 */
             .social-links {
                 --wall: 240px; 
                 --col-label-top: 90px;
                 --col-middle: 80px;
+            }
+            
+            /* 手機版：因為橫幅變厚，增加跳轉緩衝區高度 */
+            #portfolio {
+                scroll-margin-top: 300px;
             }
 
             .portfolio-item {
@@ -308,8 +341,6 @@
             <h1>lonlon<br><br><span class="name-zh">冷冷</span></h1>
             
             <div class="social-links">
-                
-                <!-- 上半部連結：包含括號與右側對齊 -->
                 <a href="https://" target="_blank" class="grid-link-top">
                     <span class="link-label">shop 商店</span>
                     <span class="link-middle">( 版畫 / </span>
@@ -328,7 +359,6 @@
                     <span class="link-right">遊戲 )<span class="arrow">&#x2197;&#xFE0E;</span></span>
                 </a>
                 
-                <!-- 下半部連結：無括號，自然靠左對齊 -->
                 <a href="https://instagram.com/arts.lonlon" target="_blank" class="grid-link-bottom">
                     <span class="link-label">instagram @arts.lonlon<span class="arrow">&#x2197;&#xFE0E;</span></span>
                 </a>
@@ -337,63 +367,66 @@
                     <span class="link-label">instagram @lons_gaming<span class="arrow">&#x2197;&#xFE0E;</span></span>
                 </a>
                 
-                <!-- Email 連結 -->
                 <a href="mailto:arts.lonp@gmail.com" class="grid-link-bottom">
                     <span class="link-label">email arts.lonp@gmail.com<span class="arrow">&#x2197;&#xFE0E;</span></span>
                 </a>
-
             </div>
         </header>
 
         <!-- statement -->
         <section>
             <div class="statement">
+                <!-- 語言導覽列與問候語動態切換區 -->
+                <p style="margin-bottom: 2rem;">
+                    <span id="greeting-zh" class="greeting active">歡迎來到我的主頁！ options<br></span>
+                    <span id="greeting-en" class="greeting">Welcome to my creative space!</span>
+                    <span id="greeting-de" class="greeting">Willkommen auf meiner Seite!</span>
+                    <span>（<a href="javascript:void(0)" onclick="setLang('zh')" class="lang-btn active" data-lang="zh">中文</a> / <a href="javascript:void(0)" onclick="setLang('en')" class="lang-btn" data-lang="en">EN</a> / <a href="javascript:void(0)" onclick="setLang('de')" class="lang-btn" data-lang="de">DE</a> / <a href="#portfolio" class="lang-btn">Portfolio</a>）</span>
+                </p>
+
                 <!-- lang: zh -->
-                <p>歡迎來到我的主頁！（中文 / EN / DE / Portfolio）</p>
-                <p>我是冷冷，一名遊走於數位媒體、視覺藝術與程式碼之間的科技藝術家與開發者。</p>
-                <p>我的創作軌跡主要分為兩個平行的領域：</p>
-                <p>1. 數位與錄像藝術：<br>
-                我的藝術實踐聚焦於錄像藝術、多媒體行為裝置、AI 生成工作流（如 ComfyUI），以及傳統的水印木刻版畫。我的數位與視覺作品曾於雅典、威尼斯、蘇黎世以及波茲南等歐洲藝術節與跨國展覽中展出。</p>
-                <p>2. RimWorld 模組開發與實況：<br>
-                在遊戲領域，我同時也是一名 RimWorld 模組作者。我致力於編寫 C# 底層邏輯補丁，修復破壞沉浸感的翻譯亂碼、解決複雜的模組衝突並淨化遊戲機制。此外，我也會透過實況分享我的遊戲日常與創作過程。</p>
-                <p>為什麼需要你的支持？<br>
-                無論你是剛被我的補丁拯救了存檔的邊緣世界玩家、實況台的觀眾，還是在歐洲的展覽中對我的錄像作品產生共鳴的觀展人——都非常感謝你來到這裡。</p>
-                <p>你們贊助的每一杯咖啡，都將直接化為我升級硬體設備、維持深夜除錯的咖啡因濃度，以及投入下一件跨領域藝術專案的最大動力。☕✨</p>
-                
-                <hr style="border: 0; border-top: 1px dashed var(--border-color); opacity: 0.3; margin: 3rem 0;">
+                <div id="content-zh" class="lang-section active">
+                    <p>我是冷冷，一名遊走於數位媒體、視覺藝術與程式碼之間的科技藝術家與開發者。</p>
+                    <p>我的創作軌跡主要分為兩個平行的領域：</p>
+                    <p>1. 數位與錄像藝術：<br>
+                    我的藝術實踐聚焦於錄像藝術、多媒體行為裝置、AI 生成工作流（如 ComfyUI），以及傳統的水印木刻版畫。我的數位與視覺作品曾於雅典、威尼斯、蘇黎世以及波茲南等歐洲藝術節與跨國展覽中展出。</p>
+                    <p>2. RimWorld 模組開發與實況：<br>
+                    在遊戲領域，我同時也是一名 RimWorld 模組作者。我致力於編寫 C# 底層邏輯補丁，修復破壞沉浸感的翻譯亂碼、解決複雜的模組衝突並淨化遊戲機制。此外，我也會透過實況分享我的遊戲日常與創作過程。</p>
+                    <p>為什麼需要你的支持？<br>
+                    無論你是剛被我的補丁拯救了存檔的邊緣世界玩家、實況台的觀眾，還是在歐洲的展覽中對我的錄像作品產生共鳴的觀展人——都非常感謝你來到這裡。</p>
+                    <p>你們贊助的每一杯咖啡，都將直接化為我升級硬體設備、維持深夜除錯的咖啡因濃度，以及投入下一件跨領域藝術專案的最大動力。☕✨</p>
+                </div>
 
                 <!-- lang: en -->
-                <p>Welcome to my creative space!</p>
-                <p>I am Lon, a tech artist and developer navigating the intersections of digital media, visual arts, and code.</p>
-                <p>My creative journey is split into two main parallel tracks:</p>
-                <p>1. Digital & Video Art:<br>
-                My artistic practice focuses on video art, multimedia installations, AI generative workflows (such as ComfyUI), and traditional woodcut printmaking. My visual works and installations have been exhibited at digital art festivals and galleries across Europe, including Athens, Venice, Zurich, and Poznań.</p>
-                <p>2. RimWorld Modding & Streaming:<br>
-                In the gaming sphere, I develop C# core-logic patches and quality-of-life mods for RimWorld. I focus on sanitizing game mechanics, fixing immersion-breaking bugs, and resolving complex mod conflicts. I also stream my gameplay and creative processes to connect with the community.</p>
-                <p>Why support?<br>
-                Whether you are a RimWorld colonist whose savefile I just rescued, a viewer hanging out in my streams, or an audience member who connected with my video art at an exhibition in Europe—thank you for being here.</p>
-                <p>Your tips and coffees directly fund my caffeine supply, hardware maintenance, and upcoming cross-disciplinary art projects. Every contribution keeps the momentum going for both my late-night coding sessions and digital creations. ☕✨</p>
-
-                <hr style="border: 0; border-top: 1px dashed var(--border-color); opacity: 0.3; margin: 3rem 0;">
+                <div id="content-en" class="lang-section">
+                    <p>I am Lon, a tech artist and developer navigating the intersections of digital media, visual arts, and code.</p>
+                    <p>My creative journey is split into two main parallel tracks:</p>
+                    <p>1. Digital & Video Art:<br>
+                    My artistic practice focuses on video art, multimedia installations, AI generative workflows (such as ComfyUI), and traditional woodcut printmaking. My visual works and installations have been exhibited at digital art festivals and galleries across Europe, including Athens, Venice, Zurich, and Poznań.</p>
+                    <p>2. RimWorld Modding & Streaming:<br>
+                    In the gaming sphere, I develop C# core-logic patches and quality-of-life mods for RimWorld. I focus on sanitizing game mechanics, fixing immersion-breaking bugs, and resolving complex mod conflicts. I also stream my gameplay and creative processes to connect with the community.</p>
+                    <p>Why support?<br>
+                    Whether you are a RimWorld colonist whose savefile I just rescued, a viewer hanging out in my streams, or an audience member who connected with my video art at an exhibition in Europe—thank you for being here.</p>
+                    <p>Your tips and coffees directly fund my caffeine supply, hardware maintenance, and upcoming cross-disciplinary art projects. Every contribution keeps the momentum going for both my late-night coding sessions and digital creations. ☕✨</p>
+                </div>
 
                 <!-- lang: de -->
-                <p>Willkommen auf meiner Seite!</p>
-                <p>Ich bin Lon, ein Tech-Künstler und Entwickler, der sich an der Schnittstelle von digitalen Medien, visueller Kunst und Programmierung bewegt.</p>
-                <p>Meine kreative Reise teilt sich hauptsächlich in zwei parallele Bereiche auf:</p>
-                <p>1. Digitale & Videokunst:<br>
-                Meine künstlerische Praxis konzentriert sich auf Videokunst, multimediale Installationen, KI-gestützte Workflows (wie ComfyUI) und traditionellen Holzschnitt. Meine visuellen Werke und Installationen wurden bereits auf digitalen Kunstfestivals und in Galerien in ganz Europa ausgestellt, darunter in Athen, Venedig, Zürich und Posen (Poznań).</p>
-                <p>2. RimWorld Modding & Streaming:<br>
-                Im Gaming-Bereich entwickle ich C#-Core-Logic-Patches und Quality-of-Life-Mods für RimWorld. Mein Fokus liegt darauf, Spielmechaniken zu bereinigen, störende Bugs zu beheben und komplexe Mod-Konflikte zu lösen. Außerdem streame ich meinen Spiel- und Arbeitsprozess, um mich mit der Community auszutauschen.</p>
-                <p>Warum unterstützen?<br>
-                Ob du ein RimWorld-Kolonist bist, dessen Spielstand ich gerade gerettet habe, ein Zuschauer in meinem Stream oder ein Besucher, den meine Videokunst auf einer Ausstellung in Europa berührt hat – vielen Dank, dass du hier bist.</p>
-                <p>Eure Spenden und Kaffees fließen direkt in meinen Koffeinnachschub, die Instandhaltung meiner Hardware und in kommende interdisziplinäre Kunstprojekte. Jeder Beitrag ist ein riesiger Motivationsschub für meine nächtlichen Programmier-Sessions und digitalen Kreationen. ☕✨</p>
-
-                <hr style="border: 0; border-top: 1px dashed var(--border-color); opacity: 0.3; margin: 3rem 0;">
+                <div id="content-de" class="lang-section">
+                    <p>Ich bin Lon, ein Tech-Künstler und Entwickler, der sich an der Schnittstelle von digitalen Medien, visueller Kunst und Programmierung bewegt.</p>
+                    <p>Meine kreative Reise teilt sich hauptsächlich in zwei parallele Bereiche auf:</p>
+                    <p>1. Digitale & Videokunst:<br>
+                    Meine künstlerische Praxis konzentriert sich auf Videokunst, multimediale Installationen, KI-gestützte Workflows (wie ComfyUI) und traditionellen Holzschnitt. Meine visuellen Werke und Installationen wurden bereits auf digitalen Kunstfestivals und in Galerien in ganz Europa ausgestellt, darunter in Athen, Venedig, Zürich und Posen (Poznań).</p>
+                    <p>2. RimWorld Modding & Streaming:<br>
+                    Im Gaming-Bereich entwickle ich C#-Core-Logic-Patches und Quality-of-Life-Mods für RimWorld. Mein Fokus liegt darauf, Spielmechaniken zu bereinigen, störende Bugs zu beheben und komplexe Mod-Konflikte zu lösen. Außerdem streame ich meinen Spiel- und Arbeitsprozess, um mich mit der Community auszutauschen.</p>
+                    <p>Warum unterstützen?<br>
+                    Ob du ein RimWorld-Kolonist bist, dessen Spielstand ich gerade gerettet habe, ein Zuschauer in meinem Stream oder ein Besucher, den meine Videokunst auf einer Ausstellung in Europa berührt hat – vielen Dank, dass du hier bist.</p>
+                    <p>Eure Spenden und Kaffees fließen direkt in meinen Koffeinnachschub, die Instandhaltung meiner Hardware und in kommende interdisziplinäre Kunstprojekte. Jeder Beitrag ist ein riesiger Motivationsschub für meine nächtlichen Programmier-Sessions und digitalen Kreationen. ☕✨</p>
+                </div>
             </div>
         </section>
 
-        <!-- portfolio -->
-        <section>
+        <!-- portfolio (設定錨點供跳轉) -->
+        <section id="portfolio">
             <div class="section-title">Exhibitions & Portfolio</div>
             <ul class="portfolio-list">
                 
@@ -470,5 +503,20 @@
         </footer>
     </div>
 
+    <!-- 語言切換邏輯腳本 -->
+    <script>
+        function setLang(lang) {
+            // 清除所有啟用狀態
+            document.querySelectorAll('.lang-section, .greeting').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.lang-btn[data-lang]').forEach(el => el.classList.remove('active'));
+            
+            // 啟用目標語言內容與問候語
+            document.getElementById('content-' + lang).classList.add('active');
+            document.getElementById('greeting-' + lang).classList.add('active');
+            
+            // 更新當前點擊按鈕的透明度狀態
+            document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
+        }
+    </script>
 </body>
 </html>
