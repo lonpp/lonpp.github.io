@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shop 商店 | lonlon 冷冷</title>
+    <style>
+        /* reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --border-color: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, 'PingFang TC', 'SF Pro TC', 'Microsoft JhengHei Light', 'Microsoft JhengHei', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-bottom: 5vh;
+        }
+
+        a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        /* 頂部返回導覽列 */
+        .top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            width: 100%;
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.2rem 2rem;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .top-nav a:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            padding: 0.2rem 0.5rem;
+        }
+
+        /* container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: normal;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .shop-notice {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            border-left: 2px solid var(--border-color);
+            padding-left: 1rem;
+            max-width: 700px;
+        }
+
+        /* 分類篩選按鈕 */
+        .filter-bar {
+            display: flex;
+            gap: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 0.8rem;
+        }
+
+        .filter-btn {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 300;
+            opacity: 0.4;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            opacity: 1;
+        }
+
+        /* 商品網格系統 */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 3rem 2rem;
+        }
+
+        .product-card {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1.2rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .product-card:hover {
+            border-color: var(--border-color);
+        }
+
+        .product-img-wrap {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            background-color: #111;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .product-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .product-id {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            letter-spacing: 1px;
+        }
+
+        .product-title {
+            font-size: 1.15rem;
+            font-weight: normal;
+        }
+
+        .product-specs {
+            font-size: 0.85rem;
+            opacity: 0.75;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 0.8rem;
+            border-top: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .product-price {
+            font-size: 1.05rem;
+        }
+
+        .product-stock {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .buy-btn {
+            width: 100%;
+            padding: 0.7rem;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            font-family: inherit;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .buy-btn:hover:not(:disabled) {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .buy-btn:disabled {
+            opacity: 0.3;
+            border-color: rgba(255, 255, 255, 0.4);
+            cursor: not-allowed;
+        }
+
+        /* -------------------------------------
+           結帳彈出視窗 (Modal)
+        -------------------------------------- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            max-width: 500px;
+            width: 100%;
+            padding: 2rem;
+            max-height: 90vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.8rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-family: inherit;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* 支付切換頁籤 */
+        .pay-tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .pay-tab {
+            flex: 1;
+            padding: 0.5rem;
+            background: var(--bg-color);
+            color: var(--text-color);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            font-family: inherit;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .pay-tab.active {
+            background: var(--text-color);
+            color: var(--bg-color);
+            border-color: var(--border-color);
+            font-weight: bold;
+        }
+
+        .qr-display {
+            border: 1px dashed rgba(255, 255, 255, 0.4);
+            padding: 1.2rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .qr-display img {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            background-color: #fff;
+            padding: 0.5rem;
+        }
+
+        /* 訂單表單 */
+        .order-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            font-size: 0.85rem;
+        }
+
+        .form-group input, .form-group textarea {
+            background-color: var(--bg-color);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: var(--text-color);
+            padding: 0.6rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--border-color);
+        }
+
+        /* footer & back-to-top */
+        footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.85rem;
+            opacity: 0.6;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 900;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 0.8rem;
+            font-family: inherit;
+            font-size: 0.85rem;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s ease;
+        }
+
+        .back-to-top.visible {
+            opacity: 0.8;
+            pointer-events: auto;
+        }
+
+        .back-to-top:hover {
+            opacity: 1;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 2.5rem 1.5rem; }
+            .modal-box { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頂部返回主頁導覽 -->
+    <nav class="top-nav">
+        <a href="index.html">← return to index / 返回主頁</a>
+        <span>lonlon // archive & shop</span>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>SHOP 商店 ( 版畫 / 攝影 )</h1>
+            <div class="shop-notice">
+                <p>購買流程：點擊欲收藏之作品 → 選擇掃碼支付（街口 / LinePay / Alipay）完成轉帳 → 填寫收件資訊與付款末碼送出訂單。</p>
+            </div>
+        </header>
+
+        <!-- 分類篩選 -->
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterProducts('all', this)">ALL 全部</button>
+            <button class="filter-btn" onclick="filterProducts('print', this)">PRINTS 版畫</button>
+            <button class="filter-btn" onclick="filterProducts('photo', this)">PHOTOGRAPHY 攝影</button>
+        </div>
+
+        <!-- 商品自動渲染容器 -->
+        <div id="productGrid" class="shop-grid"></div>
+
+        <footer>
+            &copy; 2026 pei, lon. All Rights Reserved.
+        </footer>
+    </div>
+
+    <!-- 結帳彈出視窗 -->
+    <div id="checkoutModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span id="modalTitle">ORDER // 結帳</span>
+                <button class="close-btn" onclick="closeModal()">✕</button>
+            </div>
+
+            <div id="modalItemInfo" style="font-size: 0.9rem; opacity: 0.9;"></div>
+
+            <!-- 步驟 1：選擇掃碼支付 -->
+            <div>
+                <p style="font-size: 0.85rem; margin-bottom: 0.5rem;">STEP 1. 選擇支付方式並掃碼付款：</p>
+                <div class="pay-tabs">
+                    <button type="button" class="pay-tab active" onclick="switchQR('jkopay', this)">街口支付</button>
+                    <button type="button" class="pay-tab" onclick="switchQR('linepay', this)">LinePay</button>
+                    <button type="button" class="pay-tab" onclick="switchQR('alipay', this)">Alipay</button>
+                </div>
+                <div class="qr-display" style="margin-top: 0.5rem;">
+                    <img id="qrImage" src="" alt="QR Code">
+                    <span id="qrHint" style="font-size: 0.8rem; opacity: 0.75;">請使用街口支付掃描上方條碼，輸入對應金額完成付款。</span>
+                </div>
+            </div>
+
+            <!-- 步驟 2：填寫收件與對帳資訊 -->
+            <form class="order-form" onsubmit="submitOrder(event)">
+                <p style="font-size: 0.85rem;">STEP 2. 填寫收件與對帳資訊：</p>
+                
+                <div class="form-group">
+                    <label>姓名 / Name *</label>
+                    <input type="text" id="buyerName" required>
+                </div>
+
+                <div class="form-group">
+                    <label>聯絡信箱與電話 / Email & Phone *</label>
+                    <input type="text" id="buyerContact" required>
+                </div>
+
+                <div class="form-group">
+                    <label>收件地址或超商門市 / Shipping Address *</label>
+                    <input type="text" id="buyerAddress" required>
+                </div>
+
+                <div class="form-group">
+                    <label>對帳資訊（付款方式 + 帳號末五碼或暱稱）*</label>
+                    <input type="text" id="buyerPaymentNote" placeholder="例：街口支付，末五碼 12345" required>
+                </div>
+
+                <button type="submit" class="buy-btn" style="margin-top: 0.5rem;">
+                    [ 產生訂單信件並送出 / SUBMIT ORDER ]
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <button id="backToTop" class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        ↑ top
+    </button>
+
+    <script>
+        /* ==========================================
+           [商品與收款碼中控台] 
+           日後更新商品、價格與庫存，只需修改這裡！
+        ========================================== */
+        
+        // 1. 替換為你的收款 QR Code 圖片路徑
+        const QR_CODES = {
+            jkopay:  { img: "images/qr-jkopay.jpg",  hint: "請使用 街口支付 掃描上方 QR Code 並輸入商品金額。" },
+            linepay: { img: "images/qr-linepay.jpg", hint: "請使用 LinePay 掃描上方 QR Code 並輸入商品金額。" },
+            alipay:  { img: "images/qr-alipay.jpg",  hint: "請使用 支付寶 (Alipay) 掃描上方 QR Code 完成付款。" }
+        };
+
+        // 2. 商品清單 (stock 改為 0 即自動顯示 SOLD OUT)
+        const PRODUCTS = [
+            {
+                id: "PRT-001",
+                category: "print",
+                title: "<finale: white 最終章：白色>",
+                specs: "水印木刻版畫 Woodcut Print / 45 × 60 cm",
+                price: "NT$ 3,200",
+                stock: 3,
+                image: "images/print-01.jpg"
+            },
+            {
+                id: "PRT-002",
+                category: "print",
+                title: "<wind continues 風行不止>",
+                specs: "水印木刻版畫 Woodcut Print / 30 × 45 cm",
+                price: "NT$ 2,400",
+                stock: 1,
+                image: "images/print-02.jpg"
+            },
+            {
+                id: "PHO-001",
+                category: "photo",
+                title: "<studies on synchronicity>",
+                specs: "藝術微噴 Giclée Print / A3",
+                price: "NT$ 1,800",
+                stock: 0, // 庫存為 0 測試：會自動鎖定按鈕
+                image: "images/photo-01.jpg"
+            }
+        ];
+
+        /* ==========================================
+           以下為系統自動渲染與結帳邏輯，無需手動修改
+        ========================================== */
+        let currentProduct = null;
+
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+
+            PRODUCTS.filter(p => filter === 'all' || p.category === filter).forEach(item => {
+                const isSoldOut = item.stock <= 0;
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div>
+                        <div class="product-img-wrap">
+                            <img src="${item.image}" alt="${item.title}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'400\\' height=\\'300\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%23111\\'/><text x=\\'50%\\' y=\\'50%\\' fill=\\'%23555\\' font-family=\\'monospace\\' text-anchor=\\'middle\\'>${item.id}</text></svg>'">
+                        </div>
+                        <div class="product-meta" style="margin-top: 1rem;">
+                            <span class="product-id">[${item.id}]</span>
+                            <h2 class="product-title">${item.title}</h2>
+                            <p class="product-specs">${item.specs}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="product-footer" style="margin-bottom: 1rem;">
+                            <span class="product-price">${item.price}</span>
+                            <span class="product-stock">${isSoldOut ? '庫存: 0' : `剩餘數量: ${item.stock}`}</span>
+                        </div>
+                        <button class="buy-btn" ${isSoldOut ? 'disabled' : ''} onclick="openModal('${item.id}')">
+                            ${isSoldOut ? '[ SOLD OUT / 已售罄 ]' : '[ ORDER / 掃碼購買 ]'}
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterProducts(category, btn) {
+            document.querySelectorAll('.filter-btn').forEach(el => el.classList.remove('active'));
+            btn.classList.add('active');
+            renderProducts(category);
+        }
+
+        function openModal(productId) {
+            currentProduct = PRODUCTS.find(p => p.id === productId);
+            if (!currentProduct) return;
+
+            document.getElementById('modalItemInfo').innerHTML = 
+                `選購作品：<strong>[${currentProduct.id}] ${currentProduct.title}</strong><br>應付金額：<strong>${currentProduct.price}</strong>`;
+            
+            switchQR('jkopay', document.querySelector('.pay-tab'));
+            document.getElementById('checkoutModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('checkoutModal').classList.remove('active');
+        }
+
+        function switchQR(type, btn) {
+            document.querySelectorAll('.pay-tab').forEach(el => el.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('qrImage').src = QR_CODES[type].img;
+            document.getElementById('qrHint').textContent = QR_CODES[type].hint;
+        }
+
+        function submitOrder(e) {
+            e.preventDefault();
+            const name = document.getElementById('buyerName').value;
+            const contact = document.getElementById('buyerContact').value;
+            const address = document.getElementById('buyerAddress').value;
+            const note = document.getElementById('buyerPaymentNote').value;
+
+            const subject = encodeURIComponent(`[作品訂購] ${currentProduct.id} ${currentProduct.title} - ${name}`);
+            const body = encodeURIComponent(
+`您好，我已完成掃碼付款，以下為訂購資訊：
+
+【訂購作品】[${currentProduct.id}] ${currentProduct.title}
+【應付金額】${currentProduct.price}
+【對帳資訊】${note}
+
+【收件姓名】${name}
+【聯絡方式】${contact}
+【收件地址/門市】${address}
+`
+            );
+
+            window.location.href = `mailto:arts.lonp@gmail.com?subject=${subject}&body=${body}`;
+            closeModal();
+        }
+
+        // 回到頂部顯示控制
+        const backToTopBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            backToTopBtn.classList.toggle('visible', window.scrollY > 300);
+        });
+
+        // 初始渲染
+        renderProducts();
+    </script>
+</body>
+</html>
