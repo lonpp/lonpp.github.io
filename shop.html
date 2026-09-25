@@ -366,9 +366,23 @@
             color: var(--bg-color);
         }
 
+        /* -------------------------------------
+           手機版專用設定
+        -------------------------------------- */
         @media (max-width: 768px) {
             .container { padding: 2.5rem 1.5rem; }
             .modal-box { padding: 1.5rem; }
+            
+            /* 手機版微調標題字級，讓第二行括號內容維持單行 */
+            header h1 {
+                font-size: 1.85rem;
+            }
+
+            .title-sub {
+                display: block;
+                margin-top: 0.2rem;
+                white-space: nowrap;
+            }
         }
     </style>
 </head>
@@ -382,7 +396,7 @@
 
     <div class="container">
         <header>
-            <h1>SHOP 商店 ( 版畫 / 攝影 )</h1>
+            <h1>SHOP 商店 <span class="title-sub">( 版畫 / 攝影 )</span></h1>
             <div class="shop-notice">
                 <p>購買流程：點擊欲收藏之作品 → 選擇掃碼支付（街口 / LinePay / Alipay）完成轉帳 → 填寫收件資訊與付款末碼送出訂單。</p>
             </div>
@@ -480,7 +494,7 @@
             {
                 id: "PRT-001",
                 category: "print",
-                title: "<finale: white 最終章：白色>",
+                title: "&lt;finale: white 最終章：白色&gt;",
                 specs: "水印木刻版畫 Woodcut Print / 45 × 60 cm",
                 price: "NT$ 3,200",
                 stock: 3,
@@ -489,7 +503,7 @@
             {
                 id: "PRT-002",
                 category: "print",
-                title: "<wind continues 風行不止>",
+                title: "&lt;wind continues 風行不止&gt;",
                 specs: "水印木刻版畫 Woodcut Print / 30 × 45 cm",
                 price: "NT$ 2,400",
                 stock: 1,
@@ -498,10 +512,10 @@
             {
                 id: "PHO-001",
                 category: "photo",
-                title: "<studies on synchronicity>",
+                title: "&lt;studies on synchronicity&gt;",
                 specs: "藝術微噴 Giclée Print / A3",
                 price: "NT$ 1,800",
-                stock: 0, // 庫存為 0 測試：會自動鎖定按鈕
+                stock: 0,
                 image: "images/photo-01.jpg"
             }
         ];
@@ -522,7 +536,7 @@
                 card.innerHTML = `
                     <div>
                         <div class="product-img-wrap">
-                            <img src="${item.image}" alt="${item.title}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'400\\' height=\\'300\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%23111\\'/><text x=\\'50%\\' y=\\'50%\\' fill=\\'%23555\\' font-family=\\'monospace\\' text-anchor=\\'middle\\'>${item.id}</text></svg>'">
+                            <img src="${item.image}" alt="${item.id}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'400\\' height=\\'300\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%23111\\'/><text x=\\'50%\\' y=\\'50%\\' fill=\\'%23555\\' font-family=\\'monospace\\' text-anchor=\\'middle\\'>${item.id}</text></svg>'">
                         </div>
                         <div class="product-meta" style="margin-top: 1rem;">
                             <span class="product-id">[${item.id}]</span>
@@ -579,11 +593,12 @@
             const address = document.getElementById('buyerAddress').value;
             const note = document.getElementById('buyerPaymentNote').value;
 
-            const subject = encodeURIComponent(`[作品訂購] ${currentProduct.id} ${currentProduct.title} - ${name}`);
+            const cleanTitle = currentProduct.title.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+            const subject = encodeURIComponent(`[作品訂購] ${currentProduct.id} ${cleanTitle} - ${name}`);
             const body = encodeURIComponent(
 `您好，我已完成掃碼付款，以下為訂購資訊：
 
-【訂購作品】[${currentProduct.id}] ${currentProduct.title}
+【訂購作品】[${currentProduct.id}] ${cleanTitle}
 【應付金額】${currentProduct.price}
 【對帳資訊】${note}
 
