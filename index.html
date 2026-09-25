@@ -280,6 +280,39 @@
         }
 
         /* -------------------------------------
+           back to top button
+        -------------------------------------- */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 900;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 0.8rem;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s ease;
+        }
+
+        .back-to-top.visible {
+            opacity: 0.8;
+            pointer-events: auto;
+        }
+
+        .back-to-top:hover {
+            opacity: 1;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        /* -------------------------------------
            mobile media queries
         -------------------------------------- */
         @media (max-width: 768px) {
@@ -313,6 +346,11 @@
             }
             .social-links a {
                 padding: 0.8rem 0;
+            }
+            .back-to-top {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                padding: 0.4rem 0.7rem;
             }
         }
     </style>
@@ -378,7 +416,7 @@
                 <p style="margin-bottom: 2rem;">
                     <span id="greeting-zh" class="greeting active">歡迎來到我的主頁！ options<br></span>
                     <span id="greeting-en" class="greeting">Welcome to my creative space!</span>
-                    <span id="greeting-de" class="greeting">Willkommen auf meiner Seite!</span>
+                    <span id="greeting-de" class="greeting">Willkommen auf meiner Seite!_</span>
                     <span>( <a href="javascript:void(0)" onclick="setLang('zh')" class="lang-btn active" data-lang="zh">中文</a> / <a href="javascript:void(0)" onclick="setLang('en')" class="lang-btn" data-lang="en">EN</a> / <a href="javascript:void(0)" onclick="setLang('de')" class="lang-btn" data-lang="de">DE</a> / <a href="#portfolio" class="lang-btn">Portfolio</a> )</span>
                 </p>
 
@@ -397,7 +435,7 @@
 
                 <!-- lang: en -->
                 <div id="content-en" class="lang-section">
-                    <p>I am Lon, a tech artist and developer navigating the intersections of digital media, visual arts, and code.</p>
+                    <p>I am Lonlon (PEI, Lon), a tech artist and developer navigating the intersections of digital media, visual arts, and code.</p>
                     <p>My creative journey is split into two main parallel tracks:</p>
                     <p>1. Digital & Video Art:<br>
                     My artistic practice focuses on video art, multimedia installations, AI generative workflows (such as ComfyUI), and traditional woodcut printmaking. My visual works and installations have been exhibited at digital art festivals and galleries across Europe, including Athens, Venice, Zurich, and Poznań.</p>
@@ -410,7 +448,7 @@
 
                 <!-- lang: de -->
                 <div id="content-de" class="lang-section">
-                    <p>Ich bin Lon, ein Tech-Künstler und Entwickler, der sich an der Schnittstelle von digitalen Medien, visueller Kunst und Programmierung bewegt.</p>
+                    <p>Ich bin Lonlon (PEI, Lon), ein Tech-Künstler und Entwickler, der sich an der Schnittstelle von digitalen Medien, visueller Kunst und Programmierung bewegt.</p>
                     <p>Meine kreative Reise teilt sich hauptsächlich in zwei parallele Bereiche auf:</p>
                     <p>1. Digitale & Videokunst:<br>
                     Meine künstlerische Praxis konzentriert sich auf Videokunst, multimediale Installationen, KI-gestützte Workflows (wie ComfyUI) und traditionellen Holzschnitt. Meine visuellen Werke und Installationen wurden bereits auf digitalen Kunstfestivals und in Galerien in ganz Europa ausgestellt, darunter in Athen, Venedig, Zürich und Posen (Poznań).</p>
@@ -501,19 +539,40 @@
         </footer>
     </div>
 
-    <!-- 語言切換邏輯腳本 -->
+    <!-- 回到頂部按鈕 -->
+    <button id="backToTop" class="back-to-top" onclick="scrollToTop()" aria-label="Back to top">
+        ↑ top
+    </button>
+
+    <!-- 互動邏輯腳本 -->
     <script>
+        // 語言切換
         function setLang(lang) {
-            // 清除所有啟用狀態
             document.querySelectorAll('.lang-section, .greeting').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.lang-btn[data-lang]').forEach(el => el.classList.remove('active'));
             
-            // 啟用目標語言內容與問候語
             document.getElementById('content-' + lang).classList.add('active');
             document.getElementById('greeting-' + lang).classList.add('active');
             
-            // 更新當前點擊按鈕的透明度狀態
             document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
+        }
+
+        // 回到頂部按鈕顯示與捲動控制
+        const backToTopBtn = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
     </script>
 </body>
