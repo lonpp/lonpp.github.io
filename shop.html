@@ -614,8 +614,8 @@
             <header>
                 <h1>SHOP 商店</h1>
                 <div class="shop-notice">
-                    <p>購買流程：點擊欲收藏之作品 → 選擇掃碼支付（街口 / LinePay / Alipay）完成轉帳 → 填寫收件資訊與付款末碼送出訂單。</p>
-                    <p>送出訂單後系統會打開email並自動帶入資料，確認無誤後寄出即可。請務必確認信件有成功寄出。售價皆含框及國內運送。</p>
+                    <p>購買流程：確認剩餘數量後點擊欲收藏作品之購買按鈕 → 選擇支付方式（信用卡 / 轉帳 / 行動支付）完成轉帳 → 填寫收件資訊與付款末碼送出訂單</p>
+                    <p>→ 送出後系統會打開email並自動帶入資料，確認無誤後寄出即可。請務必確認信件有成功寄出。售價皆含框及國內運送。</p>
                 </div>
             </header>
 
@@ -670,7 +670,7 @@
 
             <!-- 步驟 1：選擇掃碼支付 -->
             <div>
-                <p style="font-size: 0.85rem; margin-bottom: 0.5rem;">STEP 1. 選擇支付方式並掃碼付款：</p>
+                <p style="font-size: 0.85rem; margin-bottom: 0.5rem;">STEP 1. 選擇支付方式並掃碼或點擊連接付款：</p>
                 <div class="pay-tabs">
                     <button type="button" class="pay-tab active" onclick="switchQR('jkopay', this)">街口支付</button>
                     <button type="button" class="pay-tab" onclick="switchQR('linepay', this)">LinePay</button>
@@ -1011,7 +1011,7 @@
                             <span class="product-stock">${isSoldOut ? '庫存: 0' : `剩餘數量: ${item.stock}`}</span>
                         </div>
                         <button class="buy-btn" ${isSoldOut ? 'disabled' : ''} onclick="openModal(${item._uid})">
-                            ${isSoldOut ? '[ SOLD OUT / 已售罄 ]' : '[ ORDER / 掃碼購買 ]'}
+                            ${isSoldOut ? '[ SOLD OUT / 已售罄 ]' : '[ ORDER / 購買 ]'}
                         </button>
                     </div>
                 `;
@@ -1129,7 +1129,7 @@
             const cleanTitle = currentProduct.title.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
             const subject = encodeURIComponent(`[作品訂購] ${currentProduct.id} ${cleanTitle} - ${name}`);
             const body = encodeURIComponent(
-`您好，我已完成掃碼付款，以下為訂購資訊：
+`您好，我已完成付款，以下為訂購資訊：
 
 【訂購作品】[${currentProduct.id}] ${cleanTitle}
 【作品規格】${currentProduct.specs}
