@@ -23,14 +23,13 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--text-color);
+            color: var(--bg-color);
             font-family: 'Courier New', Courier, 'PingFang TC', 'SF Pro TC', 'Microsoft JhengHei Light', 'Microsoft JhengHei', sans-serif;
             font-weight: 300;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            padding-bottom: 5vh;
         }
 
         a {
@@ -39,7 +38,9 @@
             transition: all 0.2s ease;
         }
 
-        /* 頂部返回導覽列 */
+        /* -------------------------------------
+           頂部返回導覽列 (黑底白字 + 底部白線)
+        -------------------------------------- */
         .top-nav {
             position: sticky;
             top: 0;
@@ -48,6 +49,7 @@
             border-bottom: 1px solid var(--border-color);
             padding: 1.2rem 2rem;
             background-color: var(--bg-color);
+            color: var(--text-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -60,11 +62,28 @@
             padding: 0.2rem 0.5rem;
         }
 
-        /* container */
-        .container {
+        /* 白線與 SHOP 商店中間的上半部：黑色區塊 */
+        .top-black-space {
+            width: 100%;
+            height: 2rem;
+            background-color: var(--bg-color);
+        }
+
+        /* -------------------------------------
+           白線與 SHOP 商店中間的下半部起：白底黑字區塊
+        -------------------------------------- */
+        .shop-light-section {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            width: 100%;
+            min-height: calc(100vh - 90px);
+            padding-bottom: 5vh;
+        }
+
+        .light-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 2rem 2rem 4rem 2rem; /* 上方 2rem 白底與上方 2rem 黑底相加 = 原本的 4rem 間距 */
             display: flex;
             flex-direction: column;
             gap: 3rem;
@@ -75,28 +94,30 @@
             font-weight: normal;
             letter-spacing: 2px;
             margin-bottom: 1rem;
+            color: var(--bg-color);
         }
 
         .shop-notice {
             font-size: 0.95rem;
-            opacity: 0.8;
-            border-left: 2px solid var(--border-color);
+            color: var(--bg-color);
+            opacity: 0.85;
+            border-left: 2px solid var(--bg-color);
             padding-left: 1rem;
             white-space: nowrap;
         }
 
-        /* 分類篩選按鈕 */
+        /* 分類篩選按鈕 (黑字配白底) */
         .filter-bar {
             display: flex;
             gap: 1.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.25);
             padding-bottom: 0.8rem;
         }
 
         .filter-btn {
             background: none;
             border: none;
-            color: var(--text-color);
+            color: var(--bg-color);
             font-family: inherit;
             font-size: 1rem;
             font-weight: 300;
@@ -108,9 +129,10 @@
 
         .filter-btn:hover, .filter-btn.active {
             opacity: 1;
+            font-weight: bold;
         }
 
-        /* 商品網格系統 */
+        /* 商品網格系統 (白底黑框配置) */
         .shop-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -119,13 +141,16 @@
 
         .loading-text {
             font-size: 0.9rem;
+            color: var(--bg-color);
             opacity: 0.6;
             letter-spacing: 1px;
             grid-column: 1 / -1;
         }
 
         .product-card {
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            border: 1px solid rgba(0, 0, 0, 0.3);
             padding: 1.2rem;
             display: flex;
             flex-direction: column;
@@ -135,7 +160,7 @@
         }
 
         .product-card:hover {
-            border-color: var(--border-color);
+            border-color: var(--bg-color);
         }
 
         /* 商品圖片框與放大提示標籤 */
@@ -143,9 +168,9 @@
             position: relative;
             width: 100%;
             aspect-ratio: 4 / 3;
-            background-color: #111;
+            background-color: #f2f2f2;
             overflow: hidden;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.15);
             cursor: zoom-in;
         }
 
@@ -178,7 +203,7 @@
         .product-img-wrap:hover .img-badge {
             background-color: var(--text-color);
             color: var(--bg-color);
-            border-color: var(--border-color);
+            border-color: var(--bg-color);
         }
 
         .product-meta {
@@ -189,7 +214,7 @@
 
         .product-id {
             font-size: 0.8rem;
-            opacity: 0.6;
+            opacity: 0.65;
             letter-spacing: 1px;
         }
 
@@ -200,7 +225,7 @@
 
         .product-specs {
             font-size: 0.85rem;
-            opacity: 0.75;
+            opacity: 0.8;
         }
 
         .product-footer {
@@ -208,7 +233,7 @@
             justify-content: space-between;
             align-items: center;
             padding-top: 0.8rem;
-            border-top: 1px dashed rgba(255, 255, 255, 0.2);
+            border-top: 1px dashed rgba(0, 0, 0, 0.25);
         }
 
         .product-price {
@@ -217,15 +242,15 @@
 
         .product-stock {
             font-size: 0.8rem;
-            opacity: 0.7;
+            opacity: 0.75;
         }
 
         .buy-btn {
             width: 100%;
             padding: 0.7rem;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            border: 1px solid var(--bg-color);
             font-family: inherit;
             font-size: 0.95rem;
             cursor: pointer;
@@ -233,13 +258,13 @@
         }
 
         .buy-btn:hover:not(:disabled) {
-            background-color: var(--text-color);
-            color: var(--bg-color);
+            background-color: var(--bg-color);
+            color: var(--text-color);
         }
 
         .buy-btn:disabled {
-            opacity: 0.3;
-            border-color: rgba(255, 255, 255, 0.4);
+            opacity: 0.35;
+            border-color: rgba(0, 0, 0, 0.4);
             cursor: not-allowed;
         }
 
@@ -253,6 +278,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.94);
+            color: var(--text-color);
             z-index: 2500;
             display: none;
             flex-direction: column;
@@ -366,6 +392,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.85);
+            color: var(--text-color);
             z-index: 2000;
             display: none;
             justify-content: center;
@@ -380,6 +407,7 @@
 
         .modal-box {
             background-color: var(--bg-color);
+            color: var(--text-color);
             border: 1px solid var(--border-color);
             max-width: 500px;
             width: 100%;
@@ -478,11 +506,29 @@
             border-color: var(--border-color);
         }
 
-        /* footer & back-to-top */
+        .modal-submit-btn {
+            width: 100%;
+            padding: 0.7rem;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            font-family: inherit;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-submit-btn:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        /* footer & back-to-top (配適白底區域) */
         footer {
             margin-top: 4rem;
             padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-top: 1px solid rgba(0, 0, 0, 0.2);
+            color: var(--bg-color);
             font-size: 0.85rem;
             opacity: 0.6;
         }
@@ -492,9 +538,9 @@
             bottom: 2rem;
             right: 2rem;
             z-index: 900;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            border: 1px solid var(--bg-color);
             padding: 0.5rem 0.8rem;
             font-family: inherit;
             font-size: 0.85rem;
@@ -505,21 +551,22 @@
         }
 
         .back-to-top.visible {
-            opacity: 0.8;
+            opacity: 0.85;
             pointer-events: auto;
         }
 
         .back-to-top:hover {
             opacity: 1;
-            background-color: var(--text-color);
-            color: var(--bg-color);
+            background-color: var(--bg-color);
+            color: var(--text-color);
         }
 
         /* -------------------------------------
            手機版專用設定
         -------------------------------------- */
         @media (max-width: 768px) {
-            .container { padding: 2.5rem 1.5rem; }
+            .top-black-space { height: 1.25rem; }
+            .light-container { padding: 1.25rem 1.5rem 3rem 1.5rem; }
             .modal-box { padding: 1.5rem; }
             .lightbox-overlay { padding: 1rem; }
             
@@ -532,7 +579,7 @@
                 font-size: 2rem;
             }
 
-            /* 手機版購買流程自然換行 */
+            /* 手機版購買流程自然換行設定 */
             .shop-notice {
                 white-space: normal;
             }
@@ -552,35 +599,41 @@
 </head>
 <body>
 
-    <!-- 頂部返回主頁導覽 -->
+    <!-- 頂部返回主頁導覽 (黑底白字 + 下方白線) -->
     <nav class="top-nav">
         <a href="index.html">← return to index / 返回主頁</a>
         <span class="nav-brand">lonlon // archive & shop</span>
     </nav>
 
-    <div class="container">
-        <header>
-            <h1>SHOP 商店</h1>
-            <div class="shop-notice">
-                <p>購買流程：點擊欲收藏之作品 → 選擇掃碼支付（街口 / LinePay / Alipay）完成轉帳 → 填寫收件資訊與付款末碼送出訂單。售價皆含框及國內運送。</p>
+    <!-- 白線與 SHOP 商店中間的上半部：維持黑色背景，讓上方白線清楚顯現 -->
+    <div class="top-black-space"></div>
+
+    <!-- 白線與 SHOP 商店中間的下半部起：改為白色背景 -->
+    <div class="shop-light-section">
+        <div class="light-container">
+            <header>
+                <h1>SHOP 商店</h1>
+                <div class="shop-notice">
+                    <p>購買流程：點擊欲收藏之作品 → 選擇掃碼支付（街口 / LinePay / Alipay）完成轉帳 → 填寫收件資訊與付款末碼送出訂單。售價皆含框及國內運送。</p>
+                </div>
+            </header>
+
+            <!-- 分類篩選 -->
+            <div class="filter-bar">
+                <button class="filter-btn active" onclick="filterProducts('all', this)">ALL <span class="filter-zh">全部</span></button>
+                <button class="filter-btn" onclick="filterProducts('print', this)">PRINTS <span class="filter-zh">版畫</span></button>
+                <button class="filter-btn" onclick="filterProducts('photo', this)">PHOTOGRAPHY <span class="filter-zh">攝影</span></button>
             </div>
-        </header>
 
-        <!-- 分類篩選 -->
-        <div class="filter-bar">
-            <button class="filter-btn active" onclick="filterProducts('all', this)">ALL <span class="filter-zh">全部</span></button>
-            <button class="filter-btn" onclick="filterProducts('print', this)">PRINTS <span class="filter-zh">版畫</span></button>
-            <button class="filter-btn" onclick="filterProducts('photo', this)">PHOTOGRAPHY <span class="filter-zh">攝影</span></button>
+            <!-- 商品自動渲染容器 -->
+            <div id="productGrid" class="shop-grid">
+                <p class="loading-text">LOADING ARCHIVE... // 正在同步試算表商品資料</p>
+            </div>
+
+            <footer>
+                &copy; 2026 pei, lon. All Rights Reserved.
+            </footer>
         </div>
-
-        <!-- 商品自動渲染容器 -->
-        <div id="productGrid" class="shop-grid">
-            <p class="loading-text">LOADING ARCHIVE... // 正在同步試算表商品資料</p>
-        </div>
-
-        <footer>
-            &copy; 2026 pei, lon. All Rights Reserved.
-        </footer>
     </div>
 
     <!-- 圖片放大檢視視窗 (Lightbox) -->
@@ -652,7 +705,7 @@
                     <input type="text" id="buyerPaymentNote" placeholder="例：街口支付，末五碼 12345" required>
                 </div>
 
-                <button type="submit" class="buy-btn" style="margin-top: 0.5rem;">
+                <button type="submit" class="modal-submit-btn" style="margin-top: 0.5rem;">
                     [ 產生訂單信件並送出 / SUBMIT ORDER ]
                 </button>
             </form>
@@ -684,7 +737,7 @@
             {
                 id: "PRT-001",
                 category: "print",
-                title: "《我也消失在時...",
+                title: "《我也消失在時間裡，永無止盡》i also disappeared in sounds, endlessly",
                 specs: "2025，水印木刻",
                 price: "NT$8,500",
                 stock: 25,
@@ -693,7 +746,7 @@
             {
                 id: "PRT-002",
                 category: "print",
-                title: "《消失在海浪刷...",
+                title: "《消失在海浪刷洗的沙灘上》vanishing on the shore washed by waves",
                 specs: "2024，油墨木刻",
                 price: "NT$8,500",
                 stock: 10,
@@ -702,8 +755,8 @@
             {
                 id: "PRT-003",
                 category: "print",
-                title: "《球》sphere)",
-                specs: "2024，水印木刻",
+                title: "《球》sphere",
+                specs: "2024，水印木刻版畫，B5尺寸，版數：30",
                 price: "NT$8,500",
                 stock: 13,
                 images: [""]
@@ -711,7 +764,7 @@
             {
                 id: "PRT-002",
                 category: "print",
-                title: "《消失在海浪刷...",
+                title: "《消失在海浪刷洗的沙灘上》vanishing on the shore washed by waves",
                 specs: "2024，水印木刻",
                 price: "NT$8,500",
                 stock: 12,
@@ -806,7 +859,7 @@
             });
         }
 
-        // JSONP 回呼函式：直接接收 Google 試算表回傳的結構，不受本地端 file:// CORS 限制
+        // JSONP 回呼函式：直接接收 Google 試算表回傳的結構
         window.handleSheetData = function(response) {
             if (!response || response.status !== 'ok' || !response.table) return;
             const cols = (response.table.cols || []).map(c => (c && c.label) ? String(c.label).trim() : '');
@@ -873,7 +926,7 @@
             return rowsToProducts(rows);
         }
 
-        // 啟動同步：優先以 <script> JSONP 直連試算表，若逾時則嘗試 fetch CSV 與備用清單
+        // 啟動同步
         function initShop() {
             const normalizeFallback = () => FALLBACK_PRODUCTS.map((p, idx) => ({
                 ...p,
@@ -915,7 +968,7 @@
         }
 
         function getPlaceholderSVG(text) {
-            return `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='450'><rect width='100%' height='100%' fill='%23111'/><text x='50%' y='50%' fill='%23555' font-family='monospace' font-size='16' text-anchor='middle'>${encodeURIComponent(text)}</text></svg>`;
+            return `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='450'><rect width='100%' height='100%' fill='%23eaeaea'/><text x='50%' y='50%' fill='%23555' font-family='monospace' font-size='16' text-anchor='middle'>${encodeURIComponent(text)}</text></svg>`;
         }
 
         function renderProducts(filter = currentFilter) {
