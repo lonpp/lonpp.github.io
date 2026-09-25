@@ -82,7 +82,7 @@
             opacity: 0.8;
             border-left: 2px solid var(--border-color);
             padding-left: 1rem;
-            max-width: 700px;
+            white-space: nowrap;
         }
 
         /* 分類篩選按鈕 */
@@ -103,6 +103,7 @@
             opacity: 0.4;
             cursor: pointer;
             transition: opacity 0.2s ease;
+            text-align: left;
         }
 
         .filter-btn:hover, .filter-btn.active {
@@ -373,14 +374,28 @@
             .container { padding: 2.5rem 1.5rem; }
             .modal-box { padding: 1.5rem; }
             
-            /* 手機版微調標題字級，讓第二行括號內容維持單行 */
-            header h1 {
-                font-size: 1.85rem;
+            /* 手機版隱藏右側品牌副標 */
+            .nav-brand {
+                display: none;
             }
 
-            .title-sub {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            /* 手機版允許購買流程自然換行，避免超出螢幕寬度 */
+            .shop-notice {
+                white-space: normal;
+            }
+
+            /* 手機版篩選按鈕：讓中文完整換至英文下一行 */
+            .filter-bar {
+                gap: 2rem;
+            }
+
+            .filter-zh {
                 display: block;
-                margin-top: 0.2rem;
+                margin-top: 0.15rem;
                 white-space: nowrap;
             }
         }
@@ -391,12 +406,12 @@
     <!-- 頂部返回主頁導覽 -->
     <nav class="top-nav">
         <a href="index.html">← return to index / 返回主頁</a>
-        <span>lonlon // archive & shop</span>
+        <span class="nav-brand">lonlon // archive & shop</span>
     </nav>
 
     <div class="container">
         <header>
-            <h1>SHOP 商店 <span class="title-sub">( 版畫 / 攝影 )</span></h1>
+            <h1>SHOP 商店</h1>
             <div class="shop-notice">
                 <p>購買流程：點擊欲收藏之作品 → 選擇掃碼支付（街口 / LinePay / Alipay）完成轉帳 → 填寫收件資訊與付款末碼送出訂單。</p>
             </div>
@@ -404,9 +419,9 @@
 
         <!-- 分類篩選 -->
         <div class="filter-bar">
-            <button class="filter-btn active" onclick="filterProducts('all', this)">ALL 全部</button>
-            <button class="filter-btn" onclick="filterProducts('print', this)">PRINTS 版畫</button>
-            <button class="filter-btn" onclick="filterProducts('photo', this)">PHOTOGRAPHY 攝影</button>
+            <button class="filter-btn active" onclick="filterProducts('all', this)">ALL <span class="filter-zh">全部</span></button>
+            <button class="filter-btn" onclick="filterProducts('print', this)">PRINTS <span class="filter-zh">版畫</span></button>
+            <button class="filter-btn" onclick="filterProducts('photo', this)">PHOTOGRAPHY <span class="filter-zh">攝影</span></button>
         </div>
 
         <!-- 商品自動渲染容器 -->
