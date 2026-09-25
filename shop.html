@@ -39,14 +39,13 @@
         }
 
         /* -------------------------------------
-           頂部返回導覽列 (黑底白字 + 底部白線)
+           頂部返回導覽列 (唯一維持黑底白字的區塊)
         -------------------------------------- */
         .top-nav {
             position: sticky;
             top: 0;
             z-index: 900;
             width: 100%;
-            border-bottom: 1px solid var(--border-color);
             padding: 1.2rem 2rem;
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -62,28 +61,21 @@
             padding: 0.2rem 0.5rem;
         }
 
-        /* 白線與 SHOP 商店中間的上半部：黑色區塊 */
-        .top-black-space {
-            width: 100%;
-            height: 2rem;
-            background-color: var(--bg-color);
-        }
-
         /* -------------------------------------
-           白線與 SHOP 商店中間的下半部起：白底黑字區塊
+           導覽列以下全區：白底黑字 (同 index 贊助橫幅配色)
         -------------------------------------- */
         .shop-light-section {
             background-color: var(--text-color);
             color: var(--bg-color);
             width: 100%;
-            min-height: calc(100vh - 90px);
+            min-height: calc(100vh - 60px);
             padding-bottom: 5vh;
         }
 
         .light-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem 2rem 4rem 2rem; /* 上方 2rem 白底與上方 2rem 黑底相加 = 原本的 4rem 間距 */
+            padding: 4rem 2rem;
             display: flex;
             flex-direction: column;
             gap: 3rem;
@@ -565,8 +557,7 @@
            手機版專用設定
         -------------------------------------- */
         @media (max-width: 768px) {
-            .top-black-space { height: 1.25rem; }
-            .light-container { padding: 1.25rem 1.5rem 3rem 1.5rem; }
+            .light-container { padding: 2.5rem 1.5rem 3rem 1.5rem; }
             .modal-box { padding: 1.5rem; }
             .lightbox-overlay { padding: 1rem; }
             
@@ -599,16 +590,13 @@
 </head>
 <body>
 
-    <!-- 頂部返回主頁導覽 (黑底白字 + 下方白線) -->
+    <!-- 頂部返回主頁導覽 (黑底白字) -->
     <nav class="top-nav">
         <a href="index.html">← return to index / 返回主頁</a>
         <span class="nav-brand">lonlon // archive & shop</span>
     </nav>
 
-    <!-- 白線與 SHOP 商店中間的上半部：維持黑色背景，讓上方白線清楚顯現 -->
-    <div class="top-black-space"></div>
-
-    <!-- 白線與 SHOP 商店中間的下半部起：改為白色背景 -->
+    <!-- 導覽列以下全區：白底黑字 -->
     <div class="shop-light-section">
         <div class="light-container">
             <header>
