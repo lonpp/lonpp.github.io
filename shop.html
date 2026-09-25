@@ -117,6 +117,13 @@
             gap: 3rem 2rem;
         }
 
+        .loading-text {
+            font-size: 0.9rem;
+            opacity: 0.6;
+            letter-spacing: 1px;
+            grid-column: 1 / -1;
+        }
+
         .product-card {
             border: 1px solid rgba(255, 255, 255, 0.3);
             padding: 1.2rem;
@@ -131,12 +138,15 @@
             border-color: var(--border-color);
         }
 
+        /* 商品圖片框與放大提示標籤 */
         .product-img-wrap {
+            position: relative;
             width: 100%;
             aspect-ratio: 4 / 3;
             background-color: #111;
             overflow: hidden;
             border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            cursor: zoom-in;
         }
 
         .product-img-wrap img {
@@ -144,6 +154,31 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .product-img-wrap:hover img {
+            transform: scale(1.03);
+        }
+
+        .img-badge {
+            position: absolute;
+            bottom: 0.6rem;
+            right: 0.6rem;
+            background-color: rgba(0, 0, 0, 0.85);
+            color: var(--text-color);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 0.15rem 0.5rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            pointer-events: none;
+            transition: all 0.2s ease;
+        }
+
+        .product-img-wrap:hover .img-badge {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            border-color: var(--border-color);
         }
 
         .product-meta {
@@ -209,7 +244,120 @@
         }
 
         /* -------------------------------------
-           結帳彈出視窗 (Modal)
+           圖片放大檢視器 (Lightbox Modal)
+        -------------------------------------- */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.94);
+            z-index: 2500;
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+        }
+
+        .lightbox-overlay.active {
+            display: flex;
+        }
+
+        .lightbox-top {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .lightbox-stage {
+            flex: 1;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 1rem 0;
+        }
+
+        .lightbox-stage img {
+            max-width: 90vw;
+            max-height: 72vh;
+            object-fit: contain;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: #050505;
+        }
+
+        .lightbox-bottom {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .lightbox-controls {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .lb-nav-btn {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 0.4rem 1rem;
+            font-family: inherit;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lb-nav-btn:hover:not(:disabled) {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .lb-nav-btn:disabled {
+            opacity: 0.25;
+            cursor: not-allowed;
+        }
+
+        .lightbox-thumbs {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            max-width: 100%;
+            padding-bottom: 0.2rem;
+        }
+
+        .lb-thumb {
+            width: 48px;
+            height: 36px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            opacity: 0.4;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lb-thumb.active, .lb-thumb:hover {
+            opacity: 1;
+            border-color: var(--border-color);
+        }
+
+        /* -------------------------------------
+           結帳彈出視窗 (Checkout Modal)
         -------------------------------------- */
         .modal-overlay {
             position: fixed;
@@ -373,6 +521,7 @@
         @media (max-width: 768px) {
             .container { padding: 2.5rem 1.5rem; }
             .modal-box { padding: 1.5rem; }
+            .lightbox-overlay { padding: 1rem; }
             
             /* 手機版隱藏右側品牌副標 */
             .nav-brand {
@@ -383,12 +532,12 @@
                 font-size: 2rem;
             }
 
-            /* 手機版允許購買流程自然換行，避免超出螢幕寬度 */
+            /* 手機版購買流程自然換行 */
             .shop-notice {
                 white-space: normal;
             }
 
-            /* 手機版篩選按鈕：讓中文完整換至英文下一行 */
+            /* 手機版篩選按鈕：中文完整換至英文下一行 */
             .filter-bar {
                 gap: 2rem;
             }
@@ -413,7 +562,7 @@
         <header>
             <h1>SHOP 商店</h1>
             <div class="shop-notice">
-                <p>購買流程：點擊欲收藏之作品 → 選擇掃碼支付（街口 / LinePay / Alipay）完成轉帳 → 填寫收件資訊與付款末碼送出訂單。</p>
+                <p>購買流程：點擊欲收藏之作品 → 選擇掃碼支付（街口 / LinePay / Alipay）完成轉帳 → 填寫收件資訊與付款末碼送出訂單。售價皆含框及國內運送。</p>
             </div>
         </header>
 
@@ -425,15 +574,38 @@
         </div>
 
         <!-- 商品自動渲染容器 -->
-        <div id="productGrid" class="shop-grid"></div>
+        <div id="productGrid" class="shop-grid">
+            <p class="loading-text">LOADING ARCHIVE... // 正在同步試算表商品資料</p>
+        </div>
 
         <footer>
             &copy; 2026 pei, lon. All Rights Reserved.
         </footer>
     </div>
 
+    <!-- 圖片放大檢視視窗 (Lightbox) -->
+    <div id="lightboxModal" class="lightbox-overlay" onclick="if(event.target === this || event.target.classList.contains('lightbox-stage')) closeLightbox()">
+        <div class="lightbox-top">
+            <span id="lightboxCaption"></span>
+            <button class="close-btn" onclick="closeLightbox()">✕ CLOSE</button>
+        </div>
+
+        <div class="lightbox-stage">
+            <img id="lightboxImg" src="" alt="Artwork Preview">
+        </div>
+
+        <div class="lightbox-bottom">
+            <div id="lightboxThumbs" class="lightbox-thumbs"></div>
+            <div class="lightbox-controls">
+                <button type="button" id="lbPrevBtn" class="lb-nav-btn" onclick="changeLightboxImg(-1)">[ ← PREV ]</button>
+                <span id="lightboxCounter" style="font-size: 0.85rem;">1 / 1</span>
+                <button type="button" id="lbNextBtn" class="lb-nav-btn" onclick="changeLightboxImg(1)">[ NEXT → ]</button>
+            </div>
+        </div>
+    </div>
+
     <!-- 結帳彈出視窗 -->
-    <div id="checkoutModal" class="modal-overlay">
+    <div id="checkoutModal" class="modal-overlay" onclick="if(event.target === this) closeModal()">
         <div class="modal-box">
             <div class="modal-header">
                 <span id="modalTitle">ORDER // 結帳</span>
@@ -493,78 +665,291 @@
 
     <script>
         /* ==========================================
-           [商品與收款碼中控台] 
-           日後更新商品、價格與庫存，只需修改這裡！
+           [雲端同步與收款碼設定區]
         ========================================== */
         
-        // 1. 替換為你的收款 QR Code 圖片路徑
+        // 1. 你的 Google 試算表 ID 與發佈網址：
+        const SHEET_ID = "1fKrjchIbhegt8-6ob7EiMgNLN8AF5wIt3ZC5wr_xgec";
+        const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRDYEUjBDASJpi7A3o0vWfWd0oQVl-_2p4UvnnOiUpYjdNjqe1z7QCqCTUas9Jb9h8HUq0neCkObBu-/pub?gid=0&single=true&output=csv";
+
+        // 2. 收款 QR Code 圖片路徑
         const QR_CODES = {
             jkopay:  { img: "images/qr-jkopay.jpg",  hint: "請使用 街口支付 掃描上方 QR Code 並輸入商品金額。" },
             linepay: { img: "images/qr-linepay.jpg", hint: "請使用 LinePay 掃描上方 QR Code 並輸入商品金額。" },
             alipay:  { img: "images/qr-alipay.jpg",  hint: "請使用 支付寶 (Alipay) 掃描上方 QR Code 完成付款。" }
         };
 
-        // 2. 商品清單 (stock 改為 0 即自動顯示 SOLD OUT)
-        const PRODUCTS = [
+        // 3. 離線備用清單
+        const FALLBACK_PRODUCTS = [
             {
                 id: "PRT-001",
                 category: "print",
-                title: "&lt;finale: white 最終章：白色&gt;",
-                specs: "水印木刻版畫 Woodcut Print / 45 × 60 cm",
-                price: "NT$ 3,200",
-                stock: 3,
-                image: "images/print-01.jpg"
+                title: "《我也消失在時...",
+                specs: "2025，水印木刻",
+                price: "NT$8,500",
+                stock: 25,
+                images: [""]
             },
             {
                 id: "PRT-002",
                 category: "print",
-                title: "&lt;wind continues 風行不止&gt;",
-                specs: "水印木刻版畫 Woodcut Print / 30 × 45 cm",
-                price: "NT$ 2,400",
-                stock: 1,
-                image: "images/print-02.jpg"
+                title: "《消失在海浪刷...",
+                specs: "2024，油墨木刻",
+                price: "NT$8,500",
+                stock: 10,
+                images: [""]
+            },
+            {
+                id: "PRT-003",
+                category: "print",
+                title: "《球》sphere)",
+                specs: "2024，水印木刻",
+                price: "NT$8,500",
+                stock: 13,
+                images: [""]
+            },
+            {
+                id: "PRT-002",
+                category: "print",
+                title: "《消失在海浪刷...",
+                specs: "2024，水印木刻",
+                price: "NT$8,500",
+                stock: 12,
+                images: [""]
             },
             {
                 id: "PHO-001",
                 category: "photo",
-                title: "&lt;studies on synchronicity&gt;",
-                specs: "藝術微噴 Giclée Print / A3",
-                price: "NT$ 1,800",
-                stock: 0,
-                image: "images/photo-01.jpg"
+                title: "《在天空中的某...",
+                specs: "2024，數位微噴",
+                price: "NT$2,400",
+                stock: 26,
+                images: [""]
             }
         ];
 
         /* ==========================================
-           以下為系統自動渲染與結帳邏輯，無需手動修改
+           系統核心邏輯（JSONP 免跨網域限制直連 + CSV 備援）
         ========================================== */
+        let PRODUCTS = [];
         let currentProduct = null;
+        let currentFilter = 'all';
+        let sheetLoaded = false;
 
-        function renderProducts(filter = 'all') {
+        let lbProduct = null;
+        let lbIndex = 0;
+
+        function formatDriveUrl(url) {
+            if (!url) return "";
+            const clean = String(url).trim();
+            const match = clean.match(/(?:\/d\/|id=)([a-zA-Z0-9_-]{15,})/);
+            if (match && match[1]) {
+                return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1600`;
+            }
+            return clean;
+        }
+
+        function escapeHTML(str) {
+            if (!str) return "";
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+        }
+
+        // 將二維陣列資料轉換為商品物件陣列
+        function rowsToProducts(rows) {
+            const validRows = rows.filter(r => r.some(cell => String(cell).trim() !== ''));
+            if (validRows.length === 0) return [];
+
+            const firstRowLower = validRows[0].map(h => String(h).toLowerCase().trim());
+            const hasHeader = firstRowLower.includes('id') || firstRowLower.includes('title') || firstRowLower.includes('price') || firstRowLower.includes('category');
+            const headers = hasHeader ? firstRowLower : ['id', 'category', 'title', 'specs', 'price', 'stock', 'image'];
+            const dataRows = hasHeader ? validRows.slice(1) : validRows;
+
+            return dataRows.map((r, rowIdx) => {
+                const obj = {};
+                const rawImages = [];
+
+                headers.forEach((h, idx) => {
+                    obj[h] = String(r[idx] !== undefined ? r[idx] : '').trim();
+                });
+
+                r.forEach((val, idx) => {
+                    const strVal = String(val !== undefined ? val : '').trim();
+                    const h = headers[idx] || '';
+                    if ((h.startsWith('image') || h.startsWith('img') || idx >= 6) && strVal) {
+                        strVal.split(/[\n,;]+/).forEach(part => {
+                            if (part.trim()) rawImages.push(formatDriveUrl(part.trim()));
+                        });
+                    }
+                });
+
+                const idVal = (obj.id || r[0] || 'N/A').trim();
+                const catVal = (obj.category || r[1] || 'print').trim().toLowerCase();
+                const titleVal = (obj.title || r[2] || '').trim();
+                const specsVal = (obj.specs || r[3] || '').trim();
+                const priceVal = (obj.price || r[4] || '').trim();
+                const stockRaw = obj.stock !== undefined && obj.stock !== '' ? obj.stock : r[5];
+                const stockVal = parseInt(String(stockRaw).replace(/[^\d-]/g, ''), 10);
+
+                return {
+                    _uid: rowIdx,
+                    id: idVal,
+                    category: catVal,
+                    title: titleVal,
+                    specs: specsVal,
+                    price: priceVal,
+                    stock: isNaN(stockVal) ? 0 : stockVal,
+                    images: rawImages.length > 0 ? rawImages : ['']
+                };
+            });
+        }
+
+        // JSONP 回呼函式：直接接收 Google 試算表回傳的結構，不受本地端 file:// CORS 限制
+        window.handleSheetData = function(response) {
+            if (!response || response.status !== 'ok' || !response.table) return;
+            const cols = (response.table.cols || []).map(c => (c && c.label) ? String(c.label).trim() : '');
+            const rows = (response.table.rows || []).map(r => {
+                const cells = r.c || [];
+                return cells.map(cell => {
+                    if (!cell) return '';
+                    if (cell.f !== undefined && cell.f !== null) return String(cell.f);
+                    if (cell.v !== undefined && cell.v !== null) return String(cell.v);
+                    return '';
+                });
+            });
+
+            const allRows = cols.some(c => c !== '') ? [cols, ...rows] : rows;
+            const parsed = rowsToProducts(allRows);
+            if (parsed.length > 0) {
+                sheetLoaded = true;
+                PRODUCTS = parsed;
+                renderProducts();
+            }
+        };
+
+        // CSV 解析備援
+        function parseCSV(text) {
+            const rows = [];
+            let row = [];
+            let cur = '';
+            let inQuotes = false;
+
+            for (let i = 0; i < text.length; i++) {
+                const ch = text[i];
+                const next = text[i + 1];
+
+                if (inQuotes) {
+                    if (ch === '"' && next === '"') {
+                        cur += '"';
+                        i++;
+                    } else if (ch === '"') {
+                        inQuotes = false;
+                    } else {
+                        cur += ch;
+                    }
+                } else {
+                    if (ch === '"') {
+                        inQuotes = true;
+                    } else if (ch === ',') {
+                        row.push(cur.trim());
+                        cur = '';
+                    } else if (ch === '\n' || (ch === '\r' && next === '\n')) {
+                        row.push(cur.trim());
+                        rows.push(row);
+                        row = [];
+                        cur = '';
+                        if (ch === '\r') i++;
+                    } else if (ch !== '\r') {
+                        cur += ch;
+                    }
+                }
+            }
+            if (cur !== '' || row.length > 0) {
+                row.push(cur.trim());
+                rows.push(row);
+            }
+            return rowsToProducts(rows);
+        }
+
+        // 啟動同步：優先以 <script> JSONP 直連試算表，若逾時則嘗試 fetch CSV 與備用清單
+        function initShop() {
+            const normalizeFallback = () => FALLBACK_PRODUCTS.map((p, idx) => ({
+                ...p,
+                _uid: idx,
+                images: (p.images || [p.image || '']).map(formatDriveUrl)
+            }));
+
+            const script = document.createElement('script');
+            script.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=responseHandler:handleSheetData&gid=0&_=${Date.now()}`;
+            script.onerror = () => fetchCSVFallback(normalizeFallback);
+            document.body.appendChild(script);
+
+            setTimeout(() => {
+                if (!sheetLoaded) fetchCSVFallback(normalizeFallback);
+            }, 3500);
+        }
+
+        async function fetchCSVFallback(normalizeFallback) {
+            if (sheetLoaded) return;
+            try {
+                const response = await fetch(GOOGLE_SHEET_CSV_URL, { cache: "no-store" });
+                if (response.ok) {
+                    const csvText = await response.text();
+                    const parsed = parseCSV(csvText);
+                    if (parsed.length > 0) {
+                        sheetLoaded = true;
+                        PRODUCTS = parsed;
+                        renderProducts();
+                        return;
+                    }
+                }
+            } catch (err) {
+                console.warn("CSV 備援通道未連線，使用預設清單:", err);
+            }
+            if (!sheetLoaded) {
+                PRODUCTS = normalizeFallback();
+                renderProducts();
+            }
+        }
+
+        function getPlaceholderSVG(text) {
+            return `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='450'><rect width='100%' height='100%' fill='%23111'/><text x='50%' y='50%' fill='%23555' font-family='monospace' font-size='16' text-anchor='middle'>${encodeURIComponent(text)}</text></svg>`;
+        }
+
+        function renderProducts(filter = currentFilter) {
+            currentFilter = filter;
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
 
             PRODUCTS.filter(p => filter === 'all' || p.category === filter).forEach(item => {
                 const isSoldOut = item.stock <= 0;
+                const safeTitle = escapeHTML(item.title);
+                const validImgs = (item.images || []).filter(u => u.trim() !== '');
+                const coverImg = validImgs[0] || getPlaceholderSVG(item.id);
+                const badgeText = validImgs.length > 1 ? `[ 1 / ${validImgs.length} PICS · 點擊放大 ]` : `[ + 點擊放大 ]`;
+
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
                     <div>
-                        <div class="product-img-wrap">
-                            <img src="${item.image}" alt="${item.id}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'400\\' height=\\'300\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%23111\\'/><text x=\\'50%\\' y=\\'50%\\' fill=\\'%23555\\' font-family=\\'monospace\\' text-anchor=\\'middle\\'>${item.id}</text></svg>'">
+                        <div class="product-img-wrap" onclick="openLightbox(${item._uid}, 0)" title="點擊放大檢視圖片">
+                            <img src="${coverImg}" alt="${escapeHTML(item.id)}" onerror="this.src=&quot;${getPlaceholderSVG(item.id)}&quot;">
+                            <span class="img-badge">${badgeText}</span>
                         </div>
                         <div class="product-meta" style="margin-top: 1rem;">
-                            <span class="product-id">[${item.id}]</span>
-                            <h2 class="product-title">${item.title}</h2>
-                            <p class="product-specs">${item.specs}</p>
+                            <span class="product-id">[${escapeHTML(item.id)}]</span>
+                            <h2 class="product-title">${safeTitle}</h2>
+                            <p class="product-specs">${escapeHTML(item.specs)}</p>
                         </div>
                     </div>
                     <div>
                         <div class="product-footer" style="margin-bottom: 1rem;">
-                            <span class="product-price">${item.price}</span>
+                            <span class="product-price">${escapeHTML(item.price)}</span>
                             <span class="product-stock">${isSoldOut ? '庫存: 0' : `剩餘數量: ${item.stock}`}</span>
                         </div>
-                        <button class="buy-btn" ${isSoldOut ? 'disabled' : ''} onclick="openModal('${item.id}')">
+                        <button class="buy-btn" ${isSoldOut ? 'disabled' : ''} onclick="openModal(${item._uid})">
                             ${isSoldOut ? '[ SOLD OUT / 已售罄 ]' : '[ ORDER / 掃碼購買 ]'}
                         </button>
                     </div>
@@ -579,12 +964,84 @@
             renderProducts(category);
         }
 
-        function openModal(productId) {
-            currentProduct = PRODUCTS.find(p => p.id === productId);
+        /* ==========================================
+           圖片放大檢視器 (Lightbox) 控制邏輯
+        ========================================== */
+        function openLightbox(uid, startIndex = 0) {
+            lbProduct = PRODUCTS.find(p => p._uid === uid);
+            if (!lbProduct) return;
+            lbIndex = startIndex;
+            updateLightboxView();
+            document.getElementById('lightboxModal').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightboxModal').classList.remove('active');
+        }
+
+        function changeLightboxImg(step) {
+            if (!lbProduct) return;
+            const validImgs = (lbProduct.images || []).filter(u => u.trim() !== '');
+            const total = validImgs.length || 1;
+            if (total <= 1) return;
+            lbIndex = (lbIndex + step + total) % total;
+            updateLightboxView();
+        }
+
+        function updateLightboxView() {
+            const validImgs = (lbProduct.images || []).filter(u => u.trim() !== '');
+            const imgList = validImgs.length > 0 ? validImgs : [''];
+            const total = imgList.length;
+            const currentSrc = imgList[lbIndex] || getPlaceholderSVG(lbProduct.id);
+
+            const mainImg = document.getElementById('lightboxImg');
+            mainImg.src = currentSrc;
+            mainImg.onerror = () => { mainImg.src = getPlaceholderSVG(`${lbProduct.id} (${lbIndex + 1}/${total})`); };
+
+            document.getElementById('lightboxCaption').innerHTML = 
+                `<strong>[${escapeHTML(lbProduct.id)}]</strong> ${escapeHTML(lbProduct.title)}`;
+            document.getElementById('lightboxCounter').textContent = `${lbIndex + 1} / ${total}`;
+
+            document.getElementById('lbPrevBtn').disabled = total <= 1;
+            document.getElementById('lbNextBtn').disabled = total <= 1;
+
+            const thumbsContainer = document.getElementById('lightboxThumbs');
+            thumbsContainer.innerHTML = '';
+            if (total > 1) {
+                imgList.forEach((src, idx) => {
+                    const thumb = document.createElement('img');
+                    thumb.className = 'lb-thumb' + (idx === lbIndex ? ' active' : '');
+                    thumb.src = src || getPlaceholderSVG(idx + 1);
+                    thumb.onerror = () => { thumb.src = getPlaceholderSVG(idx + 1); };
+                    thumb.onclick = () => {
+                        lbIndex = idx;
+                        updateLightboxView();
+                    };
+                    thumbsContainer.appendChild(thumb);
+                });
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            const lbActive = document.getElementById('lightboxModal').classList.contains('active');
+            if (lbActive) {
+                if (e.key === 'ArrowLeft') changeLightboxImg(-1);
+                if (e.key === 'ArrowRight') changeLightboxImg(1);
+                if (e.key === 'Escape') closeLightbox();
+            } else if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        /* ==========================================
+           結帳彈出視窗控制邏輯
+        ========================================== */
+        function openModal(uid) {
+            currentProduct = PRODUCTS.find(p => p._uid === uid);
             if (!currentProduct) return;
 
             document.getElementById('modalItemInfo').innerHTML = 
-                `選購作品：<strong>[${currentProduct.id}] ${currentProduct.title}</strong><br>應付金額：<strong>${currentProduct.price}</strong>`;
+                `選購作品：<strong>[${escapeHTML(currentProduct.id)}] ${escapeHTML(currentProduct.title)}</strong><br>應付金額：<strong>${escapeHTML(currentProduct.price)}</strong>`;
             
             switchQR('jkopay', document.querySelector('.pay-tab'));
             document.getElementById('checkoutModal').classList.add('active');
@@ -597,7 +1054,7 @@
         function switchQR(type, btn) {
             document.querySelectorAll('.pay-tab').forEach(el => el.classList.remove('active'));
             btn.classList.add('active');
-            document.getElementById('qrImage').src = QR_CODES[type].img;
+            document.getElementById('qrImage').src = formatDriveUrl(QR_CODES[type].img);
             document.getElementById('qrHint').textContent = QR_CODES[type].hint;
         }
 
@@ -614,6 +1071,7 @@
 `您好，我已完成掃碼付款，以下為訂購資訊：
 
 【訂購作品】[${currentProduct.id}] ${cleanTitle}
+【作品規格】${currentProduct.specs}
 【應付金額】${currentProduct.price}
 【對帳資訊】${note}
 
@@ -627,14 +1085,12 @@
             closeModal();
         }
 
-        // 回到頂部顯示控制
         const backToTopBtn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
             backToTopBtn.classList.toggle('visible', window.scrollY > 300);
         });
 
-        // 初始渲染
-        renderProducts();
+        initShop();
     </script>
 </body>
 </html>
