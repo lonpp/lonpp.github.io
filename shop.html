@@ -155,7 +155,7 @@
             border-color: var(--bg-color);
         }
 
-        /* 商品圖片框與放大提示標籤 */
+        /* 商品圖片框 (零遮擋) */
         .product-img-wrap {
             position: relative;
             width: 100%;
@@ -178,36 +178,49 @@
             transform: scale(1.03);
         }
 
-        .img-badge {
-            position: absolute;
-            bottom: 0.6rem;
-            right: 0.6rem;
-            background-color: rgba(0, 0, 0, 0.85);
-            color: var(--text-color);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            padding: 0.15rem 0.5rem;
-            font-size: 0.75rem;
-            letter-spacing: 0.5px;
-            pointer-events: none;
-            transition: all 0.2s ease;
-        }
-
-        .product-img-wrap:hover .img-badge {
-            background-color: var(--text-color);
-            color: var(--bg-color);
-            border-color: var(--bg-color);
-        }
-
         .product-meta {
             display: flex;
             flex-direction: column;
             gap: 0.4rem;
         }
 
+        /* 作品編號與右側張數放大鏡對齊列 */
+        .product-id-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         .product-id {
             font-size: 0.8rem;
             opacity: 0.65;
             letter-spacing: 1px;
+        }
+
+        .meta-zoom-info {
+            font-size: 0.8rem;
+            opacity: 0.65;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            cursor: zoom-in;
+            transition: opacity 0.2s ease;
+        }
+
+        .meta-zoom-info svg {
+            width: 12px;
+            height: 12px;
+            stroke: currentColor;
+            stroke-width: 1.5;
+            stroke-linecap: square;
+            fill: none;
+            display: block;
+        }
+
+        .product-img-wrap:hover + .product-meta .meta-zoom-info,
+        .meta-zoom-info:hover {
+            opacity: 1;
         }
 
         .product-title {
@@ -530,7 +543,7 @@
             bottom: 2rem;
             right: 2rem;
             z-index: 900;
-            background-color: var(--text-color);
+            background-color: rgba(255, 255, 255, 0.85);
             color: var(--bg-color);
             border: 1px solid var(--bg-color);
             padding: 0.5rem 0.8rem;
@@ -543,12 +556,11 @@
         }
 
         .back-to-top.visible {
-            opacity: 0.85;
+            opacity: 1;
             pointer-events: auto;
         }
 
         .back-to-top:hover {
-            opacity: 1;
             background-color: var(--bg-color);
             color: var(--text-color);
         }
@@ -780,6 +792,9 @@
         let lbProduct = null;
         let lbIndex = 0;
 
+        // 純幾何向量放大鏡圖示（跨平台不會變為彩色 Emoji）
+        const ZOOM_ICON_SVG = `<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="6.5" cy="6.5" r="4.8"></circle><line x1="10.2" y1="10.2" x2="14.8" y2="14.8"></line></svg>`;
+
         function formatDriveUrl(url) {
             if (!url) return "";
             const clean = String(url).trim();
@@ -968,8 +983,8 @@
                 const isSoldOut = item.stock <= 0;
                 const safeTitle = escapeHTML(item.title);
                 const validImgs = (item.images || []).filter(u => u.trim() !== '');
+                const totalCount = Math.max(1, validImgs.length);
                 const coverImg = validImgs[0] || getPlaceholderSVG(item.id);
-                const badgeText = validImgs.length > 1 ? `[ 1 / ${validImgs.length} PICS · 點擊放大 ]` : `[ + 點擊放大 ]`;
 
                 const card = document.createElement('div');
                 card.className = 'product-card';
@@ -977,10 +992,14 @@
                     <div>
                         <div class="product-img-wrap" onclick="openLightbox(${item._uid}, 0)" title="點擊放大檢視圖片">
                             <img src="${coverImg}" alt="${escapeHTML(item.id)}" onerror="this.src=&quot;${getPlaceholderSVG(item.id)}&quot;">
-                            <span class="img-badge">${badgeText}</span>
                         </div>
                         <div class="product-meta" style="margin-top: 1rem;">
-                            <span class="product-id">[${escapeHTML(item.id)}]</span>
+                            <div class="product-id-row">
+                                <span class="product-id">[${escapeHTML(item.id)}]</span>
+                                <span class="meta-zoom-info" onclick="openLightbox(${item._uid}, 0)" title="點擊放大檢視圖片">
+                                    <span>1 / ${totalCount}</span>${ZOOM_ICON_SVG}
+                                </span>
+                            </div>
                             <h2 class="product-title">${safeTitle}</h2>
                             <p class="product-specs">${escapeHTML(item.specs)}</p>
                         </div>
