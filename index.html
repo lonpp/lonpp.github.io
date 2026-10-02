@@ -39,7 +39,8 @@
             text-decoration: none;
             transition: all 0.2s ease;
         }
-
+        .desktop-br { display: inline; }
+        .desktop-br-hint { display: inline; } /* 電腦版預設顯示換行 */
         /* support banner */
         .support-banner {
             position: sticky;
@@ -68,7 +69,7 @@
         .link-group {
             display: flex;
             align-items: baseline;
-            gap: 1rem;
+            gap: 1.5rem;
             flex-wrap: wrap;
         }
 
@@ -77,19 +78,12 @@
             border-bottom: 2px solid var(--bg-color);
             width: fit-content;
             cursor: pointer;
+            font-size: 0.9rem;
         }
 
         .support-banner a:hover {
             background-color: var(--bg-color);
             color: var(--text-color);
-        }
-
-        /* payment methods */
-        .payment-methods {
-            font-size: 0.85rem;
-            font-weight: 300; 
-            opacity: 0.9;
-            letter-spacing: 1px;
         }
 
         /* container */
@@ -117,14 +111,11 @@
             line-height: 1;
         }
 
-        /* zh letter spacing */
         .name-zh {
             letter-spacing: 0.25em;
         }
 
-        /* -------------------------------------
-           social links
-        -------------------------------------- */
+        /* social links */
         .social-links {
             --wall: 240px; 
             --col-label-top: 90px;
@@ -160,26 +151,11 @@
             align-items: center;
         }
 
-        .link-label, .link-middle {
-            white-space: nowrap;
-        }
-        
-        .link-right {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            white-space: nowrap;
-        }
+        .link-label, .link-middle { white-space: nowrap; }
+        .link-right { display: flex; align-items: center; justify-content: flex-end; white-space: nowrap; }
+        .arrow { margin-left: 0.5rem; opacity: 0.7; font-family: sans-serif; }
 
-        .arrow {
-            margin-left: 0.5rem;
-            opacity: 0.7;
-            font-family: sans-serif;
-        }
-
-        /* -------------------------------------
-           statement & language toggle
-        -------------------------------------- */
+        /* statement & language toggle */
         .statement {
             font-size: 1rem;
             line-height: 2;
@@ -191,41 +167,21 @@
             font-weight: 300;
         }
 
-        .statement p {
-            margin-bottom: 1.5rem;
-            opacity: 0.9;
-        }
+        .statement p { margin-bottom: 1.5rem; opacity: 0.9; }
 
-        /* 語言切換選單樣式 */
         .lang-btn {
             opacity: 0.4;
             transition: opacity 0.2s ease;
             cursor: pointer;
         }
+        .lang-btn:hover, .lang-btn.active { opacity: 1; }
 
-        .lang-btn:hover, .lang-btn.active {
-            opacity: 1;
-        }
+        .lang-section, .greeting { display: none; }
+        .lang-section.active { display: block; }
+        .greeting.active { display: inline; }
 
-        /* 隱藏未啟用的語言區塊與問候語 */
-        .lang-section, .greeting {
-            display: none;
-        }
-
-        .lang-section.active {
-            display: block;
-        }
-        
-        .greeting.active {
-            display: inline;
-        }
-
-        /* -------------------------------------
-           portfolio
-        -------------------------------------- */
-        #portfolio {
-            scroll-margin-top: 160px; /* 電腦版緩衝高度 */
-        }
+        /* portfolio */
+        #portfolio { scroll-margin-top: 160px; }
 
         .section-title {
             font-size: 1.5rem;
@@ -252,22 +208,9 @@
             align-items: baseline;
         }
 
-        .year {
-            font-weight: 300;
-            font-size: 1.2rem;
-        }
-
-        .details h3 {
-            font-size: 1.2rem;
-            font-weight: 300;
-            margin-bottom: 0.5rem;
-        }
-
-        .details p {
-            font-size: 0.95rem;
-            opacity: 0.8;
-            font-weight: 300;
-        }
+        .year { font-weight: 300; font-size: 1.2rem; }
+        .details h3 { font-size: 1.2rem; font-weight: 300; margin-bottom: 0.5rem; }
+        .details p { font-size: 0.95rem; opacity: 0.8; font-weight: 300; }
 
         /* footer */
         footer {
@@ -281,220 +224,99 @@
         }
 
         /* -------------------------------------
-           support modal (掃碼贊助彈出視窗)
+           support modal (白底淺灰框 + CSS網格按鈕排版)
         -------------------------------------- */
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.85);
-            z-index: 2000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 1rem;
-            overflow-y: auto;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 2000; display: none; justify-content: center; align-items: center;
+            padding: 1rem; overflow-y: auto; color: var(--bg-color);
         }
 
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
 
         .modal-box {
-            background-color: var(--bg-color);
-            border: 1px solid var(--border-color);
-            max-width: 500px;
-            width: 100%;
-            padding: 2rem;
-            max-height: 90vh;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            background-color: var(--text-color); color: var(--bg-color);
+            border: 1px solid #cbcbcb; box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+            max-width: 500px; width: 100%; padding: 2rem; max-height: 90vh;
+            overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem;
         }
 
         .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.8rem;
+            display: flex; justify-content: space-between; align-items: baseline;
+            border-bottom: 1px solid #cbcbcb; padding-bottom: 0.8rem;
         }
 
         .close-btn {
-            background: none;
-            border: none;
-            color: var(--text-color);
-            font-family: inherit;
-            font-size: 1.2rem;
-            cursor: pointer;
+            background-color: var(--text-color); border: 1px solid #cbcbcb; color: var(--bg-color);
+            font-family: inherit; font-size: 0.85rem; padding: 0.2rem 0.55rem; cursor: pointer; transition: all 0.2s ease;
         }
+        .close-btn:hover { background-color: #cbcbcb; color: var(--text-color); }
 
+        /* 使用 Grid 讓按鈕在手機板自動整齊換行 */
         .pay-tabs {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
             gap: 0.5rem;
         }
 
         .pay-tab {
-            flex: 1;
-            padding: 0.5rem;
-            background: var(--bg-color);
-            color: var(--text-color);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            font-family: inherit;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            padding: 0.5rem 0.2rem;
+            background: var(--text-color); color: var(--bg-color);
+            border: 1px solid #cbcbcb; font-family: inherit; font-size: 0.85rem;
+            cursor: pointer; transition: all 0.2s ease; text-align: center; line-height: 1.3;
         }
-
-        .pay-tab.active {
-            background: var(--text-color);
-            color: var(--bg-color);
-            border-color: var(--border-color);
-            font-weight: bold;
-        }
+        .pay-tab:hover, .pay-tab.active { background: #cbcbcb; color: var(--bg-color); border-color: #cbcbcb; }
 
         .qr-display {
-            border: 1px dashed rgba(255, 255, 255, 0.4);
-            padding: 1.2rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.8rem;
+            border: 1px dashed #cbcbcb; background-color: #fafafa;
+            padding: 1.2rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
         }
 
         .qr-display img {
-            width: 180px;
-            height: 180px;
-            object-fit: contain;
-            background-color: #ffffff;
-            padding: 0.5rem;
+            width: 180px; height: 180px; object-fit: contain; background-color: #ffffff;
+            border: 1px solid #cbcbcb; padding: 0.5rem;
         }
 
-        .support-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-            font-size: 0.85rem;
-        }
-
+        .support-form { display: flex; flex-direction: column; gap: 1rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.85rem; }
         .form-group input, .form-group textarea {
-            background-color: var(--bg-color);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            color: var(--text-color);
-            padding: 0.6rem;
-            font-family: inherit;
-            font-size: 0.9rem;
-            resize: vertical;
+            background-color: var(--text-color); border: 1px solid #cbcbcb; color: var(--bg-color);
+            padding: 0.6rem; font-family: inherit; font-size: 0.9rem; resize: vertical;
         }
-
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--border-color);
-        }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #cbcbcb; background-color: #fafafa; }
 
         .submit-btn {
-            width: 100%;
-            padding: 0.7rem;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            font-family: inherit;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            width: 100%; padding: 0.7rem; background-color: var(--text-color); color: var(--bg-color);
+            border: 1px solid #cbcbcb; font-family: inherit; font-size: 0.95rem; cursor: pointer; transition: all 0.2s ease;
         }
+        .submit-btn:hover { background-color: #cbcbcb; color: var(--bg-color); border-color: #cbcbcb; }
 
-        .submit-btn:hover {
-            background-color: var(--text-color);
-            color: var(--bg-color);
-        }
-
-        /* -------------------------------------
-           back to top button
-        -------------------------------------- */
         .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 900;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            padding: 0.5rem 0.8rem;
-            font-family: inherit;
-            font-size: 0.85rem;
-            font-weight: 300;
-            letter-spacing: 1px;
-            cursor: pointer;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.2s ease;
+            position: fixed; bottom: 2rem; right: 2rem; z-index: 900;
+            background-color: var(--bg-color); color: var(--text-color); border: 1px solid var(--border-color);
+            padding: 0.5rem 0.8rem; font-family: inherit; font-size: 0.85rem; font-weight: 300; letter-spacing: 1px;
+            cursor: pointer; opacity: 0; pointer-events: none; transition: all 0.2s ease;
         }
+        .back-to-top.visible { opacity: 0.8; pointer-events: auto; }
+        .back-to-top:hover { opacity: 1; background-color: var(--text-color); color: var(--bg-color); }
 
-        .back-to-top.visible {
-            opacity: 0.8;
-            pointer-events: auto;
-        }
-
-        .back-to-top:hover {
-            opacity: 1;
-            background-color: var(--text-color);
-            color: var(--bg-color);
-        }
-
-        /* -------------------------------------
-           mobile media queries
-        -------------------------------------- */
         @media (max-width: 768px) {
             h1 { font-size: 3rem; }
-            
-            .social-links {
-                --wall: 240px; 
-                --col-label-top: 90px;
-                --col-middle: 80px;
-            }
-            
-            /* 手機版：因為橫幅變厚，增加跳轉緩衝區高度 */
-            #portfolio {
-                scroll-margin-top: 250px;
-            }
-
-            .portfolio-item {
-                grid-template-columns: 80px 1fr;
-                gap: 1rem;
-            }
-            .statement {
-                padding-left: 1rem;
-                border-left: 2px solid var(--border-color);
-            }
-            .support-banner { 
-                padding: 1.5rem; 
-            }
-            .link-group {
-                flex-direction: column;
-                gap: 0.2rem;
-            }
-            .social-links a {
-                padding: 0.8rem 0;
-            }
-            .modal-box {
-                padding: 1.5rem;
-            }
-            .back-to-top {
-                bottom: 1.5rem;
-                right: 1.5rem;
-                padding: 0.4rem 0.7rem;
-            }
+            .social-links { --wall: 240px; --col-label-top: 90px; --col-middle: 80px; }
+            #portfolio { scroll-margin-top: 250px; }
+            .portfolio-item { grid-template-columns: 80px 1fr; gap: 1rem; }
+            .statement { padding-left: 1rem; border-left: 2px solid var(--border-color); }
+            .support-banner { padding: 1.5rem; }
+            .link-group { flex-direction: column; gap: 0.6rem; }
+            .social-links a { padding: 0.8rem 0; }
+            .modal-box { padding: 1.5rem; }
+            .back-to-top { bottom: 1.5rem; right: 1.5rem; padding: 0.4rem 0.7rem; }
+            .desktop-br { display: none; }
+            .desktop-br-hint { display: none; } /* 手機版隱藏換行，讓文字連續顯示 */
         }
     </style>
 </head>
@@ -505,12 +327,8 @@
         <span class="banner-title">Fuel the Art & Code / 贊助一杯咖啡，支持數位創作與深夜除錯</span>
         
         <div class="link-group">
-            <a href="https://" target="_blank">信用卡 超商</a>
-            <a href="javascript:void(0)" onclick="openSupportModal()">行動支付 轉帳</a>
-            <a href="https://ko-fi.com/lonsthx" target="_blank">PayPal</a>
-        </div>
-
-        <div class="link-group">
+            <a href="javascript:void(0)" onclick="openSupportModal('local')">台灣本地贊助 ( 信用卡 / 行動支付 / 轉帳 )</a>
+            <a href="javascript:void(0)" onclick="openSupportModal('overseas')">海外贊助 Overseas ( PayPal / Alipay )</a>
         </div>
     </div>
 
@@ -523,29 +341,20 @@
                 <a href="shop.html" target="_blank" class="grid-link-top">
                     <span class="link-label">shop 商店<span class="arrow">&#x2197;&#xFE0E;</span></span>
                 </a>
-                
                 <a href="https://youtube.com/@arts.lonlon" target="_blank" class="grid-link-top">
-                    <span class="link-label">youtube</span>
-                    <span class="link-middle">( arts </span>
-                    <span class="link-right">創作 )<span class="arrow">&#x2197;&#xFE0E;</span></span>
+                    <span class="link-label">youtube</span><span class="link-middle">( arts </span><span class="link-right">創作 )<span class="arrow">&#x2197;&#xFE0E;</span></span>
                 </a>
-                
                 <a href="https://youtube.com/@lons.gaming" target="_blank" class="grid-link-top">
-                    <span class="link-label">youtube</span>
-                    <span class="link-middle">( games </span>
-                    <span class="link-right">遊戲 )<span class="arrow">&#x2197;&#xFE0E;</span></span>
+                    <span class="link-label">youtube</span><span class="link-middle">( games </span><span class="link-right">遊戲 )<span class="arrow">&#x2197;&#xFE0E;</span></span>
                 </a>
-                
                 <a href="https://instagram.com/arts.lonlon" target="_blank" class="grid-link-bottom">
                     <span class="link-label">instagram @arts.lonlon<span class="arrow">&#x2197;&#xFE0E;</span></span>
                 </a>
-                
                 <a href="https://instagram.com/lons_gaming" target="_blank" class="grid-link-bottom">
                     <span class="link-label">instagram @lons_gaming<span class="arrow">&#x2197;&#xFE0E;</span></span>
                 </a>
-                
                 <a href="mailto:arts.lonp@gmail.com" class="grid-link-bottom">
-                    <span class="link-label">email arts.lonp@gmail.com<span class="arrow">&#x2197;&#xFE0E;</span></span>
+                    <span class="link-label">contact arts.lonp@gmail.com<span class="arrow">&#x2197;&#xFE0E;</span></span>
                 </a>
             </div>
         </header>
@@ -553,7 +362,6 @@
         <!-- statement -->
         <section>
             <div class="statement">
-                <!-- 語言導覽列與問候語動態切換區 -->
                 <p style="margin-bottom: 2rem;">
                     <span id="greeting-zh" class="greeting active">歡迎來到我的主頁！ options<br></span>
                     <span id="greeting-en" class="greeting">Welcome to my creative space!<br></span>
@@ -602,43 +410,38 @@
             </div>
         </section>
 
-        <!-- portfolio (設定錨點供跳轉) -->
+        <!-- portfolio -->
         <section id="portfolio">
             <div class="section-title">Exhibitions & Portfolio</div>
             <ul class="portfolio-list">
-                
                 <li class="portfolio-item">
                     <div class="year">2026</div>
                     <div class="details">
-                        <h3>&lt;雙重演算&gt; (Planned)</h3>
-                        <p>Multi-media behavior and video art installation, Poznań Game Arena, Poznań, Poland</p>
+                        <h3>(Planned)</h3>
+                        <p>(Planned)</p>
                     </div>
                 </li>
-
                 <li class="portfolio-item">
                     <div class="year">2025</div>
                     <div class="details">
                         <h3>&lt;studies on incest&gt;</h3>
-                        <p>Group Exhibition in Toni-Areal of ZHdK, Zurich, Switzerland</p>
+                        <p>Group Exhibition / Toni-Areal of ZHdK (Zurich, Switzerland)</p>
                     </div>
                 </li>
-
                 <li class="portfolio-item">
                     <div class="year"></div>
                     <div class="details">
                         <h3>&lt;studies on synchronicity&gt;</h3>
-                        <p>Group Trans-disciplinary Performance in Galeri Lorong, Yogyakarta, Indonesia</p>
+                        <p>Group Trans-disciplinary Performance / Galeri Lorong (Yogyakarta, Indonesia)</p>
                     </div>
                 </li>
-
                 <li class="portfolio-item">
                     <div class="year">2024</div>
                     <div class="details">
                         <h3>&lt;finale: white 最終章：白色&gt;</h3>
-                        <p>Art Book / Exhibited at Art Book Fair of Venice Biennale (Venice, Italy), National Center of Photography and Images (Taipei, Taiwan), Taipei Art Book Fair, and Kraków, Poland</p>
+                        <p>Art Book / Exhibited at Art Book Fair of Venice Biennale (Venice, Italy), National Center of Photography and Images and Taipei Art Book Fair (Taipei, Taiwan)</p>
                     </div>
                 </li>
-
                 <li class="portfolio-item">
                     <div class="year"></div>
                     <div class="details">
@@ -646,35 +449,30 @@
                         <p>Video Art / Athens Digital Arts Festival (Athens, Greece) & Experimental Theater of NTU (Taipei, Taiwan)</p>
                     </div>
                 </li>
-
                 <li class="portfolio-item">
                     <div class="year">2023</div>
                     <div class="details">
                         <h3>&lt;seeping 滲人&gt;</h3>
-                        <p>Collaborative Performance & Theater / Umay Theater, Taipei, Taiwan</p>
+                        <p>Collaborative Performance & Theater / Umay Theater (Taipei, Taiwan)</p>
                     </div>
                 </li>
-
                 <li class="portfolio-item">
                     <div class="year"></div>
                     <div class="details">
                         <h3>《從波依斯藝術探討美學對社會的轉化》</h3>
-                        <p>Thesis / 發表於第七屆臺灣教育哲學年會暨國際學術研討會</p>
+                        <p>Thesis / "Exploring the Aesthetic Transformation of Society Through Joseph Beuys's Art" <br>發表於第七屆臺灣教育哲學年會暨國際學術研討會 Presented at the 7th Annual Conference of the Taiwan Philosophy of Education Society and International Academic Conference (Taipei, Taiwan)</p>
                     </div>
                 </li>
-
                 <li class="portfolio-item">
                     <div class="year">2022</div>
                     <div class="details">
                         <h3>&lt;carnival to alice, a story of reconstruction 愛麗絲的新生&gt;</h3>
-                        <p>Video and Performance / Experimental Theater of NTU, Taipei, Taiwan</p>
+                        <p>Video and Performance / Experimental Theater of NTU (Taipei, Taiwan)</p>
                     </div>
                 </li>
-
             </ul>
         </section>
 
-        <!-- footer -->
         <footer>
             &copy; 2026 pei, lon. All Rights Reserved.
         </footer>
@@ -684,21 +482,36 @@
     <div id="supportModal" class="modal-overlay" onclick="if(event.target === this) closeSupportModal()">
         <div class="modal-box">
             <div class="modal-header">
-                <span>SUPPORT // 掃碼贊助與留言</span>
+                <span id="modalHeaderTitle">SUPPORT // 贊助與留言</span>
                 <button class="close-btn" onclick="closeSupportModal()">✕</button>
             </div>
 
-            <!-- 步驟 1：選擇掃碼支付 -->
+            <!-- 步驟 1：選擇支付方式 -->
             <div>
-                <p style="font-size: 0.85rem; margin-bottom: 0.5rem;">STEP 1. 選擇支付方式並掃碼贊助：</p>
-                <div class="pay-tabs">
-                    <button type="button" class="pay-tab active" onclick="switchSupportQR('jkopay', this)">街口支付</button>
-                    <button type="button" class="pay-tab" onclick="switchSupportQR('linepay', this)">LinePay</button>
-                    <button type="button" class="pay-tab" onclick="switchSupportQR('alipay', this)">Alipay</button>
+                <p style="font-size: 0.85rem; margin-bottom: 0.5rem;">STEP 1. 選擇支付方式並完成贊助：</p>
+                <div class="pay-tabs" id="supportTabs">
+                    <!-- 台灣本地選項 -->
+                    <button type="button" class="pay-tab tab-local" onclick="switchSupportQR('jkopay', this)">TWQR<br>街口等</button>
+                    <button type="button" class="pay-tab tab-local" onclick="switchSupportQR('linepay', this)">LinePay</button>
+                    <button type="button" class="pay-tab tab-local" onclick="switchSupportQR('transfer', this)">轉帳</button>
+                    <button type="button" class="pay-tab tab-local" onclick="switchSupportQR('newebpay', this)">信用卡 超商<br>ApplePay</button>
+                    
+                    <!-- 海外選項 -->
+                    <button type="button" class="pay-tab tab-overseas" onclick="switchSupportQR('newebpay_os', this)">CreditCard<br>ApplePay</button>
+                    <button type="button" class="pay-tab tab-overseas" onclick="switchSupportQR('paypal', this)">PayPal<br>Ko-fi</button>
+                    <button type="button" class="pay-tab tab-overseas" onclick="switchSupportQR('alipay', this)">支付宝<br>Alipay</button>
                 </div>
+
                 <div class="qr-display" style="margin-top: 0.5rem;">
+                    <!-- 掃碼用的圖片 (預設顯示) -->
                     <img id="supportQrImage" src="" alt="QR Code" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'180\\' height=\\'180\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%23fff\\'/><text x=\\'50%\\' y=\\'50%\\' fill=\\'%23000\\' font-family=\\'monospace\\' font-size=\\'14\\' text-anchor=\\'middle\\'>QR CODE</text></svg>'">
-                    <span id="supportQrHint" style="font-size: 0.8rem; opacity: 0.75;"></span>
+                    
+                    <!-- 連結專用的點擊跳轉按鈕 (預設隱藏) -->
+                    <div id="linkWrap" style="display:none; padding: 2rem 0; width: 100%;">
+                        <a id="linkBtn" href="#" target="_blank" class="submit-btn" style="display:block; text-align:center; text-decoration:none;">[ Go to Secure Checkout ↗ ]<br>前往安全支付頁面</a>
+                    </div>
+
+                    <span id="supportQrHint" style="font-size: 0.8rem; opacity: 0.75; line-height: 1.8;"></span>
                 </div>
             </div>
 
@@ -729,24 +542,40 @@
     </div>
 
     <!-- 回到頂部按鈕 -->
-    <button id="backToTop" class="back-to-top" onclick="scrollToTop()" aria-label="Back to top">
-        ↑ top
-    </button>
+    <button id="backToTop" class="back-to-top" onclick="scrollToTop()" aria-label="Back to top">↑ top</button>
 
     <!-- 互動邏輯腳本 -->
     <script>
-        // 收款 QR Code 圖片路徑設定 (與 shop.html 共用相同圖片路徑)
+        // 收款 QR Code 圖片路徑與連結設定 (整合通用連結按鈕邏輯)
         const SUPPORT_QR_CODES = {
-            jkopay:  { img: "images/qr-jkopay.jpg",  hint: "請使用 街口支付 掃描上方條碼，隨喜輸入贊助金額。" },
-            linepay: { img: "images/qr-linepay.jpg", hint: "請使用 LinePay 掃描上方條碼，隨喜輸入贊助金額。" },
-            alipay:  { img: "images/qr-alipay.jpg",  hint: "請使用 支付寶 (Alipay) 掃描上方條碼完成贊助。" }
+            jkopay:  { type: "qr", img: "images/qr-jkopay.jpg",  hint: "請使用 街口、全支付、悠遊付、台灣Pay、台新Pay、玉山Wallet 等支援 TWQR 之 APP 掃描上方條碼，<span class='desktop-br-hint'><br></span>隨喜輸入贊助金額。" },
+            linepay: { type: "qr", img: "images/qr-linepay.jpg", hint: "請使用 LinePay 掃描上方條碼，隨喜輸入贊助金額。" },
+            alipay:  { type: "qr", img: "images/qr-alipay.jpg",  hint: "请使用 支付宝 扫描上方二维码完成赞助。<br><br>Please scan the QR code above with Alipay to complete your payment." },
+            transfer: { type: "qr", img: "images/qr-transfer.jpg", hint: "國泰世華 (013) 帳號：更新中" },
+            newebpay: { type: "link", url: "請在這裡貼上你的藍新收款網址", btnText: "[ 前往藍新安全支付頁面 ↗ ]", hint: "點擊上方按鈕前往藍新金流安全支付頁面，支援台灣信用卡、超商代碼與 Apple Pay。" },
+            newebpay_os: { type: "link", url: "請在這裡貼上你的藍新收款網址", btnText: "[ Go to NewebPay Secure Checkout ↗ ]", hint: "點擊上方按鈕前往藍新金流安全支付頁面，支援跨國信用卡與 Apple Pay。<br><br>Click the button above to pay securely via NewebPay, supporting international Credit Cards and Apple Pay." },
+            paypal: { type: "link", url: "https://ko-fi.com/lonsthx", btnText: "[ Go to Ko-fi / PayPal Checkout ↗ ]", hint: "點擊上方按鈕前往 Ko-fi 頁面，支援 PayPal 與跨國信用卡。<br><br>Click the button above to go to the Ko-fi page, supporting PayPal and international Credit Cards." }
         };
 
-        let currentPayMethod = '街口支付';
+        let currentPayMethod = 'TWQR 街口等';
 
-        function openSupportModal() {
-            const firstTab = document.querySelector('#supportModal .pay-tab');
-            switchSupportQR('jkopay', firstTab);
+        function openSupportModal(region) {
+            // 根據傳入的 region ('local' 或 'overseas') 來顯示/隱藏對應的按鈕
+            const localTabs = document.querySelectorAll('.tab-local');
+            const overseasTabs = document.querySelectorAll('.tab-overseas');
+            
+            if (region === 'local') {
+                document.getElementById('modalHeaderTitle').textContent = "LOCAL SUPPORT // 台灣本地贊助";
+                localTabs.forEach(el => el.style.display = 'block');
+                overseasTabs.forEach(el => el.style.display = 'none');
+                switchSupportQR('jkopay', localTabs[0]); // 預設點擊第一個選項
+            } else {
+                document.getElementById('modalHeaderTitle').textContent = "OVERSEAS SUPPORT // 海外贊助";
+                localTabs.forEach(el => el.style.display = 'none');
+                overseasTabs.forEach(el => el.style.display = 'block');
+                switchSupportQR('newebpay_os', overseasTabs[0]); // 海外預設點選藍新海外刷卡
+            }
+
             document.getElementById('supportModal').classList.add('active');
         }
 
@@ -756,10 +585,29 @@
 
         function switchSupportQR(type, btn) {
             document.querySelectorAll('#supportModal .pay-tab').forEach(el => el.classList.remove('active'));
-            btn.classList.add('active');
-            currentPayMethod = btn.textContent;
-            document.getElementById('supportQrImage').src = SUPPORT_QR_CODES[type].img;
-            document.getElementById('supportQrHint').textContent = SUPPORT_QR_CODES[type].hint;
+            if(btn) btn.classList.add('active');
+            
+            // 過濾掉 <br> 標籤供 Email 信件內容使用
+            currentPayMethod = btn ? btn.innerHTML.replace(/<br>/g, ' ') : type; 
+            
+            const data = SUPPORT_QR_CODES[type];
+            const imgEl = document.getElementById('supportQrImage');
+            const linkWrap = document.getElementById('linkWrap');
+            const linkBtn = document.getElementById('linkBtn');
+            
+            // 邏輯切換：如果是 link 類型就顯示按鈕並套用網址，反之顯示圖片
+            if (data.type === 'link') {
+                imgEl.style.display = 'none';
+                linkWrap.style.display = 'block';
+                linkBtn.href = data.url;
+                linkBtn.innerHTML = data.btnText;
+            } else {
+                imgEl.style.display = 'block';
+                linkWrap.style.display = 'none';
+                imgEl.src = data.img;
+            }
+            
+            document.getElementById('supportQrHint').innerHTML = data.hint;
         }
 
         function submitSupportMessage(e) {
@@ -770,7 +618,7 @@
 
             const subject = encodeURIComponent(`[贊助與留言] 來自 ${name} 的支持`);
             const body = encodeURIComponent(
-`冷冷你好，我已透過「${currentPayMethod}」完成掃碼贊助！
+`冷冷你好，我已透過「${currentPayMethod}」完成贊助！
 
 【支持者暱稱】${name}
 【聯絡信箱】${email}
@@ -783,34 +631,20 @@ ${message}
             closeSupportModal();
         }
 
-        // 語言切換
         function setLang(lang) {
             document.querySelectorAll('.lang-section, .greeting').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.lang-btn[data-lang]').forEach(el => el.classList.remove('active'));
-            
             document.getElementById('content-' + lang).classList.add('active');
             document.getElementById('greeting-' + lang).classList.add('active');
-            
             document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
         }
 
-        // 回到頂部按鈕顯示與捲動控制
         const backToTopBtn = document.getElementById('backToTop');
-
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopBtn.classList.add('visible');
-            } else {
-                backToTopBtn.classList.remove('visible');
-            }
+            if (window.scrollY > 300) backToTopBtn.classList.add('visible');
+            else backToTopBtn.classList.remove('visible');
         });
-
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
     </script>
 </body>
 </html>

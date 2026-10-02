@@ -6,734 +6,170 @@
     <title>shop 商店 | lonlon 冷冷</title>
     <style>
         /* reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg-color: #000000;
-            --text-color: #ffffff;
-            --gray-color: #cbcbcb; /* 全站統一淺灰色（用於所有框線與按鈕反白） */
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --bg-color: #000000; --text-color: #ffffff; --gray-color: #cbcbcb; }
+        html { scroll-behavior: smooth; }
         body {
-            background-color: var(--text-color);
-            color: var(--bg-color);
+            background-color: var(--text-color); color: var(--bg-color);
             font-family: 'Courier New', Courier, 'PingFang TC', 'SF Pro TC', 'Microsoft JhengHei Light', 'Microsoft JhengHei', sans-serif;
-            font-weight: 300;
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
         }
+        a { color: var(--text-color); text-decoration: none; transition: all 0.2s ease; }
 
-        a {
-            color: var(--text-color);
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        /* -------------------------------------
-           頂部返回導覽列
-        -------------------------------------- */
+        /* nav */
         .top-nav {
-            position: sticky;
-            top: 0;
-            z-index: 900;
-            width: 100%;
-            padding: 1.2rem 2rem;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.95rem;
+            position: sticky; top: 0; z-index: 900; width: 100%; padding: 1.2rem 2rem;
+            background-color: var(--bg-color); color: var(--text-color); display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem;
         }
+        .top-nav a:hover { background-color: var(--gray-color); color: var(--bg-color); padding: 0.2rem 0.5rem; }
 
-        .top-nav a:hover {
-            background-color: var(--gray-color);
-            color: var(--bg-color);
-            padding: 0.2rem 0.5rem;
-        }
+        /* main section */
+        .shop-light-section { background-color: var(--text-color); color: var(--bg-color); width: 100%; min-height: calc(100vh - 60px); padding-bottom: 5vh; }
+        .light-container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; display: flex; flex-direction: column; gap: 3rem; }
+        header h1 { font-size: 2.5rem; font-weight: normal; letter-spacing: 2px; margin-bottom: 1rem; color: var(--bg-color); }
 
-        /* -------------------------------------
-           導覽列以下全區：白底黑字配統一淺灰框線
-        -------------------------------------- */
-        .shop-light-section {
-            background-color: var(--text-color);
-            color: var(--bg-color);
-            width: 100%;
-            min-height: calc(100vh - 60px);
-            padding-bottom: 5vh;
-        }
+        .shop-notice { font-size: 0.95rem; color: var(--bg-color); opacity: 0.85; border-left: 2px solid var(--gray-color); padding-left: 1rem; white-space: nowrap; }
+        .desktop-br { display: inline; }
+        .lang-switch-wrap { white-space: nowrap; }
+        .lang-btn { color: var(--bg-color); opacity: 0.4; cursor: pointer; transition: opacity 0.2s ease; }
+        .lang-btn:hover, .lang-btn.active { opacity: 1; }
 
-        .light-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 3rem;
-        }
+        /* filters */
+        .filter-bar { display: flex; gap: 1.5rem; border-bottom: 1px solid var(--gray-color); padding-bottom: 0.8rem; }
+        .filter-btn { background: none; border: none; color: var(--bg-color); font-family: inherit; font-size: 1rem; font-weight: 300; opacity: 0.4; cursor: pointer; transition: opacity 0.2s ease; text-align: left; }
+        .filter-btn:hover, .filter-btn.active { opacity: 1; }
 
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: normal;
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
-            color: var(--bg-color);
-        }
+        /* grid */
+        .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 3rem 2rem; }
+        .loading-text { font-size: 0.9rem; color: var(--bg-color); opacity: 0.6; letter-spacing: 1px; grid-column: 1 / -1; }
+        .product-card { background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color); padding: 1.2rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1.2rem; transition: border-color 0.2s ease; }
+        .product-card:hover { border-color: var(--gray-color); }
 
-        /* 購買流程：電腦版固定兩行，手機版連續不換行 */
-        .shop-notice {
-            font-size: 0.95rem;
-            color: var(--bg-color);
-            opacity: 0.85;
-            border-left: 2px solid var(--gray-color);
-            padding-left: 1rem;
-            white-space: nowrap;
-        }
+        /* img */
+        .product-img-wrap { position: relative; width: 100%; aspect-ratio: 4 / 3; background-color: #f2f2f2; overflow: hidden; border-bottom: 1px solid var(--gray-color); cursor: zoom-in; }
+        .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
+        .product-img-wrap:hover img { transform: scale(1.03); }
 
-        .desktop-br {
-            display: inline;
-        }
+        .product-meta { display: flex; flex-direction: column; gap: 0.4rem; }
+        .product-id-row { display: flex; justify-content: space-between; align-items: center; }
+        .product-id { font-size: 0.8rem; opacity: 0.65; letter-spacing: 1px; }
+        .meta-zoom-info { font-size: 0.8rem; opacity: 0.65; letter-spacing: 0.5px; display: inline-flex; align-items: center; gap: 0.35rem; cursor: zoom-in; transition: opacity 0.2s ease; }
+        .meta-zoom-info svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 1.5; stroke-linecap: square; fill: none; display: block; }
+        .product-img-wrap:hover + .product-meta .meta-zoom-info, .meta-zoom-info:hover { opacity: 1; }
 
-        /* 中英文切換按鈕樣式 */
-        .lang-switch-wrap {
-            white-space: nowrap;
-        }
+        .product-title { font-size: 1.15rem; font-weight: normal; }
+        .product-specs { font-size: 0.85rem; opacity: 0.8; }
+        .product-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 0.8rem; border-top: 1px dashed var(--gray-color); }
+        .product-price { font-size: 1.05rem; }
+        .product-stock { font-size: 0.8rem; opacity: 0.75; }
 
-        .lang-btn {
-            color: var(--bg-color);
-            opacity: 0.4;
-            cursor: pointer;
-            transition: opacity 0.2s ease;
-        }
+        .buy-btn { width: 100%; padding: 0.7rem; background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color); font-family: inherit; font-size: 0.95rem; cursor: pointer; transition: all 0.2s ease; }
+        .buy-btn:hover:not(:disabled) { background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
+        .buy-btn:disabled { opacity: 0.4; border-color: var(--gray-color); cursor: not-allowed; }
 
-        .lang-btn:hover, .lang-btn.active {
-            opacity: 1;
-        }
-
-        /* 分類篩選按鈕 (選取後不加粗，僅調整透明度) */
-        .filter-bar {
-            display: flex;
-            gap: 1.5rem;
-            border-bottom: 1px solid var(--gray-color);
-            padding-bottom: 0.8rem;
-        }
-
-        .filter-btn {
-            background: none;
-            border: none;
-            color: var(--bg-color);
-            font-family: inherit;
-            font-size: 1rem;
-            font-weight: 300;
-            opacity: 0.4;
-            cursor: pointer;
-            transition: opacity 0.2s ease;
-            text-align: left;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            opacity: 1;
-        }
-
-        /* 商品網格系統 (白底淺灰框配置) */
-        .shop-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 3rem 2rem;
-        }
-
-        .loading-text {
-            font-size: 0.9rem;
-            color: var(--bg-color);
-            opacity: 0.6;
-            letter-spacing: 1px;
-            grid-column: 1 / -1;
-        }
-
-        .product-card {
-            background-color: var(--text-color);
-            color: var(--bg-color);
-            border: 1px solid var(--gray-color);
-            padding: 1.2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            gap: 1.2rem;
-            transition: border-color 0.2s ease;
-        }
-
-        .product-card:hover {
-            border-color: var(--gray-color);
-        }
-
-        /* 商品圖片框 */
-        .product-img-wrap {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 4 / 3;
-            background-color: #f2f2f2;
-            overflow: hidden;
-            border-bottom: 1px solid var(--gray-color);
-            cursor: zoom-in;
-        }
-
-        .product-img-wrap img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-
-        .product-img-wrap:hover img {
-            transform: scale(1.03);
-        }
-
-        .product-meta {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-
-        /* 作品編號與右側張數放大鏡對齊列 */
-        .product-id-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .product-id {
-            font-size: 0.8rem;
-            opacity: 0.65;
-            letter-spacing: 1px;
-        }
-
-        .meta-zoom-info {
-            font-size: 0.8rem;
-            opacity: 0.65;
-            letter-spacing: 0.5px;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            cursor: zoom-in;
-            transition: opacity 0.2s ease;
-        }
-
-        .meta-zoom-info svg {
-            width: 12px;
-            height: 12px;
-            stroke: currentColor;
-            stroke-width: 1.5;
-            stroke-linecap: square;
-            fill: none;
-            display: block;
-        }
-
-        .product-img-wrap:hover + .product-meta .meta-zoom-info,
-        .meta-zoom-info:hover {
-            opacity: 1;
-        }
-
-        .product-title {
-            font-size: 1.15rem;
-            font-weight: normal;
-        }
-
-        .product-specs {
-            font-size: 0.85rem;
-            opacity: 0.8;
-        }
-
-        .product-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 0.8rem;
-            border-top: 1px dashed var(--gray-color);
-        }
-
-        .product-price {
-            font-size: 1.05rem;
-        }
-
-        .product-stock {
-            font-size: 0.8rem;
-            opacity: 0.75;
-        }
-
-        /* 購買按鈕：白底、淺灰框、反白時淺灰底 */
-        .buy-btn {
-            width: 100%;
-            padding: 0.7rem;
-            background-color: var(--text-color);
-            color: var(--bg-color);
-            border: 1px solid var(--gray-color);
-            font-family: inherit;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .buy-btn:hover:not(:disabled) {
-            background-color: var(--gray-color);
-            color: var(--bg-color);
-            border-color: var(--gray-color);
-        }
-
-        .buy-btn:disabled {
-            opacity: 0.4;
-            border-color: var(--gray-color);
-            cursor: not-allowed;
-        }
+        /* lightbox */
+        .lightbox-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: var(--bg-color); z-index: 2500; display: none; flex-direction: column; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; }
+        .lightbox-overlay.active { display: flex; }
+        .lightbox-top { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-bottom: 1px solid var(--gray-color); padding-bottom: 0.8rem; font-size: 0.9rem; color: var(--bg-color); z-index: 2; }
+        .lightbox-top-actions { display: flex; align-items: center; gap: 0.8rem; flex-shrink: 0; }
+        .lb-zoom-btn { background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color); padding: 0.25rem 0.65rem; font-family: inherit; font-size: 0.8rem; cursor: pointer; transition: all 0.2s ease; }
+        .lb-zoom-btn:hover, .lb-zoom-btn.active { background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
+        .lightbox-stage { flex: 1; width: 100%; display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden; padding: 1rem 0; user-select: none; -webkit-user-select: none; }
+        .lightbox-stage img { max-width: 90vw; max-height: 72vh; object-fit: contain; border: 1px solid var(--gray-color); background-color: var(--gray-color); cursor: zoom-in; transform-origin: center center; transition: transform 0.2s ease-out; touch-action: none; }
+        .lightbox-stage.is-zoomed img { cursor: grab; }
+        .lightbox-stage.is-dragging img { cursor: grabbing; transition: none; }
+        .lightbox-bottom { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; gap: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--gray-color); z-index: 2; }
+        .lightbox-controls { display: flex; align-items: center; gap: 1.5rem; color: var(--bg-color); }
+        .lb-nav-btn { background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color); padding: 0.4rem 1rem; font-family: inherit; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease; }
+        .lb-nav-btn:hover:not(:disabled) { background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
+        .lb-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+        .lightbox-thumbs { display: flex; gap: 0.5rem; overflow-x: auto; max-width: 100%; padding-bottom: 0.2rem; }
+        .lb-thumb { width: 48px; height: 36px; object-fit: cover; border: 1px solid var(--gray-color); background-color: var(--gray-color); opacity: 0.45; cursor: pointer; transition: all 0.2s ease; }
+        .lb-thumb.active, .lb-thumb:hover { opacity: 1; border-color: var(--gray-color); }
 
         /* -------------------------------------
-           圖片放大檢視器 (Lightbox Modal)
+           結帳彈出視窗 (Checkout Modal)
         -------------------------------------- */
-        .lightbox-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            color: var(--bg-color);
-            z-index: 2500;
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 2rem;
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: var(--bg-color); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 1rem; overflow-y: auto; }
+        .modal-overlay.active { display: flex; }
+        .modal-box { background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color); box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08); max-width: 500px; width: 100%; padding: 2rem; max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem; }
+        .modal-header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--gray-color); padding-bottom: 0.8rem; }
+        .close-btn { background-color: var(--text-color); border: 1px solid var(--gray-color); color: var(--bg-color); font-family: inherit; font-size: 0.85rem; padding: 0.2rem 0.55rem; cursor: pointer; transition: all 0.2s ease; }
+        .close-btn:hover { background-color: var(--gray-color); color: var(--bg-color); }
 
-        .lightbox-overlay.active {
-            display: flex;
-        }
-
-        .lightbox-top {
-            width: 100%;
-            max-width: 1200px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            border-bottom: 1px solid var(--gray-color);
-            padding-bottom: 0.8rem;
-            font-size: 0.9rem;
-            color: var(--bg-color);
-            z-index: 2;
-        }
-
-        .lightbox-top-actions {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            flex-shrink: 0;
-        }
-
-        /* 局部放大按鈕：白底、淺灰框、反白時淺灰底 */
-        .lb-zoom-btn {
-            background-color: var(--text-color);
-            color: var(--bg-color);
-            border: 1px solid var(--gray-color);
-            padding: 0.25rem 0.65rem;
-            font-family: inherit;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .lb-zoom-btn:hover, .lb-zoom-btn.active {
-            background-color: var(--gray-color);
-            color: var(--bg-color);
-            border-color: var(--gray-color);
-        }
-
-        .lightbox-stage {
-            flex: 1;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            padding: 1rem 0;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-
-        .lightbox-stage img {
-            max-width: 90vw;
-            max-height: 72vh;
-            object-fit: contain;
-            border: 1px solid var(--gray-color);
-            background-color: var(--gray-color);
-            cursor: zoom-in;
-            transform-origin: center center;
-            transition: transform 0.2s ease-out;
-            touch-action: none;
-        }
-
-        .lightbox-stage.is-zoomed img {
-            cursor: grab;
-        }
-
-        .lightbox-stage.is-dragging img {
-            cursor: grabbing;
-            transition: none;
-        }
-
-        .lightbox-bottom {
-            width: 100%;
-            max-width: 1200px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.8rem;
-            padding-top: 0.8rem;
-            border-top: 1px solid var(--gray-color);
-            z-index: 2;
-        }
-
-        .lightbox-controls {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            color: var(--bg-color);
-        }
-
-        /* 相簿切換按鈕 (PREV / NEXT)：白底、淺灰框、反白時淺灰底 */
-        .lb-nav-btn {
-            background-color: var(--text-color);
-            color: var(--bg-color);
-            border: 1px solid var(--gray-color);
-            padding: 0.4rem 1rem;
-            font-family: inherit;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .lb-nav-btn:hover:not(:disabled) {
-            background-color: var(--gray-color);
-            color: var(--bg-color);
-            border-color: var(--gray-color);
-        }
-
-        .lb-nav-btn:disabled {
-            opacity: 0.35;
-            cursor: not-allowed;
-        }
-
-        .lightbox-thumbs {
-            display: flex;
-            gap: 0.5rem;
-            overflow-x: auto;
-            max-width: 100%;
-            padding-bottom: 0.2rem;
-        }
-
-        .lb-thumb {
-            width: 48px;
-            height: 36px;
-            object-fit: cover;
-            border: 1px solid var(--gray-color);
-            background-color: var(--gray-color);
-            opacity: 0.45;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .lb-thumb.active, .lb-thumb:hover {
-            opacity: 1;
-            border-color: var(--gray-color);
-        }
-
-        /* -------------------------------------
-           結帳彈出視窗 (Checkout Modal - 白底淺灰框)
-        -------------------------------------- */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            color: var(--bg-color);
-            z-index: 2000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 1rem;
-            overflow-y: auto;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal-box {
-            background-color: var(--text-color);
-            color: var(--bg-color);
-            border: 1px solid var(--gray-color);
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
-            max-width: 500px;
-            width: 100%;
-            padding: 2rem;
-            max-height: 90vh;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            border-bottom: 1px solid var(--gray-color);
-            padding-bottom: 0.8rem;
-        }
-
-        /* 關閉按鈕：白底、淺灰框、反白時淺灰底 */
-        .close-btn {
-            background-color: var(--text-color);
-            border: 1px solid var(--gray-color);
-            color: var(--bg-color);
-            font-family: inherit;
-            font-size: 0.85rem;
-            padding: 0.2rem 0.55rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .close-btn:hover {
-            background-color: var(--gray-color);
-            color: var(--bg-color);
-        }
-
-        /* 支付切換頁籤：白底、淺灰框，選中與懸停時淺灰底 */
-        .pay-tabs {
-            display: flex;
-            gap: 0.5rem;
-        }
-
+        /* 使用 Flex Wrap 讓按鈕在手機板自動整齊換行 */
+        .pay-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; }
         .pay-tab {
-            flex: 1;
-            padding: 0.5rem;
-            background: var(--text-color);
-            color: var(--bg-color);
-            border: 1px solid var(--gray-color);
-            font-family: inherit;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            flex: 1 1 25%; min-width: 80px; padding: 0.5rem 0.2rem;
+            background: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color);
+            font-family: inherit; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease;
+            text-align: center; line-height: 1.3;
         }
+        .pay-tab:hover, .pay-tab.active { background: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
 
-        .pay-tab:hover, .pay-tab.active {
-            background: var(--gray-color);
-            color: var(--bg-color);
-            border-color: var(--gray-color);
-        }
+        .qr-display { border: 1px dashed var(--gray-color); background-color: #fafafa; padding: 1.2rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.8rem; }
+        .qr-display img { width: 180px; height: 180px; object-fit: contain; background-color: #fff; border: 1px solid var(--gray-color); padding: 0.5rem; }
+        
+        .order-form { display: flex; flex-direction: column; gap: 1rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.85rem; }
+        .form-group input, .form-group textarea { background-color: var(--text-color); border: 1px solid var(--gray-color); color: var(--bg-color); padding: 0.6rem; font-family: inherit; font-size: 0.9rem; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--gray-color); background-color: #fafafa; }
+        .modal-submit-btn { width: 100%; padding: 0.7rem; background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color); font-family: inherit; font-size: 0.95rem; cursor: pointer; transition: all 0.2s ease; }
+        .modal-submit-btn:hover { background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
 
-        .qr-display {
-            border: 1px dashed var(--gray-color);
-            background-color: #fafafa;
-            padding: 1.2rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.8rem;
-        }
+        footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--gray-color); color: var(--bg-color); font-size: 0.85rem; opacity: 0.6; }
+        .back-to-top { position: fixed; bottom: 2rem; right: 2rem; z-index: 900; background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color); padding: 0.5rem 0.8rem; font-family: inherit; font-size: 0.85rem; cursor: pointer; opacity: 0; pointer-events: none; transition: all 0.2s ease; }
+        .back-to-top.visible { opacity: 1; pointer-events: auto; }
+        .back-to-top:hover { background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
 
-        .qr-display img {
-            width: 180px;
-            height: 180px;
-            object-fit: contain;
-            background-color: #fff;
-            border: 1px solid var(--gray-color);
-            padding: 0.5rem;
-        }
-
-        /* 訂單表單 (白底淺灰框輸入欄) */
-        .order-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-            font-size: 0.85rem;
-        }
-
-        .form-group input, .form-group textarea {
-            background-color: var(--text-color);
-            border: 1px solid var(--gray-color);
-            color: var(--bg-color);
-            padding: 0.6rem;
-            font-family: inherit;
-            font-size: 0.9rem;
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--gray-color);
-            background-color: #fafafa;
-        }
-
-        /* 送出訂單按鈕：白底、淺灰框、反白時淺灰底 */
-        .modal-submit-btn {
-            width: 100%;
-            padding: 0.7rem;
-            background-color: var(--text-color);
-            color: var(--bg-color);
-            border: 1px solid var(--gray-color);
-            font-family: inherit;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .modal-submit-btn:hover {
-            background-color: var(--gray-color);
-            color: var(--bg-color);
-            border-color: var(--gray-color);
-        }
-
-        /* footer & back-to-top */
-        footer {
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--gray-color);
-            color: var(--bg-color);
-            font-size: 0.85rem;
-            opacity: 0.6;
-        }
-
-        .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 900;
-            background-color: var(--text-color);
-            color: var(--bg-color);
-            border: 1px solid var(--gray-color);
-            padding: 0.5rem 0.8rem;
-            font-family: inherit;
-            font-size: 0.85rem;
-            cursor: pointer;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.2s ease;
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .back-to-top:hover {
-            background-color: var(--gray-color);
-            color: var(--bg-color);
-            border-color: var(--gray-color);
-        }
-
-        /* -------------------------------------
-           手機版專用設定
-        -------------------------------------- */
         @media (max-width: 768px) {
             .light-container { padding: 2.5rem 1.5rem 3rem 1.5rem; }
             .modal-box { padding: 1.5rem; }
             .lightbox-overlay { padding: 1rem; }
-            
-            /* 手機版隱藏右側品牌副標 */
-            .nav-brand {
-                display: none;
-            }
-
-            header h1 {
-                font-size: 2rem;
-            }
-
-            /* 手機版購買流程：取消中間強制斷行，讓整段文字連續接續 */
-            .shop-notice {
-                white-space: normal;
-            }
-
-            .desktop-br {
-                display: none;
-            }
-
-            /* 手機版篩選按鈕：中文完整換至英文下一行 */
-            .filter-bar {
-                gap: 2rem;
-            }
-
-            .filter-zh {
-                display: block;
-                margin-top: 0.15rem;
-                white-space: nowrap;
-            }
+            .nav-brand { display: none; }
+            header h1 { font-size: 2rem; }
+            .shop-notice { white-space: normal; }
+            .desktop-br { display: none; }
+            .filter-bar { gap: 2rem; }
+            .filter-zh { display: block; margin-top: 0.15rem; white-space: nowrap; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 頂部返回主頁導覽 -->
     <nav class="top-nav">
         <a href="index.html">← return to index / 返回主頁</a>
         <span class="nav-brand">lonlon // archive & shop</span>
     </nav>
 
-    <!-- 導覽列以下全區：白底黑字配淺灰框線 -->
     <div class="shop-light-section">
         <div class="light-container">
             <header>
                 <h1>SHOP 商店</h1>
                 <div class="shop-notice">
                     <p>
-                        <span id="noticeTextZh">購買流程：確認剩餘數量後點擊欲收藏作品之購買按鈕 → 選擇支付方式（信用卡 / 轉帳 / 行動支付）完成轉帳 → 填寫收件資訊與付款末碼送出訂單&nbsp;<br class="desktop-br">→ 送出後系統會打開email並自動帶入資料，確認無誤後寄出即可。請務必確認信件有成功寄出。售價皆含框及國內運送。</span>
-                        <span id="noticeTextEn" style="display: none;">Order Process: Check stock &amp; click ORDER → Pay (Credit Card / Transfer / Mobile) → Submit shipping &amp; payment info&nbsp;<br class="desktop-br">→ Email app opens with pre-filled details; please verify and send it. Framing &amp; shipping included.</span>
+                        <span id="noticeTextZh">購買流程：確認剩餘數量後點擊購買按鈕 → 選擇支付方式（信用卡 / 轉帳 / 行動支付 / PayPal）完成付款 → 填寫收件資訊送出訂單&nbsp;<br class="desktop-br">→ 送出後系統會打開 email 並自動帶入資料，確認無誤後寄出即可。<br><br>售價皆含框（若無特別標示），台灣境內免運，海外寄送運費固定另加 NT$ 1,000（約 US$ 30）。<br><br></span>
+                        <span id="noticeTextEn" style="display: none;">Order Process: Check stock &amp; click ORDER → Pay (Credit Card / Transfer / Mobile / PayPal) → Submit shipping info&nbsp;<br class="desktop-br">→ Email app opens with pre-filled details; please verify and send.<br><br>Framing included (unless otherwise noted). Free shipping in Taiwan. <br>Overseas shipping is a flat rate of NT$ 1,000 (approx. US$ 30).<br><br></span>
                         <span class="lang-switch-wrap"> (<a href="javascript:void(0)" class="lang-btn active" data-lang="zh" onclick="setShopLang('zh')">中文</a> / <a href="javascript:void(0)" class="lang-btn" data-lang="en" onclick="setShopLang('en')">EN</a>)</span>
                     </p>
                 </div>
             </header>
 
-            <!-- 分類篩選 -->
             <div class="filter-bar">
                 <button class="filter-btn active" onclick="filterProducts('all', this)">ALL <span class="filter-zh">全部</span></button>
                 <button class="filter-btn" onclick="filterProducts('print', this)">PRINTS <span class="filter-zh">版畫</span></button>
                 <button class="filter-btn" onclick="filterProducts('photo', this)">PHOTOGRAPHY <span class="filter-zh">攝影</span></button>
             </div>
 
-            <!-- 商品自動渲染容器 -->
             <div id="productGrid" class="shop-grid">
                 <p id="loadingText" class="loading-text">LOADING ARCHIVE... // 正在同步試算表商品資料</p>
             </div>
 
-            <footer>
-                &copy; 2026 pei, lon. All Rights Reserved.
-            </footer>
+            <footer>&copy; 2026 pei, lon. All Rights Reserved.</footer>
         </div>
     </div>
 
-    <!-- 圖片放大檢視視窗 (Lightbox - 支援點擊局部放大與拖曳檢視) -->
+    <!-- 圖片放大檢視視窗 -->
     <div id="lightboxModal" class="lightbox-overlay" onclick="if(event.target === this || event.target.classList.contains('lightbox-stage')) closeLightbox()">
         <div class="lightbox-top">
             <span id="lightboxCaption"></span>
@@ -742,11 +178,9 @@
                 <button type="button" class="close-btn" onclick="closeLightbox()">✕ CLOSE</button>
             </div>
         </div>
-
         <div id="lightboxStage" class="lightbox-stage">
             <img id="lightboxImg" src="" alt="Artwork Preview" draggable="false">
         </div>
-
         <div class="lightbox-bottom">
             <div id="lightboxThumbs" class="lightbox-thumbs"></div>
             <div class="lightbox-controls">
@@ -757,7 +191,7 @@
         </div>
     </div>
 
-    <!-- 結帳彈出視窗 (白底淺灰框，支援中英文同步切換) -->
+    <!-- 結帳彈出視窗 -->
     <div id="checkoutModal" class="modal-overlay" onclick="if(event.target === this) closeModal()">
         <div class="modal-box">
             <div class="modal-header">
@@ -767,17 +201,27 @@
 
             <div id="modalItemInfo" style="font-size: 0.9rem; opacity: 0.9;"></div>
 
-            <!-- 步驟 1：選擇掃碼支付 -->
+            <!-- 步驟 1：選擇支付方式 -->
             <div>
-                <p id="step1Title" style="font-size: 0.85rem; margin-bottom: 0.5rem;">STEP 1. 選擇支付方式並掃碼或點擊連接付款：</p>
+                <p id="step1Title" style="font-size: 0.85rem; margin-bottom: 0.5rem;">STEP 1. 選擇支付方式並完成付款：</p>
                 <div class="pay-tabs">
-                    <button type="button" id="tabJkopay" class="pay-tab active" data-pay="jkopay" onclick="switchQR('jkopay', this)">街口支付</button>
-                    <button type="button" id="tabLinepay" class="pay-tab" data-pay="linepay" onclick="switchQR('linepay', this)">LinePay</button>
-                    <button type="button" id="tabAlipay" class="pay-tab" data-pay="alipay" onclick="switchQR('alipay', this)">Alipay</button>
+                    <button type="button" class="pay-tab active" onclick="switchQR('jkopay', this)">TWQR<br>街口等</button>
+                    <button type="button" class="pay-tab" onclick="switchQR('linepay', this)">LinePay</button>
+                    <button type="button" class="pay-tab" onclick="switchQR('transfer', this)">轉帳</button>
+                    <button type="button" id="tabNewebpay" class="pay-tab" data-pay="newebpay" onclick="switchQR('newebpay', this)">信用卡 超商<br>ApplePay</button>
+                    <button type="button" class="pay-tab" onclick="switchQR('paypal', this)">PayPal<br>Ko-fi</button>
+                    <button type="button" id="tabAlipay" class="pay-tab" data-pay="alipay" onclick="switchQR('alipay', this)">支付宝<br>Alipay</button>
                 </div>
                 <div class="qr-display" style="margin-top: 0.5rem;">
+                    <!-- 掃碼用的圖片 -->
                     <img id="qrImage" src="" alt="QR Code">
-                    <span id="qrHint" style="font-size: 0.8rem; opacity: 0.75;">請使用 街口支付 掃描上方 QR Code 並輸入商品金額。</span>
+                    
+                    <!-- 連結專用的點擊跳轉按鈕 -->
+                    <div id="linkWrap" style="display:none; padding: 2rem 0; width: 100%;">
+                        <a id="linkBtn" href="#" target="_blank" class="modal-submit-btn" style="display:block; text-align:center; text-decoration:none;">[ 前往安全支付頁面 ↗ ]</a>
+                    </div>
+                    
+                    <span id="qrHint" style="font-size: 0.8rem; opacity: 0.75; line-height: 1.8;"></span>
                 </div>
             </div>
 
@@ -796,13 +240,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label id="labelBuyerAddress">收件地址或超商門市 / Shipping Address *</label>
-                    <input type="text" id="buyerAddress" required>
+                    <label id="labelBuyerAddress">收件地址（海外寄送請填英文） / Shipping Address *</label>
+                    <input type="text" id="buyerAddress" placeholder="含郵遞區號 / Include Postal Code" required>
                 </div>
 
                 <div class="form-group">
                     <label id="labelBuyerPaymentNote">對帳資訊（付款方式 + 帳號末五碼或暱稱）*</label>
-                    <input type="text" id="buyerPaymentNote" placeholder="例：街口支付，末五碼 12345" required>
+                    <input type="text" id="buyerPaymentNote" placeholder="例：藍新信用卡 / PayPal 暱稱" required>
                 </div>
 
                 <button type="submit" id="modalSubmitBtn" class="modal-submit-btn" style="margin-top: 0.5rem;">
@@ -812,186 +256,82 @@
         </div>
     </div>
 
-    <button id="backToTop" class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-        ↑ top
-    </button>
+    <button id="backToTop" class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ top</button>
 
     <script>
-        /* ==========================================
-           [雲端同步與收款碼設定區]
-        ========================================== */
-        
-        // 1. 你的 Google 試算表 ID 與發佈網址：
+        // 1. Google 試算表 ID
         const SHEET_ID = "1fKrjchIbhegt8-6ob7EiMgNLN8AF5wIt3ZC5wr_xgec";
         const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRDYEUjBDASJpi7A3o0vWfWd0oQVl-_2p4UvnnOiUpYjdNjqe1z7QCqCTUas9Jb9h8HUq0neCkObBu-/pub?gid=0&single=true&output=csv";
 
-        // 2. 收款 QR Code 圖片路徑與中英文雙語提示
+        // 2. 收款設定：掃碼圖片或跳轉連結
         const QR_CODES = {
-            jkopay: {
-                img: "images/qr-jkopay.jpg",
-                hint_zh: "請使用 街口支付 掃描上方 QR Code 並輸入商品金額。",
-                hint_en: "Please scan the QR Code above with JKOPay and enter the total amount."
-            },
-            linepay: {
-                img: "images/qr-linepay.jpg",
-                hint_zh: "請使用 LinePay 掃描上方 QR Code 並輸入商品金額。",
-                hint_en: "Please scan the QR Code above with LinePay and enter the total amount."
-            },
-            alipay: {
-                img: "images/qr-alipay.jpg",
-                hint_zh: "請使用 支付寶 (Alipay) 掃描上方 QR Code 完成付款。",
-                hint_en: "Please scan the QR Code above with Alipay to complete your payment."
-            }
+            jkopay: { type: "qr", img: "images/qr-jkopay.jpg", hint_zh: "請使用 街口、全支付、悠遊付、台灣Pay 等支援 TWQR 之 APP 掃描上方條碼。", hint_en: "Scan with JKOPay or TWQR supported apps and enter the amount." },
+            linepay: { type: "qr", img: "images/qr-linepay.jpg", hint_zh: "請使用 LinePay 掃描上方 QR Code 並輸入商品金額。", hint_en: "Please scan the QR Code above with LinePay." },
+            alipay: { type: "qr", img: "images/qr-alipay.jpg", hint_zh: "请使用 支付宝 扫描上方二维码完成付款。<br><br>Please scan the QR code above with Alipay to complete your payment.", hint_en: "请使用 支付宝 扫描上方二维码完成付款。<br><br>Please scan the QR code above with Alipay to complete your payment." },
+            transfer: { type: "qr", img: "images/qr-transfer.jpg", hint_zh: "國泰世華 (013) 帳號：更新中", hint_en: "Cathay United Bank (013) Account: Updating..." },
+            newebpay: { type: "link", url: "請在這裡貼上你的藍新收款網址", btnText_zh: "[ Go to NewebPay Secure Checkout ↗ ]<br>前往藍新安全支付頁面", btnText_en: "[ Go to NewebPay Secure Checkout ↗ ]<br>前往藍新安全支付頁面", hint_zh: "點擊上方按鈕前往藍新金流安全支付頁面，支援線上刷卡、超商代碼與 Apple Pay 繳費。<br><br>Click the button above to pay securely via NewebPay (Credit Card / CVS / Apple Pay).", hint_en: "點擊上方按鈕前往藍新金流安全支付頁面，支援線上刷卡、超商代碼與 Apple Pay 繳費。<br><br>Click the button above to pay securely via NewebPay (Credit Card / CVS / Apple Pay)." },
+            paypal: { type: "link", url: "https://ko-fi.com/lonsthx", btnText_zh: "[ Go to Ko-fi / PayPal Checkout ↗ ]<br>前往 Ko-fi / PayPal 支付頁面", btnText_en: "[ Go to Ko-fi / PayPal Checkout ↗ ]<br>前往 Ko-fi / PayPal 支付頁面", hint_zh: "海外請點擊上方按鈕前往 Ko-fi 頁面，支援 PayPal 與跨國信用卡。記得加上海外運費！<br><br>Click above to pay via Ko-fi (supports PayPal & Credit Cards). Please remember to add overseas shipping!", hint_en: "海外請點擊上方按鈕前往 Ko-fi 頁面，支援 PayPal 與跨國信用卡。記得加上海外運費！<br><br>Click above to pay via Ko-fi (supports PayPal & Credit Cards). Please remember to add overseas shipping!" }
         };
 
-        // 3. 介面中英文雙語字典
+        // 3. 雙語字典
         const UI_TEXT = {
             zh: {
                 loading: "LOADING ARCHIVE... // 正在同步試算表商品資料",
-                stockZero: "庫存: 0",
-                stockAvail: (n) => `剩餘數量: ${n}`,
-                soldOutBtn: "[ SOLD OUT / 已售罄 ]",
-                orderBtn: "[ ORDER / 購買 ]",
-                imgZoomTitle: "點擊放大檢視圖片",
-                lbZoomIn: "[ + 局部放大 ]",
-                lbZoomReset: "[ - 還原比例 ]",
+                stockZero: "庫存: 0", stockAvail: (n) => `剩餘數量: ${n}`,
+                soldOutBtn: "[ SOLD OUT / 已售罄 ]", orderBtn: "[ ORDER / 購買 ]",
+                imgZoomTitle: "點擊放大檢視圖片", lbZoomIn: "[ + 局部放大 ]", lbZoomReset: "[ - 還原比例 ]",
                 modalTitle: "ORDER // 結帳",
-                modalItem: (id, title, price) => `選購作品：<strong>[${id}] ${title}</strong><br>應付金額：<strong>${price}</strong>`,
-                step1Title: "STEP 1. 選擇支付方式並掃碼或點擊連接付款：",
-                tabJkopay: "街口支付",
-                tabLinepay: "LinePay",
-                tabAlipay: "Alipay",
+                modalItem: (id, title, price) => `選購作品：<strong>[${id}] ${title}</strong><br>應付金額：<strong>${price}</strong><br><span style="font-size:0.8rem; opacity:0.8;">(台灣免運 / 海外寄送請自行於付款時外加 NT$ 1,000 運費)</span>`,
+                step1Title: "STEP 1. 選擇支付方式並完成付款：",
+                tabNewebpay: "信用卡 超商<br>ApplePay",
+                tabAlipay: "支付宝<br>Alipay",
                 step2Title: "STEP 2. 填寫收件與對帳資訊：",
                 labelName: "姓名 / Name *",
                 labelContact: "聯絡信箱與電話 / Email & Phone *",
-                labelAddress: "收件地址或超商門市 / Shipping Address *",
+                labelAddress: "收件地址（海外寄送請填英文） / Shipping Address *",
                 labelPayNote: "對帳資訊（付款方式 + 帳號末五碼或暱稱）*",
-                placeholderPayNote: "例：街口支付，末五碼 12345",
+                placeholderPayNote: "例：藍新信用卡 / PayPal 暱稱",
                 submitBtn: "[ 產生訂單信件並送出 / SUBMIT ORDER ]"
             },
             en: {
                 loading: "LOADING ARCHIVE... // Syncing artwork data...",
-                stockZero: "Out of Stock: 0",
-                stockAvail: (n) => `Available: ${n}`,
-                soldOutBtn: "[ SOLD OUT ]",
-                orderBtn: "[ ORDER ]",
-                imgZoomTitle: "Click to enlarge image",
-                lbZoomIn: "[ + ZOOM IN ]",
-                lbZoomReset: "[ - RESET ZOOM ]",
+                stockZero: "Out of Stock: 0", stockAvail: (n) => `Available: ${n}`,
+                soldOutBtn: "[ SOLD OUT ]", orderBtn: "[ ORDER ]",
+                imgZoomTitle: "Click to enlarge image", lbZoomIn: "[ + ZOOM IN ]", lbZoomReset: "[ - RESET ZOOM ]",
                 modalTitle: "ORDER // CHECKOUT",
-                modalItem: (id, title, price) => `Selected Artwork: <strong>[${id}] ${title}</strong><br>Total Amount: <strong>${price}</strong>`,
-                step1Title: "STEP 1. Select a payment method and scan QR code or click link to pay:",
-                tabJkopay: "JKOPay",
-                tabLinepay: "LinePay",
-                tabAlipay: "Alipay",
+                modalItem: (id, title, price) => `Selected Artwork: <strong>[${id}] ${title}</strong><br>Item Price: <strong>${price}</strong><br><span style="font-size:0.8rem; opacity:0.8;">(Please manually add flat rate NT$ 1,000 / US$ 30 for overseas shipping during payment)</span>`,
+                step1Title: "STEP 1. Select a payment method and complete payment:",
+                tabNewebpay: "CreditCard<br>ApplePay",
+                tabAlipay: "支付宝<br>Alipay",
                 step2Title: "STEP 2. Fill in shipping and payment verification details:",
                 labelName: "Name *",
                 labelContact: "Email & Phone *",
-                labelAddress: "Shipping Address / Store Pickup *",
+                labelAddress: "Shipping Address (Include Postal Code) *",
                 labelPayNote: "Payment Verification (Method + Last 5 digits or Account Name) *",
-                placeholderPayNote: "e.g., JKOPay / LinePay / Alipay, last 5 digits 12345",
+                placeholderPayNote: "e.g., Credit Card / PayPal Name",
                 submitBtn: "[ GENERATE & SUBMIT ORDER EMAIL ]"
             }
         };
 
-        // 4. 離線備用清單
-        const FALLBACK_PRODUCTS = [
-            {
-                id: "PRT-001",
-                category: "print",
-                title: "《我也消失在時間裡，永無止盡》i also disappeared in sounds, endlessly",
-                specs: "2025，水印木刻",
-                price: "NT$8,500",
-                stock: 25,
-                images: [""]
-            },
-            {
-                id: "PRT-002",
-                category: "print",
-                title: "《消失在海浪刷洗的沙灘上》vanishing on the shore washed by waves",
-                specs: "2024，油墨木刻",
-                price: "NT$8,500",
-                stock: 10,
-                images: [""]
-            },
-            {
-                id: "PRT-003",
-                category: "print",
-                title: "《球》sphere",
-                specs: "2024，水印木刻版畫，B5尺寸，版數：30",
-                price: "NT$8,500",
-                stock: 13,
-                images: [""]
-            },
-            {
-                id: "PRT-002",
-                category: "print",
-                title: "《消失在海浪刷洗的沙灘上》vanishing on the shore washed by waves",
-                specs: "2024，水印木刻",
-                price: "NT$8,500",
-                stock: 12,
-                images: [""]
-            },
-            {
-                id: "PHO-001",
-                category: "photo",
-                title: "《在天空中的某...",
-                specs: "2024，數位微噴",
-                price: "NT$2,400",
-                stock: 26,
-                images: [""]
-            }
-        ];
+        const FALLBACK_PRODUCTS = [{ id: "PRT-001", category: "print", title: "《我也消失在時間裡，永無止盡》", specs: "2025，水印木刻", price: "NT$8,500", stock: 25, images: [""] }];
 
-        /* ==========================================
-           系統核心邏輯（JSONP 免跨網域限制直連 + CSV 備援 + 雙語切換）
-        ========================================== */
-        let PRODUCTS = [];
-        let currentProduct = null;
-        let currentFilter = 'all';
-        let currentLang = 'zh';
-        let currentQRType = 'jkopay';
-        let sheetLoaded = false;
-
-        let lbProduct = null;
-        let lbIndex = 0;
-
-        // 局部放大與拖曳狀態變數
-        let lbScale = 1;
-        let lbPanX = 0;
-        let lbPanY = 0;
-        let isDragging = false;
-        let dragMoved = false;
-        let startX = 0;
-        let startY = 0;
-
-        // 純幾何向量放大鏡圖示（跨平台不會變為彩色 Emoji）
+        let PRODUCTS = []; let currentProduct = null; let currentFilter = 'all'; let currentLang = 'zh'; let currentQRType = 'jkopay'; let sheetLoaded = false;
+        let lbProduct = null; let lbIndex = 0; let lbScale = 1; let lbPanX = 0; let lbPanY = 0; let isDragging = false; let dragMoved = false; let startX = 0; let startY = 0;
         const ZOOM_ICON_SVG = `<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="6.5" cy="6.5" r="4.8"></circle><line x1="10.2" y1="10.2" x2="14.8" y2="14.8"></line></svg>`;
 
-        // 切換中英文語言
         function setShopLang(lang) {
-            currentLang = lang;
-            const t = UI_TEXT[lang];
-
-            // 更新 (中文 / EN) 按鈕狀態
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-            });
-
-            // 切換購買流程說明段落
+            currentLang = lang; const t = UI_TEXT[lang];
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-lang') === lang));
             document.getElementById('noticeTextZh').style.display = lang === 'zh' ? 'inline' : 'none';
             document.getElementById('noticeTextEn').style.display = lang === 'en' ? 'inline' : 'none';
-
-            // 更新載入提示文字
-            const loadingEl = document.getElementById('loadingText');
-            if (loadingEl) loadingEl.textContent = t.loading;
-
-            // 更新結帳彈出視窗內的所有文字與提示
+            const loadingEl = document.getElementById('loadingText'); if (loadingEl) loadingEl.textContent = t.loading;
+            
             document.getElementById('modalTitle').textContent = t.modalTitle;
             document.getElementById('step1Title').textContent = t.step1Title;
-            document.getElementById('tabJkopay').textContent = t.tabJkopay;
-            document.getElementById('tabLinepay').textContent = t.tabLinepay;
-            document.getElementById('tabAlipay').textContent = t.tabAlipay;
+            
+            document.getElementById('tabNewebpay').innerHTML = t.tabNewebpay;
+            document.getElementById('tabAlipay').innerHTML = t.tabAlipay;
+            
             document.getElementById('step2Title').textContent = t.step2Title;
             document.getElementById('labelBuyerName').textContent = t.labelName;
             document.getElementById('labelBuyerContact').textContent = t.labelContact;
@@ -1000,176 +340,71 @@
             document.getElementById('buyerPaymentNote').placeholder = t.placeholderPayNote;
             document.getElementById('modalSubmitBtn').textContent = t.submitBtn;
 
-            // 更新目前選購商品資訊與 QR 提示
             if (currentProduct) {
-                document.getElementById('modalItemInfo').innerHTML = t.modalItem(
-                    escapeHTML(currentProduct.id),
-                    escapeHTML(currentProduct.title),
-                    escapeHTML(currentProduct.price)
-                );
+                document.getElementById('modalItemInfo').innerHTML = t.modalItem(escapeHTML(currentProduct.id), escapeHTML(currentProduct.title), escapeHTML(currentProduct.price));
             }
-            const qrObj = QR_CODES[currentQRType];
-            if (qrObj) {
-                document.getElementById('qrHint').textContent = lang === 'en' ? qrObj.hint_en : qrObj.hint_zh;
-            }
-
-            // 更新放大檢視器按鈕文字與商品網格
-            applyLightboxTransform();
-            if (PRODUCTS.length > 0) {
-                renderProducts(currentFilter);
-            }
+            // 強制重整一次目前的金流按鈕語言
+            switchQR(currentQRType, document.querySelector(`#checkoutModal .pay-tab[data-pay="${currentQRType}"]`));
+            applyLightboxTransform(); if (PRODUCTS.length > 0) renderProducts(currentFilter);
         }
 
         function formatDriveUrl(url) {
-            if (!url) return "";
-            const clean = String(url).trim();
+            if (!url) return ""; const clean = String(url).trim();
             const match = clean.match(/(?:\/d\/|id=)([a-zA-Z0-9_-]{15,})/);
-            if (match && match[1]) {
-                return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w2200`;
-            }
-            return clean;
+            return match && match[1] ? `https://drive.google.com/thumbnail?id=${match[1]}&sz=w2200` : clean;
         }
+        function escapeHTML(str) { return String(str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
-        function escapeHTML(str) {
-            if (!str) return "";
-            return String(str)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
-        }
-
-        // 將二維陣列資料轉換為商品物件陣列
         function rowsToProducts(rows) {
             const validRows = rows.filter(r => r.some(cell => String(cell).trim() !== ''));
             if (validRows.length === 0) return [];
-
             const firstRowLower = validRows[0].map(h => String(h).toLowerCase().trim());
-            const hasHeader = firstRowLower.includes('id') || firstRowLower.includes('title') || firstRowLower.includes('price') || firstRowLower.includes('category');
+            const hasHeader = firstRowLower.includes('id') || firstRowLower.includes('title') || firstRowLower.includes('price');
             const headers = hasHeader ? firstRowLower : ['id', 'category', 'title', 'specs', 'price', 'stock', 'image'];
             const dataRows = hasHeader ? validRows.slice(1) : validRows;
-
             return dataRows.map((r, rowIdx) => {
-                const obj = {};
-                const rawImages = [];
-
-                headers.forEach((h, idx) => {
-                    obj[h] = String(r[idx] !== undefined ? r[idx] : '').trim();
-                });
-
+                const obj = {}; const rawImages = [];
+                headers.forEach((h, idx) => { obj[h] = String(r[idx] !== undefined ? r[idx] : '').trim(); });
                 r.forEach((val, idx) => {
-                    const strVal = String(val !== undefined ? val : '').trim();
-                    const h = headers[idx] || '';
+                    const strVal = String(val !== undefined ? val : '').trim(); const h = headers[idx] || '';
                     if ((h.startsWith('image') || h.startsWith('img') || idx >= 6) && strVal) {
-                        strVal.split(/[\n,;]+/).forEach(part => {
-                            if (part.trim()) rawImages.push(formatDriveUrl(part.trim()));
-                        });
+                        strVal.split(/[\n,;]+/).forEach(part => { if (part.trim()) rawImages.push(formatDriveUrl(part.trim())); });
                     }
                 });
-
-                const idVal = (obj.id || r[0] || 'N/A').trim();
-                const catVal = (obj.category || r[1] || 'print').trim().toLowerCase();
-                const titleVal = (obj.title || r[2] || '').trim();
-                const specsVal = (obj.specs || r[3] || '').trim();
-                const priceVal = (obj.price || r[4] || '').trim();
-                const stockRaw = obj.stock !== undefined && obj.stock !== '' ? obj.stock : r[5];
-                const stockVal = parseInt(String(stockRaw).replace(/[^\d-]/g, ''), 10);
-
+                const stockVal = parseInt(String(obj.stock !== undefined && obj.stock !== '' ? obj.stock : r[5]).replace(/[^\d-]/g, ''), 10);
                 return {
-                    _uid: rowIdx,
-                    id: idVal,
-                    category: catVal,
-                    title: titleVal,
-                    specs: specsVal,
-                    price: priceVal,
-                    stock: isNaN(stockVal) ? 0 : stockVal,
-                    images: rawImages.length > 0 ? rawImages : ['']
+                    _uid: rowIdx, id: (obj.id || r[0] || 'N/A').trim(), category: (obj.category || r[1] || 'print').trim().toLowerCase(),
+                    title: (obj.title || r[2] || '').trim(), specs: (obj.specs || r[3] || '').trim(), price: (obj.price || r[4] || '').trim(),
+                    stock: isNaN(stockVal) ? 0 : stockVal, images: rawImages.length > 0 ? rawImages : ['']
                 };
             });
         }
 
-        // JSONP 回呼函式：直接接收 Google 試算表回傳的結構
         window.handleSheetData = function(response) {
             if (!response || response.status !== 'ok' || !response.table) return;
             const cols = (response.table.cols || []).map(c => (c && c.label) ? String(c.label).trim() : '');
-            const rows = (response.table.rows || []).map(r => {
-                const cells = r.c || [];
-                return cells.map(cell => {
-                    if (!cell) return '';
-                    if (cell.f !== undefined && cell.f !== null) return String(cell.f);
-                    if (cell.v !== undefined && cell.v !== null) return String(cell.v);
-                    return '';
-                });
-            });
-
+            const rows = (response.table.rows || []).map(r => (r.c || []).map(cell => cell ? (cell.f !== undefined && cell.f !== null ? String(cell.f) : (cell.v !== undefined && cell.v !== null ? String(cell.v) : '')) : ''));
             const allRows = cols.some(c => c !== '') ? [cols, ...rows] : rows;
             const parsed = rowsToProducts(allRows);
-            if (parsed.length > 0) {
-                sheetLoaded = true;
-                PRODUCTS = parsed;
-                renderProducts();
-            }
+            if (parsed.length > 0) { sheetLoaded = true; PRODUCTS = parsed; renderProducts(); }
         };
 
-        // CSV 解析備援
         function parseCSV(text) {
-            const rows = [];
-            let row = [];
-            let cur = '';
-            let inQuotes = false;
-
+            const rows = []; let row = []; let cur = ''; let inQuotes = false;
             for (let i = 0; i < text.length; i++) {
-                const ch = text[i];
-                const next = text[i + 1];
-
-                if (inQuotes) {
-                    if (ch === '"' && next === '"') {
-                        cur += '"';
-                        i++;
-                    } else if (ch === '"') {
-                        inQuotes = false;
-                    } else {
-                        cur += ch;
-                    }
-                } else {
-                    if (ch === '"') {
-                        inQuotes = true;
-                    } else if (ch === ',') {
-                        row.push(cur.trim());
-                        cur = '';
-                    } else if (ch === '\n' || (ch === '\r' && next === '\n')) {
-                        row.push(cur.trim());
-                        rows.push(row);
-                        row = [];
-                        cur = '';
-                        if (ch === '\r') i++;
-                    } else if (ch !== '\r') {
-                        cur += ch;
-                    }
-                }
+                const ch = text[i]; const next = text[i + 1];
+                if (inQuotes) { if (ch === '"' && next === '"') { cur += '"'; i++; } else if (ch === '"') { inQuotes = false; } else { cur += ch; } }
+                else { if (ch === '"') { inQuotes = true; } else if (ch === ',') { row.push(cur.trim()); cur = ''; } else if (ch === '\n' || (ch === '\r' && next === '\n')) { row.push(cur.trim()); rows.push(row); row = []; cur = ''; if (ch === '\r') i++; } else if (ch !== '\r') { cur += ch; } }
             }
-            if (cur !== '' || row.length > 0) {
-                row.push(cur.trim());
-                rows.push(row);
-            }
+            if (cur !== '' || row.length > 0) { row.push(cur.trim()); rows.push(row); }
             return rowsToProducts(rows);
         }
 
-        // 啟動同步
         function initShop() {
-            const normalizeFallback = () => FALLBACK_PRODUCTS.map((p, idx) => ({
-                ...p,
-                _uid: idx,
-                images: (p.images || [p.image || '']).map(formatDriveUrl)
-            }));
-
-            const script = document.createElement('script');
-            script.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=responseHandler:handleSheetData&gid=0&_=${Date.now()}`;
-            script.onerror = () => fetchCSVFallback(normalizeFallback);
-            document.body.appendChild(script);
-
-            setTimeout(() => {
-                if (!sheetLoaded) fetchCSVFallback(normalizeFallback);
-            }, 3500);
+            const normalizeFallback = () => FALLBACK_PRODUCTS.map((p, idx) => ({ ...p, _uid: idx, images: (p.images || [p.image || '']).map(formatDriveUrl) }));
+            const script = document.createElement('script'); script.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=responseHandler:handleSheetData&gid=0&_=${Date.now()}`;
+            script.onerror = () => fetchCSVFallback(normalizeFallback); document.body.appendChild(script);
+            setTimeout(() => { if (!sheetLoaded) fetchCSVFallback(normalizeFallback); }, 3500);
         }
 
         async function fetchCSVFallback(normalizeFallback) {
@@ -1177,282 +412,82 @@
             try {
                 const response = await fetch(GOOGLE_SHEET_CSV_URL, { cache: "no-store" });
                 if (response.ok) {
-                    const csvText = await response.text();
-                    const parsed = parseCSV(csvText);
-                    if (parsed.length > 0) {
-                        sheetLoaded = true;
-                        PRODUCTS = parsed;
-                        renderProducts();
-                        return;
-                    }
+                    const parsed = parseCSV(await response.text());
+                    if (parsed.length > 0) { sheetLoaded = true; PRODUCTS = parsed; renderProducts(); return; }
                 }
-            } catch (err) {
-                console.warn("CSV 備援通道未連線，使用預設清單:", err);
-            }
-            if (!sheetLoaded) {
-                PRODUCTS = normalizeFallback();
-                renderProducts();
-            }
+            } catch (err) { console.warn("CSV備援失敗", err); }
+            if (!sheetLoaded) { PRODUCTS = normalizeFallback(); renderProducts(); }
         }
 
-        function getPlaceholderSVG(text) {
-            return `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='450'><rect width='100%' height='100%' fill='%23cbcbcb'/><text x='50%' y='50%' fill='%23555' font-family='monospace' font-size='16' text-anchor='middle'>${encodeURIComponent(text)}</text></svg>`;
-        }
+        function getPlaceholderSVG(text) { return `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='450'><rect width='100%' height='100%' fill='%23cbcbcb'/><text x='50%' y='50%' fill='%23555' font-family='monospace' font-size='16' text-anchor='middle'>${encodeURIComponent(text)}</text></svg>`; }
 
         function renderProducts(filter = currentFilter) {
-            currentFilter = filter;
-            const t = UI_TEXT[currentLang];
-            const grid = document.getElementById('productGrid');
-            grid.innerHTML = '';
-
+            currentFilter = filter; const t = UI_TEXT[currentLang]; const grid = document.getElementById('productGrid'); grid.innerHTML = '';
             PRODUCTS.filter(p => filter === 'all' || p.category === filter).forEach(item => {
-                const isSoldOut = item.stock <= 0;
-                const safeTitle = escapeHTML(item.title);
-                const validImgs = (item.images || []).filter(u => u.trim() !== '');
-                const totalCount = Math.max(1, validImgs.length);
+                const isSoldOut = item.stock <= 0; const safeTitle = escapeHTML(item.title); const validImgs = (item.images || []).filter(u => u.trim() !== '');
                 const coverImg = validImgs[0] || getPlaceholderSVG(item.id);
-
-                const card = document.createElement('div');
-                card.className = 'product-card';
+                const card = document.createElement('div'); card.className = 'product-card';
                 card.innerHTML = `
                     <div>
                         <div class="product-img-wrap" onclick="openLightbox(${item._uid}, 0)" title="${t.imgZoomTitle}">
                             <img src="${coverImg}" alt="${escapeHTML(item.id)}" onerror="this.src=&quot;${getPlaceholderSVG(item.id)}&quot;">
                         </div>
                         <div class="product-meta" style="margin-top: 1rem;">
-                            <div class="product-id-row">
-                                <span class="product-id">[${escapeHTML(item.id)}]</span>
-                                <span class="meta-zoom-info" onclick="openLightbox(${item._uid}, 0)" title="${t.imgZoomTitle}">
-                                    <span>1 / ${totalCount}</span>${ZOOM_ICON_SVG}
-                                </span>
-                            </div>
-                            <h2 class="product-title">${safeTitle}</h2>
-                            <p class="product-specs">${escapeHTML(item.specs)}</p>
+                            <div class="product-id-row"><span class="product-id">[${escapeHTML(item.id)}]</span>
+                            <span class="meta-zoom-info" onclick="openLightbox(${item._uid}, 0)" title="${t.imgZoomTitle}"><span>1 / ${Math.max(1, validImgs.length)}</span>${ZOOM_ICON_SVG}</span></div>
+                            <h2 class="product-title">${safeTitle}</h2><p class="product-specs">${escapeHTML(item.specs)}</p>
                         </div>
                     </div>
                     <div>
-                        <div class="product-footer" style="margin-bottom: 1rem;">
-                            <span class="product-price">${escapeHTML(item.price)}</span>
-                            <span class="product-stock">${isSoldOut ? t.stockZero : t.stockAvail(item.stock)}</span>
-                        </div>
-                        <button class="buy-btn" ${isSoldOut ? 'disabled' : ''} onclick="openModal(${item._uid})">
-                            ${isSoldOut ? t.soldOutBtn : t.orderBtn}
-                        </button>
-                    </div>
-                `;
+                        <div class="product-footer" style="margin-bottom: 1rem;"><span class="product-price">${escapeHTML(item.price)}</span><span class="product-stock">${isSoldOut ? t.stockZero : t.stockAvail(item.stock)}</span></div>
+                        <button class="buy-btn" ${isSoldOut ? 'disabled' : ''} onclick="openModal(${item._uid})">${isSoldOut ? t.soldOutBtn : t.orderBtn}</button>
+                    </div>`;
                 grid.appendChild(card);
             });
         }
 
-        function filterProducts(category, btn) {
-            document.querySelectorAll('.filter-btn').forEach(el => el.classList.remove('active'));
-            btn.classList.add('active');
-            renderProducts(category);
-        }
+        function filterProducts(category, btn) { document.querySelectorAll('.filter-btn').forEach(el => el.classList.remove('active')); btn.classList.add('active'); renderProducts(category); }
 
-        /* ==========================================
-           圖片放大檢視器 (Lightbox) 與局部放大控制邏輯
-        ========================================== */
-        function resetLightboxZoom() {
-            lbScale = 1;
-            lbPanX = 0;
-            lbPanY = 0;
-            isDragging = false;
-            applyLightboxTransform();
-        }
-
+        function resetLightboxZoom() { lbScale = 1; lbPanX = 0; lbPanY = 0; isDragging = false; applyLightboxTransform(); }
         function applyLightboxTransform() {
-            const img = document.getElementById('lightboxImg');
-            const stage = document.getElementById('lightboxStage');
-            const zoomBtn = document.getElementById('lbZoomBtn');
-            const t = UI_TEXT[currentLang];
-            if (!img || !stage) return;
-
-            img.style.transform = `translate(${lbPanX}px, ${lbPanY}px) scale(${lbScale})`;
-            stage.classList.toggle('is-zoomed', lbScale > 1);
-
-            if (zoomBtn) {
-                if (lbScale > 1) {
-                    zoomBtn.textContent = t.lbZoomReset;
-                    zoomBtn.classList.add('active');
-                } else {
-                    zoomBtn.textContent = t.lbZoomIn;
-                    zoomBtn.classList.remove('active');
-                }
-            }
+            const img = document.getElementById('lightboxImg'); const stage = document.getElementById('lightboxStage'); const zoomBtn = document.getElementById('lbZoomBtn');
+            if (!img || !stage) return; img.style.transform = `translate(${lbPanX}px, ${lbPanY}px) scale(${lbScale})`; stage.classList.toggle('is-zoomed', lbScale > 1);
+            if (zoomBtn) { if (lbScale > 1) { zoomBtn.textContent = UI_TEXT[currentLang].lbZoomReset; zoomBtn.classList.add('active'); } else { zoomBtn.textContent = UI_TEXT[currentLang].lbZoomIn; zoomBtn.classList.remove('active'); } }
         }
-
-        function toggleLightboxZoom(clickEvent) {
-            if (lbScale > 1) {
-                resetLightboxZoom();
-            } else {
+        function toggleLightboxZoom(e) {
+            if (lbScale > 1) { resetLightboxZoom(); } else {
                 lbScale = 2.2;
-                if (clickEvent && clickEvent.clientX !== undefined) {
-                    const img = document.getElementById('lightboxImg');
-                    const rect = img.getBoundingClientRect();
-                    const centerX = rect.left + rect.width / 2;
-                    const centerY = rect.top + rect.height / 2;
-                    lbPanX = (centerX - clickEvent.clientX) * 1.1;
-                    lbPanY = (centerY - clickEvent.clientY) * 1.1;
-                } else {
-                    lbPanX = 0;
-                    lbPanY = 0;
-                }
+                if (e && e.clientX !== undefined) { const rect = document.getElementById('lightboxImg').getBoundingClientRect(); lbPanX = (rect.left + rect.width / 2 - e.clientX) * 1.1; lbPanY = (rect.top + rect.height / 2 - e.clientY) * 1.1; }
+                else { lbPanX = 0; lbPanY = 0; }
                 applyLightboxTransform();
             }
         }
 
-        // 綁定圖片點擊局部放大、滑鼠拖曳、觸控平移與滾輪縮放
         (function setupLightboxZoomEvents() {
-            const stage = document.getElementById('lightboxStage');
-            const img = document.getElementById('lightboxImg');
-
-            img.addEventListener('mousedown', (e) => {
-                e.preventDefault();
-                dragMoved = false;
-                if (lbScale > 1) {
-                    isDragging = true;
-                    startX = e.clientX - lbPanX;
-                    startY = e.clientY - lbPanY;
-                    stage.classList.add('is-dragging');
-                }
-            });
-
-            window.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                dragMoved = true;
-                lbPanX = e.clientX - startX;
-                lbPanY = e.clientY - startY;
-                applyLightboxTransform();
-            });
-
-            window.addEventListener('mouseup', () => {
-                if (isDragging) {
-                    isDragging = false;
-                    stage.classList.remove('is-dragging');
-                }
-            });
-
-            img.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (!dragMoved) {
-                    toggleLightboxZoom(e);
-                }
-                dragMoved = false;
-            });
-
-            // 支援滑鼠滾輪局部縮放
-            stage.addEventListener('wheel', (e) => {
-                e.preventDefault();
-                const delta = e.deltaY < 0 ? 0.35 : -0.35;
-                const nextScale = Math.min(3.5, Math.max(1, lbScale + delta));
-                if (nextScale === 1) {
-                    resetLightboxZoom();
-                } else {
-                    lbScale = nextScale;
-                    applyLightboxTransform();
-                }
-            }, { passive: false });
-
-            // 支援手機單指拖曳平移
-            img.addEventListener('touchstart', (e) => {
-                if (e.touches.length === 1) {
-                    dragMoved = false;
-                    if (lbScale > 1) {
-                        isDragging = true;
-                        startX = e.touches[0].clientX - lbPanX;
-                        startY = e.touches[0].clientY - lbPanY;
-                        stage.classList.add('is-dragging');
-                    }
-                }
-            }, { passive: true });
-
-            img.addEventListener('touchmove', (e) => {
-                if (!isDragging || e.touches.length !== 1) return;
-                e.preventDefault();
-                dragMoved = true;
-                lbPanX = e.touches[0].clientX - startX;
-                lbPanY = e.touches[0].clientY - startY;
-                applyLightboxTransform();
-            }, { passive: false });
-
-            img.addEventListener('touchend', () => {
-                if (isDragging) {
-                    isDragging = false;
-                    stage.classList.remove('is-dragging');
-                }
-            });
+            const stage = document.getElementById('lightboxStage'); const img = document.getElementById('lightboxImg');
+            img.addEventListener('mousedown', (e) => { e.preventDefault(); dragMoved = false; if (lbScale > 1) { isDragging = true; startX = e.clientX - lbPanX; startY = e.clientY - lbPanY; stage.classList.add('is-dragging'); } });
+            window.addEventListener('mousemove', (e) => { if (!isDragging) return; dragMoved = true; lbPanX = e.clientX - startX; lbPanY = e.clientY - startY; applyLightboxTransform(); });
+            window.addEventListener('mouseup', () => { if (isDragging) { isDragging = false; stage.classList.remove('is-dragging'); } });
+            img.addEventListener('click', (e) => { e.stopPropagation(); if (!dragMoved) toggleLightboxZoom(e); dragMoved = false; });
+            stage.addEventListener('wheel', (e) => { e.preventDefault(); const nextScale = Math.min(3.5, Math.max(1, lbScale + (e.deltaY < 0 ? 0.35 : -0.35))); if (nextScale === 1) resetLightboxZoom(); else { lbScale = nextScale; applyLightboxTransform(); } }, { passive: false });
+            img.addEventListener('touchstart', (e) => { if (e.touches.length === 1) { dragMoved = false; if (lbScale > 1) { isDragging = true; startX = e.touches[0].clientX - lbPanX; startY = e.touches[0].clientY - lbPanY; stage.classList.add('is-dragging'); } } }, { passive: true });
+            img.addEventListener('touchmove', (e) => { if (!isDragging || e.touches.length !== 1) return; e.preventDefault(); dragMoved = true; lbPanX = e.touches[0].clientX - startX; lbPanY = e.touches[0].clientY - startY; applyLightboxTransform(); }, { passive: false });
+            img.addEventListener('touchend', () => { if (isDragging) { isDragging = false; stage.classList.remove('is-dragging'); } });
         })();
 
-        function openLightbox(uid, startIndex = 0) {
-            lbProduct = PRODUCTS.find(p => p._uid === uid);
-            if (!lbProduct) return;
-            lbIndex = startIndex;
-            resetLightboxZoom();
-            updateLightboxView();
-            document.getElementById('lightboxModal').classList.add('active');
-        }
-
-        function closeLightbox() {
-            resetLightboxZoom();
-            document.getElementById('lightboxModal').classList.remove('active');
-        }
-
-        function changeLightboxImg(step) {
-            if (!lbProduct) return;
-            const validImgs = (lbProduct.images || []).filter(u => u.trim() !== '');
-            const total = validImgs.length || 1;
-            if (total <= 1) return;
-            lbIndex = (lbIndex + step + total) % total;
-            resetLightboxZoom();
-            updateLightboxView();
-        }
-
+        function openLightbox(uid, startIndex = 0) { lbProduct = PRODUCTS.find(p => p._uid === uid); if (!lbProduct) return; lbIndex = startIndex; resetLightboxZoom(); updateLightboxView(); document.getElementById('lightboxModal').classList.add('active'); }
+        function closeLightbox() { resetLightboxZoom(); document.getElementById('lightboxModal').classList.remove('active'); }
+        function changeLightboxImg(step) { if (!lbProduct) return; const total = (lbProduct.images || []).filter(u => u.trim() !== '').length || 1; if (total <= 1) return; lbIndex = (lbIndex + step + total) % total; resetLightboxZoom(); updateLightboxView(); }
         function updateLightboxView() {
-            const validImgs = (lbProduct.images || []).filter(u => u.trim() !== '');
-            const imgList = validImgs.length > 0 ? validImgs : [''];
-            const total = imgList.length;
-            const currentSrc = imgList[lbIndex] || getPlaceholderSVG(lbProduct.id);
-
-            const mainImg = document.getElementById('lightboxImg');
-            mainImg.src = currentSrc;
-            mainImg.onerror = () => { mainImg.src = getPlaceholderSVG(`${lbProduct.id} (${lbIndex + 1}/${total})`); };
-
-            document.getElementById('lightboxCaption').innerHTML = 
-                `<strong>[${escapeHTML(lbProduct.id)}]</strong> ${escapeHTML(lbProduct.title)}`;
-            document.getElementById('lightboxCounter').textContent = `${lbIndex + 1} / ${total}`;
-
-            document.getElementById('lbPrevBtn').disabled = total <= 1;
-            document.getElementById('lbNextBtn').disabled = total <= 1;
-
-            const thumbsContainer = document.getElementById('lightboxThumbs');
-            thumbsContainer.innerHTML = '';
-            if (total > 1) {
-                imgList.forEach((src, idx) => {
-                    const thumb = document.createElement('img');
-                    thumb.className = 'lb-thumb' + (idx === lbIndex ? ' active' : '');
-                    thumb.src = src || getPlaceholderSVG(idx + 1);
-                    thumb.onerror = () => { thumb.src = getPlaceholderSVG(idx + 1); };
-                    thumb.onclick = () => {
-                        lbIndex = idx;
-                        resetLightboxZoom();
-                        updateLightboxView();
-                    };
-                    thumbsContainer.appendChild(thumb);
-                });
-            }
+            const validImgs = (lbProduct.images || []).filter(u => u.trim() !== ''); const imgList = validImgs.length > 0 ? validImgs : ['']; const total = imgList.length;
+            const mainImg = document.getElementById('lightboxImg'); mainImg.src = imgList[lbIndex] || getPlaceholderSVG(lbProduct.id); mainImg.onerror = () => { mainImg.src = getPlaceholderSVG(`${lbProduct.id} (${lbIndex + 1}/${total})`); };
+            document.getElementById('lightboxCaption').innerHTML = `<strong>[${escapeHTML(lbProduct.id)}]</strong> ${escapeHTML(lbProduct.title)}`; document.getElementById('lightboxCounter').textContent = `${lbIndex + 1} / ${total}`;
+            document.getElementById('lbPrevBtn').disabled = total <= 1; document.getElementById('lbNextBtn').disabled = total <= 1;
+            const thumbsContainer = document.getElementById('lightboxThumbs'); thumbsContainer.innerHTML = '';
+            if (total > 1) { imgList.forEach((src, idx) => { const thumb = document.createElement('img'); thumb.className = 'lb-thumb' + (idx === lbIndex ? ' active' : ''); thumb.src = src || getPlaceholderSVG(idx + 1); thumb.onerror = () => { thumb.src = getPlaceholderSVG(idx + 1); }; thumb.onclick = () => { lbIndex = idx; resetLightboxZoom(); updateLightboxView(); }; thumbsContainer.appendChild(thumb); }); }
         }
 
-        window.addEventListener('keydown', (e) => {
-            const lbActive = document.getElementById('lightboxModal').classList.contains('active');
-            if (lbActive) {
-                if (e.key === 'ArrowLeft') changeLightboxImg(-1);
-                if (e.key === 'ArrowRight') changeLightboxImg(1);
-                if (e.key === 'Escape') closeLightbox();
-            } else if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
+        window.addEventListener('keydown', (e) => { const lbActive = document.getElementById('lightboxModal').classList.contains('active'); if (lbActive) { if (e.key === 'ArrowLeft') changeLightboxImg(-1); if (e.key === 'ArrowRight') changeLightboxImg(1); if (e.key === 'Escape') closeLightbox(); } else if (e.key === 'Escape') closeModal(); });
 
         /* ==========================================
            結帳彈出視窗控制邏輯
@@ -1460,28 +495,35 @@
         function openModal(uid) {
             currentProduct = PRODUCTS.find(p => p._uid === uid);
             if (!currentProduct) return;
-
-            const t = UI_TEXT[currentLang];
-            document.getElementById('modalItemInfo').innerHTML = t.modalItem(
-                escapeHTML(currentProduct.id),
-                escapeHTML(currentProduct.title),
-                escapeHTML(currentProduct.price)
-            );
-            
-            switchQR('jkopay', document.getElementById('tabJkopay'));
+            document.getElementById('modalItemInfo').innerHTML = UI_TEXT[currentLang].modalItem(escapeHTML(currentProduct.id), escapeHTML(currentProduct.title), escapeHTML(currentProduct.price));
+            switchQR('jkopay', document.querySelector('#checkoutModal .pay-tab')); // 預設打開第一個按鈕
             document.getElementById('checkoutModal').classList.add('active');
         }
-
-        function closeModal() {
-            document.getElementById('checkoutModal').classList.remove('active');
-        }
+        function closeModal() { document.getElementById('checkoutModal').classList.remove('active'); }
 
         function switchQR(type, btn) {
             currentQRType = type;
-            document.querySelectorAll('.pay-tab').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('#checkoutModal .pay-tab').forEach(el => el.classList.remove('active'));
             if (btn) btn.classList.add('active');
-            document.getElementById('qrImage').src = formatDriveUrl(QR_CODES[type].img);
-            document.getElementById('qrHint').textContent = currentLang === 'en' ? QR_CODES[type].hint_en : QR_CODES[type].hint_zh;
+            
+            const data = QR_CODES[type];
+            const imgEl = document.getElementById('qrImage');
+            const linkWrap = document.getElementById('linkWrap');
+            const linkBtn = document.getElementById('linkBtn');
+            
+            // 邏輯切換：如果是 link 類型就顯示按鈕並套用網址，反之顯示圖片
+            if (data.type === 'link') {
+                imgEl.style.display = 'none';
+                linkWrap.style.display = 'block';
+                linkBtn.href = data.url;
+                linkBtn.innerHTML = currentLang === 'en' ? data.btnText_en : data.btnText_zh;
+            } else {
+                imgEl.style.display = 'block';
+                linkWrap.style.display = 'none';
+                imgEl.src = formatDriveUrl(data.img);
+            }
+            
+            document.getElementById('qrHint').innerHTML = currentLang === 'en' ? data.hint_en : data.hint_zh;
         }
 
         function submitOrder(e) {
@@ -1490,27 +532,19 @@
             const contact = document.getElementById('buyerContact').value;
             const address = document.getElementById('buyerAddress').value;
             const note = document.getElementById('buyerPaymentNote').value;
-
             const cleanTitle = currentProduct.title.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
-            const subject = encodeURIComponent(
-                currentLang === 'en'
-                    ? `[Artwork Order] ${currentProduct.id} ${cleanTitle} - ${name}`
-                    : `[作品訂購] ${currentProduct.id} ${cleanTitle} - ${name}`
-            );
-
+            
+            const subject = encodeURIComponent(currentLang === 'en' ? `[Artwork Order] ${currentProduct.id} ${cleanTitle} - ${name}` : `[作品訂購] ${currentProduct.id} ${cleanTitle} - ${name}`);
             const bodyText = currentLang === 'en'
-                ? `Hello, I have completed the payment. Here are my order details:\n\n[Artwork] [${currentProduct.id}] ${cleanTitle}\n[Specs] ${currentProduct.specs}\n[Total Amount] ${currentProduct.price}\n[Payment Verification] ${note}\n\n[Recipient Name] ${name}\n[Contact Info] ${contact}\n[Shipping Address] ${address}\n`
-                : `您好，我已完成付款，以下為訂購資訊：\n\n【訂購作品】[${currentProduct.id}] ${cleanTitle}\n【作品規格】${currentProduct.specs}\n【應付金額】${currentProduct.price}\n【對帳資訊】${note}\n\n【收件姓名】${name}\n【聯絡方式】${contact}\n【收件地址/門市】${address}\n`;
+                ? `Hello, I have completed the payment. Here are my order details:\n\n[Artwork] [${currentProduct.id}] ${cleanTitle}\n[Specs] ${currentProduct.specs}\n[Item Price] ${currentProduct.price}\n[Payment Verification] ${note} (Include info if overseas shipping was added)\n\n[Recipient Name] ${name}\n[Contact Info] ${contact}\n[Shipping Address] ${address}\n`
+                : `您好，我已完成付款，以下為訂購資訊：\n\n【訂購作品】[${currentProduct.id}] ${cleanTitle}\n【作品規格】${currentProduct.specs}\n【應付金額】${currentProduct.price}\n【對帳資訊】${note} (若含海外運費請在此備註)\n\n【收件姓名】${name}\n【聯絡方式】${contact}\n【收件地址/門市】${address}\n`;
 
             window.location.href = `mailto:arts.lonp@gmail.com?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
             closeModal();
         }
 
         const backToTopBtn = document.getElementById('backToTop');
-        window.addEventListener('scroll', () => {
-            backToTopBtn.classList.toggle('visible', window.scrollY > 300);
-        });
-
+        window.addEventListener('scroll', () => { backToTopBtn.classList.toggle('visible', window.scrollY > 300); });
         initShop();
     </script>
 </body>
