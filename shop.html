@@ -57,7 +57,10 @@
         .meta-zoom-info svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 1.5; stroke-linecap: square; fill: none; display: block; }
         .product-img-wrap:hover + .product-meta .meta-zoom-info, .meta-zoom-info:hover { opacity: 1; }
 
-        .product-title { font-size: 1.15rem; font-weight: normal; }
+        /* 修改標題樣式：中文加粗(600)，英文加粗(400)，並在下方產生換行留白效果 */
+        .product-title { font-size: 1.15rem; font-weight: 500; line-height: 1.4; margin-bottom: 1.2rem; }
+        .product-title-en { font-weight: 400; font-size: 0.85em; opacity: 0.7; display: block; margin-top: 0.2rem; }
+        
         .product-specs { font-size: 0.85rem; opacity: 0.8; }
         .product-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 0.8rem; border-top: 1px dashed var(--gray-color); }
         .product-price { font-size: 1.05rem; }
@@ -375,34 +378,34 @@
             if (validRows.length === 0) return [];
             const firstRowLower = validRows[0].map(h => String(h).toLowerCase().trim());
             const hasHeader = firstRowLower.includes('id') || firstRowLower.includes('title') || firstRowLower.includes('price');
-            const headers = hasHeader ? firstRowLower : ['id', 'category', 'title', 'specs', 'price', 'stock', 'image'];
+            const headers = hasHeader ? firstRowLower : ['id', 'category', 'title', 'enTitle', 'specs', 'price', 'stock', 'showFlag', 'framedFlag', 'empty1', 'empty2', 'image'];
             const dataRows = hasHeader ? validRows.slice(1) : validRows;
             
-            // 加入過濾機制：如果第 9 欄 (索引 8，也就是 I 欄) 的值為 '0'，則排除該商品
+            // 加入過濾機制：H 欄 (索引 7) 必須是 '1' 才會顯示
             return dataRows.filter(r => {
-                const hiddenFlag = String(r[8] !== undefined ? r[8] : '').trim();
-                return hiddenFlag !== '0';
+                const showFlag = String(r[7] !== undefined ? r[7] : '').trim();
+                return showFlag === '1';
             }).map((r, rowIdx) => {
                 const obj = {}; const rawImages = [];
                 headers.forEach((h, idx) => { obj[h] = String(r[idx] !== undefined ? r[idx] : '').trim(); });
                 
                 let isFramed = false;
+                const framedFlag = String(r[8] !== undefined ? r[8] : '').trim(); // I 欄
+                if (framedFlag === '1') { isFramed = true; }
+
                 r.forEach((val, idx) => {
                     const strVal = String(val !== undefined ? val : '').trim(); const h = headers[idx] || '';
                     
-                    // 偵測含框標記 (排除 I 欄後，假設其餘邏輯維持不變)
-                    if (idx >= 6 && idx !== 8 && strVal === '1') { isFramed = true; return; }
-                    if (idx >= 6 && idx !== 8 && strVal === '0') { return; }
-
-                    if ((h.startsWith('image') || h.startsWith('img') || idx >= 6) && idx !== 8 && strVal) {
+                    // 圖片從 L 欄 (索引 11) 開始
+                    if ((h.startsWith('image') || h.startsWith('img') || idx >= 11) && strVal) {
                         strVal.split(/[\n,;]+/).forEach(part => { if (part.trim()) rawImages.push(formatDriveUrl(part.trim())); });
                     }
                 });
                 
-                const stockVal = parseInt(String(obj.stock !== undefined && obj.stock !== '' ? obj.stock : r[5]).replace(/[^\d-]/g, ''), 10);
+                const stockVal = parseInt(String(r[6] !== undefined && r[6] !== '' ? r[6] : obj.stock).replace(/[^\d-]/g, ''), 10);
                 return {
                     _uid: rowIdx, id: (obj.id || r[0] || 'N/A').trim(), category: (obj.category || r[1] || 'print').trim().toLowerCase(),
-                    title: (obj.title || r[2] || '').trim(), specs: (obj.specs || r[3] || '').trim(), price: (obj.price || r[4] || '').trim(),
+                    title: (obj.title || r[2] || '').trim(), enTitle: (obj.enTitle || r[3] || '').trim(), specs: (obj.specs || r[4] || '').trim(), price: (obj.price || r[5] || '').trim(),
                     stock: isNaN(stockVal) ? 0 : stockVal, images: rawImages.length > 0 ? rawImages : [''], isFramed: isFramed
                 };
             });
@@ -457,6 +460,7 @@
                 const card = document.createElement('div'); card.className = 'product-card';
                 
                 const framedHtml = item.isFramed ? `<span style="font-size: 0.75rem; opacity: 0.6; margin-left: 0.4rem; letter-spacing: 0.5px; vertical-align: middle;">${t.framedNote}</span>` : '';
+                const enTitleHtml = item.enTitle ? `<span class="product-title-en">${escapeHTML(item.enTitle)}</span>` : '';
 
                 card.innerHTML = `
                     <div>
@@ -466,7 +470,7 @@
                         <div class="product-meta" style="margin-top: 1rem;">
                             <div class="product-id-row"><span class="product-id">[${escapeHTML(item.id)}]</span>
                             <span class="meta-zoom-info" onclick="openLightbox(${item._uid}, 0)" title="${t.imgZoomTitle}"><span>1 / ${Math.max(1, validImgs.length)}</span>${ZOOM_ICON_SVG}</span></div>
-                            <h2 class="product-title">${safeTitle}</h2><p class="product-specs">${escapeHTML(item.specs)}</p>
+                            <h2 class="product-title">${safeTitle}${enTitleHtml}</h2><p class="product-specs">${escapeHTML(item.specs)}</p>
                         </div>
                     </div>
                     <div>
