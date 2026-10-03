@@ -97,10 +97,11 @@
         .close-btn { background-color: var(--text-color); border: 1px solid var(--gray-color); color: var(--bg-color); font-family: inherit; font-size: 0.85rem; padding: 0.2rem 0.55rem; cursor: pointer; transition: all 0.2s ease; }
         .close-btn:hover { background-color: var(--gray-color); color: var(--bg-color); }
 
-        /* 使用 Flex Wrap 讓按鈕在手機板自動整齊換行 */
-        .pay-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        /* 使用 Grid 確保所有按鈕等大對齊 */
+        .pay-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; align-items: stretch; }
         .pay-tab {
-            flex: 1 1 25%; min-width: 80px; padding: 0.5rem 0.2rem;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 0.6rem 0.2rem; min-height: 48px;
             background: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color);
             font-family: inherit; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease;
             text-align: center; line-height: 1.3;
@@ -132,6 +133,7 @@
             .desktop-br { display: none; }
             .filter-bar { gap: 2rem; }
             .filter-zh { display: block; margin-top: 0.15rem; white-space: nowrap; }
+            .pay-tabs { grid-template-columns: repeat(2, 1fr); } /* 手機版改為一行2個以強制等寬對齊 */
         }
     </style>
 </head>
@@ -207,10 +209,9 @@
                 <div class="pay-tabs">
                     <button type="button" class="pay-tab active" onclick="switchQR('jkopay', this)">街口等<br>TWQR</button>
                     <button type="button" class="pay-tab" onclick="switchQR('linepay', this)">LinePay</button>
-                    <button type="button" class="pay-tab" onclick="switchQR('transfer', this)">轉帳</button>
-                    <button type="button" id="tabNewebpay" class="pay-tab" data-pay="newebpay" onclick="switchQR('newebpay', this)">信用卡 超商<br>ApplePay</button>
+                    <button type="button" id="tabNewebpay" class="pay-tab" data-pay="newebpay" onclick="switchQR('newebpay', this)">信用卡 轉帳<br>ApplePay</button>
                     <button type="button" class="pay-tab" onclick="switchQR('paypal', this)">PayPal<br>Ko-fi</button>
-                    <button type="button" id="tabAlipay" class="pay-tab" data-pay="alipay" onclick="switchQR('alipay', this)">支付宝<br>Alipay</button>
+                    <button type="button" id="tabAlipay" class="pay-tab" data-pay="alipay" onclick="switchQR('alipay', this)">Alipay</button>
                 </div>
                 <div class="qr-display" style="margin-top: 0.5rem;">
                     <!-- 掃碼用的圖片 -->
@@ -265,12 +266,13 @@
 
         // 2. 收款設定：掃碼圖片或跳轉連結
         const QR_CODES = {
-            jkopay: { type: "qr", img: "images/qr-jkopay.jpg", hint_zh: "請使用 街口、全支付、悠遊付、台灣Pay 等支援 TWQR 之 APP 掃描上方條碼。", hint_en: "Scan with JKOPay or TWQR supported apps and enter the amount." },
-            linepay: { type: "qr", img: "images/qr-linepay.jpg", hint_zh: "請使用 LinePay 掃描上方 QR Code 並輸入商品金額。", hint_en: "Please scan the QR Code above with LinePay." },
-            alipay: { type: "qr", img: "images/qr-alipay.jpg", hint_zh: "请使用 支付宝 扫描上方二维码完成付款。<br><br><a href='https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手机端请点击这里唤起支付宝跳转</a>", 
-                hint_en: "Please scan the QR code above with Alipay to complete your payment.<br><br><a href='請把剛剛複製的qr.alipay.com網址貼在這裡' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Click here to open Alipay App on Mobile</a>" },
-            transfer: { type: "qr", img: "images/qr-transfer.jpg", hint_zh: "國泰世華 (013) 帳號：更新中", hint_en: "Cathay United Bank (013) Account: Updating..." },
-            newebpay: { type: "link", url: "請在這裡貼上你的藍新收款網址", btnText_zh: "[ Go to NewebPay Secure Checkout ↗ ]<br>前往藍新安全支付頁面", btnText_en: "[ Go to NewebPay Secure Checkout ↗ ]<br>前往藍新安全支付頁面", hint_zh: "點擊上方按鈕前往藍新金流安全支付頁面，支援線上刷卡、超商代碼與 Apple Pay 繳費。<br><br>Click the button above to pay securely via NewebPay (Credit Card / CVS / Apple Pay).", hint_en: "點擊上方按鈕前往藍新金流安全支付頁面，支援線上刷卡、超商代碼與 Apple Pay 繳費。<br><br>Click the button above to pay securely via NewebPay (Credit Card / CVS / Apple Pay)." },
+            jkopay: { type: "qr", img: "images/qr-jkopay.jpg", hint_zh: "<br>請使用 街口、全支付、悠遊付、台灣Pay、台新Pay、玉山Wallet 等支援 TWQR 之 APP 掃描上方條碼。請使用 街口、全支付、悠遊付、台灣Pay、台新Pay、玉山Wallet 等支援 TWQR 之 APP 掃描上方條碼。<br><br><a href='http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>", 
+                hint_en: "<br>Scan with JKOPay or TWQR supported apps and enter the amount.<br><br><a href='http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Click here to open JKPay App on Mobile</a>" },
+            linepay: { type: "qr", img: "images/qr-linepay.jpg", hint_zh: "<br>請使用 LinePay 掃描上方 QR Code 並輸入商品金額。<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>",
+                hint_en: "<br>Please scan the QR Code above with LinePay.<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Click here to open LinePay App on Mobile</a>" },
+            alipay: { type: "qr", img: "images/qr-alipay.jpg", hint_zh: "<br>請掃描上方條碼完成支付。<br><br>Please scan the QR code above with Alipay to complete your payment.<br><br><a href='https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>", 
+                hint_en: "<br>Please scan the QR code above with Alipay to complete your payment.<br><br><a href='https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Click here to open Alipay App on Mobile</a>" },
+            newebpay: { type: "link", url: "請在這裡貼上你的藍新收款網址", btnText_zh: "[ Go to NewebPay Secure Checkout ↗ ]<br>前往藍新安全支付頁面", btnText_en: "[ Go to NewebPay Secure Checkout ↗ ]<br>前往藍新安全支付頁面", hint_zh: "點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、信用卡、超商與 Apple Pay 繳費。<br><br>Click the button above to pay securely via NewebPay (Transfer / Credit Card / CVS / Apple Pay).", hint_en: "點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、信用卡、超商與 Apple Pay 繳費。<br><br>Click the button above to pay securely via NewebPay (Transfer / Credit Card / CVS / Apple Pay)." },
             paypal: { type: "link", url: "https://ko-fi.com/lonsthx", btnText_zh: "[ Go to Ko-fi / PayPal Checkout ↗ ]<br>前往 Ko-fi / PayPal 支付頁面", btnText_en: "[ Go to Ko-fi / PayPal Checkout ↗ ]<br>前往 Ko-fi / PayPal 支付頁面", hint_zh: "海外請點擊上方按鈕前往 Ko-fi 頁面，支援 PayPal 與跨國信用卡。記得加上海外運費！<br><br>Click above to pay via Ko-fi (supports PayPal & Credit Cards). Please remember to add overseas shipping!", hint_en: "海外請點擊上方按鈕前往 Ko-fi 頁面，支援 PayPal 與跨國信用卡。記得加上海外運費！<br><br>Click above to pay via Ko-fi (supports PayPal & Credit Cards). Please remember to add overseas shipping!" }
         };
 
@@ -285,7 +287,7 @@
                 modalItem: (id, title, price) => `選購作品：<strong>[${id}] ${title}</strong><br>應付金額：<strong>${price}</strong><br><span style="font-size:0.8rem; opacity:0.8;">(台灣免運 / 海外寄送請自行於付款時外加 NT$ 1,000 運費)</span>`,
                 step1Title: "STEP 1. 選擇支付方式並完成付款：",
                 tabNewebpay: "信用卡 超商<br>ApplePay",
-                tabAlipay: "支付宝<br>Alipay",
+                tabAlipay: "Alipay",
                 step2Title: "STEP 2. 填寫收件與對帳資訊：",
                 labelName: "姓名 / Name *",
                 labelContact: "聯絡信箱與電話 / Email & Phone *",
@@ -303,7 +305,7 @@
                 modalItem: (id, title, price) => `Selected Artwork: <strong>[${id}] ${title}</strong><br>Item Price: <strong>${price}</strong><br><span style="font-size:0.8rem; opacity:0.8;">(Please manually add flat rate NT$ 1,000 / US$ 30 for overseas shipping during payment)</span>`,
                 step1Title: "STEP 1. Select a payment method and complete payment:",
                 tabNewebpay: "CreditCard<br>ApplePay",
-                tabAlipay: "支付宝<br>Alipay",
+                tabAlipay: "Alipay",
                 step2Title: "STEP 2. Fill in shipping and payment verification details:",
                 labelName: "Name *",
                 labelContact: "Email & Phone *",
