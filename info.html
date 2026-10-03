@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>info 訊 | lonlon 冷冷</title>
+    <style>
+        /* reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --bg-color: #000000; --text-color: #ffffff; --border-color: #ffffff; --gray-color: #cbcbcb; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg-color); color: var(--text-color);
+            font-family: 'Courier New', Courier, 'PingFang TC', 'SF Pro TC', 'Microsoft JhengHei Light', 'Microsoft JhengHei', sans-serif;
+            font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+        }
+        a { color: var(--text-color); text-decoration: none; transition: all 0.2s ease; }
+
+        /* nav (沿用 shop 的頂部導航) */
+        .top-nav {
+            position: sticky; top: 0; z-index: 900; width: 100%; padding: 1.2rem 2rem;
+            background-color: var(--bg-color); color: var(--text-color); 
+            display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .top-nav a:hover { background-color: var(--text-color); color: var(--bg-color); padding: 0.2rem 0.5rem; }
+
+        /* container */
+        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; display: flex; flex-direction: column; gap: 3rem; }
+        header h1 { font-size: 2.5rem; font-weight: normal; letter-spacing: 2px; line-height: 1; }
+
+        /* social links (沿用 index 的網格排版) */
+        .social-links {
+            --wall: 240px; 
+            /* 為了容納 instagram 較長的字元，第一欄寬度設定為 110px */
+            --col-label-top: 110px; 
+            --col-middle: 90px;
+            --col-right-top: calc(var(--wall) - var(--col-label-top) - var(--col-middle));
+
+            display: flex;
+            flex-direction: column;
+            font-size: 1rem;
+        }
+
+        .social-links > a {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.8rem 0;
+            transition: all 0.2s ease;
+        }
+
+        .social-links > a:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+
+        .social-links a.grid-link-top {
+            display: grid;
+            grid-template-columns: var(--col-label-top) var(--col-middle) var(--col-right-top) 1fr; 
+            align-items: center;
+        }
+
+        .link-label, .link-middle { white-space: nowrap; }
+        .arrow { margin-left: 0.5rem; opacity: 0.7; font-family: sans-serif; }
+
+        /* -------------------------------------
+           Newsletter 電子報專屬區塊 (分離排版)
+        -------------------------------------- */
+        .newsletter-section {
+            margin-top: 1rem;
+            padding-top: 2.5rem;
+            border-top: 1px dashed rgba(255, 255, 255, 0.3); /* 科技感的虛線分隔 */
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            max-width: 600px; /* 限制寬度讓閱讀與輸入更聚焦 */
+        }
+
+        .nl-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .nl-zh {
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+        }
+
+        .nl-en {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            letter-spacing: 0.5px;
+        }
+
+        .nl-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .nl-form input {
+            flex: 1;
+            background: transparent;
+            border: 1px solid var(--gray-color);
+            color: var(--text-color);
+            padding: 0.6rem 0.8rem;
+            font-family: inherit;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .nl-form input:focus {
+            outline: none;
+            border-color: var(--text-color);
+            background: rgba(255, 255, 255, 0.05); /* 點擊時微亮的互動反饋 */
+        }
+
+        .nl-form button {
+            background: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--gray-color);
+            padding: 0.6rem 1rem;
+            font-family: inherit;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .nl-form button:hover {
+            background: var(--gray-color);
+            color: var(--bg-color);
+            border-color: var(--gray-color);
+        }
+
+        /* footer */
+        footer {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.85rem;
+            opacity: 0.6;
+            text-align: left;
+            font-weight: 300;
+        }
+
+        /* mobile RWD */
+        @media (max-width: 768px) {
+            .container { padding: 2.5rem 1.5rem; gap: 2.5rem; }
+            h1 { font-size: 2rem; }
+            .top-nav .nav-brand { display: none; }
+            .social-links { --wall: 240px; --col-label-top: 100px; --col-middle: 80px; }
+            
+            /* 手機版表單垂直排列 */
+            .nl-form { flex-direction: column; gap: 0.8rem; }
+            .nl-form button { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <a href="index.html">← return to index / 返回主頁</a>
+        <span class="nav-brand">lonlon // info</span>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>INFO 訊</h1>
+        </header>
+
+        <!-- 純淨的社群與聯絡連結 -->
+        <div class="social-links">
+            <a href="mailto:arts.lonp@gmail.com" class="grid-link-top">
+                <span class="link-label">email</span>
+                <span class="link-middle">arts.lonp@gmail.com<span class="arrow">&#x2197;&#xFE0E;</span></span>
+            </a>
+            
+            <a href="https://instagram.com/arts.lonlon" target="_blank" class="grid-link-top">
+                <span class="link-label">ig</span>
+                <span class="link-middle">@arts.lonlon<span class="arrow">&#x2197;&#xFE0E;</span></span>
+            </a>
+
+            <a href="https://instagram.com/lons_gaming" target="_blank" class="grid-link-top">
+                <span class="link-label">ig</span>
+                <span class="link-middle">@lons_gaming<span class="arrow">&#x2197;&#xFE0E;</span></span>
+            </a>
+        </div>
+
+        <!-- 獨立分離的電子報區塊 -->
+        <div class="newsletter-section">
+            <div class="nl-text">
+                <span class="nl-zh">newsletter // 留下信箱，不定期接收最新展覽資訊、作品發佈與專案更新。</span>
+                <span class="nl-en">Subscribe to receive occasional updates on exhibitions, new artworks, and projects. (maintaining, unavailable at the moment 維護中)</span>
+            </div>
+            <form class="nl-form" onsubmit="event.preventDefault(); alert('維護中 unavailable at the moment--(感謝訂閱 前端展示版)');">
+                <input type="email" placeholder="email address / 電子信箱" required>
+                <button type="submit">[ SUBSCRIBE ]</button>
+            </form>
+        </div>
+
+        <footer>
+            &copy; 2026 pei, lon. All Rights Reserved.
+        </footer>
+    </div>
+
+</body>
+</html>
