@@ -68,20 +68,26 @@
         .buy-btn:disabled { opacity: 0.4; border-color: var(--gray-color); cursor: not-allowed; }
 
         /* lightbox */
-        .lightbox-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: var(--bg-color); z-index: 2500; display: none; flex-direction: column; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; }
+        .lightbox-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: var(--text-color); z-index: 2500; display: none; flex-direction: column; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; }
         .lightbox-overlay.active { display: flex; }
-        .lightbox-top { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-bottom: 1px solid var(--gray-color); padding-bottom: 0.8rem; font-size: 0.9rem; color: var(--bg-color); z-index: 2; }
+        .lightbox-top { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-bottom: 1px solid var(--gray-color); padding-bottom: 0.8rem; font-size: 0.9rem; color: var(--text-color); z-index: 2; }
         .lightbox-top-actions { display: flex; align-items: center; gap: 0.8rem; flex-shrink: 0; }
-        .lb-zoom-btn { background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color); padding: 0.25rem 0.65rem; font-family: inherit; font-size: 0.8rem; cursor: pointer; transition: all 0.2s ease; }
-        .lb-zoom-btn:hover, .lb-zoom-btn.active { background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
+        
+        /* 讓局部放大與 CLOSE 按鈕皆變更為透明底（Ghost Button），透出半透明黑背景 */
+        .lb-zoom-btn, .lightbox-top-actions .close-btn { background-color: transparent; color: var(--text-color); border: 1px solid var(--gray-color); padding: 0.25rem 0.65rem; font-family: inherit; font-size: 0.8rem; cursor: pointer; transition: all 0.2s ease; }
+        .lb-zoom-btn:hover, .lb-zoom-btn.active, .lightbox-top-actions .close-btn:hover { background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
+        
         .lightbox-stage { flex: 1; width: 100%; display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden; padding: 1rem 0; user-select: none; -webkit-user-select: none; }
         .lightbox-stage img { max-width: 90vw; max-height: 72vh; object-fit: contain; border: 1px solid var(--gray-color); background-color: var(--gray-color); cursor: zoom-in; transform-origin: center center; transition: transform 0.2s ease-out; touch-action: none; }
         .lightbox-stage.is-zoomed img { cursor: grab; }
         .lightbox-stage.is-dragging img { cursor: grabbing; transition: none; }
         .lightbox-bottom { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; gap: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--gray-color); z-index: 2; }
-        .lightbox-controls { display: flex; align-items: center; gap: 1.5rem; color: var(--bg-color); }
-        .lb-nav-btn { background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color); padding: 0.4rem 1rem; font-family: inherit; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease; }
+        .lightbox-controls { display: flex; align-items: center; gap: 1.5rem; color: var(--text-color); }
+        
+        /* 底部 PREV / NEXT 按鈕同樣改為透明底色 */
+        .lb-nav-btn { background-color: transparent; color: var(--text-color); border: 1px solid var(--gray-color); padding: 0.4rem 1rem; font-family: inherit; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease; }
         .lb-nav-btn:hover:not(:disabled) { background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
+        
         .lb-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
         .lightbox-thumbs { display: flex; gap: 0.5rem; overflow-x: auto; max-width: 100%; padding-bottom: 0.2rem; }
         .lb-thumb { width: 48px; height: 36px; object-fit: cover; border: 1px solid var(--gray-color); background-color: var(--gray-color); opacity: 0.45; cursor: pointer; transition: all 0.2s ease; }
@@ -90,10 +96,12 @@
         /* -------------------------------------
            結帳彈出視窗 (Checkout Modal)
         -------------------------------------- */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: var(--bg-color); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 1rem; overflow-y: auto; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: var(--bg-color); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 1rem; overflow-y: auto; }
         .modal-overlay.active { display: flex; }
         .modal-box { background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color); box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08); max-width: 500px; width: 100%; padding: 2rem; max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem; }
         .modal-header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--gray-color); padding-bottom: 0.8rem; }
+        
+        /* 這裡的 close-btn 只會影響結帳視窗（維持白底黑字） */
         .close-btn { background-color: var(--text-color); border: 1px solid var(--gray-color); color: var(--bg-color); font-family: inherit; font-size: 0.85rem; padding: 0.2rem 0.55rem; cursor: pointer; transition: all 0.2s ease; }
         .close-btn:hover { background-color: var(--gray-color); color: var(--bg-color); }
 
@@ -289,7 +297,7 @@
                 modalTitle: "ORDER // 結帳",
                 modalItem: (id, title, price, isFramed) => `選購作品：<strong>[${id}] ${title}</strong><br>應付金額：<strong>${price}</strong> ${isFramed ? `<span style="font-size:0.85rem; opacity:0.8;">(含框)</span>` : ''}<br><span style="font-size:0.8rem; opacity:0.8;">(台灣免運 / 海外寄送請自行於付款時外加 NT$ 1,000 運費)</span>`,
                 step1Title: "STEP 1. 選擇支付方式並完成付款：",
-                tabNewebpay: "信用卡 超商<br>ApplePay",
+                tabNewebpay: "信用卡 轉帳<br>ApplePay",
                 tabAlipay: "Alipay",
                 step2Title: "STEP 2. 填寫收件與對帳資訊：",
                 labelName: "姓名 / Name *",
