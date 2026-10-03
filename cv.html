@@ -114,6 +114,17 @@
             line-height: 1.6; 
         }
 
+        /* 回到頂部按鈕 (黑底極簡風格) */
+        .back-to-top {
+            position: fixed; bottom: 2rem; right: 2rem; z-index: 900;
+            background-color: var(--bg-color); color: var(--text-color);
+            border: 1px solid var(--gray-color);
+            padding: 0.5rem 0.8rem; font-family: inherit; font-size: 0.85rem;
+            cursor: pointer; opacity: 0; pointer-events: none; transition: all 0.2s ease;
+        }
+        .back-to-top.visible { opacity: 0.85; pointer-events: auto; }
+        .back-to-top:hover { opacity: 1; background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
+
         /* footer */
         footer {
             margin-top: 2rem;
@@ -134,6 +145,7 @@
             .year { font-size: 0.9rem; margin-bottom: 0.2rem; border-left: 2px solid rgba(255,255,255,0.2); padding-left: 0.8rem; }
             .year:empty { display: none; } /* 手機版重複年份留空時隱藏邊框 */
             .details { padding-left: 1rem; }
+            .back-to-top { bottom: 1.5rem; right: 1.5rem; padding: 0.4rem 0.7rem; }
         }
     </style>
 </head>
@@ -175,7 +187,7 @@
                 <li class="cv-item">
                     <div class="year">2025.01</div>
                     <div class="details">
-                        <h3>跨文化交流計畫 (Transcultural Collaboration Program)</h3>
+                        <h3>跨文化合作計畫 (Transcultural Collaboration Program)</h3>
                         <p>受蘇黎世藝術大學邀請從事藝術交流與工作<br>
                         Invited by Zurich University of the Arts (ZHdK), Zurich, Switzerland</p>
                     </div>
@@ -204,7 +216,7 @@
                 <li class="cv-item">
                     <div class="year">2024</div>
                     <div class="details">
-                        <h3>finale: white 最終章：白色</h3>
+                        <h3>最終章：白色 finale: white</h3>
                         <p>Art Book / Exhibited at Art Book Fair of Venice Biennale (Venice, Italy)<br>
                         National Center of Photography and Images & Taipei Art Book Fair (Taipei, Taiwan)</p>
                     </div>
@@ -212,21 +224,21 @@
                 <li class="cv-item">
                     <div class="year"></div>
                     <div class="details">
-                        <h3>wind continues in motion 風行不止</h3>
+                        <h3>風行不止 wind continues in motion</h3>
                         <p>Video Art / Athens Digital Arts Festival (Athens, Greece)<br>Experimental Theater of NTU (Taipei, Taiwan)</p>
                     </div>
                 </li>
                 <li class="cv-item">
                     <div class="year">2023</div>
                     <div class="details">
-                        <h3>seeping 滲人</h3>
+                        <h3>滲人 seeping</h3>
                         <p>Collaborative Performance & Theater / Umay Theater (Taipei, Taiwan)</p>
                     </div>
                 </li>
                 <li class="cv-item">
                     <div class="year">2022</div>
                     <div class="details">
-                        <h3>carnival to alice, a story of reconstruction 愛麗絲的新生</h3>
+                        <h3>愛麗絲的新生 carnival to alice, a story of reconstruction</h3>
                         <p>Video Art / Experimental Theater of NTU (Taipei, Taiwan)</p>
                     </div>
                 </li>
@@ -252,5 +264,14 @@
         </footer>
     </div>
 
+    <!-- 回到頂部按鈕 -->
+    <button id="backToTop" class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ top</button>
+
+    <script>
+        const backToTopBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            backToTopBtn.classList.toggle('visible', window.scrollY > 300);
+        });
+    </script>
 </body>
 </html>
