@@ -378,7 +378,11 @@
             const headers = hasHeader ? firstRowLower : ['id', 'category', 'title', 'specs', 'price', 'stock', 'image'];
             const dataRows = hasHeader ? validRows.slice(1) : validRows;
             
-            return dataRows.map((r, rowIdx) => {
+            // 加入過濾機制：如果第 9 欄 (索引 8，也就是 I 欄) 的值為 '0'，則排除該商品
+            return dataRows.filter(r => {
+                const hiddenFlag = String(r[8] !== undefined ? r[8] : '').trim();
+                return hiddenFlag !== '0';
+            }).map((r, rowIdx) => {
                 const obj = {}; const rawImages = [];
                 headers.forEach((h, idx) => { obj[h] = String(r[idx] !== undefined ? r[idx] : '').trim(); });
                 
@@ -386,11 +390,11 @@
                 r.forEach((val, idx) => {
                     const strVal = String(val !== undefined ? val : '').trim(); const h = headers[idx] || '';
                     
-                    // 偵測最後新增的含框標記 (如果是1就標記含框，並跳過當作圖片解析)
-                    if (idx >= 6 && strVal === '1') { isFramed = true; return; }
-                    if (idx >= 6 && strVal === '0') { return; }
+                    // 偵測含框標記 (排除 I 欄後，假設其餘邏輯維持不變)
+                    if (idx >= 6 && idx !== 8 && strVal === '1') { isFramed = true; return; }
+                    if (idx >= 6 && idx !== 8 && strVal === '0') { return; }
 
-                    if ((h.startsWith('image') || h.startsWith('img') || idx >= 6) && strVal) {
+                    if ((h.startsWith('image') || h.startsWith('img') || idx >= 6) && idx !== 8 && strVal) {
                         strVal.split(/[\n,;]+/).forEach(part => { if (part.trim()) rawImages.push(formatDriveUrl(part.trim())); });
                     }
                 });
