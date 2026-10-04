@@ -57,7 +57,6 @@
         .meta-zoom-info svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 1.5; stroke-linecap: square; fill: none; display: block; }
         .product-img-wrap:hover + .product-meta .meta-zoom-info, .meta-zoom-info:hover { opacity: 1; }
 
-        /* 修改標題樣式：中文加粗(600)，英文加粗(400)，並在下方產生換行留白效果 */
         .product-title { font-size: 1.15rem; font-weight: 500; line-height: 1.4; margin-bottom: 1.2rem; }
         .product-title-en { font-weight: 400; font-size: 0.85em; opacity: 0.7; display: block; margin-top: 0.2rem; }
         
@@ -76,7 +75,6 @@
         .lightbox-top { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-bottom: 1px solid var(--gray-color); padding-bottom: 0.8rem; font-size: 0.9rem; color: var(--text-color); z-index: 2; }
         .lightbox-top-actions { display: flex; align-items: center; gap: 0.8rem; flex-shrink: 0; }
         
-        /* 局部放大與 CLOSE 按鈕透明底 */
         .lb-zoom-btn, .lightbox-top-actions .close-btn { background-color: transparent; color: var(--text-color); border: 1px solid var(--gray-color); padding: 0.25rem 0.65rem; font-family: inherit; font-size: 0.8rem; cursor: pointer; transition: all 0.2s ease; }
         .lb-zoom-btn:hover, .lb-zoom-btn.active, .lightbox-top-actions .close-btn:hover { background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
         
@@ -95,9 +93,7 @@
         .lb-thumb { width: 48px; height: 36px; object-fit: cover; border: 1px solid var(--gray-color); background-color: var(--gray-color); opacity: 0.45; cursor: pointer; transition: all 0.2s ease; }
         .lb-thumb.active, .lb-thumb:hover { opacity: 1; border-color: var(--gray-color); }
 
-        /* -------------------------------------
-           結帳彈出視窗 (Checkout Modal)
-        -------------------------------------- */
+        /* modal */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: var(--bg-color); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 1rem; overflow-y: auto; }
         .modal-overlay.active { display: flex; }
         .modal-box { background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color); box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08); max-width: 500px; width: 100%; padding: 2rem; max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem; }
@@ -266,7 +262,7 @@
 
         // 2. 收款設定
         const QR_CODES = {
-            jkopay: { type: "qr", img: "images/qr-jkopay.jpg", hint_zh: "<br>請使用 街口、全支付、悠遊付、台灣Pay、台新Pay、玉山Wallet 等支援 TWQR 之 APP 掃描上方條碼。請使用 街口、全支付、悠遊付、台灣Pay、台新Pay、玉山Wallet 等支援 TWQR 之 APP 掃描上方條碼。<br><br><a href='http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>", 
+            jkopay: { type: "qr", img: "images/qr-jkopay.jpg", hint_zh: "<br>請使用 街口、全支付、悠遊付、台灣Pay、台新Pay、玉山Wallet 等支援 TWQR 之 APP 掃描上方條碼。<br><br><a href='http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>", 
                 hint_en: "<br>Scan with JKOPay or TWQR supported apps and enter the amount.<br><br><a href='http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Click here to open JKPay App on Mobile</a>" },
             linepay: { type: "qr", img: "images/qr-linepay.jpg", hint_zh: "<br>請使用 LinePay 掃描上方 QR Code 並輸入商品金額。<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>",
                 hint_en: "<br>Please scan the QR Code above with LinePay.<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Click here to open LinePay App on Mobile</a>" },
@@ -320,7 +316,7 @@
             }
         };
 
-        const FALLBACK_PRODUCTS = [{ id: "PRT-001", category: "print", title: "《我也消失在時間裡，永無止盡》", enTitle: "and i also disappear into time, without end", specs: "2025，水印木刻", price: "NT$8,500", stock: 25, images: [""], isFramed: true }];
+        const FALLBACK_PRODUCTS = [{ id: "PRT-001", category: "print", title: "《我也消失在時間裡，永無止盡》", enTitle: "and i also disappear into time, without end", specs: "2025，水印木刻", price: "NT$8,500", stock: 25, images: ["PRT-001-1-1.jpg"], isFramed: true }];
 
         let PRODUCTS = []; let currentProduct = null; let currentFilter = 'all'; let currentLang = 'zh'; let currentQRType = 'jkopay'; let sheetLoaded = false;
         let lbProduct = null; let lbIndex = 0; let lbScale = 1; let lbPanX = 0; let lbPanY = 0; let isDragging = false; let dragMoved = false; let startX = 0; let startY = 0;
@@ -354,11 +350,20 @@
             applyLightboxTransform(); if (PRODUCTS.length > 0) renderProducts(currentFilter);
         }
 
-        function formatDriveUrl(url) {
-            if (!url) return ""; const clean = String(url).trim();
-            const match = clean.match(/(?:\/d\/|id=)([a-zA-Z0-9_-]{15,})/);
-            return match && match[1] ? `https://drive.google.com/thumbnail?id=${match[1]}&sz=w2200` : clean;
+        // 圖片路徑轉換：支援純檔名自動補齊 images/products/，並相容既有 Google Drive 與自訂 URL
+        function formatImageUrl(url) {
+            if (!url) return "";
+            const clean = String(url).trim();
+            if (clean.includes("drive.google.com")) {
+                const match = clean.match(/(?:\/d\/|id=)([a-zA-Z0-9_-]{15,})/);
+                return match && match[1] ? `https://drive.google.com/thumbnail?id=${match[1]}&sz=w2200` : clean;
+            }
+            if (clean.startsWith("http://") || clean.startsWith("https://") || clean.startsWith("/") || clean.startsWith("images/")) {
+                return clean;
+            }
+            return `images/products/${clean}`;
         }
+
         function escapeHTML(str) { return String(str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
         function rowsToProducts(rows) {
@@ -383,7 +388,9 @@
                 r.forEach((val, idx) => {
                     const strVal = String(val !== undefined ? val : '').trim(); const h = headers[idx] || '';
                     if ((h.startsWith('image') || h.startsWith('img') || idx >= 11) && strVal) {
-                        strVal.split(/[\n,;]+/).forEach(part => { if (part.trim()) rawImages.push(formatDriveUrl(part.trim())); });
+                        strVal.split(/[\n,;]+/).forEach(part => { 
+                            if (part.trim()) rawImages.push(formatImageUrl(part.trim())); 
+                        });
                     }
                 });
                 
@@ -411,7 +418,7 @@
             const normalizeFallback = () => FALLBACK_PRODUCTS.map((p, idx) => ({ 
                 ...p, 
                 _uid: idx, 
-                images: (p.images || [p.image || '']).map(formatDriveUrl) 
+                images: (p.images || [p.image || '']).map(formatImageUrl) 
             }));
 
             // 1. 優先嘗試同網域代理 /api/sheet
@@ -529,9 +536,7 @@
 
         window.addEventListener('keydown', (e) => { const lbActive = document.getElementById('lightboxModal').classList.contains('active'); if (lbActive) { if (e.key === 'ArrowLeft') changeLightboxImg(-1); if (e.key === 'ArrowRight') changeLightboxImg(1); if (e.key === 'Escape') closeLightbox(); } else if (e.key === 'Escape') closeModal(); });
 
-        /* ==========================================
-           結帳彈出視窗控制邏輯
-        ========================================== */
+        /* modal control */
         function openModal(uid) {
             currentProduct = PRODUCTS.find(p => p._uid === uid);
             if (!currentProduct) return;
@@ -559,7 +564,7 @@
             } else {
                 imgEl.style.display = 'block';
                 linkWrap.style.display = 'none';
-                imgEl.src = formatDriveUrl(data.img);
+                imgEl.src = formatImageUrl(data.img);
             }
             
             document.getElementById('qrHint').innerHTML = currentLang === 'en' ? data.hint_en : data.hint_zh;
