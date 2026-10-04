@@ -16,11 +16,17 @@
             --bg-color: #000000;
             --text-color: #ffffff;
             --border-color: #ffffff;
+            --border-heavy: 3px solid #ffffff;
+            --border-light: 1px solid #333333;
+            /* 彈窗按鈕專用統一色系：炭黑與淺灰立體陰影 */
+            --charcoal-black: #252525;
+            --charcoal-hover: #151515;
+            --brutal-shadow: #c4c4c4;
         }
 
-        /* global typography */
         html {
             scroll-behavior: smooth;
+            overflow-y: scroll; /* 強制隨時顯示垂直捲軸，消弭因捲軸出現/消失造成的畫面跳動 */
         }
 
         body {
@@ -32,6 +38,7 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             padding-bottom: 5vh;
+            overflow-x: hidden;
         }
 
         a {
@@ -39,16 +46,24 @@
             text-decoration: none;
             transition: all 0.2s ease;
         }
+
         .desktop-br { display: inline; }
-        .desktop-br-hint { display: inline; } /* 電腦版預設顯示換行 */
-        /* support banner */
+        .desktop-br-hint { display: inline; }
+
+        /* 響應式顯隱輔助類 */
+        .desktop-only { display: block; }
+        .mobile-only { display: none; }
+
+        /* -------------------------------------
+           support banner (外層贊助與商店橫幅)
+        -------------------------------------- */
         .support-banner {
             position: sticky;
             top: 0;
             z-index: 1000;
             width: 100%;
             border-bottom: 2px solid var(--border-color);
-            padding: 1.5rem 2rem;
+            padding: 1.2rem 2rem;
             display: flex;
             flex-direction: column;
             gap: 0.8rem;
@@ -62,111 +77,241 @@
         .banner-title {
             font-size: 0.9rem;
             letter-spacing: 2px;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.2rem;
         }
 
+        /* 橫幅三個按鈕容器：等高等寬配置 */
         .link-group {
             display: flex;
-            align-items: baseline;
-            gap: 1.5rem;
+            align-items: stretch;
+            gap: 1.2rem;
             flex-wrap: wrap;
+            width: 100%;
+            max-width: 1200px;
         }
 
-        .support-banner a {
-            color: var(--bg-color);
-            border-bottom: 2px solid var(--bg-color);
-            width: fit-content;
+        /* 外層按鈕基本款：純黑底白字 (#000000) */
+        .brutal-btn {
+            flex: 1 1 0px;
+            min-width: 270px;
+            height: 48px;
+            background-color: #000000;
+            color: #ffffff;
+            border: 2px solid #000000;
+            padding: 0.45rem 1rem;
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: bold;
             cursor: pointer;
-            font-size: 0.9rem;
+            box-shadow: 3px 3px 0px #000000;
+            transition: transform 0.1s, box-shadow 0.1s, background-color 0.1s;
+            white-space: nowrap;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-sizing: border-box;
         }
 
-        .support-banner a:hover {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+        .brutal-btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px #000000;
+            background-color: #222222;
+            color: #ffffff;
         }
 
-        /* container */
+        .brutal-btn:active {
+            transform: translate(3px, 3px);
+            box-shadow: 0px 0px 0px #000000;
+        }
+
+        /* shop 商店專屬顏色：反相白底、純黑邊框與硬陰影 */
+        .shop-banner-btn {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            border: 2px solid #000000 !important;
+            box-shadow: 3px 3px 0px #000000 !important;
+            text-decoration: none;
+        }
+
+        .shop-banner-btn:hover {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px #000000 !important;
+        }
+
+        .shop-banner-btn:active {
+            transform: translate(3px, 3px);
+            box-shadow: 0px 0px 0px #000000 !important;
+        }
+
+        /* -------------------------------------
+           layout (置中主欄位)
+        -------------------------------------- */
         .container {
             max-width: 1200px;
+            width: 100%;
             margin: 0 auto;
-            padding: 4rem 2rem;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 4rem;
-        }
-
-        /* header */
-        header {
+            padding: 3rem 2rem 2rem 2rem; /* 上方精確鎖定 3rem，與下方按鈕間距形成完美的 1:1 等距 */
             display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            padding-bottom: 1rem;
+            justify-content: center;
         }
 
-        h1 {
-            font-size: 4rem;
-            font-weight: normal;
-            letter-spacing: -2px;
-            line-height: 1;
+        /* -------------------------------------
+           導覽按鈕列 (電腦版橫式排列，精確在 Banner 與大標題的正中間)
+        -------------------------------------- */
+        .nav-wrapper {
+            margin-top: 3rem;
+            margin-bottom: 5rem; /* 與下方大標題保持和上方絕對等距 (3rem) */
+            width: 100%;
         }
 
-        .name-zh {
-            letter-spacing: 0.25em;
-        }
-
-        /* social links */
         .social-links {
-            --wall: 240px; 
-            --col-label-top: 80px;
-            --col-middle: 90px;
-            --col-right-top: calc(var(--wall) - var(--col-label-top) - var(--col-middle));
-
             display: flex;
-            flex-direction: column;
-            font-size: 1rem;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: stretch;
+            border-top: none;
+            border-bottom: none; /*1px solid rgba(255, 255, 255, 0.25);*/
+            width: 100%;
+            gap: 0;
         }
 
         .social-links a {
-            border-bottom: 1px solid var(--border-color);
-            padding: 0.6rem 0;
-            transition: all 0.2s ease;
-        }
-
-        .social-links a:hover {
-            background-color: var(--text-color);
-            color: var(--bg-color);
-            padding-left: 0.5rem;
-            padding-right: 0.5rem;
-        }
-
-        .social-links a.grid-link-top {
-            display: grid;
-            grid-template-columns: var(--col-label-top) var(--col-middle) var(--col-right-top) 1fr; 
+            flex: 1;
+            padding: 0.8rem 0.2rem;
+            display: flex;
+            justify-content: center;
             align-items: center;
+            transition: background-color 0.15s ease, color 0.15s ease;
+            cursor: pointer;
+            font-size: 0.95rem;
+            border-bottom: none;
+            margin: 0;
         }
 
-        .social-links a.grid-link-bottom {
+        .social-links a:hover, .social-links a.active {
+            background-color: var(--charcoal-black);
+            color: #ffffff;
+        }
+
+        .link-label {
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        /* 電腦版按鈕拿掉中文字 */
+        .social-links .link-middle {
+            display: none;
+        }
+
+        /* 所有裝置一律拿掉 arrow */
+        .arrow {
+            display: none !important;
+        }
+
+        /* -------------------------------------
+           中間內容區塊 (鎖定 680px 居中)
+        -------------------------------------- */
+        main {
+            max-width: 680px;
+            width: 100%;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-tab {
+            display: none;
+            width: 100%;
+            min-width: 0;
+            animation: fadeIn 0.25s ease-in-out;
+        }
+
+        .page-tab.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* -------------------------------------
+           內頁統一標準 Header (固定標題絕對位置)
+        -------------------------------------- */
+        .tab-header {
+            margin-top: 0;
+            margin-bottom: 4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 3.2rem;
+            width: 100%;
+            height: auto;
+        }
+
+        .tab-back-bar {
+            height: 1.5rem;
             display: flex;
             align-items: center;
         }
 
-        .link-label, .link-middle { white-space: nowrap; }
-        .link-right { display: flex; align-items: center; justify-content: flex-end; white-space: nowrap; }
-        .arrow { margin-left: 0.5rem; opacity: 0.7; font-family: sans-serif; }
+        .tab-back-btn {
+            font-size: 0.9rem;
+            opacity: 0.6;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+        .tab-back-btn:hover {
+            opacity: 1;
+        }
 
-        /* statement & language toggle */
+        /* 大標題：雙欄網格對齊，英文欄位鎖定 185px，漢字向右拉開微距後全部對齊 */
+        .page-title {
+            font-size: 2.3rem;
+            font-weight: normal;
+            letter-spacing: 2px;
+            line-height: 1.1;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            text-align: left;
+            display: grid;
+            grid-template-columns: 185px auto;
+            align-items: baseline;
+        }
+
+        .page-title .title-en {
+            white-space: nowrap;
+        }
+
+        .page-title .title-zh {
+            white-space: nowrap;
+            letter-spacing: 0.25em;
+        }
+
+        /* -------------------------------------
+           自我介紹 (Statement)
+        -------------------------------------- */
         .statement {
             font-size: 1rem;
             line-height: 2;
             letter-spacing: 0.5px;
             text-align: left;
-            max-width: 800px;
-            border-left: 4px solid var(--border-color);
-            padding-left: 2rem;
+            width: 100%;
+            border-left: none;
+            padding-left: 0;
             font-weight: 300;
+            word-break: break-word;
+            overflow-wrap: break-word;
         }
 
-        .statement p { margin-bottom: 1.5rem; opacity: 0.9; }
+        .statement p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            text-align: left;
+        }
 
         .lang-btn {
             opacity: 0.4;
@@ -179,41 +324,164 @@
         .lang-section.active { display: block; }
         .greeting.active { display: inline; }
 
-        /* portfolio */
-        #portfolio { scroll-margin-top: 160px; }
-
-        .section-title {
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 3rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.5rem;
-            display: inline-block;
-            font-weight: 300;
+        /* -------------------------------------
+           CV 跡 內頁樣式
+        -------------------------------------- */
+        .cv-container {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            word-break: break-word;
+            overflow-wrap: break-word;
         }
-
-        .portfolio-list {
+        .cv-statement {
+            font-size: 1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+        .statement-en {
+            display: block;
+            font-size: 0.88rem;
+            opacity: 0.65;
+            line-height: 1.6;
+            margin-top: 0.3rem;
+        }
+        .cv-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .section-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 0.8rem;
+            display: block;
+            width: 100%;
+            opacity: 0.6;
+        }
+        .cv-list {
             list-style: none;
             display: flex;
             flex-direction: column;
             gap: 2rem;
         }
-
-        .portfolio-item {
+        .cv-item {
             display: grid;
-            grid-template-columns: 100px 1fr;
+            grid-template-columns: 140px 1fr;
             gap: 2rem;
             align-items: baseline;
         }
+        .year {
+            font-weight: 300;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            opacity: 0.6;
+        }
+        .details h3 {
+            font-size: 1.05rem;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+            margin-bottom: 0.3rem;
+        }
+        .details p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            font-weight: 300;
+            line-height: 1.6;
+        }
 
-        .year { font-weight: 300; font-size: 1.2rem; }
-        .details h3 { font-size: 1.2rem; font-weight: 300; margin-bottom: 0.5rem; }
-        .details p { font-size: 0.95rem; opacity: 0.8; font-weight: 300; }
+        /* -------------------------------------
+           INFO 訊 內頁樣式
+        -------------------------------------- */
+        .info-container {
+            display: flex;
+            flex-direction: column;
+            gap: 3.5rem;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        .info-social-links {
+            display: flex;
+            flex-direction: column;
+            font-size: 1rem;
+        }
+        .info-social-links > a {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.8rem 0;
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+        .info-social-links > a:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+        .newsletter-section {
+            margin-top: 1rem;
+            padding-top: 2.5rem;
+            border-top: 1px dashed rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            max-width: 650px;
+        }
+        .nl-zh { font-size: 0.9rem; opacity: 0.9; }
+        .nl-en { font-size: 0.8rem; opacity: 0.6; }
+        .nl-form { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+        .nl-form input {
+            flex: 1; background: transparent; border: 1px solid #cbcbcb; color: var(--text-color);
+            padding: 0.6rem 0.8rem; font-family: inherit; font-size: 0.85rem;
+        }
+        .nl-form input:focus { outline: none; border-color: var(--text-color); background: rgba(255, 255, 255, 0.05); }
+        .nl-form button {
+            background: #000000; color: #ffffff; border: 2px solid #ffffff; padding: 0.6rem 1.2rem;
+            font-family: inherit; font-size: 0.85rem; font-weight: bold; cursor: pointer; box-shadow: 3px 3px 0px #ffffff; transition: all 0.1s ease;
+        }
+        .nl-form button:hover { background: #ffffff; color: #000000; transform: translate(2px, 2px); box-shadow: 1px 1px 0px #ffffff; }
 
-        /* footer */
+        /* -------------------------------------
+           WORKS / SOUND / GAMES 內頁樣式
+        -------------------------------------- */
+        .generic-tab-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2.5rem;
+            width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+        .generic-tab-container p {
+            opacity: 0.9;
+            line-height: 1.9;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+        }
+        .tab-action-btn {
+            display: inline-block;
+            width: 100%; /* 確保電腦版與手機版寬度基準一致，不向右凸出 */
+            padding: 0.8rem 1.4rem;
+            white-space: normal;
+            line-height: 1.5;
+            max-width: 100%;
+            box-sizing: border-box;
+            word-break: break-word;
+            height: auto;
+        }
+
+        /* -------------------------------------
+           底部欄位 (寬度嚴格對齊內文 680px)
+        -------------------------------------- */
         footer {
-            margin-top: 4rem;
+            width: 100%;
+            margin-top: 8rem;
             padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.2);
             font-size: 0.85rem;
@@ -223,204 +491,634 @@
         }
 
         /* -------------------------------------
-           support modal (白底淺灰框 + 半透明黑底遮罩 + CSS網格按鈕排版)
+           support modal (炭黑 + 淺灰硬陰影)
         -------------------------------------- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.75); /* 修改為半透明黑色 */
+            background-color: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
-            z-index: 2000; display: none; justify-content: center; align-items: center;
-            padding: 1rem; overflow-y: auto; color: var(--bg-color);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            overflow-y: auto;
+            color: #000;
         }
 
         .modal-overlay.active { display: flex; }
 
         .modal-box {
-            background-color: var(--text-color); color: var(--bg-color);
-            border: 1px solid #cbcbcb; box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
-            max-width: 500px; width: 100%; padding: 2rem; max-height: 90vh;
-            overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem;
+            background-color: #ffffff;
+            color: #000000;
+            border: 3px solid var(--charcoal-black);
+            box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.9);
+            max-width: 520px;
+            width: 100%;
+            padding: 2rem;
+            max-height: 88vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
+        .modal-box::-webkit-scrollbar { width: 8px; }
+        .modal-box::-webkit-scrollbar-track { background: #f0f0f0; border-left: 1px solid var(--charcoal-black); }
+        .modal-box::-webkit-scrollbar-thumb { background: var(--charcoal-black); }
+
         .modal-header {
-            display: flex; justify-content: space-between; align-items: baseline;
-            border-bottom: 1px solid #cbcbcb; padding-bottom: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 2px solid var(--charcoal-black);
+            padding-bottom: 0.8rem;
+            font-weight: bold;
+            font-size: 1.05rem;
         }
 
         .close-btn {
-            background-color: var(--text-color); border: 1px solid #cbcbcb; color: var(--bg-color);
-            font-family: inherit; font-size: 0.85rem; padding: 0.2rem 0.55rem; cursor: pointer; transition: all 0.2s ease;
+            background-color: #ffffff;
+            border: 2px solid var(--charcoal-black);
+            color: var(--charcoal-black);
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 900;
+            padding: 0.25rem 0.65rem;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px var(--brutal-shadow);
+            transition: all 0.1s ease;
         }
-        .close-btn:hover { background-color: #cbcbcb; color: var(--text-color); }
+        .close-btn:hover { 
+            background-color: var(--charcoal-black); 
+            color: #ffffff; 
+            transform: translate(1px, 1px);
+            box-shadow: 2px 2px 0px var(--brutal-shadow);
+        }
 
-        /* 使用 Grid 讓按鈕在手機板自動整齊換行 */
         .pay-tabs {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
-            gap: 0.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
+            gap: 0.6rem;
         }
 
         .pay-tab {
-            padding: 0.5rem 0.2rem;
-            background: var(--text-color); color: var(--bg-color);
-            border: 1px solid #cbcbcb; font-family: inherit; font-size: 0.85rem;
-            cursor: pointer; transition: all 0.2s ease; text-align: center; line-height: 1.3;
+            padding: 0.6rem 0.3rem;
+            background: #ffffff;
+            color: var(--charcoal-black);
+            border: 2px solid var(--charcoal-black);
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px var(--brutal-shadow);
+            transition: all 0.1s ease;
+            text-align: center;
+            line-height: 1.3;
         }
-        .pay-tab:hover, .pay-tab.active { background: #cbcbcb; color: var(--bg-color); border-color: #cbcbcb; }
+        .pay-tab:hover {
+            transform: translate(1px, 1px);
+            box-shadow: 2px 2px 0px var(--brutal-shadow);
+            background: #f4f4f4;
+        }
+        .pay-tab.active { 
+            background: var(--charcoal-black) !important; 
+            color: #ffffff !important; 
+            border-color: var(--charcoal-black) !important; 
+            box-shadow: 3px 3px 0px var(--brutal-shadow);
+            transform: translate(2px, 2px);
+        }
 
         .qr-display {
-            border: 1px dashed #cbcbcb; background-color: #fafafa;
-            padding: 1.2rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+            border: 2px dashed var(--charcoal-black);
+            background-color: #fafafa;
+            padding: 1.4rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
         }
 
         .qr-display img {
-            width: 180px; height: 180px; object-fit: contain; background-color: #ffffff;
-            border: 1px solid #cbcbcb; padding: 0.5rem;
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            background-color: #ffffff;
+            border: 2px solid var(--charcoal-black);
+            padding: 0.5rem;
+            box-shadow: 4px 4px 0px var(--brutal-shadow);
         }
 
-        .support-form { display: flex; flex-direction: column; gap: 1rem; }
-        .form-group { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.85rem; }
-        .form-group input, .form-group textarea {
-            background-color: var(--text-color); border: 1px solid #cbcbcb; color: var(--bg-color);
-            padding: 0.6rem; font-family: inherit; font-size: 0.9rem; resize: vertical;
+        #supportQrHint {
+            font-size: 0.85rem;
+            color: #333333;
+            line-height: 1.8;
+            display: block;
+            width: 100%;
         }
-        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #cbcbcb; background-color: #fafafa; }
+
+        .brutal-launch-btn {
+            display: inline-block;
+            padding: 0.75rem 1.4rem;
+            background-color: var(--charcoal-black) !important;
+            color: #ffffff !important;
+            border: 2px solid var(--charcoal-black) !important;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px var(--brutal-shadow);
+            transition: all 0.1s ease;
+        }
+        .brutal-launch-btn:hover {
+            background-color: var(--charcoal-hover) !important;
+            color: #ffffff !important;
+            box-shadow: 2px 2px 0px var(--brutal-shadow);
+            transform: translate(2px, 2px);
+        }
+
+        .support-form { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 1rem; 
+            border-top: 2px solid var(--charcoal-black);
+            padding-top: 1.2rem;
+        }
+        .form-group { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.85rem; font-weight: bold; }
+        .form-group input, .form-group textarea {
+            background-color: #ffffff;
+            border: 2px solid var(--charcoal-black);
+            color: var(--charcoal-black);
+            padding: 0.65rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            resize: vertical;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            background-color: #fff;
+            border-color: var(--charcoal-black);
+            box-shadow: 3px 3px 0px var(--brutal-shadow);
+        }
 
         .submit-btn {
-            width: 100%; padding: 0.7rem; background-color: var(--text-color); color: var(--bg-color);
-            border: 1px solid #cbcbcb; font-family: inherit; font-size: 0.95rem; cursor: pointer; transition: all 0.2s ease;
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--charcoal-black);
+            color: #ffffff;
+            border: 2px solid var(--charcoal-black);
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px var(--brutal-shadow);
+            transition: all 0.1s ease;
         }
-        .submit-btn:hover { background-color: #cbcbcb; color: var(--bg-color); border-color: #cbcbcb; }
+        .submit-btn:hover { 
+            background-color: var(--charcoal-hover); 
+            color: #ffffff; 
+            box-shadow: 2px 2px 0px var(--brutal-shadow);
+            transform: translate(2px, 2px);
+        }
 
         .back-to-top {
-            position: fixed; bottom: 2rem; right: 2rem; z-index: 900;
-            background-color: var(--bg-color); color: var(--text-color); border: 1px solid var(--border-color);
-            padding: 0.5rem 0.8rem; font-family: inherit; font-size: 0.85rem; font-weight: 300; letter-spacing: 1px;
-            cursor: pointer; opacity: 0; pointer-events: none; transition: all 0.2s ease;
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 900;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+            padding: 0.5rem 0.8rem;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            box-shadow: 3px 3px 0px rgba(255,255,255,0.4);
+            transition: all 0.2s ease;
         }
-        .back-to-top.visible { opacity: 0.8; pointer-events: auto; }
-        .back-to-top:hover { opacity: 1; background-color: var(--text-color); color: var(--bg-color); }
+        .back-to-top.visible { opacity: 0.9; pointer-events: auto; }
+        .back-to-top:hover { 
+            opacity: 1; 
+            background-color: var(--charcoal-black); 
+            color: #ffffff; 
+            border-color: var(--charcoal-black);
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px rgba(255,255,255,0.4);
+        }
 
-        @media (max-width: 768px) {
-            h1 { font-size: 3rem; }
-            .social-links { --wall: 240px; --col-label-top: 80px; --col-middle: 80px; }
-            #portfolio { scroll-margin-top: 250px; }
-            .portfolio-item { grid-template-columns: 80px 1fr; gap: 1rem; }
-            .statement { padding-left: 1rem; border-left: 2px solid var(--border-color); }
-            .support-banner { padding: 1.5rem; }
-            .link-group { flex-direction: column; gap: 0.6rem; }
-            .social-links a { padding: 0.8rem 0; }
-            .modal-box { padding: 1.5rem; }
+        /* -------------------------------------
+           RWD 響應式配置 (手機端完美維持原有體驗不變)
+        -------------------------------------- */
+        @media (max-width: 860px) {
+            .container { 
+                padding: 1.5rem 1.5rem 2.5rem 1.5rem !important; 
+            }
+            main {
+                max-width: 100%;
+            }
+
+            .nav-wrapper {
+                margin-top: 1.5rem !important;
+                margin-bottom: 2.5rem !important;
+            }
+
+            /* 手機版按鈕直式排列，保留中文字、僅隱藏箭頭 */
+            .social-links {
+                flex-direction: column;
+                width: 100%;
+                gap: 0;
+            }
+            .social-links a {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+                display: grid;
+                grid-template-columns: 70px auto;
+                justify-content: start;
+                padding: 0.75rem 0.5rem;
+            }
+            .social-links .link-middle {
+                display: inline-block !important;
+                margin-left: 0.8rem;
+            }
+
+            .support-banner { padding: 1.2rem 1.5rem; }
+            
+            /* 頂部按鈕改為直向滿版，高度自適應 */
+            .link-group { 
+                flex-direction: column; 
+                gap: 0.6rem; 
+                width: 100%; 
+            }
+            .link-group .brutal-btn { 
+                width: 100%; 
+                min-width: unset; 
+                height: auto; 
+                min-height: 48px;
+                white-space: normal; 
+                padding: 0.6rem 0.8rem;
+            }
+
+            .tab-header {
+                margin-top: 0.5rem;
+                margin-bottom: 3rem;
+                gap: 2rem;
+            }
+
+            .tab-back-bar {
+                top: -2.2rem;
+            }
+
+            .page-title {
+                grid-template-columns: 160px auto;
+            }
+
+            footer {
+                margin-top: 6rem;
+            }
+            
+            .modal-box { padding: 1.5rem; max-height: 90vh; }
+            .cv-item { grid-template-columns: 1fr; gap: 0.5rem; }
+            .year { border-left: 2px solid rgba(255,255,255,0.2); padding-left: 0.8rem; }
+            .details { padding-left: 0.8rem; }
+            .nl-form { flex-direction: column; gap: 0.8rem; }
+            
+            /* 視 音 遊 的按鈕在手機版自適應全寬 */
+            .tab-action-btn {
+                width: 100% !important;
+                display: block !important;
+                text-align: center;
+                padding: 0.8rem 1rem !important;
+            }
+            
             .back-to-top { bottom: 1.5rem; right: 1.5rem; padding: 0.4rem 0.7rem; }
-            .desktop-br { display: none; }
-            .desktop-br-hint { display: none; } /* 手機版隱藏換行，讓文字連續顯示 */
         }
     </style>
 </head>
 <body>
 
-    <!-- support banner -->
+    <!-- 外層贊助與商店橫幅 (3個等高等寬按鈕) -->
     <div class="support-banner">
         <span class="banner-title">FUEL THE ART & CODE / donate 一杯咖啡，支持數位創作與深夜除錯</span>
         
         <div class="link-group">
-            <a href="javascript:void(0)" onclick="openSupportModal('local')">台灣 donate ( 信用卡 / 行動支付 / 轉帳 )</a>
-            <a href="javascript:void(0)" onclick="openSupportModal('overseas')">Overseas donate ( PayPal / Alipay )</a>
+            <button type="button" class="brutal-btn" onclick="openSupportModal('local')">台灣 donate ( 信用卡 / 行動支付 / 轉帳 )</button>
+            <button type="button" class="brutal-btn" onclick="openSupportModal('overseas')">Overseas donate ( PayPal / Alipay )</button>
+            <a href="shop.html" id="shopBannerBtn" class="brutal-btn shop-banner-btn">shop 商店</a>
         </div>
     </div>
 
     <div class="container">
-        <!-- header & social -->
-        <header>
-            <h1>lonlon<br><br><span class="name-zh">冷冷</span></h1>
-            
-            <div class="social-links">
-                <a href="shop.html" target="_self" class="grid-link-top">
-                    <span class="link-label">shop </span><span class="link-middle">店<span class="arrow">&#x2197;&#xFE0E;</span></span>
-                </a>
-                <a href="cv.html" target="_self" class="grid-link-top">
-                    <span class="link-label">cv </span><span class="link-middle">跡<span class="arrow">&#x2197;&#xFE0E;</span></span>
-                </a>
-                <a href="info.html" target="_self" class="grid-link-top">
-                    <span class="link-label">info </span><span class="link-middle">訊<span class="arrow">&#x2197;&#xFE0E;</span></span>
-                </a>
-                <a href="https://youtube.com/@arts.lonlon" target="_blank" class="grid-link-top">
-                    <span class="link-label">works </span><span class="link-middle">視<span class="arrow">&#x2197;&#xFE0E;</span></span>
-                </a>
-                <a href="https://youtube.com/@arts.lonlon" target="_blank" class="grid-link-top">
-                    <span class="link-label">sound </span><span class="link-middle">音<span class="arrow">&#x2197;&#xFE0E;</span></span>
-                </a>
-                <a href="https://youtube.com/@lons.gaming" target="_blank" class="grid-link-top">
-                    <span class="link-label">games </span><span class="link-middle">遊<span class="arrow">&#x2197;&#xFE0E;</span></span>
-                </a>
-                
+        <!-- 內容主欄位 (max-width: 680px 置中) -->
+        <main>
+            <!-- 導覽按鈕列 (在白色 Banner 與大標題的正中間，上下精確等距 3rem) -->
+            <div class="nav-wrapper">
+                <nav class="social-links">
+                    <a href="javascript:void(0)" onclick="switchTab('statement')" class="tab-link active" data-tab="statement">
+                        <span class="link-label">home</span>
+                        <span class="link-middle">冷</span>
+                    </a>
+                    <a href="javascript:void(0)" onclick="switchTab('works')" class="tab-link" data-tab="works">
+                        <span class="link-label">works</span>
+                        <span class="link-middle">視</span>
+                    </a>
+                    <a href="javascript:void(0)" onclick="switchTab('sound')" class="tab-link" data-tab="sound">
+                        <span class="link-label">sound</span>
+                        <span class="link-middle">音</span>
+                    </a>
+                    <a href="javascript:void(0)" onclick="switchTab('games')" class="tab-link" data-tab="games">
+                        <span class="link-label">games</span>
+                        <span class="link-middle">遊</span>
+                    </a>
+                    <a href="javascript:void(0)" onclick="switchTab('cv')" class="tab-link" data-tab="cv">
+                        <span class="link-label">cv</span>
+                        <span class="link-middle">跡</span>
+                    </a>
+                    <a href="javascript:void(0)" onclick="switchTab('info')" class="tab-link" data-tab="info">
+                        <span class="link-label">info</span>
+                        <span class="link-middle">訊</span>
+                    </a>
+                </nav>
             </div>
-        </header>
 
-        <!-- statement -->
-        <section>
-            <div class="statement">
-                <p style="margin-bottom: 2rem;">
-                    <span id="greeting-zh" class="greeting active">歡迎來到我的主頁！ options<br></span>
-                    <span id="greeting-en" class="greeting">Welcome to my creative space!<br></span>
-                    <span id="greeting-de" class="greeting">Willkommen auf meiner Seite!<br></span>
-                    <span>( <a href="javascript:void(0)" onclick="setLang('zh')" class="lang-btn active" data-lang="zh">中文</a> / <a href="javascript:void(0)" onclick="setLang('en')" class="lang-btn" data-lang="en">EN</a> / <a href="javascript:void(0)" onclick="setLang('de')" class="lang-btn" data-lang="de">DE</a><a href="cv.html" class="lang-btn"></a> )</span>
-                </p>
-
-                <!-- lang: zh -->
-                <div id="content-zh" class="lang-section active">
-                    <p>我是冷冷，一名遊走於數位媒體、視覺藝術與程式碼之間的科技藝術家與開發者。</p>
-                    <p>我的創作軌跡主要分為兩個平行的領域：</p>
-                    <p>1. 數位與錄像藝術：<br>
-                    我的藝術實踐聚焦於錄像、多媒體行為裝置、AI 生成工作流，以及傳統的水印木刻版畫。我的數位與視覺作品曾於雅典、威尼斯、蘇黎世以及日惹等藝術節與跨國展覽中展出。</p>
-                    <p>2. RimWorld 模組開發與實況：<br>
-                    在遊戲領域，我同時也是一名 RimWorld 模組作者。我致力於編寫 C# 底層邏輯補丁，修復破壞沉浸感的翻譯亂碼、解決複雜的模組衝突並淨化遊戲機制。此外，我也會透過實況分享我的遊戲日常與創作過程。</p>
-                    <p>為什麼需要你的支持？<br>
-                    無論你是剛被我的補丁拯救了存檔的邊緣世界玩家、實況台的觀眾，還是在歐洲的展覽中對我的錄像作品產生共鳴的觀展人——都非常感謝你來到這裡。</p>
-                    <p>你們贊助的每一杯咖啡，都將直接化為我升級硬體設備、維持深夜除錯的咖啡因濃度，以及投入下一件跨領域藝術專案的最大動力。☕✨</p>
+            <!-- 內頁 1：自我介紹 (lonlon 與 冷冷 橫向拉開微距，第一個冷字與其他頁面完全對齊) -->
+            <div id="tab-statement" class="page-tab active">
+                <div class="tab-header">
+                    <!--<div class="tab-back-bar"></div>-->
+                    <h2 class="page-title"><span class="title-en">lonlon</span><span class="title-zh">冷冷</span></h2>
                 </div>
+                <div class="statement">
+                    <p style="margin-bottom: 2rem;">
+                        <span id="greeting-zh" class="greeting active">歡迎來到我的主頁！ options<br></span>
+                        <span id="greeting-en" class="greeting">Welcome to my creative space!<br></span>
+                        <span id="greeting-de" class="greeting">Willkommen auf meiner Seite!<br></span>
+                        <span>( <a href="javascript:void(0)" onclick="setLang('zh')" class="lang-btn active" data-lang="zh">中文</a> / <a href="javascript:void(0)" onclick="setLang('en')" class="lang-btn" data-lang="en">EN</a> / <a href="javascript:void(0)" onclick="setLang('de')" class="lang-btn" data-lang="de">DE</a> )</span>
+                    </p>
 
-                <!-- lang: en -->
-                <div id="content-en" class="lang-section">
-                    <p>I am Lonlon (PEI, Lon), a tech artist and developer navigating the intersections of digital media, visual arts, and code.</p>
-                    <p>My creative journey is split into two main parallel tracks:</p>
-                    <p>1. Digital & Video Art:<br>
-                    My artistic practice focuses on video, multimedia installations, AI generative workflows, and traditional woodcut printmaking. My visual works and installations have been exhibited at art festivals and galleries across Eurasia, including Athens, Venice, Zurich, and Yogyakarta.</p>
-                    <p>2. RimWorld Modding & Streaming:<br>
-                    In the gaming sphere, I develop C# core-logic patches and quality-of-life mods for RimWorld. I focus on sanitizing game mechanics, fixing immersion-breaking bugs, and resolving complex mod conflicts. I also stream my gameplay and creative processes to connect with the community.</p>
-                    <p>Why support?<br>
-                    Whether you are a RimWorld colonist whose savefile I just rescued, a viewer hanging out in my streams, or an audience member who connected with my video art at an exhibition in Europe—thank you for being here.</p>
-                    <p>Your tips and coffees directly fund my caffeine supply, hardware maintenance, and upcoming cross-disciplinary art projects. Every contribution keeps the momentum going for both my late-night coding sessions and digital creations. ☕✨</p>
-                </div>
+                    <!-- lang: zh -->
+                    <div id="content-zh" class="lang-section active">
+                        <p>我是冷冷，一名遊走於數位媒體、視覺藝術與程式碼之間的科技藝術家與開發者。</p>
+                        <p>我的創作軌跡主要分為兩個平行的領域：</p>
+                        <p>1. 數位與錄像藝術：<br>
+                        我的藝術實踐聚焦於錄像、多媒體行為裝置、AI 生成工作流，以及傳統的水印木刻版畫。我的數位與視覺作品曾於雅典、威尼斯、蘇黎世以及日惹等藝術節與跨國展覽中展出。</p>
+                        <p>2. RimWorld 模組開發與實況：<br>
+                        在遊戲領域，我同時也是一名 RimWorld 模組作者。我致力於編寫 C# 底層邏輯補丁，修復破壞沉浸感的翻譯亂碼、解決複雜的模組衝突並淨化遊戲機制。此外，我也會透過實況分享我的遊戲日常與創作過程。</p>
+                        <p>為什麼需要你的支持？<br>
+                        無論你是剛被我的補丁拯救了存檔的邊緣世界玩家、實況台的觀眾，還是在歐洲的展覽中對我的錄像作品產生共鳴的觀展人——都非常感謝你來到這裡。</p>
+                        <p>你們贊助的每一杯咖啡，都將直接化為我升級硬體設備、維持深夜除錯的咖啡因濃度，以及投入下一件跨領域藝術專案的最大動力。☕✨</p>
+                    </div>
 
-                <!-- lang: de -->
-                <div id="content-de" class="lang-section">
-                    <p>Ich bin Lonlon (PEI, Lon), ein Tech-Künstler und Entwickler, der sich an der Schnittstelle von digitalen Medien, visueller Kunst und Programmierung bewegt.</p>
-                    <p>Meine kreative Reise teilt sich hauptsächlich in zwei parallele Bereiche auf:</p>
-                    <p>1. Digitale & Videokunst:<br>
-                    Meine künstlerische Praxis konzentriert sich auf Video, multimediale Installationen, KI-gestützte Workflows und traditionellen Holzschnitt. Meine visuellen Werke und Installationen wurden bereits auf Kunstfestivals und in Galerien in ganz Eurasien ausgestellt, darunter in Athen, Venedig, Zürich und Yogyakarta.</p>
-                    <p>2. RimWorld Modding & Streaming:<br>
-                    Im Gaming-Bereich entwickle ich C#-Core-Logic-Patches und Quality-of-Life-Mods für RimWorld. Mein Fokus liegt darauf, Spielmechaniken zu bereinigen, störende Bugs zu beheben und komplexe Mod-Konflikte zu lösen. Außerdem streame ich meinen Spiel- und Arbeitsprozess, um mich mit der Community auszutauschen.</p>
-                    <p>Warum unterstützen?<br>
-                    Ob du ein RimWorld-Kolonist bist, dessen Spielstand ich gerade gerettet habe, ein Zuschauer in meinem Stream oder ein Besucher, den meine Videokunst auf einer Ausstellung in Europa berührt hat – vielen Dank, dass du hier bist.</p>
-                    <p>Eure Spenden und Kaffees fließen direkt in meinen Koffeinnachschub, die Instandhaltung meiner Hardware und in kommende interdisziplinäre Kunstprojekte. Jeder Beitrag ist ein riesiger Motivationsschub für meine nächtlichen Programmier-Sessions und digitalen Kreationen. ☕✨</p>
+                    <!-- lang: en -->
+                    <div id="content-en" class="lang-section">
+                        <p>I am Lonlon (PEI, Lon), a tech artist and developer navigating the intersections of digital media, visual arts, and code。</p>
+                        <p>My creative journey is split into two main parallel tracks:</p>
+                        <p>1. Digital & Video Art:<br>
+                        My artistic practice focuses on video, multimedia installations, AI generative workflows, and traditional woodcut printmaking. My visual works and installations have been exhibited at art festivals and galleries across Eurasia, including Athens, Venice, Zurich, and Yogyakarta.</p>
+                        <p>2. RimWorld Modding & Streaming:<br>
+                        In the gaming sphere, I develop C# core-logic patches and quality-of-life mods for RimWorld. I focus on sanitizing game mechanics, fixing immersion-breaking bugs, and resolving complex mod conflicts. I also stream my gameplay and creative processes to connect with the community.</p>
+                        <p>Why support?<br>
+                        Whether you are a RimWorld colonist whose savefile I just rescued, a viewer hanging out in my streams, or an audience member who connected with my video art at an exhibition in Europe—thank you for being here.</p>
+                        <p>Your tips and coffees directly fund my caffeine supply, hardware maintenance, and upcoming cross-disciplinary art projects. Every contribution keeps the momentum going for both my late-night coding sessions and digital creations. ☕✨</p>
+                    </div>
+
+                    <!-- lang: de -->
+                    <div id="content-de" class="lang-section">
+                        <p>Ich bin Lonlon (PEI, Lon), ein Tech-Künstler und Entwickler, der sich an der Schnittstelle von digitalen Medien, visueller Kunst und Programmierung bewegt。</p>
+                        <p>Meine creative Reise teilt sich hauptsächlich in zwei parallele Bereiche auf:</p>
+                        <p>1. Digitale & Videokunst:<br>
+                        Meine künstlerische Praxis konzentriert sich auf Video, multimediale Installationen, KI-gestützte Workflows und traditionellen Holzschnitt. Meine visuellen Werke und Installationen wurden bereits auf Kunstfestivals und in Galerien in ganz Eurasien ausgestellt, darunter in Athen, Venedig, Zürich und Yogyakarta.</p>
+                        <p>2. RimWorld Modding & Streaming:<br>
+                        Im Gaming-Bereich entwickle ich C#-Core-Logic-Patches und Quality-of-Life-Mods für RimWorld. Mein Fokus liegt darauf, Spielmechaniken zu bereinigen, störende Bugs zu beheben und komplexe Mod-Konflikte zu lösen. Außerdem streame ich meinen Spiel- und Arbeitsprozess, um mich mit der Community auszutauschen。</p>
+                        <p>Warum unterstützen?<br>
+                        Ob du ein RimWorld-Kolonist bist, dessen Spielstand ich gerade gerettet habe, ein Zuschauer in meinem Stream oder ein Besucher, den meine Videokunst auf einer Ausstellung in Europe berührt hat – vielen Dank, dass du hier bist。</p>
+                        <p>Eure Spenden und Kaffees fließen direkt in meinen Koffeinnachschub, die Instandhaltung meiner Hardware und in kommende interdisziplinäre Kunstprojekte. Jeder Beitrag ist ein riesiger Motivationsschub für meine nächtlichen Programmier-Sessions und digitalen Kreationen. ☕✨</p>
+                    </div>
                 </div>
             </div>
-        </section>
 
-        <!-- portfolio -->
-        <section id="portfolio">
-            <div class="portfolio">
-                <p>
-                    <span><a href="cv.html" >( Portfolio ) cv<span class="arrow">&#x2197;&#xFE0E;</span></a></span>
-                </p>
-        </section>
+            <!-- 內頁 2：CV 跡 (雙欄絕對對齊) -->
+            <div id="tab-cv" class="page-tab">
+                <div class="tab-header">
+                    <!--<div class="tab-back-bar">
+                        <span class="tab-back-btn" onclick="switchTab('statement')">← return / 返回主頁</span>
+                    </div>-->
+                    <h2 class="page-title"><span class="title-en">CV</span><span class="title-zh">跡</span></h2>
+                </div>
+                <div class="cv-container">
+                    <div class="cv-statement">
+                        冷冷 (lonlon) 本名裴冷 (PEI, Lon)<br>
+                        現居台北。遊走於數位媒體、虛擬現實與視覺語彙之間。<br>
+                        <span class="statement-en">Based in Taipei. Working across digital media, virtual reality, and visual syntax.</span>
+                    </div>
 
-        <footer>
-            &copy; 2026 pei, lon. All Rights Reserved.
-        </footer>
+                    <!-- 學歷 -->
+                    <section class="cv-section">
+                        <div class="section-title">Education</div>
+                        <ul class="cv-list">
+                            <li class="cv-item">
+                                <div class="year">2024 - 2025</div>
+                                <div class="details">
+                                    <h3>國立臺北藝術大學 美術學系</h3>
+                                    <p>Studies in Fine Arts, Taipei National University of the Arts</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- 駐村與交流 -->
+                    <section class="cv-section">
+                        <div class="section-title">Residencies</div>
+                        <ul class="cv-list">
+                            <li class="cv-item">
+                                <div class="year">2025.01</div>
+                                <div class="details">
+                                    <h3>跨文化合作計畫 (Transcultural Collaboration Program)</h3>
+                                    <p>受蘇黎世藝術大學邀請從事藝術交流與工作<br>
+                                    Invited by Zurich University of the Arts (ZHdK), Zurich, Switzerland</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- 展演經歷 -->
+                    <section class="cv-section">
+                        <div class="section-title">Selected Exhibitions</div>
+                        <ul class="cv-list">
+                            <li class="cv-item">
+                                <div class="year">2025</div>
+                                <div class="details">
+                                    <h3>studies on incest</h3>
+                                    <p>Group Exhibition / Toni-Areal of ZHdK (Zurich, Switzerland)</p>
+                                </div>
+                            </li>
+                            <li class="cv-item">
+                                <div class="year"></div>
+                                <div class="details">
+                                    <h3>studies on synchronicity</h3>
+                                    <p>Group Trans-disciplinary Performance / Galeri Lorong (Yogyakarta, Indonesia)</p>
+                                </div>
+                            </li>
+                            <li class="cv-item">
+                                <div class="year">2024</div>
+                                <div class="details">
+                                    <h3>最終章：白色 finale: white</h3>
+                                    <p>National Center of Photography and Images &amp; Taipei Art Book Fair (Taipei, Taiwan)<br>
+                                    Art Book / Exhibited at Art Book Fair of Venice Biennale (Venice, Italy)</p>
+                                </div>
+                            </li>
+                            <li class="cv-item">
+                                <div class="year"></div>
+                                <div class="details">
+                                    <h3>風行不止 wind continues in motion</h3>
+                                    <p>Experimental Theater of NTU (Taipei, Taiwan)<br>
+                                    Video Art / Athens Digital Arts Festival (Athens, Greece)</p>
+                                </div>
+                            </li>
+                            <li class="cv-item">
+                                <div class="year">2023</div>
+                                <div class="details">
+                                    <h3>滲人 seeping</h3>
+                                    <p>Collaborative Performance &amp; Theater / Umay Theater (Taipei, Taiwan)</p>
+                                </div>
+                            </li>
+                            <li class="cv-item">
+                                <div class="year">2022</div>
+                                <div class="details">
+                                    <h3>愛麗絲的新生 carnival to alice, a story of reconstruction</h3>
+                                    <p>Video Art / Experimental Theater of NTU (Taipei, Taiwan)</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- 開發與開源專案 -->
+                    <section class="cv-section">
+                        <div class="section-title">Projects &amp; Development</div>
+                        <ul class="cv-list">
+                            <li class="cv-item">
+                                <div class="year">Ongoing</div>
+                                <div class="details">
+                                    <h3>RimWorld Modding &amp; C# Core-Logic Patches</h3>
+                                    <p>獨立開發者。專注於編寫 C# 遊戲底層邏輯補丁，修復模組衝突並淨化遊戲機制。</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+
+            <!-- 內頁 3：INFO 訊 (雙欄絕對對齊) -->
+            <div id="tab-info" class="page-tab">
+                <div class="tab-header">
+                    <!--<div class="tab-back-bar">
+                        <span class="tab-back-btn" onclick="switchTab('statement')">← return / 返回主頁</span>
+                    </div>-->
+                    <h2 class="page-title"><span class="title-en">INFO</span><span class="title-zh">訊</span></h2>
+                </div>
+                <div class="info-container">
+                    <div class="info-social-links">
+                        <a href="mailto:arts.lonp@gmail.com">
+                            <span class="link-label">email</span>
+                            <span class="link-middle">arts.lonp@gmail.com</span>
+                        </a>
+                        
+                        <a href="https://instagram.com/arts.lonlon" target="_blank">
+                            <span class="link-label">ig</span>
+                            <span class="link-middle">@arts.lonlon</span>
+                        </a>
+
+                        <a href="https://instagram.com/lons_gaming" target="_blank">
+                            <span class="link-label">ig</span>
+                            <span class="link-middle">@lons_gaming</span>
+                        </a>
+                    </div>
+
+                    <!-- 獨立分離的電子報區塊 -->
+                    <div class="newsletter-section">
+                        <div>
+                            <p class="nl-zh">newsletter // 留下信箱，不定期接收最新展覽資訊、作品發佈與專案更新。</p>
+                            <p class="nl-en">Subscribe to receive occasional updates on exhibitions, new artworks, and projects. (maintaining, unavailable at the moment 維護中)</p>
+                        </div>
+                        <form class="nl-form" onsubmit="event.preventDefault(); alert('維護中 unavailable at the moment--(感謝訂閱 前端展示版)');">
+                            <input type="email" placeholder="email address / 電子信箱" required>
+                            <button type="submit">[ SUBSCRIBE ]</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 內頁 4：WORKS 視 (雙欄絕對對齊) -->
+            <div id="tab-works" class="page-tab">
+                <div class="tab-header">
+                    <!--<div class="tab-back-bar">
+                        <span class="tab-back-btn" onclick="switchTab('statement')">← return / 返回主頁</span>
+                    </div>-->
+                    <h2 class="page-title"><span class="title-en">WORKS</span><span class="title-zh">視</span></h2>
+                </div>
+                <div class="generic-tab-container">
+                    <p>
+                        我的藝術實踐聚焦於錄像、多媒體行為裝置、AI 生成工作流，以及傳統的水印木刻版畫。我的數位與視覺作品曾於雅典、威尼斯、蘇黎世以及日惹等藝術節與跨國展覽中展出。
+                    </p>
+                    <div style="margin-top: 1.5rem; width: 100%;">
+                        <a href="https://youtube.com/@arts.lonlon" target="_blank" class="brutal-btn tab-action-btn">
+                            [ 前往 YOUTUBE 觀看視覺與錄像作品 @arts.lonlon ↗ ]
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 內頁 5：SOUND 音 (雙欄絕對對齊) -->
+            <div id="tab-sound" class="page-tab">
+                <div class="tab-header">
+                    <!--<div class="tab-back-bar">
+                        <span class="tab-back-btn" onclick="switchTab('statement')">← return / 返回主頁</span>
+                    </div>-->
+                    <h2 class="page-title"><span class="title-en">SOUND</span><span class="title-zh">音</span></h2>
+                </div>
+                <div class="generic-tab-container">
+                    <p>
+                        探索聲響與空間氛圍的相互作用，涵蓋實驗音訊、聲音行為紀錄以及多媒體展演的聲學設計。
+                    </p>
+                    <div style="margin-top: 1.5rem; width: 100%;">
+                        <a href="https://youtube.com/@arts.lonlon" target="_blank" class="brutal-btn tab-action-btn">
+                            [ 前往 YOUTUBE 聆聽聲音與音訊專案 @arts.lonlon ↗ ]
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 內頁 6：GAMES 遊 (雙欄絕對對齊) -->
+            <div id="tab-games" class="page-tab">
+                <div class="tab-header">
+                    <!--<div class="tab-back-bar">
+                        <span class="tab-back-btn" onclick="switchTab('statement')">← return / 返回主頁</span>
+                    </div>-->
+                    <h2 class="page-title"><span class="title-en">GAMES</span><span class="title-zh">遊</span></h2>
+                </div>
+                <div class="generic-tab-container">
+                    <p>
+                        在遊戲領域，我同時也是一名 RimWorld 模組作者。我致力於編寫 C# 底層邏輯補丁，修復破壞沉浸感的翻譯亂碼、解決複雜的模組衝突並淨化遊戲機制。此外，我也會透過實況分享我的遊戲日常與創作過程。
+                    </p>
+                    <div style="margin-top: 1.5rem; width: 100%;">
+                        <a href="https://youtube.com/@lons.gaming" target="_blank" class="brutal-btn tab-action-btn">
+                            [ 前往 YOUTUBE 遊戲與實況頻道 @lons.gaming ↗ ]
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部欄位 (寬度嚴格對齊內文 680px) -->
+            <footer>
+                &copy; 2026 pei, lon. All Rights Reserved.
+            </footer>
+        </main>
     </div>
 
     <!-- 掃碼贊助與留言彈出視窗 -->
@@ -433,7 +1131,7 @@
 
             <!-- 步驟 1：選擇支付方式 -->
             <div>
-                <p style="font-size: 0.85rem; margin-bottom: 0.5rem;">STEP 1. 選擇支付方式並完成贊助：</p>
+                <p style="font-size: 0.88rem; font-weight: bold; margin-bottom: 0.8rem;">STEP 1. 選擇支付方式並完成贊助：</p>
                 <div class="pay-tabs" id="supportTabs">
                     <!-- 台灣本地選項 -->
                     <button type="button" class="pay-tab tab-local" onclick="switchSupportQR('jkopay', this)">街口等<br>TWQR</button>
@@ -446,22 +1144,22 @@
                     <button type="button" class="pay-tab tab-overseas" onclick="switchSupportQR('alipay', this)">Alipay</button>
                 </div>
 
-                <div class="qr-display" style="margin-top: 0.5rem;">
-                    <!-- 掃碼用的圖片 (預設顯示) -->
-                    <img id="supportQrImage" src="" alt="QR Code" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'180\\' height=\\'180\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%23fff\\'/><text x=\\'50%\\' y=\\'50%\\' fill=\\'%23000\\' font-family=\\'monospace\\' font-size=\\'14\\' text-anchor=\\'middle\\'>QR CODE</text></svg>'">
+                <div class="qr-display" style="margin-top: 0.8rem;">
+                    <!-- 掃碼用的圖片 -->
+                    <img id="supportQrImage" src="" alt="QR Code" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'180\' height=\'180\'><rect width=\'100%\' height=\'100%\' fill=\'%23fff\'/><text x=\'50%\' y=\'50%\' fill=\'%23000\' font-family=\'monospace\' font-size=\'14\' text-anchor=\'middle\'>QR CODE</text></svg>'">
                     
-                    <!-- 連結專用的點擊跳轉按鈕 (預設隱藏) -->
-                    <div id="linkWrap" style="display:none; padding: 2rem 0; width: 100%;">
-                        <a id="linkBtn" href="#" target="_blank" class="submit-btn" style="display:block; text-align:center; text-decoration:none;">[ Go to Secure Checkout ↗ ]<br>前往安全支付頁面</a>
+                    <!-- 連結專用的點擊跳轉按鈕 -->
+                    <div id="linkWrap" style="display:none; padding: 1.5rem 0; width: 100%;">
+                        <a id="linkBtn" href="#" target="_blank" class="brutal-launch-btn" style="display:block; text-align:center;">[ 前往安全支付頁面 ↗ ]</a>
                     </div>
 
-                    <span id="supportQrHint" style="font-size: 0.8rem; opacity: 0.75; line-height: 1.8;"></span>
+                    <span id="supportQrHint"></span>
                 </div>
             </div>
 
             <!-- 步驟 2：選填留言表單 -->
             <form class="support-form" onsubmit="submitSupportMessage(event)">
-                <p style="font-size: 0.85rem;">STEP 2. 留下你的資訊與想說的話（選填）：</p>
+                <p style="font-size: 0.88rem; font-weight: bold;">STEP 2. 留下你的資訊與想說的話（選填）：</p>
                 
                 <div class="form-group">
                     <label>你的名字或暱稱 / Name (Optional)</label>
@@ -490,20 +1188,33 @@
 
     <!-- 互動邏輯腳本 -->
     <script>
-        // 收款 QR Code 圖片路徑與連結設定 (整合通用連結按鈕邏輯)
+        // 內頁無刷新切換邏輯 (SPA) - 保持目前捲動位置不跳動
+        function switchTab(tabId) {
+            document.querySelectorAll('.page-tab').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.social-links a').forEach(el => el.classList.remove('active'));
+            
+            const target = document.getElementById('tab-' + tabId);
+            if (target) {
+                target.classList.add('active');
+            }
+            const activeNav = document.querySelector(`.social-links a[data-tab="${tabId}"]`);
+            if (activeNav) {
+                activeNav.classList.add('active');
+            }
+        }
+
         const SUPPORT_QR_CODES = {
-            jkopay:  { type: "qr", img: "images/qr-jkopay.jpg",  hint: "<br>請使用 街口、全支付、悠遊付、台灣Pay、台新Pay、玉山Wallet 等支援 TWQR 之 APP 掃描上方條碼，<span class='desktop-br-hint'><br></span>金額不限，每一份支持都是推動我持續創作的動力。<br><br><a href='http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>" },
-            linepay: { type: "qr", img: "images/qr-linepay.jpg", hint: "<br>請使用 LinePay 掃描上方條碼，金額不限，每一份支持都是推動我持續創作的動力。<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>" },
-            alipay:  { type: "qr", img: "images/qr-alipay.jpg",  hint: "<br>請掃描上方條碼，金額不限，每一份支持都是推動我持續創作的動力。<br><br>Please scan the QR code above with Alipay to complete your payment. Enter any amount you wish—every little bit helps!<br><br><a href='https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>" },
-            newebpay: { type: "link", url: "請在這裡貼上你的藍新收款網址", btnText: "[ Go to NewebPay Secure Checkout ↗ ]<br>前往藍新安全支付頁面", hint: "點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、信用卡與 Apple Pay，金額不限，每一份支持都是推動我持續創作的動力。" },
-            newebpay_os: { type: "link", url: "請在這裡貼上你的藍新收款網址", btnText: "[ Go to NewebPay Secure Checkout ↗ ]<br>前往藍新安全支付頁面", hint: "點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、跨國信用卡與 Apple Pay，金額不限，每一份支持都是推動我持續創作的動力。<br><br>Click the button above to pay securely via NewebPay, supporting Transfer, international Credit Cards and Apple Pay. Enter any amount you wish—every little bit helps!" },
-            paypal: { type: "link", url: "https://ko-fi.com/lonsthx", btnText: "[ Go to Ko-fi / PayPal Checkout ↗ ]<br>前往 Ko-fi / PayPal 支付頁面", hint: "點擊上方按鈕前往 Ko-fi 頁面，支援 PayPal 與跨國信用卡，金額不限，每一份支持都是推動我持續創作的動力。<br><br>Click the button above to go to the Ko-fi page, supporting PayPal and international Credit Cards. Enter any amount you wish—every little bit helps!" }
+            jkopay:  { type: "qr", img: "images/qr-jkopay.jpg",  hint: "<br>請使用 街口、全支付、悠遊付、台灣Pay、台新Pay、玉山Wallet 等支援 TWQR 之 APP 掃描上方條碼，<span class='desktop-br-hint'><br></span>金額不限，每一份支持都是推動我持續創作的動力。<br><br><a href='http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23' target='_blank' class='brutal-launch-btn'>手機端請點擊這裡喚起 APP 跳轉 ↗</a>" },
+            linepay: { type: "qr", img: "images/qr-linepay.jpg", hint: "<br>請使用 LinePay 掃描上方條碼，金額不限，每一份支持都是推動我持續創作的動力。<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' class='brutal-launch-btn'>手機端請點擊這裡喚起 APP 跳轉 ↗</a>" },
+            alipay:  { type: "qr", img: "images/qr-alipay.jpg",  hint: "<br>請掃描上方條碼，金額不限，每一份支持都是推動我持續創作的動力。<br><br>Please scan the QR code above with Alipay to complete your payment. Enter any amount you wish—every little bit helps!<br><br><a href='https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4' target='_blank' class='brutal-launch-btn'>手機端請點擊這裡喚起 APP 跳轉 ↗</a>" },
+            newebpay: { type: "link", url: "請在這裡貼上你的藍新收款網址", btnText: "[ 前往藍新安全支付頁面 ↗ ]<br>(信用卡 / 轉帳 / Apple Pay)", hint: "點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、信用卡與 Apple Pay，金額不限，每一份支持都是推動我持續創作的動力。" },
+            newebpay_os: { type: "link", url: "請在這裡貼上你的藍新收款網址", btnText: "[ Go to NewebPay Secure Checkout ↗ ]<br>(Credit Card / Apple Pay)", hint: "點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、跨國信用卡與 Apple Pay，金額不限，每一份支持都是推動我持續創作的動力。<br><br>Click the button above to pay securely via NewebPay, supporting Transfer, international Credit Cards and Apple Pay. Enter any amount you wish—every little bit helps!" },
+            paypal: { type: "link", url: "https://ko-fi.com/lonsthx", btnText: "[ Go to Ko-fi / PayPal Checkout ↗ ]", hint: "點擊上方按鈕前往 Ko-fi 頁面，支援 PayPal 與跨國信用卡，金額不限，每一份支持都是推動我持續創作的動力。<br><br>Click the button above to go to the Ko-fi page, supporting PayPal and international Credit Cards. Enter any amount you wish—every little bit helps!" }
         };
 
         let currentPayMethod = 'TWQR 街口等';
 
         function openSupportModal(region) {
-            // 根據傳入的 region ('local' 或 'overseas') 來顯示/隱藏對應的按鈕
             const localTabs = document.querySelectorAll('.tab-local');
             const overseasTabs = document.querySelectorAll('.tab-overseas');
             
@@ -511,12 +1222,12 @@
                 document.getElementById('modalHeaderTitle').textContent = "LOCAL SUPPORT // 台灣本地贊助";
                 localTabs.forEach(el => el.style.display = 'block');
                 overseasTabs.forEach(el => el.style.display = 'none');
-                switchSupportQR('jkopay', localTabs[0]); // 預設點擊第一個選項
+                switchSupportQR('jkopay', localTabs[0]);
             } else {
                 document.getElementById('modalHeaderTitle').textContent = "OVERSEAS SUPPORT // 海外贊助";
                 localTabs.forEach(el => el.style.display = 'none');
                 overseasTabs.forEach(el => el.style.display = 'block');
-                switchSupportQR('newebpay_os', overseasTabs[0]); // 海外預設點選藍新海外刷卡
+                switchSupportQR('newebpay_os', overseasTabs[0]);
             }
 
             document.getElementById('supportModal').classList.add('active');
@@ -530,7 +1241,6 @@
             document.querySelectorAll('#supportModal .pay-tab').forEach(el => el.classList.remove('active'));
             if(btn) btn.classList.add('active');
             
-            // 過濾掉 <br> 標籤供 Email 信件內容使用
             currentPayMethod = btn ? btn.innerHTML.replace(/<br>/g, ' ') : type; 
             
             const data = SUPPORT_QR_CODES[type];
@@ -538,7 +1248,6 @@
             const linkWrap = document.getElementById('linkWrap');
             const linkBtn = document.getElementById('linkBtn');
             
-            // 邏輯切換：如果是 link 類型就顯示按鈕並套用網址，反之顯示圖片
             if (data.type === 'link') {
                 imgEl.style.display = 'none';
                 linkWrap.style.display = 'block';
