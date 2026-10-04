@@ -436,12 +436,41 @@
             return rowsToProducts(rows);
         }
 
-        function initShop() {
-            const normalizeFallback = () => FALLBACK_PRODUCTS.map((p, idx) => ({ ...p, _uid: idx, images: (p.images || [p.image || '']).map(formatDriveUrl) }));
-            const script = document.createElement('script'); script.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=responseHandler:handleSheetData&gid=0&_=${Date.now()}`;
-            script.onerror = () => fetchCSVFallback(normalizeFallback); document.body.appendChild(script);
-            setTimeout(() => { if (!sheetLoaded) fetchCSVFallback(normalizeFallback); }, 3500);
+        //function initShop() {
+         //   const normalizeFallback = () => FALLBACK_PRODUCTS.map((p, idx) => ({ ...p, _uid: idx, images: (p.images || [p.image || '']).map(formatDriveUrl) }));
+        //    const script = document.createElement('script'); script.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=responseHandler:handleSheetData&gid=0&_=${Date.now()}`;
+         //   script.onerror = () => fetchCSVFallback(normalizeFallback); document.body.appendChild(script);
+         //   setTimeout(() => { if (!sheetLoaded) fetchCSVFallback(normalizeFallback); }, 3500);
+        //}
+        async function initShop() {
+            const normalizeFallback = () => FALLBACK_PRODUCTS.map((p, idx) => ({ 
+                ...p, 
+        _       uid: idx, 
+                images: (p.images || [p.image || '']).map(formatDriveUrl) 
+            }));
+
+            try {
+                const response = await fetch(GOOGLE_SHEET_CSV_URL, { cache: "no-store" });
+                    if (response.ok) {
+                        const parsed = parseCSV(await response.text());
+                        if (parsed.length > 0) {
+                        sheetLoaded = true;
+                        PRODUCTS = parsed;
+                        renderProducts();
+                        return;
+                        }
+                    }
+            } catch (err) {
+                console.warn("代理讀取失敗，啟用本機備援", err);
+            }
+
+            if (!sheetLoaded) {
+                PRODUCTS = normalizeFallback();
+                renderProducts();
+            }
         }
+
+        
 
         async function fetchCSVFallback(normalizeFallback) {
             if (sheetLoaded) return;
