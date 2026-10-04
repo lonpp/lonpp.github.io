@@ -76,7 +76,7 @@
         .lightbox-top { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-bottom: 1px solid var(--gray-color); padding-bottom: 0.8rem; font-size: 0.9rem; color: var(--text-color); z-index: 2; }
         .lightbox-top-actions { display: flex; align-items: center; gap: 0.8rem; flex-shrink: 0; }
         
-        /* 讓局部放大與 CLOSE 按鈕皆變更為透明底（Ghost Button），透出半透明黑背景 */
+        /* 局部放大與 CLOSE 按鈕透明底 */
         .lb-zoom-btn, .lightbox-top-actions .close-btn { background-color: transparent; color: var(--text-color); border: 1px solid var(--gray-color); padding: 0.25rem 0.65rem; font-family: inherit; font-size: 0.8rem; cursor: pointer; transition: all 0.2s ease; }
         .lb-zoom-btn:hover, .lb-zoom-btn.active, .lightbox-top-actions .close-btn:hover { background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
         
@@ -87,7 +87,6 @@
         .lightbox-bottom { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; gap: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--gray-color); z-index: 2; }
         .lightbox-controls { display: flex; align-items: center; gap: 1.5rem; color: var(--text-color); }
         
-        /* 底部 PREV / NEXT 按鈕同樣改為透明底色 */
         .lb-nav-btn { background-color: transparent; color: var(--text-color); border: 1px solid var(--gray-color); padding: 0.4rem 1rem; font-family: inherit; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease; }
         .lb-nav-btn:hover:not(:disabled) { background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
         
@@ -104,11 +103,9 @@
         .modal-box { background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color); box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08); max-width: 500px; width: 100%; padding: 2rem; max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem; }
         .modal-header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--gray-color); padding-bottom: 0.8rem; }
         
-        /* 這裡的 close-btn 只會影響結帳視窗（維持白底黑字） */
         .close-btn { background-color: var(--text-color); border: 1px solid var(--gray-color); color: var(--bg-color); font-family: inherit; font-size: 0.85rem; padding: 0.2rem 0.55rem; cursor: pointer; transition: all 0.2s ease; }
         .close-btn:hover { background-color: var(--gray-color); color: var(--bg-color); }
 
-        /* 使用 Grid 確保所有按鈕等大對齊 */
         .pay-tabs { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: 0.5rem; align-items: stretch; }
         .pay-tab {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -144,7 +141,7 @@
             .desktop-br { display: none; }
             .filter-bar { gap: 2rem; }
             .filter-zh { display: block; margin-top: 0.15rem; white-space: nowrap; }
-            .pay-tabs { grid-template-columns: repeat(2, 1fr); } /* 手機版改為一行2個以強制等寬對齊 */
+            .pay-tabs { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -225,14 +222,10 @@
                     <button type="button" id="tabAlipay" class="pay-tab" data-pay="alipay" onclick="switchQR('alipay', this)">Alipay</button>
                 </div>
                 <div class="qr-display" style="margin-top: 0.5rem;">
-                    <!-- 掃碼用的圖片 -->
                     <img id="qrImage" src="" alt="QR Code">
-                    
-                    <!-- 連結專用的點擊跳轉按鈕 -->
                     <div id="linkWrap" style="display:none; padding: 2rem 0; width: 100%;">
                         <a id="linkBtn" href="#" target="_blank" class="modal-submit-btn" style="display:block; text-align:center; text-decoration:none;">[ 前往安全支付頁面 ↗ ]</a>
                     </div>
-                    
                     <span id="qrHint" style="font-size: 0.8rem; opacity: 0.75; line-height: 1.8;"></span>
                 </div>
             </div>
@@ -240,27 +233,22 @@
             <!-- 步驟 2：填寫收件與對帳資訊 -->
             <form class="order-form" onsubmit="submitOrder(event)">
                 <p id="step2Title" style="font-size: 0.85rem;">STEP 2. 填寫收件與對帳資訊：</p>
-                
                 <div class="form-group">
                     <label id="labelBuyerName">姓名 / Name *</label>
                     <input type="text" id="buyerName" required>
                 </div>
-
                 <div class="form-group">
                     <label id="labelBuyerContact">聯絡信箱與電話 / Email &amp; Phone *</label>
                     <input type="text" id="buyerContact" required>
                 </div>
-
                 <div class="form-group">
                     <label id="labelBuyerAddress">收件地址（海外寄送請填英文） / Shipping Address *</label>
                     <input type="text" id="buyerAddress" placeholder="含郵遞區號 / Include Postal Code" required>
                 </div>
-
                 <div class="form-group">
                     <label id="labelBuyerPaymentNote">對帳資訊（付款方式 + 帳號末五碼或暱稱）*</label>
                     <input type="text" id="buyerPaymentNote" placeholder="例：藍新信用卡 / PayPal 暱稱" required>
                 </div>
-
                 <button type="submit" id="modalSubmitBtn" class="modal-submit-btn" style="margin-top: 0.5rem;">
                     [ 產生訂單信件並送出 / SUBMIT ORDER ]
                 </button>
@@ -271,16 +259,12 @@
     <button id="backToTop" class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ top</button>
 
     <script>
-        // 1. Google 試算表 ID
+        // 1. Google 試算表 ID 與來源設定
         const SHEET_ID = "1fKrjchIbhegt8-6ob7EiMgNLN8AF5wIt3ZC5wr_xgec";
-        //const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRDYEUjBDASJpi7A3o0vWfWd0oQVl-_2p4UvnnOiUpYjdNjqe1z7QCqCTUas9Jb9h8HUq0neCkObBu-/pub?gid=0&single=true&output=csv";
-        // 原本：
-        // const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/.../pub?...";
+        const PROXY_SHEET_URL = "/api/sheet";
+        const DIRECT_GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRDYEUjBDASJpi7A3o0vWfWd0oQVl-_2p4UvnnOiUpYjdNjqe1z7QCqCTUas9Jb9h8HUq0neCkObBu-/pub?gid=0&single=true&output=csv";
 
-        // 改為同網域代理路徑：
-        const GOOGLE_SHEET_CSV_URL = "/api/sheet";
-
-        // 2. 收款設定：掃碼圖片或跳轉連結
+        // 2. 收款設定
         const QR_CODES = {
             jkopay: { type: "qr", img: "images/qr-jkopay.jpg", hint_zh: "<br>請使用 街口、全支付、悠遊付、台灣Pay、台新Pay、玉山Wallet 等支援 TWQR 之 APP 掃描上方條碼。請使用 街口、全支付、悠遊付、台灣Pay、台新Pay、玉山Wallet 等支援 TWQR 之 APP 掃描上方條碼。<br><br><a href='http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>", 
                 hint_en: "<br>Scan with JKOPay or TWQR supported apps and enter the amount.<br><br><a href='http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Click here to open JKPay App on Mobile</a>" },
@@ -336,7 +320,7 @@
             }
         };
 
-        const FALLBACK_PRODUCTS = [{ id: "PRT-001", category: "print", title: "《我也消失在時間裡，永無止盡》", specs: "2025，水印木刻", price: "NT$8,500", stock: 25, images: [""], isFramed: true }];
+        const FALLBACK_PRODUCTS = [{ id: "PRT-001", category: "print", title: "《我也消失在時間裡，永無止盡》", enTitle: "and i also disappear into time, without end", specs: "2025，水印木刻", price: "NT$8,500", stock: 25, images: [""], isFramed: true }];
 
         let PRODUCTS = []; let currentProduct = null; let currentFilter = 'all'; let currentLang = 'zh'; let currentQRType = 'jkopay'; let sheetLoaded = false;
         let lbProduct = null; let lbIndex = 0; let lbScale = 1; let lbPanX = 0; let lbPanY = 0; let isDragging = false; let dragMoved = false; let startX = 0; let startY = 0;
@@ -366,7 +350,6 @@
             if (currentProduct) {
                 document.getElementById('modalItemInfo').innerHTML = t.modalItem(escapeHTML(currentProduct.id), escapeHTML(currentProduct.title), escapeHTML(currentProduct.price), currentProduct.isFramed);
             }
-            // 強制重整一次目前的金流按鈕語言
             switchQR(currentQRType, document.querySelector(`#checkoutModal .pay-tab[data-pay="${currentQRType}"]`));
             applyLightboxTransform(); if (PRODUCTS.length > 0) renderProducts(currentFilter);
         }
@@ -386,7 +369,6 @@
             const headers = hasHeader ? firstRowLower : ['id', 'category', 'title', 'enTitle', 'specs', 'price', 'stock', 'showFlag', 'framedFlag', 'empty1', 'empty2', 'image'];
             const dataRows = hasHeader ? validRows.slice(1) : validRows;
             
-            // 加入過濾機制：H 欄 (索引 7) 必須是 '1' 才會顯示
             return dataRows.filter(r => {
                 const showFlag = String(r[7] !== undefined ? r[7] : '').trim();
                 return showFlag === '1';
@@ -395,13 +377,11 @@
                 headers.forEach((h, idx) => { obj[h] = String(r[idx] !== undefined ? r[idx] : '').trim(); });
                 
                 let isFramed = false;
-                const framedFlag = String(r[8] !== undefined ? r[8] : '').trim(); // I 欄
+                const framedFlag = String(r[8] !== undefined ? r[8] : '').trim();
                 if (framedFlag === '1') { isFramed = true; }
 
                 r.forEach((val, idx) => {
                     const strVal = String(val !== undefined ? val : '').trim(); const h = headers[idx] || '';
-                    
-                    // 圖片從 L 欄 (索引 11) 開始
                     if ((h.startsWith('image') || h.startsWith('img') || idx >= 11) && strVal) {
                         strVal.split(/[\n,;]+/).forEach(part => { if (part.trim()) rawImages.push(formatDriveUrl(part.trim())); });
                     }
@@ -416,15 +396,6 @@
             });
         }
 
-        window.handleSheetData = function(response) {
-            if (!response || response.status !== 'ok' || !response.table) return;
-            const cols = (response.table.cols || []).map(c => (c && c.label) ? String(c.label).trim() : '');
-            const rows = (response.table.rows || []).map(r => (r.c || []).map(cell => cell ? (cell.f !== undefined && cell.f !== null ? String(cell.f) : (cell.v !== undefined && cell.v !== null ? String(cell.v) : '')) : ''));
-            const allRows = cols.some(c => c !== '') ? [cols, ...rows] : rows;
-            const parsed = rowsToProducts(allRows);
-            if (parsed.length > 0) { sheetLoaded = true; PRODUCTS = parsed; renderProducts(); }
-        };
-
         function parseCSV(text) {
             const rows = []; let row = []; let cur = ''; let inQuotes = false;
             for (let i = 0; i < text.length; i++) {
@@ -436,52 +407,52 @@
             return rowsToProducts(rows);
         }
 
-        //function initShop() {
-         //   const normalizeFallback = () => FALLBACK_PRODUCTS.map((p, idx) => ({ ...p, _uid: idx, images: (p.images || [p.image || '']).map(formatDriveUrl) }));
-        //    const script = document.createElement('script'); script.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=responseHandler:handleSheetData&gid=0&_=${Date.now()}`;
-         //   script.onerror = () => fetchCSVFallback(normalizeFallback); document.body.appendChild(script);
-         //   setTimeout(() => { if (!sheetLoaded) fetchCSVFallback(normalizeFallback); }, 3500);
-        //}
         async function initShop() {
             const normalizeFallback = () => FALLBACK_PRODUCTS.map((p, idx) => ({ 
                 ...p, 
-        _       uid: idx, 
+                _uid: idx, 
                 images: (p.images || [p.image || '']).map(formatDriveUrl) 
             }));
 
+            // 1. 優先嘗試同網域代理 /api/sheet
             try {
-                const response = await fetch(GOOGLE_SHEET_CSV_URL, { cache: "no-store" });
-                    if (response.ok) {
-                        const parsed = parseCSV(await response.text());
-                        if (parsed.length > 0) {
+                const response = await fetch(PROXY_SHEET_URL, { cache: "no-store" });
+                if (response.ok) {
+                    const parsed = parseCSV(await response.text());
+                    if (parsed.length > 0) {
                         sheetLoaded = true;
                         PRODUCTS = parsed;
                         renderProducts();
                         return;
-                        }
                     }
+                }
             } catch (err) {
-                console.warn("代理讀取失敗，啟用本機備援", err);
+                console.warn("同網域代理讀取失敗，嘗試直連備援", err);
             }
 
+            // 2. 若代理失敗（如本地端測試或尚未部署），嘗試直連 Google CSV
+            if (!sheetLoaded) {
+                try {
+                    const fallbackRes = await fetch(DIRECT_GOOGLE_SHEET_URL, { cache: "no-store" });
+                    if (fallbackRes.ok) {
+                        const parsed = parseCSV(await fallbackRes.text());
+                        if (parsed.length > 0) {
+                            sheetLoaded = true;
+                            PRODUCTS = parsed;
+                            renderProducts();
+                            return;
+                        }
+                    }
+                } catch (err) {
+                    console.warn("直連 Google CSV 備援失敗", err);
+                }
+            }
+
+            // 3. 全數失敗時使用本地靜態預設
             if (!sheetLoaded) {
                 PRODUCTS = normalizeFallback();
                 renderProducts();
             }
-        }
-
-        
-
-        async function fetchCSVFallback(normalizeFallback) {
-            if (sheetLoaded) return;
-            try {
-                const response = await fetch(GOOGLE_SHEET_CSV_URL, { cache: "no-store" });
-                if (response.ok) {
-                    const parsed = parseCSV(await response.text());
-                    if (parsed.length > 0) { sheetLoaded = true; PRODUCTS = parsed; renderProducts(); return; }
-                }
-            } catch (err) { console.warn("CSV備援失敗", err); }
-            if (!sheetLoaded) { PRODUCTS = normalizeFallback(); renderProducts(); }
         }
 
         function getPlaceholderSVG(text) { return `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='450'><rect width='100%' height='100%' fill='%23cbcbcb'/><text x='50%' y='50%' fill='%23555' font-family='monospace' font-size='16' text-anchor='middle'>${encodeURIComponent(text)}</text></svg>`; }
@@ -565,7 +536,7 @@
             currentProduct = PRODUCTS.find(p => p._uid === uid);
             if (!currentProduct) return;
             document.getElementById('modalItemInfo').innerHTML = UI_TEXT[currentLang].modalItem(escapeHTML(currentProduct.id), escapeHTML(currentProduct.title), escapeHTML(currentProduct.price), currentProduct.isFramed);
-            switchQR('jkopay', document.querySelector('#checkoutModal .pay-tab')); // 預設打開第一個按鈕
+            switchQR('jkopay', document.querySelector('#checkoutModal .pay-tab'));
             document.getElementById('checkoutModal').classList.add('active');
         }
         function closeModal() { document.getElementById('checkoutModal').classList.remove('active'); }
@@ -580,7 +551,6 @@
             const linkWrap = document.getElementById('linkWrap');
             const linkBtn = document.getElementById('linkBtn');
             
-            // 邏輯切換：如果是 link 類型就顯示按鈕並套用網址，反之顯示圖片
             if (data.type === 'link') {
                 imgEl.style.display = 'none';
                 linkWrap.style.display = 'block';
