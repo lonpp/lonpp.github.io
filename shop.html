@@ -273,7 +273,12 @@
     <script>
         // 1. Google 試算表 ID
         const SHEET_ID = "1fKrjchIbhegt8-6ob7EiMgNLN8AF5wIt3ZC5wr_xgec";
-        const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRDYEUjBDASJpi7A3o0vWfWd0oQVl-_2p4UvnnOiUpYjdNjqe1z7QCqCTUas9Jb9h8HUq0neCkObBu-/pub?gid=0&single=true&output=csv";
+        //const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRDYEUjBDASJpi7A3o0vWfWd0oQVl-_2p4UvnnOiUpYjdNjqe1z7QCqCTUas9Jb9h8HUq0neCkObBu-/pub?gid=0&single=true&output=csv";
+        // 原本：
+        // const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/.../pub?...";
+
+        // 改為同網域代理路徑：
+        const GOOGLE_SHEET_CSV_URL = "/api/sheet";
 
         // 2. 收款設定：掃碼圖片或跳轉連結
         const QR_CODES = {
