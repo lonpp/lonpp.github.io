@@ -153,17 +153,17 @@
             max-width: 1200px;
             width: 100%;
             margin: 0 auto;
-            padding: 3rem 2rem 2rem 2rem; /* 上方精確鎖定 3rem，與下方按鈕間距形成完美的 1:1 等距 */
+            padding: 3rem 2rem 2rem 2rem;
             display: flex;
             justify-content: center;
         }
 
         /* -------------------------------------
-           導覽按鈕列 (電腦版橫式排列，精確在 Banner 與大標題的正中間)
+           導覽按鈕列
         -------------------------------------- */
         .nav-wrapper {
             margin-top: 3rem;
-            margin-bottom: 5rem; /* 與下方大標題保持和上方絕對等距 (3rem) */
+            margin-bottom: 5rem;
             width: 100%;
         }
 
@@ -173,7 +173,7 @@
             justify-content: space-between;
             align-items: stretch;
             border-top: none;
-            border-bottom: none; /*1px solid rgba(255, 255, 255, 0.25);*/
+            border-bottom: none;
             width: 100%;
             gap: 0;
         }
@@ -201,18 +201,16 @@
             white-space: nowrap;
         }
 
-        /* 電腦版按鈕拿掉中文字 */
         .social-links .link-middle {
             display: none;
         }
 
-        /* 所有裝置一律拿掉 arrow */
         .arrow {
             display: none !important;
         }
 
         /* -------------------------------------
-           中間內容區塊 (鎖定 680px 居中)
+           中間內容區塊
         -------------------------------------- */
         main {
             max-width: 680px;
@@ -238,9 +236,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* -------------------------------------
-           內頁統一標準 Header (固定標題絕對位置)
-        -------------------------------------- */
         .tab-header {
             margin-top: 0;
             margin-bottom: 4rem;
@@ -267,7 +262,6 @@
             opacity: 1;
         }
 
-        /* 大標題：雙欄網格對齊，英文欄位鎖定 185px，漢字向右拉開微距後全部對齊 */
         .page-title {
             font-size: 2.3rem;
             font-weight: normal;
@@ -466,7 +460,7 @@
         }
         .tab-action-btn {
             display: inline-block;
-            width: 100%; /* 確保電腦版與手機版寬度基準一致，不向右凸出 */
+            width: 100%;
             padding: 0.8rem 1.4rem;
             white-space: normal;
             line-height: 1.5;
@@ -477,7 +471,7 @@
         }
 
         /* -------------------------------------
-           底部欄位 (寬度嚴格對齊內文 680px)
+           底部欄位
         -------------------------------------- */
         footer {
             width: 100%;
@@ -558,14 +552,20 @@
             box-shadow: 2px 2px 0px var(--brutal-shadow);
         }
 
+        /* 讓支付按鈕採用 Grid 排版，並讓每格等高且內容垂直置中 */
         .pay-tabs {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 0.6rem;
         }
 
         .pay-tab {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             padding: 0.6rem 0.3rem;
+            min-height: 52px;
             background: #ffffff;
             color: var(--charcoal-black);
             border: 2px solid var(--charcoal-black);
@@ -589,6 +589,11 @@
             border-color: var(--charcoal-black) !important; 
             box-shadow: 3px 3px 0px var(--brutal-shadow);
             transform: translate(2px, 2px);
+        }
+
+        /* 針對 Alipay 按鈕做跨欄處理，讓它在 2 欄網格中寬度對齊上方兩個按鈕組合或獨立填滿 */
+        .pay-tab.tab-overseas:nth-child(3) {
+            grid-column: 1 / -1;
         }
 
         .qr-display {
@@ -715,7 +720,7 @@
         }
 
         /* -------------------------------------
-           RWD 響應式配置 (手機端完美維持原有體驗不變)
+           RWD 響應式配置
         -------------------------------------- */
         @media (max-width: 860px) {
             .container { 
@@ -730,7 +735,6 @@
                 margin-bottom: 2.5rem !important;
             }
 
-            /* 手機版按鈕直式排列，保留中文字、僅隱藏箭頭 */
             .social-links {
                 flex-direction: column;
                 width: 100%;
@@ -751,7 +755,6 @@
 
             .support-banner { padding: 1.2rem 1.5rem; }
             
-            /* 頂部按鈕改為直向滿版，高度自適應 */
             .link-group { 
                 flex-direction: column; 
                 gap: 0.6rem; 
@@ -790,7 +793,6 @@
             .details { padding-left: 0.8rem; }
             .nl-form { flex-direction: column; gap: 0.8rem; }
             
-            /* 視 音 遊 的按鈕在手機版自適應全寬 */
             .tab-action-btn {
                 width: 100% !important;
                 display: block !important;
@@ -804,7 +806,7 @@
 </head>
 <body>
 
-    <!-- 外層贊助與商店橫幅 (3個等高等寬按鈕) -->
+    <!-- 外層贊助與商店橫幅 -->
     <div class="support-banner">
         <span class="banner-title">FUEL THE ART & CODE / donate 一杯咖啡，支持數位創作與深夜除錯</span>
         
@@ -816,9 +818,8 @@
     </div>
 
     <div class="container">
-        <!-- 內容主欄位 (max-width: 680px 置中) -->
         <main>
-            <!-- 導覽按鈕列 (在白色 Banner 與大標題的正中間，上下精確等距 3rem) -->
+            <!-- 導覽按鈕列 -->
             <div class="nav-wrapper">
                 <nav class="social-links">
                     <a href="javascript:void(0)" onclick="switchTab('statement')" class="tab-link active" data-tab="statement">
@@ -848,10 +849,9 @@
                 </nav>
             </div>
 
-            <!-- 內頁 1：自我介紹 (lonlon 與 冷冷 橫向拉開微距，第一個冷字與其他頁面完全對齊) -->
+            <!-- 內頁 1：自我介紹 -->
             <div id="tab-statement" class="page-tab active">
                 <div class="tab-header">
-                    <!--<div class="tab-back-bar"></div>-->
                     <h2 class="page-title"><span class="title-en">lonlon</span><span class="title-zh">冷冷</span></h2>
                 </div>
                 <div class="statement">
@@ -862,7 +862,6 @@
                         <span>( <a href="javascript:void(0)" onclick="setLang('zh')" class="lang-btn active" data-lang="zh">中文</a> / <a href="javascript:void(0)" onclick="setLang('en')" class="lang-btn" data-lang="en">EN</a> / <a href="javascript:void(0)" onclick="setLang('de')" class="lang-btn" data-lang="de">DE</a> )</span>
                     </p>
 
-                    <!-- lang: zh -->
                     <div id="content-zh" class="lang-section active">
                         <p>我是冷冷，一名遊走於數位媒體、視覺藝術與程式碼之間的科技藝術家與開發者。</p>
                         <p>我的創作軌跡主要分為兩個平行的領域：</p>
@@ -875,7 +874,6 @@
                         <p>你們贊助的每一杯咖啡，都將直接化為我升級硬體設備、維持深夜除錯的咖啡因濃度，以及投入下一件跨領域藝術專案的最大動力。☕✨</p>
                     </div>
 
-                    <!-- lang: en -->
                     <div id="content-en" class="lang-section">
                         <p>I am Lonlon (PEI, Lon), a tech artist and developer navigating the intersections of digital media, visual arts, and code。</p>
                         <p>My creative journey is split into two main parallel tracks:</p>
@@ -888,7 +886,6 @@
                         <p>Your tips and coffees directly fund my caffeine supply, hardware maintenance, and upcoming cross-disciplinary art projects. Every contribution keeps the momentum going for both my late-night coding sessions and digital creations. ☕✨</p>
                     </div>
 
-                    <!-- lang: de -->
                     <div id="content-de" class="lang-section">
                         <p>Ich bin Lonlon (PEI, Lon), ein Tech-Künstler und Entwickler, der sich an der Schnittstelle von digitalen Medien, visueller Kunst und Programmierung bewegt。</p>
                         <p>Meine creative Reise teilt sich hauptsächlich in zwei parallele Bereiche auf:</p>
@@ -903,12 +900,9 @@
                 </div>
             </div>
 
-            <!-- 內頁 2：CV 跡 (雙欄絕對對齊) -->
+            <!-- 內頁 2：CV 跡 -->
             <div id="tab-cv" class="page-tab">
                 <div class="tab-header">
-                    <!--<div class="tab-back-bar">
-                        <span class="tab-back-btn" onclick="switchTab('statement')">← return / 返回主頁</span>
-                    </div>-->
                     <h2 class="page-title"><span class="title-en">CV</span><span class="title-zh">跡</span></h2>
                 </div>
                 <div class="cv-container">
@@ -918,7 +912,6 @@
                         <span class="statement-en">Based in Taipei. Working across digital media, virtual reality, and visual syntax.</span>
                     </div>
 
-                    <!-- 學歷 -->
                     <section class="cv-section">
                         <div class="section-title">Education</div>
                         <ul class="cv-list">
@@ -932,7 +925,6 @@
                         </ul>
                     </section>
 
-                    <!-- 駐村與交流 -->
                     <section class="cv-section">
                         <div class="section-title">Residencies</div>
                         <ul class="cv-list">
@@ -947,7 +939,6 @@
                         </ul>
                     </section>
 
-                    <!-- 展演經歷 -->
                     <section class="cv-section">
                         <div class="section-title">Selected Exhibitions</div>
                         <ul class="cv-list">
@@ -998,7 +989,6 @@
                         </ul>
                     </section>
 
-                    <!-- 開發與開源專案 -->
                     <section class="cv-section">
                         <div class="section-title">Projects &amp; Development</div>
                         <ul class="cv-list">
@@ -1014,12 +1004,9 @@
                 </div>
             </div>
 
-            <!-- 內頁 3：INFO 訊 (雙欄絕對對齊) -->
+            <!-- 內頁 3：INFO 訊 -->
             <div id="tab-info" class="page-tab">
                 <div class="tab-header">
-                    <!--<div class="tab-back-bar">
-                        <span class="tab-back-btn" onclick="switchTab('statement')">← return / 返回主頁</span>
-                    </div>-->
                     <h2 class="page-title"><span class="title-en">INFO</span><span class="title-zh">訊</span></h2>
                 </div>
                 <div class="info-container">
@@ -1033,11 +1020,8 @@
                             <span class="link-label">ig</span>
                             <span class="link-middle">@arts.lonlon</span>
                         </a>
-
-                        
                     </div>
 
-                    <!-- 獨立分離的電子報區塊 -->
                     <div class="newsletter-section">
                         <div>
                             <p class="nl-zh">newsletter // 留下信箱，不定期接收最新展覽資訊、作品發佈與專案更新。</p>
@@ -1051,12 +1035,9 @@
                 </div>
             </div>
 
-            <!-- 內頁 4：WORKS 視 (雙欄絕對對齊) -->
+            <!-- 內頁 4：WORKS 視 -->
             <div id="tab-works" class="page-tab">
                 <div class="tab-header">
-                    <!--<div class="tab-back-bar">
-                        <span class="tab-back-btn" onclick="switchTab('statement')">← return / 返回主頁</span>
-                    </div>-->
                     <h2 class="page-title"><span class="title-en">WORKS</span><span class="title-zh">視</span></h2>
                 </div>
                 <div class="generic-tab-container">
@@ -1072,12 +1053,9 @@
                 </div>
             </div>
 
-            <!-- 內頁 5：SOUND 音 (雙欄絕對對齊) -->
+            <!-- 內頁 5：SOUND 音 -->
             <div id="tab-sound" class="page-tab">
                 <div class="tab-header">
-                    <!--<div class="tab-back-bar">
-                        <span class="tab-back-btn" onclick="switchTab('statement')">← return / 返回主頁</span>
-                    </div>-->
                     <h2 class="page-title"><span class="title-en">SOUND</span><span class="title-zh">音</span></h2>
                 </div>
                 <div class="generic-tab-container">
@@ -1093,12 +1071,9 @@
                 </div>
             </div>
 
-            <!-- 內頁 6：GAMES 遊 (雙欄絕對對齊) -->
+            <!-- 內頁 6：GAMES 遊 -->
             <div id="tab-games" class="page-tab">
                 <div class="tab-header">
-                    <!--<div class="tab-back-bar">
-                        <span class="tab-back-btn" onclick="switchTab('statement')">← return / 返回主頁</span>
-                    </div>-->
                     <h2 class="page-title"><span class="title-en">GAMES</span><span class="title-zh">遊</span></h2>
                 </div>
                 <div class="generic-tab-container">
@@ -1114,7 +1089,6 @@
                 </div>
             </div>
 
-            <!-- 底部欄位 (寬度嚴格對齊內文 680px) -->
             <footer>
                 &copy; 2026 pei, lon. All Rights Reserved.
             </footer>
@@ -1129,7 +1103,6 @@
                 <button class="close-btn" onclick="closeSupportModal()">✕</button>
             </div>
 
-            <!-- 步驟 1：選擇支付方式 -->
             <div>
                 <p style="font-size: 0.88rem; font-weight: bold; margin-bottom: 0.8rem;">STEP 1. 選擇支付方式並完成贊助：</p>
                 <div class="pay-tabs" id="supportTabs">
@@ -1145,10 +1118,8 @@
                 </div>
 
                 <div class="qr-display" style="margin-top: 0.8rem;">
-                    <!-- 掃碼用的圖片 -->
                     <img id="supportQrImage" src="" alt="QR Code" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'180\' height=\'180\'><rect width=\'100%\' height=\'100%\' fill=\'%23fff\'/><text x=\'50%\' y=\'50%\' fill=\'%23000\' font-family=\'monospace\' font-size=\'14\' text-anchor=\'middle\'>QR CODE</text></svg>'">
                     
-                    <!-- 連結專用的點擊跳轉按鈕 -->
                     <div id="linkWrap" style="display:none; padding: 1.5rem 0; width: 100%;">
                         <a id="linkBtn" href="#" target="_blank" class="brutal-launch-btn" style="display:block; text-align:center;">[ 前往安全支付頁面 ↗ ]</a>
                     </div>
@@ -1157,7 +1128,6 @@
                 </div>
             </div>
 
-            <!-- 步驟 2：選填留言表單 -->
             <form class="support-form" onsubmit="submitSupportMessage(event)">
                 <p style="font-size: 0.88rem; font-weight: bold;">STEP 2. 留下你的資訊與想說的話（選填）：</p>
                 
@@ -1183,12 +1153,9 @@
         </div>
     </div>
 
-    <!-- 回到頂部按鈕 -->
     <button id="backToTop" class="back-to-top" onclick="scrollToTop()" aria-label="Back to top">↑ top</button>
 
-    <!-- 互動邏輯腳本 -->
     <script>
-        // 內頁無刷新切換邏輯 (SPA) - 保持目前捲動位置不跳動
         function switchTab(tabId) {
             document.querySelectorAll('.page-tab').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.social-links a').forEach(el => el.classList.remove('active'));
@@ -1220,13 +1187,13 @@
             
             if (region === 'local') {
                 document.getElementById('modalHeaderTitle').textContent = "LOCAL SUPPORT // 台灣本地贊助";
-                localTabs.forEach(el => el.style.display = 'block');
+                localTabs.forEach(el => el.style.display = 'flex');
                 overseasTabs.forEach(el => el.style.display = 'none');
                 switchSupportQR('jkopay', localTabs[0]);
             } else {
                 document.getElementById('modalHeaderTitle').textContent = "OVERSEAS SUPPORT // 海外贊助";
                 localTabs.forEach(el => el.style.display = 'none');
-                overseasTabs.forEach(el => el.style.display = 'block');
+                overseasTabs.forEach(el => el.style.display = 'flex');
                 switchSupportQR('newebpay_os', overseasTabs[0]);
             }
 
