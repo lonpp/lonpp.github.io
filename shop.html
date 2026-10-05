@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>shop 店 | lonlon 冷冷</title>
+    <title>shop 商店 | lonlon 冷冷</title>
     <style>
         /* reset */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -57,7 +57,7 @@
         .meta-zoom-info svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 1.5; stroke-linecap: square; fill: none; display: block; }
         .product-img-wrap:hover + .product-meta .meta-zoom-info, .meta-zoom-info:hover { opacity: 1; }
 
-        .product-title { font-size: 1.15rem; font-weight: 500; line-height: 1.4; margin-bottom: 1.2rem; }
+        .product-title { font-size: 1.15rem; font-weight: 400; line-height: 1.4; margin-bottom: 1.2rem; }
         .product-title-en { font-weight: 400; font-size: 0.85em; opacity: 0.7; display: block; margin-top: 0.2rem; }
         
         .product-specs { font-size: 0.85rem; opacity: 0.8; }
@@ -151,12 +151,13 @@
     <div class="shop-light-section">
         <div class="light-container">
             <header>
-                <h1>SHOP 店</h1>
+                <h1>SHOP 商店</h1>
                 <div class="shop-notice">
                     <p>
                         <span id="noticeTextZh">購買流程：確認剩餘數量後點擊購買按鈕 → 選擇支付方式 ( 信用卡 / 轉帳 / 行動支付 ) 完成付款 → 填寫收件資訊送出訂單&nbsp;<br class="desktop-br">→ 送出後系統會打開 email 並自動帶入資料，確認無誤後寄出即可。<br><br>台灣免運，海外寄送運費固定另加 NT$ 1,000 ( 約 US$ 30 )。<br><br></span>
                         <span id="noticeTextEn" style="display: none;">Order Process: Check stock &amp; click ORDER → Pay (Credit Card / Transfer / Mobile / PayPal) → Submit shipping info&nbsp;<br class="desktop-br">→ Email app opens with pre-filled details; please verify and send.<br><br>Free shipping in Taiwan. <br>Overseas shipping is a flat rate of NT$ 1,000 (approx. US$ 30).<br><br></span>
-                        <span class="lang-switch-wrap"> ( <a href="javascript:void(0)" class="lang-btn active" data-lang="zh" onclick="setShopLang('zh')">中文</a> / <a href="javascript:void(0)" class="lang-btn" data-lang="en" onclick="setShopLang('en')">EN</a> )</span>
+                        <span id="noticeTextDe" style="display: none;">Bestellprozess: Bestand prüfen &amp; auf BESTELLEN klicken → Zahlung durchführen (Kreditkarte / Überweisung / Mobile / PayPal) → Versandinformationen übermitteln&nbsp;<br class="desktop-br">→ Die E-Mail-App öffnet sich mit vorausgefüllten Daten; bitte überprüfen und absenden.<br><br>Kostenloser Versand in Taiwan. <br>Internationaler Versand zum Pauschalpreis von NT$ 1.000 (ca. 30 €).<br><br></span>
+                        <span class="lang-switch-wrap"> ( <a href="javascript:void(0)" class="lang-btn active" data-lang="zh" onclick="setShopLang('zh')">中文</a> / <a href="javascript:void(0)" class="lang-btn" data-lang="en" onclick="setShopLang('en')">EN</a> / <a href="javascript:void(0)" class="lang-btn" data-lang="de" onclick="setShopLang('de')">DE</a> )</span>
                     </p>
                 </div>
             </header>
@@ -262,19 +263,50 @@
 
         // 2. 收款設定
         const QR_CODES = {
-            jkopay: { type: "qr", img: "images/qr-jkopay.jpg", hint_zh: "<br>請使用 街口、全支付、悠遊付、台灣Pay、台新Pay、玉山Wallet 等支援 TWQR 之 APP 掃描上方條碼。<br><br><a href='http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>", 
-                hint_en: "<br>Scan with JKOPay or TWQR supported apps and enter the amount.<br><br><a href='http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Click here to open JKPay App on Mobile</a>" },
-            linepay: { type: "qr", img: "images/qr-linepay.jpg", hint_zh: "<br>請使用 LinePay 掃描上方 QR Code 並輸入商品金額。<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>",
-                hint_en: "<br>Please scan the QR Code above with LinePay.<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Click here to open LinePay App on Mobile</a>" },
-            alipay: { type: "qr", img: "images/qr-alipay.jpg", hint_zh: "<br>請掃描上方條碼完成支付。記得加上海外運費！<br><br><a href='https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>", 
-                hint_en: "<br>Please scan the QR code above with Alipay to complete your payment. Please remember to add overseas shipping!<br><br><a href='https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Click here to open Alipay App on Mobile</a>" },
-            newebpay: { type: "link", url: "請在這裡貼上你的藍新收款網址", btnText_zh: "[ Go to NewebPay Secure Checkout ↗ ]<br>前往藍新安全支付頁面", btnText_en: "[ Go to NewebPay Secure Checkout ↗ ]<br>前往藍新安全支付頁面", hint_zh: "點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、信用卡與 Apple Pay 繳費。", 
-                hint_en: "Click the button above to pay securely via NewebPay (Transfer / Credit Card / CVS / Apple Pay)." },
-            paypal: { type: "link", url: "https://ko-fi.com/lonsthx", btnText_zh: "[ Go to Ko-fi / PayPal Checkout ↗ ]<br>前往 Ko-fi / PayPal 支付頁面", btnText_en: "[ Go to Ko-fi / PayPal Checkout ↗ ]<br>前往 Ko-fi / PayPal 支付頁面", hint_zh: "海外請點擊上方按鈕前往 Ko-fi 頁面，支援 PayPal 與跨國信用卡。記得加上海外運費！", 
-                hint_en: "Click above to pay via Ko-fi (supports PayPal & Credit Cards). Please remember to add overseas shipping!" }
+            jkopay: { 
+                type: "qr", 
+                img: "images/qr-jkopay.jpg", 
+                hint_zh: "<br>請使用 街口、全支付、悠遊付、台灣Pay、台新Pay、玉山Wallet 等支援 TWQR 之 APP 掃描上方條碼。<br><br><a href='http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>", 
+                hint_en: "<br>Scan with JKOPay or TWQR supported apps and enter the amount.<br><br><a href='http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Click here to open JKPay App on Mobile</a>",
+                hint_de: "<br>Scannen Sie den QR-Code mit JKOPay oder einer TWQR-unterstützten App und geben Sie den Betrag ein.<br><br><a href='http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Hier klicken, um die App auf dem Handy zu öffnen</a>" 
+            },
+            linepay: { 
+                type: "qr", 
+                img: "images/qr-linepay.jpg", 
+                hint_zh: "<br>請使用 LinePay 掃描上方 QR Code 並輸入商品金額。<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>",
+                hint_en: "<br>Please scan the QR Code above with LinePay.<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Click here to open LinePay App on Mobile</a>",
+                hint_de: "<br>Bitte scannen Sie den obigen QR-Code mit LinePay.<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Hier klicken, um LinePay auf dem Handy zu öffnen</a>" 
+            },
+            alipay: { 
+                type: "qr", 
+                img: "images/qr-alipay.jpg", 
+                hint_zh: "<br>請掃描上方條碼完成支付。記得加上海外運費！<br><br><a href='https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>", 
+                hint_en: "<br>Please scan the QR code above with Alipay to complete your payment. Please remember to add overseas shipping!<br><br><a href='https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Click here to open Alipay App on Mobile</a>",
+                hint_de: "<br>Bitte scannen Sie den obigen QR-Code mit Alipay, um die Zahlung abzuschließen. Bitte denken Sie daran, die internationalen Versandkosten hinzuzufügen!<br><br><a href='https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Hier klicken, um Alipay auf dem Handy zu öffnen</a>" 
+            },
+            newebpay: { 
+                type: "link", 
+                url: "請在這裡貼上你的藍新收款網址", 
+                btnText_zh: "[ Go to NewebPay Secure Checkout ↗ ]<br>前往藍新安全支付頁面", 
+                btnText_en: "[ Go to NewebPay Secure Checkout ↗ ]<br>Go to NewebPay Secure Checkout", 
+                btnText_de: "[ Zur sicheren NewebPay-Kasse ↗ ]<br>Zur sicheren NewebPay-Zahlungsseite", 
+                hint_zh: "點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、信用卡與 Apple Pay 繳費。", 
+                hint_en: "Click the button above to pay securely via NewebPay (Transfer / Credit Card / CVS / Apple Pay).",
+                hint_de: "Klicken Sie auf die Schaltfläche oben, um sicher über NewebPay zu bezahlen (Überweisung, Kreditkarte, Apple Pay)." 
+            },
+            paypal: { 
+                type: "link", 
+                url: "https://ko-fi.com/lonsthx", 
+                btnText_zh: "[ Go to Ko-fi / PayPal Checkout ↗ ]<br>前往 Ko-fi / PayPal 支付頁面", 
+                btnText_en: "[ Go to Ko-fi / PayPal Checkout ↗ ]<br>Go to Ko-fi / PayPal Checkout", 
+                btnText_de: "[ Zu Ko-fi / PayPal Checkout ↗ ]<br>Zu Ko-fi / PayPal Checkout", 
+                hint_zh: "海外請點擊上方按鈕前往 Ko-fi 頁面，支援 PayPal 與跨國信用卡。記得加上海外運費！", 
+                hint_en: "Click above to pay via Ko-fi (supports PayPal & Credit Cards). Please remember to add overseas shipping!",
+                hint_de: "Klicken Sie oben, um über Ko-fi zu bezahlen (unterstützt PayPal & internationale Kreditkarten). Bitte denken Sie an die internationalen Versandkosten!" 
+            }
         };
 
-        // 3. 雙語字典
+        // 3. 多語系字典（中文、英文、德文）
         const UI_TEXT = {
             zh: {
                 loading: "LOADING ARCHIVE... // 正在同步試算表商品資料",
@@ -302,7 +334,7 @@
                 imgZoomTitle: "Click to enlarge image", lbZoomIn: "[ + ZOOM IN ]", lbZoomReset: "[ - RESET ZOOM ]",
                 framedNote: "(Framed)",
                 modalTitle: "ORDER // CHECKOUT",
-                modalItem: (id, title, price, isFramed) => `Selected Artwork: <strong>[${id}] ${title}</strong><br>Item Price: <strong>${price}</strong> ${isFramed ? `<span style="font-size:0.85rem; opacity:0.8;">(Framed)</span>` : ''}<br><span style="font-size:0.8rem; opacity:0.8;">(Please manually add flat rate NT$ 1,000 / US$ 30 for overseas shipping during payment)</span>`,
+                modalItem: (id, title, price, isFramed) => `Selected Artwork: <strong>[${id}] ${title}</strong><br>Item Price: <strong>${price}</strong> ${isFramed ? `<span style="font-size:0.85rem; opacity:0.8;">(Framed)</span>` : ''}<br><span style="font-size:0.8rem; opacity:0.8;">(Please manually add flat rate NT$ 1,000 for overseas shipping during payment)</span>`,
                 step1Title: "STEP 1. Select a payment method and complete payment:",
                 tabNewebpay: "CreditCard<br>ApplePay",
                 tabAlipay: "Alipay",
@@ -313,10 +345,29 @@
                 labelPayNote: "Payment Verification (Method + Last 5 digits or Account Name) *",
                 placeholderPayNote: "e.g., Credit Card / PayPal Name",
                 submitBtn: "[ GENERATE & SUBMIT ORDER EMAIL ]"
+            },
+            de: {
+                loading: "ARCHIV WIRD GELADEN... // Kunstwerkdaten werden synchronisiert...",
+                stockZero: "Ausverkauft: 0", stockAvail: (n) => `Verfügbar: ${n}`,
+                soldOutBtn: "[ AUSVERKAUFT ]", orderBtn: "[ BESTELLEN ]",
+                imgZoomTitle: "Klicken, um das Bild zu vergrößern", lbZoomIn: "[ + ANSICHT VERGRÖßERN ]", lbZoomReset: "[ - ZURÜCKSETZEN ]",
+                framedNote: "(Gerahmt)",
+                modalTitle: "BESTELLUNG // KASSE",
+                modalItem: (id, title, price, isFramed) => `Ausgewähltes Werk: <strong>[${id}] ${title}</strong><br>Preis: <strong>${price}</strong> ${isFramed ? `<span style="font-size:0.85rem; opacity:0.8;">(Gerahmt)</span>` : ''}<br><span style="font-size:0.8rem; opacity:0.8;">(Kostenloser Versand in Taiwan / Bitte fügen Sie beim Bezahlen eigenständig die internationale Pauschale von NT$ 1.000 hinzu)</span>`,
+                step1Title: "SCHRITT 1. Zahlungsmethode wählen und Bezahlung abschließen:",
+                tabNewebpay: "Kreditkarte<br>ApplePay",
+                tabAlipay: "Alipay",
+                step2Title: "SCHRITT 2. Liefer- und Zahlungsbestätigungsdaten eingeben:",
+                labelName: "Name / Name *",
+                labelContact: "E-Mail & Telefonnummer / E-Mail & Phone *",
+                labelAddress: "Lieferadresse (Bitte auf Englisch bei Auslandsversand) / Shipping Address *",
+                labelPayNote: "Zahlungsnachweis (Zahlungsart + letzte 5 Ziffern oder Kontoname) *",
+                placeholderPayNote: "z. B. Kreditkarte / PayPal-Name",
+                submitBtn: "[ BESTELL-E-MAIL GENERIEREN & ABSENDEN ]"
             }
         };
 
-        const FALLBACK_PRODUCTS = [{ id: "PRT-001", category: "print", title: "《我也消失在時間裡，永無止盡》", enTitle: "and i also disappear into time, without end", specs: "2025，水印木刻", price: "NT$8,500", stock: 25, images: ["PRT-001-1-1.jpg"], isFramed: true }];
+        const FALLBACK_PRODUCTS = [{ id: "000-000", category: "print", title: "資料讀取中", enTitle: "loading data", specs: "", price: "NT$8,500", stock: 25, images: ["PRT-001-1-1.jpg"], isFramed: true }];
 
         let PRODUCTS = []; let currentProduct = null; let currentFilter = 'all'; let currentLang = 'zh'; let currentQRType = 'jkopay'; let sheetLoaded = false;
         let lbProduct = null; let lbIndex = 0; let lbScale = 1; let lbPanX = 0; let lbPanY = 0; let isDragging = false; let dragMoved = false; let startX = 0; let startY = 0;
@@ -327,6 +378,7 @@
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-lang') === lang));
             document.getElementById('noticeTextZh').style.display = lang === 'zh' ? 'inline' : 'none';
             document.getElementById('noticeTextEn').style.display = lang === 'en' ? 'inline' : 'none';
+            document.getElementById('noticeTextDe').style.display = lang === 'de' ? 'inline' : 'none';
             const loadingEl = document.getElementById('loadingText'); if (loadingEl) loadingEl.textContent = t.loading;
             
             document.getElementById('modalTitle').textContent = t.modalTitle;
@@ -560,14 +612,14 @@
                 imgEl.style.display = 'none';
                 linkWrap.style.display = 'block';
                 linkBtn.href = data.url;
-                linkBtn.innerHTML = currentLang === 'en' ? data.btnText_en : data.btnText_zh;
+                linkBtn.innerHTML = currentLang === 'en' ? data.btnText_en : (currentLang === 'de' ? data.btnText_de : data.btnText_zh);
             } else {
                 imgEl.style.display = 'block';
                 linkWrap.style.display = 'none';
                 imgEl.src = formatImageUrl(data.img);
             }
             
-            document.getElementById('qrHint').innerHTML = currentLang === 'en' ? data.hint_en : data.hint_zh;
+            document.getElementById('qrHint').innerHTML = currentLang === 'en' ? data.hint_en : (currentLang === 'de' ? data.hint_de : data.hint_zh);
         }
 
         function submitOrder(e) {
@@ -578,10 +630,16 @@
             const note = document.getElementById('buyerPaymentNote').value;
             const cleanTitle = currentProduct.title.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
             
-            const subject = encodeURIComponent(currentLang === 'en' ? `[Artwork Order] ${currentProduct.id} ${cleanTitle} - ${name}` : `[作品訂購] ${currentProduct.id} ${cleanTitle} - ${name}`);
-            const bodyText = currentLang === 'en'
-                ? `Hello, I have completed the payment. Here are my order details:\n\n[Artwork] [${currentProduct.id}] ${cleanTitle}\n[Specs] ${currentProduct.specs}\n[Item Price] ${currentProduct.price}\n[Payment Verification] ${note} (Include info if overseas shipping was added)\n\n[Recipient Name] ${name}\n[Contact Info] ${contact}\n[Shipping Address] ${address}\n`
-                : `您好，我已完成付款，以下為訂購資訊：\n\n【訂購作品】[${currentProduct.id}] ${cleanTitle}\n【作品規格】${currentProduct.specs}\n【應付金額】${currentProduct.price}\n【對帳資訊】${note} (若含海外運費請在此備註)\n\n【收件姓名】${name}\n【聯絡方式】${contact}\n【收件地址/門市】${address}\n`;
+            let subject = encodeURIComponent(`[作品訂購] ${currentProduct.id} ${cleanTitle} - ${name}`);
+            let bodyText = `您好，我已完成付款，以下為訂購資訊：\n\n【訂購作品】[${currentProduct.id}] ${cleanTitle}\n【作品規格】${currentProduct.specs}\n【應付金額】${currentProduct.price}\n【對帳資訊】${note} (若含海外運費請在此備註)\n\n【收件姓名】${name}\n【聯絡方式】${contact}\n【收件地址/門市】${address}\n`;
+
+            if (currentLang === 'en') {
+                subject = encodeURIComponent(`[Artwork Order] ${currentProduct.id} ${cleanTitle} - ${name}`);
+                bodyText = `Hello, I have completed the payment. Here are my order details:\n\n[Artwork] [${currentProduct.id}] ${cleanTitle}\n[Specs] ${currentProduct.specs}\n[Item Price] ${currentProduct.price}\n[Payment Verification] ${note} (Include info if overseas shipping was added)\n\n[Recipient Name] ${name}\n[Contact Info] ${contact}\n[Shipping Address] ${address}\n`;
+            } else if (currentLang === 'de') {
+                subject = encodeURIComponent(`[Kunstwerk-Bestellung] ${currentProduct.id} ${cleanTitle} - ${name}`);
+                bodyText = `Hallo, ich habe die Zahlung abgeschlossen. Hier sind meine Bestelldaten:\n\n[Kunstwerk] [${currentProduct.id}] ${cleanTitle}\n[Spezifikationen] ${currentProduct.specs}\n[Preis] ${currentProduct.price}\n[Zahlungsnachweis] ${note} (inkl. Hinweis, falls internationale Versandkosten hinzugefügt wurden)\n\n[Empfängername] ${name}\n[Kontakt] ${contact}\n[Lieferadresse] ${address}\n`;
+            }
 
             window.location.href = `mailto:arts.lonp@gmail.com?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
             closeModal();
