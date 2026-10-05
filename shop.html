@@ -69,6 +69,87 @@
         .buy-btn:hover:not(:disabled) { background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
         .buy-btn:disabled { opacity: 0.4; border-color: var(--gray-color); cursor: not-allowed; }
 
+        /* policies accordion */
+        .policies-accordion {
+            width: 100%;
+            border-top: 1px solid var(--gray-color);
+            display: flex;
+            flex-direction: column;
+            margin-top: 1rem;
+        }
+        .policy-item {
+            border-bottom: 1px solid var(--gray-color);
+            width: 100%;
+        }
+        .policy-summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 1.1rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-align: left;
+            user-select: none;
+            -webkit-user-select: none;
+            transition: opacity 0.2s ease;
+        }
+        .policy-summary::-webkit-details-marker {
+            display: none;
+        }
+        .policy-summary:hover {
+            opacity: 0.65;
+        }
+        .policy-summary-title {
+            text-align: left;
+            font-weight: 400;
+        }
+        .policy-summary-icon {
+            font-size: 0.85rem;
+            opacity: 0.6;
+            margin-left: 1rem;
+            flex-shrink: 0;
+        }
+        .policy-item[open] .policy-summary-icon {
+            opacity: 1;
+        }
+        .policy-content {
+            padding: 0 0 1.4rem 0;
+            font-size: 0.84rem;
+            line-height: 1.8;
+            opacity: 0.85;
+            text-align: left;
+        }
+        .policy-content p {
+            margin-bottom: 0.5rem;
+        }
+        .policy-content ul {
+            list-style: none;
+            padding-left: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .policy-content ul li {
+            position: relative;
+            padding-left: 1.1rem;
+        }
+        .policy-content ul li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            opacity: 0.5;
+        }
+        .policy-content a {
+            color: var(--bg-color);
+            text-decoration: underline;
+            word-break: break-all;
+        }
+        .policy-content a:hover {
+            opacity: 0.7;
+        }
+
         /* lightbox */
         .lightbox-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: var(--text-color); z-index: 2500; display: none; flex-direction: column; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; }
         .lightbox-overlay.active { display: flex; }
@@ -122,7 +203,7 @@
         .modal-submit-btn { width: 100%; padding: 0.7rem; background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color); font-family: inherit; font-size: 0.95rem; cursor: pointer; transition: all 0.2s ease; }
         .modal-submit-btn:hover { background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
 
-        footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--gray-color); color: var(--bg-color); font-size: 0.85rem; opacity: 0.6; }
+        footer { margin-top: 0.5rem; padding-top: 1.5rem; border-top: 1px solid var(--gray-color); color: var(--bg-color); font-size: 0.85rem; opacity: 0.6; }
         .back-to-top { position: fixed; bottom: 2rem; right: 2rem; z-index: 900; background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color); padding: 0.5rem 0.8rem; font-family: inherit; font-size: 0.85rem; cursor: pointer; opacity: 0; pointer-events: none; transition: all 0.2s ease; }
         .back-to-top.visible { opacity: 1; pointer-events: auto; }
         .back-to-top:hover { background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
@@ -170,6 +251,66 @@
 
             <div id="productGrid" class="shop-grid">
                 <p id="loadingText" class="loading-text">LOADING ARCHIVE... // 正在同步試算表商品資料</p>
+            </div>
+
+            <!-- 商店資訊與政策收合清單 (Accordion) -->
+            <div class="policies-accordion" id="shopPoliciesAccordion">
+                <details class="policy-item" name="shop-policies">
+                    <summary class="policy-summary">
+                        <span class="policy-summary-title">客服聯絡資訊 // CUSTOMER SERVICE</span>
+                        <span class="policy-summary-icon">[ + ]</span>
+                    </summary>
+                    <div class="policy-content">
+                        <p>如對訂單進度、付款方式、作品規格或退換貨有任何疑問，歡迎隨時透過官方客服信箱與我們聯繫：</p>
+                        <ul>
+                            <li><strong>客服信箱：</strong><a href="mailto:arts.lonp@gmail.com">arts.lonp@gmail.com</a></li>
+                            <li><strong>服務時間：</strong>週一至週五 10:00 – 18:00（例假日與國定假日公休）</li>
+                            <li><strong>回覆時效：</strong>我們將於收到來信後的 1 至 2 個工作天內盡速回覆處理。</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="policy-item" name="shop-policies">
+                    <summary class="policy-summary">
+                        <span class="policy-summary-title">出貨天期與物流政策 // SHIPPING POLICY</span>
+                        <span class="policy-summary-icon">[ + ]</span>
+                    </summary>
+                    <div class="policy-content">
+                        <ul>
+                            <li><strong>出貨作業天數：</strong>確認款項與收件資訊無誤後，現貨作品將於 3 至 5 個工作天內完成防潮抗震包裝並寄出；若標註含框或需手工訂製裝裱之作品，作業期約為 7 至 10 個工作天。</li>
+                            <li><strong>台灣本島運送：</strong>全館免運費，以郵局掛號包裹或專業宅配寄送，寄出後約 2 至 3 個工作天送達指定地址。</li>
+                            <li><strong>海外跨國運送：</strong>單筆固定運費 NT$ 1,000，採用中華郵政國際航空包裹或國際快遞寄送，寄出後約 7 至 14 個工作天送達（實際時效依目的地海關查驗與各國郵政處理速度為準）。</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="policy-item" name="shop-policies">
+                    <summary class="policy-summary">
+                        <span class="policy-summary-title">消費者權益與退款政策 // REFUND & RIGHTS</span>
+                        <span class="policy-summary-icon">[ + ]</span>
+                    </summary>
+                    <div class="policy-content">
+                        <ul>
+                            <li><strong>7 日猶豫期保障：</strong>依《消費者保護法》第 19 條規定，通訊交易消費者享有商品到貨次日起算 7 天之鑑賞期（猶豫期並非試用期）。</li>
+                            <li><strong>退貨退款條件：</strong>退回之藝術作品必須維持全新未經使用、無刮痕折損與指紋髒污之狀態，並完整保留原廠防護外盒、保證文件及所有原裝包材。</li>
+                            <li><strong>退換申請流程：</strong>如需退換貨，請於 7 日猶豫期內來信客服信箱（arts.lonp@gmail.com）提出申請，並附上「訂單姓名、作品編號、退款帳戶及退換原因」。確認受理後請將作品妥善包裝寄回；我們於驗收確認商品完整無損後，將於 7 至 10 個工作天內循原付款管道全額刷退或匯款退費。</li>
+                            <li><strong>運送毀損處理：</strong>若收件時發現外包裝嚴重受損導致作品瑕疵，請於到貨 48 小時內拍照存證並來信客服信箱，我們將立即優先安排免費更換或全額退款。</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="policy-item" name="shop-policies">
+                    <summary class="policy-summary">
+                        <span class="policy-summary-title">服務條款與隱私權政策 // TERMS & PRIVACY</span>
+                        <span class="policy-summary-icon">[ + ]</span>
+                    </summary>
+                    <div class="policy-content">
+                        <ul>
+                            <li><strong>服務條款：</strong>凡於本網站完成訂購流程，即視為同意本站所有交易規範與權益條款。本網站所展示與販售之所有版畫、攝影作品，其著作權與智慧財產權皆歸原創作者所有，僅供個人收藏，未經書面許可嚴禁任何形式之商業營利、重製或二次發行。本契約爭議準據法為中華民國法律。</li>
+                            <li><strong>隱私權政策：</strong>我們高度重視您的個人隱私。您於訂單表單中填寫之姓名、聯絡電話、電子信箱、收件地址與對帳資訊，僅供訂單處理、作品物流配送、對帳確認及售後服務聯繫使用，絕不擅自對外公開、租借、轉售或提供予無關之第三方機構。</li>
+                        </ul>
+                    </div>
+                </details>
             </div>
 
             <footer>&copy; 2026 pei, lon. All Rights Reserved.</footer>
@@ -274,7 +415,7 @@
                 type: "qr", 
                 img: "images/qr-linepay.jpg", 
                 hint_zh: "<br>請使用 LinePay 掃描上方 QR Code 並輸入商品金額。<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>",
-                hint_en: "<br>Please scan the QR Code above with LinePay.<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Click here to open LinePay App on Mobile</a>",
+                hint_en: "<br>Please scan the QR Code above with LinePay.<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' style='display:inline-block; padding:0.5rem 1rem; border-radius:4px;'>Click here to open LinePay App on Mobile</a>",
                 hint_de: "<br>Bitte scannen Sie den obigen QR-Code mit LinePay.<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Hier klicken, um LinePay auf dem Handy zu öffnen</a>" 
             },
             alipay: { 
@@ -647,6 +788,25 @@
 
         const backToTopBtn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => { backToTopBtn.classList.toggle('visible', window.scrollY > 300); });
+
+        // 綁定手風琴收合展開與單一展開互斥監聽
+        const policyItems = document.querySelectorAll('.policy-item');
+        policyItems.forEach(item => {
+            item.addEventListener('toggle', () => {
+                const icon = item.querySelector('.policy-summary-icon');
+                if (icon) {
+                    icon.textContent = item.open ? '[ − ]' : '[ + ]';
+                }
+                if (item.open) {
+                    policyItems.forEach(other => {
+                        if (other !== item && other.open) {
+                            other.open = false;
+                        }
+                    });
+                }
+            });
+        });
+
         initShop();
     </script>
 </body>
