@@ -817,7 +817,7 @@
         
         <div class="link-group">
             <button type="button" class="brutal-btn" onclick="openSupportModal('local')">台灣請客</button>
-            <button type="button" class="brutal-btn" onclick="openSupportModal('overseas')">海外DONATE</button>
+            <button type="button" class="brutal-btn" onclick="openSupportModal('overseas')">海外 DONATE</button>
             <a href="shop.html" id="shopBannerBtn" class="brutal-btn shop-banner-btn">SHOP</a>
         </div>
     </div>
@@ -1197,7 +1197,7 @@
                 overseasTabs.forEach(el => el.style.display = 'none');
                 switchSupportQR('jkopay', localTabs[0]);
             } else {
-                document.getElementById('modalHeaderTitle').textContent = "BUY ME A COFFEE // 海外支持";
+                document.getElementById('modalHeaderTitle').textContent = "BUY ME A COFFEE // 海外";
                 localTabs.forEach(el => el.style.display = 'none');
                 overseasTabs.forEach(el => el.style.display = 'flex');
                 switchSupportQR('paypal', overseasTabs[0]);
