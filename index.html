@@ -38,7 +38,7 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             padding-bottom: 5vh;
-            overflow-x: hidden;
+            overflow-x: clip;
         }
 
         a {
@@ -58,8 +58,10 @@
            support banner (外層贊助與商店橫幅)
         -------------------------------------- */
         .support-banner {
+            position: -webkit-sticky;
             position: sticky;
             top: 0;
+            left: 0;
             z-index: 1000;
             width: 100%;
             border-bottom: 2px solid var(--border-color);
@@ -84,23 +86,23 @@
         .link-group {
             display: flex;
             align-items: stretch;
-            gap: 1.2rem;
+            gap: 0.8rem;
             flex-wrap: wrap;
             width: 100%;
-            max-width: 1200px;
+            max-width: 480px;
         }
 
         /* 外層按鈕基本款：純黑底白字 (#000000) */
         .brutal-btn {
             flex: 1 1 0px;
-            min-width: 270px;
-            height: 48px;
+            min-width: 0;
+            height: 34px;
             background-color: #000000;
             color: #ffffff;
             border: 2px solid #000000;
-            padding: 0.45rem 1rem;
+            padding: 0.25rem 0.8rem;
             font-family: inherit;
-            font-size: 0.88rem;
+            font-size: 0.9rem;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 3px 3px 0px #000000;
@@ -753,20 +755,23 @@
                 margin-left: 0.8rem;
             }
 
-            .support-banner { padding: 1.2rem 1.5rem; }
+            .support-banner { padding: 1rem 1.2rem; }
             
             .link-group { 
-                flex-direction: column; 
-                gap: 0.6rem; 
+                flex-direction: row; 
+                gap: 0.5rem; 
                 width: 100%; 
+                max-width: 100%;
             }
             .link-group .brutal-btn { 
-                width: 100%; 
-                min-width: unset; 
-                height: auto; 
-                min-height: 48px;
-                white-space: normal; 
-                padding: 0.6rem 0.8rem;
+                flex: 1 1 0px;
+                width: auto; 
+                min-width: 0; 
+                height: 32px; 
+                min-height: 32px;
+                white-space: nowrap; 
+                padding: 0.2rem 0.2rem;
+                font-size: 0.9rem;
             }
 
             .tab-header {
@@ -808,12 +813,12 @@
 
     <!-- 外層贊助與商店橫幅 -->
     <div class="support-banner">
-        <span class="banner-title">FUEL THE ART & CODE / donate 一杯咖啡，支持數位創作與深夜除錯</span>
+        <span class="banner-title">FUEL THE ART & CODE / 請我一杯咖啡，支持數位創作與深夜除錯</span>
         
         <div class="link-group">
-            <button type="button" class="brutal-btn" onclick="openSupportModal('local')">台灣 donate ( 信用卡 / 行動支付 / 轉帳 )</button>
-            <button type="button" class="brutal-btn" onclick="openSupportModal('overseas')">Overseas donate ( PayPal / Alipay )</button>
-            <a href="shop.html" id="shopBannerBtn" class="brutal-btn shop-banner-btn">shop 商店</a>
+            <button type="button" class="brutal-btn" onclick="openSupportModal('local')">台灣請客</button>
+            <button type="button" class="brutal-btn" onclick="openSupportModal('overseas')">DONATE</button>
+            <a href="shop.html" id="shopBannerBtn" class="brutal-btn shop-banner-btn">SHOP</a>
         </div>
     </div>
 
@@ -1112,8 +1117,9 @@
                     <button type="button" class="pay-tab tab-local" onclick="switchSupportQR('newebpay', this)">信用卡 轉帳<br>ApplePay</button>
                     
                     <!-- 海外選項 -->
-                    <button type="button" class="pay-tab tab-overseas" onclick="switchSupportQR('newebpay_os', this)">CreditCard<br>ApplePay</button>
                     <button type="button" class="pay-tab tab-overseas" onclick="switchSupportQR('paypal', this)">PayPal<br>Ko-fi</button>
+                    <button type="button" class="pay-tab tab-overseas" onclick="switchSupportQR('newebpay_os', this)">Credit Card<br>Apple Pay</button>
+                    
                     <button type="button" class="pay-tab tab-overseas" onclick="switchSupportQR('alipay', this)">Alipay</button>
                 </div>
 
@@ -1175,7 +1181,7 @@
             linepay: { type: "qr", img: "images/qr-linepay.jpg", hint: "<br>請使用 LinePay 掃描上方條碼，金額不限，每一份支持都是推動我持續創作的動力。<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' class='brutal-launch-btn'>手機端請點擊這裡喚起 APP 跳轉 ↗</a>" },
             alipay:  { type: "qr", img: "images/qr-alipay.jpg",  hint: "<br>請掃描上方條碼，金額不限，每一份支持都是推動我持續創作的動力。<br><br>Please scan the QR code above with Alipay to complete your payment. Enter any amount you wish—every little bit helps!<br><br><a href='https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4' target='_blank' class='brutal-launch-btn'>手機端請點擊這裡喚起 APP 跳轉 ↗</a>" },
             newebpay: { type: "link", url: "請在這裡貼上你的藍新收款網址", btnText: "前往藍新安全支付頁面 ↗", hint: "點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、信用卡與 Apple Pay，金額不限，每一份支持都是推動我持續創作的動力。" },
-            newebpay_os: { type: "link", url: "請在這裡貼上你的藍新收款網址", btnText: "Go to NewebPay Secure Checkout ↗", hint: "點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、跨國信用卡與 Apple Pay，金額不限，每一份支持都是推動我持續創作的動力。<br><br>Click the button above to pay securely via NewebPay, supporting Transfer, international Credit Cards and Apple Pay. Enter any amount you wish—every little bit helps!" },
+            newebpay_os: { type: "link", url: "請在這裡貼上你的藍新收款網址", btnText: "Go to NewebPay Secure Checkout ↗", hint: "點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、跨國信用卡與 Apple Pay，金額不限，每一份支持都是推動我持續創作的動力。<br><br>Click the button above to pay securely via NewebPay, supporting international Credit Cards and Apple Pay. Enter any amount you wish—every little bit helps!" },
             paypal: { type: "link", url: "https://ko-fi.com/lonsthx", btnText: "Go to Ko-fi / PayPal Checkout ↗", hint: "點擊上方按鈕前往 Ko-fi 頁面，支援 PayPal 與跨國信用卡，金額不限，每一份支持都是推動我持續創作的動力。<br><br>Click the button above to go to the Ko-fi page, supporting PayPal and international Credit Cards. Enter any amount you wish—every little bit helps!" }
         };
 
@@ -1194,7 +1200,7 @@
                 document.getElementById('modalHeaderTitle').textContent = "OVERSEAS SUPPORT // 海外贊助";
                 localTabs.forEach(el => el.style.display = 'none');
                 overseasTabs.forEach(el => el.style.display = 'flex');
-                switchSupportQR('newebpay_os', overseasTabs[0]);
+                switchSupportQR('paypal', overseasTabs[0]);
             }
 
             document.getElementById('supportModal').classList.add('active');
