@@ -880,7 +880,7 @@
                     </div>
 
                     <div id="content-en" class="lang-section">
-                        <p>I am Lonlon (PEI, Lon), a tech artist and developer navigating the intersections of digital media, visual arts, and code。</p>
+                        <p>I am Lonlon, a tech artist and developer navigating the intersections of digital media, visual arts, and code。</p>
                         <p>My creative journey is split into two main parallel tracks:</p>
                         <p>1. Digital & Video Art:<br>
                         My artistic practice focuses on video, multimedia installations, AI generative workflows, and traditional woodcut printmaking. My visual works and installations have been exhibited at art festivals and galleries across Eurasia, including Athens, Venice, Zurich, and Yogyakarta.</p>
@@ -892,7 +892,7 @@
                     </div>
 
                     <div id="content-de" class="lang-section">
-                        <p>Ich bin Lonlon (PEI, Lon), ein Tech-Künstler und Entwickler, der sich an der Schnittstelle von digitalen Medien, visueller Kunst und Programmierung bewegt。</p>
+                        <p>Ich bin Lonlon, ein Tech-Künstler und Entwickler, der sich an der Schnittstelle von digitalen Medien, visueller Kunst und Programmierung bewegt。</p>
                         <p>Meine creative Reise teilt sich hauptsächlich in zwei parallele Bereiche auf:</p>
                         <p>1. Digitale & Videokunst:<br>
                         Meine künstlerische Praxis konzentriert sich auf Video, multimediale Installationen, KI-gestützte Workflows und traditionellen Holzschnitt. Meine visuellen Werke und Installationen wurden bereits auf Kunstfestivals und in Galerien in ganz Eurasien ausgestellt, darunter in Athen, Venedig, Zürich und Yogyakarta.</p>
@@ -912,7 +912,7 @@
                 </div>
                 <div class="cv-container">
                     <div class="cv-statement">
-                        冷冷 (lonlon) 本名裴冷 (PEI, Lon)<br>
+                        冷冷 (lonlon) <br>
                         現居台北。遊走於數位媒體、虛擬現實與視覺語彙之間。<br>
                         <span class="statement-en">Based in Taipei. Working across digital media, virtual reality, and visual syntax.</span>
                     </div>
@@ -1095,7 +1095,7 @@
             </div>
 
             <footer>
-                &copy; 2026 pei, lon. All Rights Reserved.
+                &copy; 2026 lonlon. All Rights Reserved.
             </footer>
         </main>
     </div>
@@ -1175,13 +1175,13 @@
                 activeNav.classList.add('active');
             }
         }
-
+        //暫時不開放linepay https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE // http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23
         const SUPPORT_QR_CODES = {
-            jkopay:  { type: "qr", img: "images/qr-jkopay.jpg",  hint: "<br>請使用 街口、全支付、悠遊付、台灣Pay、台新Pay、玉山Wallet 等支援 TWQR 之 APP 掃描上方條碼，<span class='desktop-br-hint'><br></span>金額不限，每一份支持都是推動我持續創作的動力。<br><br><a href='http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23' target='_blank' class='brutal-launch-btn'>手機端請點擊這裡喚起 APP 跳轉 ↗</a>" },
-            linepay: { type: "qr", img: "images/qr-linepay.jpg", hint: "<br>請使用 LinePay 掃描上方條碼，金額不限，每一份支持都是推動我持續創作的動力。<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' class='brutal-launch-btn'>手機端請點擊這裡喚起 APP 跳轉 ↗</a>" },
+            jkopay:  { type: "qr", img: "images/qr-jkopay.jpg",  hint: "<br>(所有台灣的支付方式2027/1/1才會開放!請選擇其他支付~)請使用 街口、全支付、悠遊付、台灣Pay、台新Pay、玉山Wallet 等支援 TWQR 之 APP 掃描上方條碼，<span class='desktop-br-hint'><br></span>金額不限，每一份支持都是推動我持續創作的動力。<br><br><a href='' target='_blank' class='brutal-launch-btn'>手機端請點擊這裡喚起 APP 跳轉 ↗</a>" },
+            linepay: { type: "qr", img: "images/qr-linepay.jpg", hint: "<br>(所有台灣的支付方式2027/1/1才會開放!請選擇其他支付~)請使用 Line Pay 掃描上方條碼，金額不限，每一份支持都是推動我持續創作的動力。<br><br><a href='' target='_blank' class='brutal-launch-btn'>手機端請點擊這裡喚起 APP 跳轉 ↗</a>" },
             alipay:  { type: "qr", img: "images/qr-alipay.jpg",  hint: "<br>請掃描上方條碼，金額不限，每一份支持都是推動我持續創作的動力。<br><br>Please scan the QR code above with Alipay to complete your payment. Enter any amount you wish—every little bit helps!<br><br><a href='https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4' target='_blank' class='brutal-launch-btn'>手機端請點擊這裡喚起 APP 跳轉 ↗</a>" },
-            newebpay: { type: "link", url: "請在這裡貼上你的藍新收款網址", btnText: "前往藍新安全支付頁面 ↗", hint: "點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、信用卡與 Apple Pay，金額不限，每一份支持都是推動我持續創作的動力。" },
-            newebpay_os: { type: "link", url: "請在這裡貼上你的藍新收款網址", btnText: "Go to NewebPay Secure Checkout ↗", hint: "點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、跨國信用卡與 Apple Pay，金額不限，每一份支持都是推動我持續創作的動力。<br><br>Click the button above to pay securely via NewebPay, supporting international Credit Cards and Apple Pay. Enter any amount you wish—every little bit helps!" },
+            newebpay: { type: "link", url: "請在這裡貼上你的藍新收款網址", btnText: "前往藍新安全支付頁面 ↗", hint: "(所有台灣的支付方式2027/1/1才會開放!請選擇其他支付~)點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、信用卡與 Apple Pay，金額不限，每一份支持都是推動我持續創作的動力。" },
+            newebpay_os: { type: "link", url: "請在這裡貼上你的藍新收款網址", btnText: "Go to NewebPay Secure Checkout ↗", hint: "(所有台灣的支付方式2027/1/1才會開放!請選擇其他支付~)點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、跨國信用卡與 Apple Pay，金額不限，每一份支持都是推動我持續創作的動力。<br><br>Click the button above to pay securely via NewebPay, supporting international Credit Cards and Apple Pay. Enter any amount you wish—every little bit helps!" },
             paypal: { type: "link", url: "https://ko-fi.com/lonsthx", btnText: "Go to Ko-fi / PayPal Checkout ↗", hint: "點擊上方按鈕前往 Ko-fi 頁面，支援 PayPal 與跨國信用卡，金額不限，每一份支持都是推動我持續創作的動力。<br><br>Click the button above to go to the Ko-fi page, supporting PayPal and international Credit Cards. Enter any amount you wish—every little bit helps!" }
         };
 

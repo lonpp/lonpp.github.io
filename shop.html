@@ -235,7 +235,7 @@
                 <h1>SHOP 商店</h1>
                 <div class="shop-notice">
                     <p>
-                        <span id="noticeTextZh">購買流程：確認剩餘數量後點擊購買按鈕 → 選擇支付方式 ( 信用卡 / 轉帳 / 行動支付 ) 完成付款 → 填寫收件資訊送出訂單&nbsp;<br class="desktop-br">→ 送出後系統會打開 email 並自動帶入資料，確認無誤後寄出即可。<br><br>台灣免運，海外寄送運費固定另加 NT$ 1,000 ( 約 US$ 30 )。<br><br></span>
+                        <span id="noticeTextZh">(所有台灣的支付方式2027/1/1才會開放!請選擇其他支付~)購買流程：確認剩餘數量後點擊購買按鈕 → 選擇支付方式 ( 信用卡 / 轉帳 / 行動支付 ) 完成付款 → 填寫收件資訊送出訂單&nbsp;<br class="desktop-br">→ 送出後系統會打開 email 並自動帶入資料，確認無誤後寄出即可。<br><br>台灣免運，海外寄送運費固定另加 NT$ 1,000 ( 約 US$ 30 )。<br><br></span>
                         <span id="noticeTextEn" style="display: none;">Order Process: Check stock &amp; click ORDER → Pay (Credit Card / Transfer / Mobile / PayPal) → Submit shipping info&nbsp;<br class="desktop-br">→ Email app opens with pre-filled details; please verify and send.<br><br>Free shipping in Taiwan. <br>Overseas shipping is a flat rate of NT$ 1,000 (approx. US$ 30).<br><br></span>
                         <span id="noticeTextDe" style="display: none;">Bestellprozess: Bestand prüfen &amp; auf BESTELLEN klicken → Zahlung durchführen (Kreditkarte / Überweisung / Mobile / PayPal) → Versandinformationen übermitteln&nbsp;<br class="desktop-br">→ Die E-Mail-App öffnet sich mit vorausgefüllten Daten; bitte überprüfen und absenden.<br><br>Kostenloser Versand in Taiwan. <br>Internationaler Versand zum Pauschalpreis von NT$ 1.000 (ca. 30 €).<br><br></span>
                         <span class="lang-switch-wrap"> ( <a href="javascript:void(0)" class="lang-btn active" data-lang="zh" onclick="setShopLang('zh')">中文</a> / <a href="javascript:void(0)" class="lang-btn" data-lang="en" onclick="setShopLang('en')">EN</a> / <a href="javascript:void(0)" class="lang-btn" data-lang="de" onclick="setShopLang('de')">DE</a> )</span>
@@ -313,7 +313,7 @@
                 </details>
             </div>
 
-            <footer>&copy; 2026 pei, lon. All Rights Reserved.</footer>
+            <footer>&copy; 2026 lonlon. All Rights Reserved.</footer>
         </div>
     </div>
 
@@ -406,17 +406,17 @@
         const QR_CODES = {
             jkopay: { 
                 type: "qr", 
-                img: "images/qr-jkopay.jpg", 
-                hint_zh: "<br>請使用 街口、全支付、悠遊付、台灣Pay、台新Pay、玉山Wallet 等支援 TWQR 之 APP 掃描上方條碼。<br><br><a href='http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>", 
-                hint_en: "<br>Scan with JKOPay or TWQR supported apps and enter the amount.<br><br><a href='http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Click here to open JKPay App on Mobile</a>",
-                hint_de: "<br>Scannen Sie den QR-Code mit JKOPay oder einer TWQR-unterstützten App und geben Sie den Betrag ein.<br><br><a href='http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Hier klicken, um die App auf dem Handy zu öffnen</a>" 
+                img: "images/qr-jkopay.jpg", //http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23
+                hint_zh: "<br>(所有台灣的支付方式2027/1/1才會開放!請選擇其他支付~)請使用 街口、全支付、悠遊付、台灣Pay、台新Pay、玉山Wallet 等支援 TWQR 之 APP 掃描上方條碼。<br><br><a href='' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>", 
+                hint_en: "<br>Scan with JKOPay or TWQR supported apps and enter the amount.<br><br><a href='' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Click here to open JKPay App on Mobile</a>",
+                hint_de: "<br>Scannen Sie den QR-Code mit JKOPay oder einer TWQR-unterstützten App und geben Sie den Betrag ein.<br><br><a href='' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Hier klicken, um die App auf dem Handy zu öffnen</a>" 
             },
             linepay: { 
                 type: "qr", 
-                img: "images/qr-linepay.jpg", 
-                hint_zh: "<br>請使用 LinePay 掃描上方 QR Code 並輸入商品金額。<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>",
-                hint_en: "<br>Please scan the QR Code above with LinePay.<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' style='display:inline-block; padding:0.5rem 1rem; border-radius:4px;'>Click here to open LinePay App on Mobile</a>",
-                hint_de: "<br>Bitte scannen Sie den obigen QR-Code mit LinePay.<br><br><a href='https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Hier klicken, um LinePay auf dem Handy zu öffnen</a>" 
+                img: "images/qr-linepay.jpg", //https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE
+                hint_zh: "<br>(所有台灣的支付方式2027/1/1才會開放!請選擇其他支付~)請使用 LinePay 掃描上方 QR Code 並輸入商品金額。<br><br><a href='' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>",
+                hint_en: "<br>Please scan the QR Code above with LinePay.<br><br><a href='' target='_blank' style='display:inline-block; padding:0.5rem 1rem; border-radius:4px;'>Click here to open LinePay App on Mobile</a>",
+                hint_de: "<br>Bitte scannen Sie den obigen QR-Code mit LinePay.<br><br><a href='' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Hier klicken, um LinePay auf dem Handy zu öffnen</a>" 
             },
             alipay: { 
                 type: "qr", 
@@ -431,7 +431,7 @@
                 btnText_zh: "[ Go to NewebPay Secure Checkout ↗ ]<br>前往藍新安全支付頁面", 
                 btnText_en: "[ Go to NewebPay Secure Checkout ↗ ]<br>Go to NewebPay Secure Checkout", 
                 btnText_de: "[ Zur sicheren NewebPay-Kasse ↗ ]<br>Zur sicheren NewebPay-Zahlungsseite", 
-                hint_zh: "點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、信用卡與 Apple Pay 繳費。", 
+                hint_zh: "(所有台灣的支付方式2027/1/1才會開放!請選擇其他支付~)點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、信用卡與 Apple Pay 繳費。", 
                 hint_en: "Click the button above to pay securely via NewebPay (Transfer / Credit Card / CVS / Apple Pay).",
                 hint_de: "Klicken Sie auf die Schaltfläche oben, um sicher über NewebPay zu bezahlen (Überweisung, Kreditkarte, Apple Pay)." 
             },
