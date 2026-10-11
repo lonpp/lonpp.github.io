@@ -1,813 +1,990 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>shop 商店 | lonlon 冷冷</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Available Works — lonlon 冷冷</title>
+    <meta name="description" content="Prints and photographs by lonlon 冷冷, available directly from the studio in Taipei. Water-based woodblock prints and archival pigment prints.">
+    <meta name="theme-color" content="#f5f4f0">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Available Works — lonlon 冷冷">
+    <meta property="og:description" content="Prints and photographs available directly from the studio.">
+    <link rel="canonical" href="https://lonp.pages.dev/shop">
+    <meta property="og:url" content="https://lonp.pages.dev/shop">
+    <meta property="og:image" content="https://lonp.pages.dev/images/products/prt1-1.jpg">
+    <script>
+        (function () {
+            var pick = null, ui = null;
+            try { pick = localStorage.getItem('lon-lang'); } catch (e) {}
+            if (pick === 'zh' || pick === 'en' || pick === 'de') ui = pick;
+            var langs = navigator.languages || [navigator.language || ''];
+            for (var i = 0; !ui && i < langs.length; i++) {
+                var m = String(langs[i]).toLowerCase().match(/^(zh|de|en)/);
+                if (m) ui = m[1];
+            }
+            ui = ui || 'en';
+            document.documentElement.className = 'ui-' + ui + ' js';
+            document.documentElement.lang = ui === 'zh' ? 'zh-Hant-TW' : ui;
+            var l = document.createElement('link');
+            l.rel = 'stylesheet';
+            l.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@400;500&display=swap';
+            document.head.appendChild(l);
+        })();
+    </script>
     <style>
-        /* reset */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --bg-color: #000000; --text-color: #ffffff; --gray-color: #cbcbcb; }
-        html { scroll-behavior: smooth; }
-        body {
-            background-color: var(--text-color); color: var(--bg-color);
-            font-family: 'Courier New', Courier, 'PingFang TC', 'SF Pro TC', 'Microsoft JhengHei Light', 'Microsoft JhengHei', sans-serif;
-            font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+        /* =========================================
+           lonlon 冷冷 — Available Works（收藏頁）
+           與 index.new1.html 同一套設計：紙白、墨黑、群青。
+        ========================================= */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --paper: #f5f4f0;
+            --paper-2: #ecebe5;
+            --wall: #e6e3dc;
+            --ink: #161616;
+            --ink-2: #3a3a3a;
+            --muted: #6e6c67;
+            --rule: #d9d6ce;
+            --accent: #23408e;
+            --sold: #b8322a;
+            --sans: 'Inter', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', system-ui, -apple-system, sans-serif;
+            --serif: 'Newsreader', 'Noto Serif TC', 'Songti TC', Georgia, serif;
+            --wrap: 1240px;
+            --pad: clamp(1.25rem, 4vw, 3rem);
+            --header-h: 64px;
         }
-        a { color: var(--text-color); text-decoration: none; transition: all 0.2s ease; }
+        html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 16px); -webkit-text-size-adjust: 100%; }
+        body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+        img { display: block; max-width: 100%; }
+        a { color: inherit; text-decoration: none; }
+        button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+        :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+        ::selection { background: var(--accent); color: #fff; }
+        html.ui-zh body [lang="en"], html.ui-zh body [lang="de"] { display: none !important; }
+        html.ui-en body [lang="zh-Hant"], html.ui-en body [lang="de"] { display: none !important; }
+        html.ui-de body [lang="zh-Hant"], html.ui-de body .has-de { display: none !important; }
 
-        /* nav */
-        .top-nav {
-            position: sticky; top: 0; z-index: 900; width: 100%; padding: 1.2rem 2rem;
-            background-color: var(--bg-color); color: var(--text-color); display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem;
-        }
-        .top-nav a:hover { background-color: var(--gray-color); color: var(--bg-color); padding: 0.2rem 0.5rem; }
+        .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--pad); }
+        .eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+        .work-title-en { font-family: var(--serif); font-style: italic; font-weight: 400; }
+        .work-title-zh { font-family: var(--serif); font-weight: 400; }
 
-        /* main section */
-        .shop-light-section { background-color: var(--text-color); color: var(--bg-color); width: 100%; min-height: calc(100vh - 60px); padding-bottom: 5vh; }
-        .light-container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; display: flex; flex-direction: column; gap: 3rem; }
-        header h1 { font-size: 2.5rem; font-weight: normal; letter-spacing: 2px; margin-bottom: 1rem; color: var(--bg-color); }
+        /* ---------- header（與主頁相同） ---------- */
+        .site-header { position: sticky; top: 0; z-index: 50; background: rgba(245, 244, 240, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+        .header-inner { height: var(--header-h); display: flex; align-items: center; gap: 2rem; }
+        .brand { display: inline-flex; align-items: baseline; gap: 0.55rem; font-size: 1.05rem; font-weight: 500; letter-spacing: 0.02em; white-space: nowrap; }
+        .brand .zh { font-family: var(--serif); font-weight: 400; color: var(--muted); }
+        .site-nav { display: flex; gap: 1.75rem; margin-left: auto; font-size: 0.86rem; }
+        .site-nav a { position: relative; color: var(--ink-2); padding: 0.4rem 0; white-space: nowrap; }
+        .site-nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0.15rem; height: 1px; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform 0.25s ease; }
+        .site-nav a:hover::after, .site-nav a.is-active::after { transform: scaleX(1); }
+        .site-nav a.is-active { color: var(--ink); }
+        .lang-toggle { display: inline-flex; gap: 0.15rem; font-size: 0.78rem; letter-spacing: 0.06em; }
+        .lang-toggle button { padding: 0.35rem 0.4rem; color: var(--muted); min-height: 36px; }
+        .lang-toggle button[aria-pressed="true"] { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
 
-        .shop-notice { font-size: 0.95rem; color: var(--bg-color); opacity: 0.85; border-left: 2px solid var(--gray-color); padding-left: 1rem; white-space: nowrap; }
-        .desktop-br { display: inline; }
-        .lang-switch-wrap { white-space: nowrap; }
-        .lang-btn { color: var(--bg-color); opacity: 0.4; cursor: pointer; transition: opacity 0.2s ease; }
-        .lang-btn:hover, .lang-btn.active { opacity: 1; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; min-height: 46px; padding: 0.7rem 1.4rem; border: 1px solid var(--ink); font-size: 0.86rem; font-weight: 500; letter-spacing: 0.04em; text-align: center; transition: background-color 0.2s, color 0.2s, border-color 0.2s; }
+        .btn:hover { background: var(--ink); color: var(--paper); }
+        .btn.solid { background: var(--ink); color: var(--paper); }
+        .btn.solid:hover { background: var(--accent); border-color: var(--accent); }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; background: transparent; color: var(--ink); }
+        .btn .arr { transition: transform 0.2s; }
+        .btn:hover .arr { transform: translateX(3px); }
+        .link { border-bottom: 1px solid var(--rule); }
+        .link:hover { border-bottom-color: var(--ink); }
 
-        /* filters */
-        .filter-bar { display: flex; gap: 1.5rem; border-bottom: 1px solid var(--gray-color); padding-bottom: 0.8rem; }
-        .filter-btn { background: none; border: none; color: var(--bg-color); font-family: inherit; font-size: 1rem; font-weight: 300; opacity: 0.4; cursor: pointer; transition: opacity 0.2s ease; text-align: left; }
-        .filter-btn:hover, .filter-btn.active { opacity: 1; }
+        /* ---------- intro ---------- */
+        .intro { padding: clamp(3rem, 7vw, 5.5rem) 0 clamp(2rem, 4vw, 3rem); }
+        .intro h1 { font-family: var(--serif); font-weight: 300; font-size: clamp(2.4rem, 5.4vw, 4rem); line-height: 1.05; }
+        .intro h1 .zh { font-size: 0.5em; color: var(--muted); margin-left: 0.8rem; letter-spacing: 0.2em; }
+        .intro-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 1.5rem clamp(2rem, 6vw, 5rem); align-items: end; margin-top: 1.6rem; }
+        .intro p { color: var(--ink-2); font-size: clamp(1rem, 1.4vw, 1.12rem); max-width: 34em; }
+        .terms { list-style: none; font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--rule); }
+        .terms li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.6rem 0; border-bottom: 1px solid var(--rule); }
+        .terms li b { font-weight: 500; color: var(--ink); text-align: right; }
 
-        /* grid */
-        .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 3rem 2rem; }
-        .loading-text { font-size: 0.9rem; color: var(--bg-color); opacity: 0.6; letter-spacing: 1px; grid-column: 1 / -1; }
-        .product-card { background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color); padding: 1.2rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1.2rem; transition: border-color 0.2s ease; }
-        .product-card:hover { border-color: var(--gray-color); }
+        /* ---------- toolbar ---------- */
+        .toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.8rem 2rem; padding: 1rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: clamp(2rem, 4vw, 3rem); }
+        .filters { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; font-size: 0.86rem; }
+        .filters button { color: var(--muted); padding: 0.3rem 0; min-height: 36px; border-bottom: 1px solid transparent; }
+        .filters button:hover { color: var(--ink); }
+        .filters button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+        .count { font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
 
-        /* img */
-        .product-img-wrap { position: relative; width: 100%; aspect-ratio: 4 / 3; background-color: #f2f2f2; overflow: hidden; border-bottom: 1px solid var(--gray-color); cursor: zoom-in; }
-        .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
-        .product-img-wrap:hover img { transform: scale(1.03); }
+        /* ---------- grid ---------- */
+        .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(2.4rem, 4vw, 3.6rem) clamp(1.4rem, 3vw, 2.4rem); min-height: 30vh; }
+        .item[hidden] { display: none; }
+        .item-btn { display: block; width: 100%; text-align: left; }
+        .item-media { position: relative; aspect-ratio: 4 / 5; background: var(--wall); display: flex; align-items: center; justify-content: center; padding: 8%; overflow: hidden; }
+        .item-media img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.12)); transition: transform 0.6s cubic-bezier(.2,.7,.2,1); }
+        .item-btn:hover .item-media img { transform: scale(1.03); }
+        .item-media .n { position: absolute; right: 0.7rem; bottom: 0.6rem; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.08em; font-variant-numeric: tabular-nums; }
+        .item-info { margin-top: 1rem; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.15rem 1rem; }
+        .item-info .t { font-size: 1.02rem; line-height: 1.35; }
+        .item-info .t .work-title-zh { display: block; font-size: 0.92rem; color: var(--muted); margin-top: 0.15rem; }
+        .item-info .y { font-size: 0.84rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+        .item-info .m { grid-column: 1 / -1; font-size: 0.84rem; color: var(--muted); }
+        .item-info .p { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.3rem 1rem; margin-top: 0.55rem; padding-top: 0.55rem; border-top: 1px solid var(--rule); font-size: 0.92rem; font-variant-numeric: tabular-nums; }
+        .item-info .p small { font-size: 0.76rem; color: var(--muted); margin-left: 0.35rem; }
+        .status { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.78rem; color: var(--accent); }
+        .status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+        .status.sold { color: var(--sold); }
+        .loading { grid-column: 1 / -1; font-size: 0.9rem; color: var(--muted); }
+        .skeleton .item-media { animation: pulse 1.4s ease-in-out infinite; }
+        @keyframes pulse { 50% { opacity: 0.55; } }
 
-        .product-meta { display: flex; flex-direction: column; gap: 0.4rem; }
-        .product-id-row { display: flex; justify-content: space-between; align-items: center; }
-        .product-id { font-size: 0.8rem; opacity: 0.65; letter-spacing: 1px; }
-        .meta-zoom-info { font-size: 0.8rem; opacity: 0.65; letter-spacing: 0.5px; display: inline-flex; align-items: center; gap: 0.35rem; cursor: zoom-in; transition: opacity 0.2s ease; }
-        .meta-zoom-info svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 1.5; stroke-linecap: square; fill: none; display: block; }
-        .product-img-wrap:hover + .product-meta .meta-zoom-info, .meta-zoom-info:hover { opacity: 1; }
+        /* ---------- how to collect / policies ---------- */
+        .section { padding: clamp(3.5rem, 7vw, 5.5rem) 0; }
+        .section + .section { border-top: 1px solid var(--rule); }
+        .section h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(1.7rem, 3vw, 2.3rem); line-height: 1.15; margin-bottom: clamp(1.6rem, 3vw, 2.4rem); }
+        .section h2 .zh { font-size: 0.6em; color: var(--muted); margin-left: 0.7rem; letter-spacing: 0.2em; }
+        .steps { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem clamp(1.5rem, 4vw, 3rem); counter-reset: s; }
+        .steps li { counter-increment: s; border-top: 1px solid var(--ink); padding-top: 1rem; color: var(--ink-2); font-size: 0.95rem; }
+        .steps li::before { content: '0' counter(s); display: block; font-size: 0.74rem; letter-spacing: 0.14em; color: var(--muted); margin-bottom: 0.6rem; }
+        .steps li b { display: block; font-weight: 500; color: var(--ink); margin-bottom: 0.3rem; }
+        .policies { border-top: 1px solid var(--rule); }
+        .policy { border-bottom: 1px solid var(--rule); }
+        .policy summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.1rem 0; font-size: 0.98rem; min-height: 48px; }
+        .policy summary::-webkit-details-marker { display: none; }
+        .policy summary::after { content: '+'; font-size: 1.2rem; font-weight: 300; color: var(--muted); transition: transform 0.25s; }
+        .policy[open] summary::after { transform: rotate(45deg); }
+        .policy summary:hover { color: var(--accent); }
+        .policy-body { padding: 0 0 1.4rem; max-width: 52rem; font-size: 0.9rem; line-height: 1.8; color: var(--ink-2); }
+        .policy-body ul { list-style: none; display: grid; gap: 0.6rem; }
+        .policy-body li { position: relative; padding-left: 1.1rem; }
+        .policy-body li::before { content: ''; position: absolute; left: 0; top: 0.8em; width: 5px; height: 1px; background: var(--muted); }
+        .policy-body b { font-weight: 500; color: var(--ink); }
+        .policy-body a { border-bottom: 1px solid var(--rule); }
+        .ask { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem 2rem; padding: 2rem 0; border-top: 1px solid var(--rule); }
+        .ask p { font-family: var(--serif); font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 300; }
 
-        .product-title { font-size: 1.15rem; font-weight: 400; line-height: 1.4; margin-bottom: 1.2rem; }
-        .product-title-en { font-weight: 400; font-size: 0.85em; opacity: 0.7; display: block; margin-top: 0.2rem; }
-        
-        .product-specs { font-size: 0.85rem; opacity: 0.8; }
-        .product-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 0.8rem; border-top: 1px dashed var(--gray-color); }
-        .product-price { font-size: 1.05rem; }
-        .product-stock { font-size: 0.8rem; opacity: 0.75; }
+        .site-footer { border-top: 1px solid var(--rule); padding: 2.2rem 0 2.6rem; font-size: 0.82rem; color: var(--muted); }
+        .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem 2rem; }
+        .footer-inner nav { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; }
+        .footer-inner a:hover { color: var(--ink); }
 
-        .buy-btn { width: 100%; padding: 0.7rem; background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color); font-family: inherit; font-size: 0.95rem; cursor: pointer; transition: all 0.2s ease; }
-        .buy-btn:hover:not(:disabled) { background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
-        .buy-btn:disabled { opacity: 0.4; border-color: var(--gray-color); cursor: not-allowed; }
+        /* ---------- viewer（作品細節 + 結帳） ---------- */
+        .viewer { position: fixed; inset: 0; z-index: 200; background: var(--paper); display: none; grid-template-columns: minmax(0, 1.4fr) minmax(340px, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+        .viewer.open { display: grid; }
+        .viewer-bar { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: var(--header-h); padding: 0 var(--pad); border-bottom: 1px solid var(--rule); }
+        .viewer-bar .crumb { font-size: 0.82rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .viewer-close { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 40px; font-size: 0.86rem; flex-shrink: 0; }
+        .viewer-close .x { font-size: 1.3rem; line-height: 1; }
+        .stage { position: relative; background: var(--wall); display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 0; padding: clamp(1.5rem, 5vw, 4rem); }
+        .stage img { max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 14px 26px rgba(0, 0, 0, 0.14)); cursor: zoom-in; transition: transform 0.25s ease; user-select: none; -webkit-user-drag: none; }
+        .stage.zoomed img { transform: scale(2.2); cursor: zoom-out; filter: none; }
+        .stage-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; background: rgba(245, 244, 240, 0.85); font-size: 1.1rem; z-index: 2; }
+        .stage-nav:hover { background: var(--paper); }
+        .stage-nav.prev { left: 1rem; } .stage-nav.next { right: 1rem; }
+        .stage-nav[hidden] { display: none; }
+        .stage-thumbs { position: absolute; left: 0; right: 0; bottom: 0.9rem; display: flex; justify-content: center; gap: 0.5rem; z-index: 2; }
+        .stage-thumbs button { width: 44px; height: 44px; padding: 3px; background: rgba(245, 244, 240, 0.7); opacity: 0.6; }
+        .stage-thumbs button img { width: 100%; height: 100%; object-fit: cover; }
+        .stage-thumbs button[aria-current="true"] { opacity: 1; outline: 1px solid var(--ink); }
+        .stage-hint { position: absolute; top: 0.9rem; left: 50%; transform: translateX(-50%); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; pointer-events: none; }
+        .panel { overflow-y: auto; border-left: 1px solid var(--rule); padding: clamp(1.5rem, 3.5vw, 2.6rem) var(--pad) 3rem; }
+        .panel h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(1.6rem, 2.4vw, 2.1rem); line-height: 1.15; }
+        .panel h2 .work-title-zh { display: block; font-size: 0.62em; color: var(--muted); margin-top: 0.5rem; letter-spacing: 0.12em; }
+        .spec { margin-top: 1.4rem; display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 0.55rem 1rem; font-size: 0.92rem; }
+        .spec dt { color: var(--muted); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 0.2rem; }
+        .price-row { margin-top: 1.6rem; padding: 1.1rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.5rem 1rem; }
+        .price-row .price { font-size: 1.35rem; font-variant-numeric: tabular-nums; }
+        .price-row .price small { font-size: 0.8rem; color: var(--muted); margin-left: 0.4rem; }
+        .actions { margin-top: 1.4rem; display: grid; gap: 0.6rem; }
+        .fine { margin-top: 1rem; font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
 
-        /* policies accordion */
-        .policies-accordion {
-            width: 100%;
-            border-top: 1px solid var(--gray-color);
-            display: flex;
-            flex-direction: column;
-            margin-top: 1rem;
-        }
-        .policy-item {
-            border-bottom: 1px solid var(--gray-color);
-            width: 100%;
-        }
-        .policy-summary {
-            list-style: none;
-            cursor: pointer;
-            padding: 1.1rem 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            text-align: left;
-            user-select: none;
-            -webkit-user-select: none;
-            transition: opacity 0.2s ease;
-        }
-        .policy-summary::-webkit-details-marker {
-            display: none;
-        }
-        .policy-summary:hover {
-            opacity: 0.65;
-        }
-        .policy-summary-title {
-            text-align: left;
-            font-weight: 400;
-        }
-        .policy-summary-icon {
-            font-size: 0.85rem;
-            opacity: 0.6;
-            margin-left: 1rem;
-            flex-shrink: 0;
-        }
-        .policy-item[open] .policy-summary-icon {
-            opacity: 1;
-        }
-        .policy-content {
-            padding: 0 0 1.4rem 0;
-            font-size: 0.84rem;
-            line-height: 1.8;
-            opacity: 0.85;
-            text-align: left;
-        }
-        .policy-content p {
-            margin-bottom: 0.5rem;
-        }
-        .policy-content ul {
-            list-style: none;
-            padding-left: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        .policy-content ul li {
-            position: relative;
-            padding-left: 1.1rem;
-        }
-        .policy-content ul li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            opacity: 0.5;
-        }
-        .policy-content a {
-            color: var(--bg-color);
-            text-decoration: underline;
-            word-break: break-all;
-        }
-        .policy-content a:hover {
-            opacity: 0.7;
-        }
+        /* 結帳 */
+        .back { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.84rem; color: var(--muted); min-height: 36px; margin-bottom: 0.6rem; }
+        .back:hover { color: var(--ink); }
+        .co-step { margin-top: 1.6rem; }
+        .co-step > .eyebrow { margin-bottom: 0.7rem; display: flex; gap: 0.6rem; }
+        .co-step > .eyebrow .no { color: var(--ink); }
+        .choice { display: grid; gap: 0.5rem; }
+        .choice label { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 0.8rem; padding: 0.8rem 0.9rem; border: 1px solid var(--rule); cursor: pointer; font-size: 0.92rem; min-height: 52px; transition: border-color 0.2s; }
+        .choice label:hover { border-color: var(--ink-2); }
+        .choice label:has(input:checked) { border-color: var(--ink); background: #fff; }
+        .choice label.off { cursor: not-allowed; color: var(--muted); background: transparent; }
+        .choice label.off:hover { border-color: var(--rule); }
+        .choice input { accent-color: var(--ink); width: 16px; height: 16px; }
+        .choice .side { font-size: 0.8rem; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+        .summary { margin-top: 1.4rem; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.4rem 0; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+        .summary dt { color: var(--muted); }
+        .summary dd { text-align: right; padding-left: 1rem; }
+        .summary .total { padding-top: 0.6rem; margin-top: 0.3rem; border-top: 1px solid var(--ink); font-size: 1.05rem; color: var(--ink); font-weight: 500; }
+        .pay-box { margin-top: 0.8rem; padding: 1.1rem; background: #fff; border: 1px solid var(--rule); display: grid; justify-items: center; gap: 0.8rem; text-align: center; }
+        .pay-box img { width: 168px; height: 168px; object-fit: contain; }
+        .pay-box p { font-size: 0.84rem; color: var(--ink-2); line-height: 1.6; }
+        .pay-box .amt { font-size: 1.05rem; font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
+        .pay-box .btn { width: 100%; }
+        .note { margin-top: 0.7rem; font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+        .form { display: grid; gap: 1rem; margin-top: 0.2rem; }
+        .field { display: grid; gap: 0.35rem; }
+        .field label { font-size: 0.74rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+        .field input, .field textarea { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--rule); padding: 0.55rem 0; font: inherit; font-size: 16px; color: var(--ink); border-radius: 0; }
+        .field textarea { resize: vertical; min-height: 4.5rem; }
+        .field input:focus, .field textarea:focus { outline: none; border-bottom-color: var(--ink); }
+        .two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .done { text-align: left; }
+        .done h3 { font-family: var(--serif); font-weight: 300; font-size: 1.7rem; margin: 0.4rem 0 1rem; }
+        .done p { color: var(--ink-2); font-size: 0.95rem; }
+        .done pre { margin-top: 1rem; padding: 1rem; background: #fff; border: 1px solid var(--rule); font: 0.8rem/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap; word-break: break-word; max-height: 14rem; overflow: auto; }
 
-        /* lightbox */
-        .lightbox-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: var(--text-color); z-index: 2500; display: none; flex-direction: column; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; }
-        .lightbox-overlay.active { display: flex; }
-        .lightbox-top { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-bottom: 1px solid var(--gray-color); padding-bottom: 0.8rem; font-size: 0.9rem; color: var(--text-color); z-index: 2; }
-        .lightbox-top-actions { display: flex; align-items: center; gap: 0.8rem; flex-shrink: 0; }
-        
-        .lb-zoom-btn, .lightbox-top-actions .close-btn { background-color: transparent; color: var(--text-color); border: 1px solid var(--gray-color); padding: 0.25rem 0.65rem; font-family: inherit; font-size: 0.8rem; cursor: pointer; transition: all 0.2s ease; }
-        .lb-zoom-btn:hover, .lb-zoom-btn.active, .lightbox-top-actions .close-btn:hover { background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
-        
-        .lightbox-stage { flex: 1; width: 100%; display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden; padding: 1rem 0; user-select: none; -webkit-user-select: none; }
-        .lightbox-stage img { max-width: 90vw; max-height: 72vh; object-fit: contain; border: 1px solid var(--gray-color); background-color: var(--gray-color); cursor: zoom-in; transform-origin: center center; transition: transform 0.2s ease-out; touch-action: none; }
-        .lightbox-stage.is-zoomed img { cursor: grab; }
-        .lightbox-stage.is-dragging img { cursor: grabbing; transition: none; }
-        .lightbox-bottom { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; gap: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--gray-color); z-index: 2; }
-        .lightbox-controls { display: flex; align-items: center; gap: 1.5rem; color: var(--text-color); }
-        
-        .lb-nav-btn { background-color: transparent; color: var(--text-color); border: 1px solid var(--gray-color); padding: 0.4rem 1rem; font-family: inherit; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease; }
-        .lb-nav-btn:hover:not(:disabled) { background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
-        
-        .lb-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
-        .lightbox-thumbs { display: flex; gap: 0.5rem; overflow-x: auto; max-width: 100%; padding-bottom: 0.2rem; }
-        .lb-thumb { width: 48px; height: 36px; object-fit: cover; border: 1px solid var(--gray-color); background-color: var(--gray-color); opacity: 0.45; cursor: pointer; transition: all 0.2s ease; }
-        .lb-thumb.active, .lb-thumb:hover { opacity: 1; border-color: var(--gray-color); }
+        .js .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .js .reveal.in { opacity: 1; transform: none; }
 
-        /* modal */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: var(--bg-color); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 1rem; overflow-y: auto; }
-        .modal-overlay.active { display: flex; }
-        .modal-box { background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color); box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08); max-width: 500px; width: 100%; padding: 2rem; max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem; }
-        .modal-header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--gray-color); padding-bottom: 0.8rem; }
-        
-        .close-btn { background-color: var(--text-color); border: 1px solid var(--gray-color); color: var(--bg-color); font-family: inherit; font-size: 0.85rem; padding: 0.2rem 0.55rem; cursor: pointer; transition: all 0.2s ease; }
-        .close-btn:hover { background-color: var(--gray-color); color: var(--bg-color); }
-
-        .pay-tabs { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: 0.5rem; align-items: stretch; }
-        .pay-tab {
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 0.6rem 0.2rem; min-height: 48px;
-            background: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color);
-            font-family: inherit; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease;
-            text-align: center; line-height: 1.3;
+        @media (max-width: 980px) {
+            .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .intro-grid { grid-template-columns: 1fr; }
         }
-        .pay-tab:hover, .pay-tab.active { background: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
-
-        .qr-display { border: 1px dashed var(--gray-color); background-color: #fafafa; padding: 1.2rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.8rem; }
-        .qr-display img { width: 180px; height: 180px; object-fit: contain; background-color: #fff; border: 1px solid var(--gray-color); padding: 0.5rem; }
-        
-        .order-form { display: flex; flex-direction: column; gap: 1rem; }
-        .form-group { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.85rem; }
-        .form-group input, .form-group textarea { background-color: var(--text-color); border: 1px solid var(--gray-color); color: var(--bg-color); padding: 0.6rem; font-family: inherit; font-size: 0.9rem; }
-        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--gray-color); background-color: #fafafa; }
-        .modal-submit-btn { width: 100%; padding: 0.7rem; background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color); font-family: inherit; font-size: 0.95rem; cursor: pointer; transition: all 0.2s ease; }
-        .modal-submit-btn:hover { background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
-
-        footer { margin-top: 0.5rem; padding-top: 1.5rem; border-top: 1px solid var(--gray-color); color: var(--bg-color); font-size: 0.85rem; opacity: 0.6; }
-        .back-to-top { position: fixed; bottom: 2rem; right: 2rem; z-index: 900; background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--gray-color); padding: 0.5rem 0.8rem; font-family: inherit; font-size: 0.85rem; cursor: pointer; opacity: 0; pointer-events: none; transition: all 0.2s ease; }
-        .back-to-top.visible { opacity: 1; pointer-events: auto; }
-        .back-to-top:hover { background-color: var(--gray-color); color: var(--bg-color); border-color: var(--gray-color); }
-
-        @media (max-width: 768px) {
-            .light-container { padding: 2.5rem 1.5rem 3rem 1.5rem; }
-            .modal-box { padding: 1.5rem; }
-            .lightbox-overlay { padding: 1rem; }
-            .nav-brand { display: none; }
-            header h1 { font-size: 2rem; }
-            .shop-notice { white-space: normal; }
-            .desktop-br { display: none; }
-            .filter-bar { gap: 2rem; }
-            .filter-zh { display: block; margin-top: 0.15rem; white-space: nowrap; }
-            .pay-tabs { grid-template-columns: repeat(2, 1fr); }
+        @media (max-width: 760px) {
+            :root { --header-h: 56px; }
+            /* backdrop-filter 會讓 fixed 的子元素跟著 header 走，手機版底部導覽要拿掉 */
+            .site-header { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(245, 244, 240, 0.97); }
+            .header-inner { gap: 1rem; }
+            .site-nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; justify-content: space-around; gap: 0; margin: 0; padding: 0.3rem 0.5rem calc(0.3rem + env(safe-area-inset-bottom)); background: rgba(245, 244, 240, 0.96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid var(--rule); font-size: 0.8rem; }
+            .site-nav a { padding: 0.65rem 0.4rem; }
+            .site-nav a::after { bottom: 0.4rem; }
+            .lang-toggle { margin-left: auto; }
+            body { padding-bottom: calc(56px + env(safe-area-inset-bottom)); }
+            .grid { grid-template-columns: minmax(0, 1fr); }
+            .steps { grid-template-columns: 1fr; }
+            .viewer { grid-template-columns: 1fr; grid-template-rows: auto auto; overflow-y: auto; }
+            .stage { height: 58vh; padding: 1.4rem 1rem 4.2rem; }
+            .viewer.checkout .stage { display: none; }
+            .panel { border-left: none; overflow: visible; }
+            .stage-nav { width: 40px; height: 40px; }
+            .stage-hint { display: none; }
+            .two { grid-template-columns: 1fr; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .js .reveal { opacity: 1; transform: none; transition: none; }
+            *, *::before, *::after { transition-duration: 0.01ms !important; animation: none !important; }
         }
     </style>
 </head>
 <body>
+    <header class="site-header">
+        <div class="wrap header-inner">
+            <a class="brand" href="index.html" data-page>lonlon <span class="zh">冷冷</span></a>
+            <nav class="site-nav" aria-label="Main">
+                <a href="index.html#works" data-page><span lang="en" data-de="Werke">Works</span><span lang="zh-Hant">作品</span></a>
+                <a href="#" class="is-active" aria-current="page"><span lang="en" data-de="Erwerben">Collect</span><span lang="zh-Hant">收藏</span></a>
+                <a href="index.html#cv" data-page>CV</a>
+                <a href="index.html#about" data-page><span lang="en" data-de="Über">About</span><span lang="zh-Hant">關於</span></a>
+                <a href="index.html#contact" data-page><span lang="en" data-de="Kontakt">Contact</span><span lang="zh-Hant">聯絡</span></a>
+            </nav>
+            <div class="lang-toggle" role="group" aria-label="Language">
+                <button type="button" data-ui="en">EN</button>
+                <button type="button" data-ui="de">DE</button>
+                <button type="button" data-ui="zh">中文</button>
+            </div>
+        </div>
+    </header>
 
-    <nav class="top-nav">
-        <a href="index.html">← return to index / 返回主頁</a>
-        <span class="nav-brand">lonlon // archive & shop</span>
-    </nav>
-
-    <div class="shop-light-section">
-        <div class="light-container">
-            <header>
-                <h1>SHOP 商店</h1>
-                <div class="shop-notice">
+    <main>
+        <section class="intro">
+            <div class="wrap">
+                <h1><span lang="en" data-de="Verfügbare Werke">Available Works</span><span lang="zh-Hant">可收藏作品</span></h1>
+                <div class="intro-grid">
                     <p>
-                        <span id="noticeTextZh">(所有台灣的支付方式2027/1/1才會開放!請選擇其他支付~)購買流程：確認剩餘數量後點擊購買按鈕 → 選擇支付方式 ( 信用卡 / 轉帳 / 行動支付 ) 完成付款 → 填寫收件資訊送出訂單&nbsp;<br class="desktop-br">→ 送出後系統會打開 email 並自動帶入資料，確認無誤後寄出即可。<br><br>台灣免運，海外寄送運費固定另加 NT$ 1,000 ( 約 US$ 30 )。<br><br></span>
-                        <span id="noticeTextEn" style="display: none;">Order Process: Check stock &amp; click ORDER → Pay (Credit Card / Transfer / Mobile / PayPal) → Submit shipping info&nbsp;<br class="desktop-br">→ Email app opens with pre-filled details; please verify and send.<br><br>Free shipping in Taiwan. <br>Overseas shipping is a flat rate of NT$ 1,000 (approx. US$ 30).<br><br></span>
-                        <span id="noticeTextDe" style="display: none;">Bestellprozess: Bestand prüfen &amp; auf BESTELLEN klicken → Zahlung durchführen (Kreditkarte / Überweisung / Mobile / PayPal) → Versandinformationen übermitteln&nbsp;<br class="desktop-br">→ Die E-Mail-App öffnet sich mit vorausgefüllten Daten; bitte überprüfen und absenden.<br><br>Kostenloser Versand in Taiwan. <br>Internationaler Versand zum Pauschalpreis von NT$ 1.000 (ca. 30 €).<br><br></span>
-                        <span class="lang-switch-wrap"> ( <a href="javascript:void(0)" class="lang-btn active" data-lang="zh" onclick="setShopLang('zh')">中文</a> / <a href="javascript:void(0)" class="lang-btn" data-lang="en" onclick="setShopLang('en')">EN</a> / <a href="javascript:void(0)" class="lang-btn" data-lang="de" onclick="setShopLang('de')">DE</a> )</span>
+                        <span lang="en" data-de="Druckgrafiken und Fotografien direkt aus dem Studio, ohne Zwischenhandel. Jedes Werk wird persönlich in Taipeh verpackt und versendet.">Prints and photographs available directly from the studio, without intermediaries. Every work is packed and shipped by the artist from Taipei.</span>
+                        <span lang="zh-Hant">版畫與攝影作品由工作室直接銷售，不經過經紀或第三方，由藝術家本人從台北包裝寄出。</span>
                     </p>
+                    <ul class="terms">
+                        <li><span lang="en" data-de="Versand innerhalb Taiwans">Shipping within Taiwan</span><span lang="zh-Hant">台灣寄送</span><b><span lang="en" data-de="Kostenlos">Free</span><span lang="zh-Hant">免運</span></b></li>
+                        <li><span lang="en" data-de="Internationaler Versand">International shipping</span><span lang="zh-Hant">海外寄送</span><b>NT$1,000</b></li>
+                        <li><span lang="en" data-de="Versandbereit in">Dispatch</span><span lang="zh-Hant">出貨</span><b><span lang="en" data-de="3–5 Werktagen · gerahmt 7–10">3–5 working days · framed 7–10</span><span lang="zh-Hant">3–5 個工作天 · 含框 7–10</span></b></li>
+                    </ul>
                 </div>
-            </header>
-
-            <div class="filter-bar">
-                <button class="filter-btn active" onclick="filterProducts('all', this)">ALL <span class="filter-zh">全部</span></button>
-                <button class="filter-btn" onclick="filterProducts('print', this)">PRINTS <span class="filter-zh">版畫</span></button>
-                <button class="filter-btn" onclick="filterProducts('photo', this)">PHOTOGRAPHY <span class="filter-zh">攝影</span></button>
             </div>
+        </section>
 
-            <div id="productGrid" class="shop-grid">
-                <p id="loadingText" class="loading-text">LOADING ARCHIVE... // 正在同步試算表商品資料</p>
+        <section class="wrap" aria-label="Works">
+            <div class="toolbar">
+                <div class="filters" role="group" aria-label="Filter">
+                    <button type="button" data-filter="all" aria-pressed="true"><span lang="en" data-de="Alle">All</span><span lang="zh-Hant">全部</span></button>
+                    <button type="button" data-filter="print" aria-pressed="false"><span lang="en" data-de="Druckgrafik">Prints</span><span lang="zh-Hant">版畫</span></button>
+                    <button type="button" data-filter="photo" aria-pressed="false"><span lang="en" data-de="Fotografie">Photography</span><span lang="zh-Hant">攝影</span></button>
+                </div>
+                <span class="count" id="count"></span>
             </div>
-
-            <!-- 商店資訊與政策收合清單 (Accordion) -->
-            <div class="policies-accordion" id="shopPoliciesAccordion">
-                <details class="policy-item" name="shop-policies">
-                    <summary class="policy-summary">
-                        <span class="policy-summary-title">客服聯絡資訊 // CUSTOMER SERVICE</span>
-                        <span class="policy-summary-icon">[ + ]</span>
-                    </summary>
-                    <div class="policy-content">
-                        <p>如對訂單進度、付款方式、作品規格或退換貨有任何疑問，歡迎隨時透過官方客服信箱與我們聯繫：</p>
-                        <ul>
-                            <li><strong>客服信箱：</strong><a href="mailto:arts.lonp@gmail.com">arts.lonp@gmail.com</a></li>
-                            <li><strong>服務時間：</strong>週一至週五 10:00 – 18:00（例假日與國定假日公休）</li>
-                            <li><strong>回覆時效：</strong>我們將於收到來信後的 1 至 2 個工作天內盡速回覆處理。</li>
-                        </ul>
-                    </div>
-                </details>
-
-                <details class="policy-item" name="shop-policies">
-                    <summary class="policy-summary">
-                        <span class="policy-summary-title">出貨天期與物流政策 // SHIPPING POLICY</span>
-                        <span class="policy-summary-icon">[ + ]</span>
-                    </summary>
-                    <div class="policy-content">
-                        <ul>
-                            <li><strong>出貨作業天數：</strong>確認款項與收件資訊無誤後，現貨作品將於 3 至 5 個工作天內完成防潮抗震包裝並寄出；若標註含框或需手工訂製裝裱之作品，作業期約為 7 至 10 個工作天。</li>
-                            <li><strong>台灣本島運送：</strong>全館免運費，以郵局掛號包裹或專業宅配寄送，寄出後約 2 至 3 個工作天送達指定地址。</li>
-                            <li><strong>海外跨國運送：</strong>單筆固定運費 NT$ 1,000，採用中華郵政國際航空包裹或國際快遞寄送，寄出後約 7 至 14 個工作天送達（實際時效依目的地海關查驗與各國郵政處理速度為準）。</li>
-                        </ul>
-                    </div>
-                </details>
-
-                <details class="policy-item" name="shop-policies">
-                    <summary class="policy-summary">
-                        <span class="policy-summary-title">消費者權益與退款政策 // REFUND & RIGHTS</span>
-                        <span class="policy-summary-icon">[ + ]</span>
-                    </summary>
-                    <div class="policy-content">
-                        <ul>
-                            <li><strong>7 日猶豫期保障：</strong>依《消費者保護法》第 19 條規定，通訊交易消費者享有商品到貨次日起算 7 天之鑑賞期（猶豫期並非試用期）。</li>
-                            <li><strong>退貨退款條件：</strong>退回之藝術作品必須維持全新未經使用、無刮痕折損與指紋髒污之狀態，並完整保留原廠防護外盒、保證文件及所有原裝包材。</li>
-                            <li><strong>退換申請流程：</strong>如需退換貨，請於 7 日猶豫期內來信客服信箱（arts.lonp@gmail.com）提出申請，並附上「訂單姓名、作品編號、退款帳戶及退換原因」。確認受理後請將作品妥善包裝寄回；我們於驗收確認商品完整無損後，將於 7 至 10 個工作天內循原付款管道全額刷退或匯款退費。</li>
-                            <li><strong>運送毀損處理：</strong>若收件時發現外包裝嚴重受損導致作品瑕疵，請於到貨 48 小時內拍照存證並來信客服信箱，我們將立即優先安排免費更換或全額退款。</li>
-                        </ul>
-                    </div>
-                </details>
-
-                <details class="policy-item" name="shop-policies">
-                    <summary class="policy-summary">
-                        <span class="policy-summary-title">服務條款與隱私權政策 // TERMS & PRIVACY</span>
-                        <span class="policy-summary-icon">[ + ]</span>
-                    </summary>
-                    <div class="policy-content">
-                        <ul>
-                            <li><strong>服務條款：</strong>凡於本網站完成訂購流程，即視為同意本站所有交易規範與權益條款。本網站所展示與販售之所有版畫、攝影作品，其著作權與智慧財產權皆歸原創作者所有，僅供個人收藏，未經書面許可嚴禁任何形式之商業營利、重製或二次發行。本契約爭議準據法為中華民國法律。</li>
-                            <li><strong>隱私權政策：</strong>我們高度重視您的個人隱私。您於訂單表單中填寫之姓名、聯絡電話、電子信箱、收件地址與對帳資訊，僅供訂單處理、作品物流配送、對帳確認及售後服務聯繫使用，絕不擅自對外公開、租借、轉售或提供予無關之第三方機構。</li>
-                        </ul>
-                    </div>
-                </details>
+            <div class="grid" id="grid" aria-live="polite">
+                <article class="item skeleton"><div class="item-media"></div></article>
+                <article class="item skeleton"><div class="item-media"></div></article>
+                <article class="item skeleton"><div class="item-media"></div></article>
             </div>
+        </section>
 
-            <footer>&copy; 2026 lonlon. All Rights Reserved.</footer>
+        <section class="section">
+            <div class="wrap">
+                <h2><span lang="en" data-de="So erwerben Sie ein Werk">How to collect</span><span lang="zh-Hant">收藏流程</span></h2>
+                <ol class="steps">
+                    <li><b><span lang="en" data-de="Werk auswählen">Choose a work</span><span lang="zh-Hant">選擇作品</span></b><span lang="en" data-de="Öffnen Sie ein Werk, wählen Sie „Erwerben“ und Ihre Versandregion. Der Gesamtbetrag inklusive Versand wird automatisch berechnet.">Open a work, select “Acquire” and your shipping region. The total including shipping is calculated for you.</span><span lang="zh-Hant">點開作品、按「收藏這件作品」並選擇寄送地區，含運總價會自動算好。</span></li>
+                    <li><b><span lang="en" data-de="Bezahlen">Pay</span><span lang="zh-Hant">付款</span></b><span lang="en" data-de="Bezahlen Sie mit einer der angegebenen Zahlungsarten. Wenn Sie eine andere Zahlungsart oder eine Rechnung wünschen, fragen Sie gern vorab an.">Pay with one of the listed methods. If you prefer another method or need an invoice, ask first.</span><span lang="zh-Hant">用列出的方式付款。需要其他付款方式或報價單，歡迎先來信詢問。</span></li>
+                    <li><b><span lang="en" data-de="Bestell-E-Mail senden">Send the order email</span><span lang="zh-Hant">寄出訂單信</span></b><span lang="en" data-de="Ihre Angaben werden automatisch in eine E-Mail übernommen. Das Studio bestätigt innerhalb von 2 Werktagen und versendet mit Sendungsverfolgung.">Your details are filled into an email for you. The studio confirms within 2 working days and ships with tracking.</span><span lang="zh-Hant">資料會自動填進郵件，寄出後工作室會在 2 個工作天內確認並安排出貨。</span></li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="wrap">
+                <h2><span lang="en" data-de="Bedingungen">Policies</span><span lang="zh-Hant">購買須知</span></h2>
+                <div class="policies">
+                    <details class="policy" name="policies">
+                        <summary><span lang="en" data-de="Kontakt &amp;amp; Servicezeiten">Contact &amp; service hours</span><span lang="zh-Hant">客服聯絡資訊</span></summary>
+                        <div class="policy-body">
+                            <ul lang="zh-Hant">
+                                <li><b>客服信箱：</b><a href="mailto:arts.lonp@gmail.com">arts.lonp@gmail.com</a></li>
+                                <li><b>服務時間：</b>週一至週五 10:00–18:00（例假日與國定假日公休）</li>
+                                <li><b>回覆時效：</b>收到來信後 1 至 2 個工作天內回覆。</li>
+                            </ul>
+                            <ul lang="en" class="has-de">
+                                <li><b>Email:</b> <a href="mailto:arts.lonp@gmail.com">arts.lonp@gmail.com</a></li>
+                                <li><b>Hours:</b> Monday to Friday, 10:00–18:00 Taipei time (closed on public holidays)</li>
+                                <li><b>Response time:</b> within 1–2 working days.</li>
+                            </ul>
+                            <ul lang="de">
+                                <li><b>E-Mail:</b> <a href="mailto:arts.lonp@gmail.com">arts.lonp@gmail.com</a></li>
+                                <li><b>Servicezeiten:</b> Montag bis Freitag, 10:00–18:00 Uhr Taipeh-Zeit (an Feiertagen geschlossen)</li>
+                                <li><b>Antwortzeit:</b> innerhalb von 1–2 Werktagen.</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="policy" name="policies">
+                        <summary><span lang="en" data-de="Versand">Shipping</span><span lang="zh-Hant">出貨與運送</span></summary>
+                        <div class="policy-body">
+                            <ul lang="zh-Hant">
+                                <li><b>出貨天數：</b>確認款項與收件資訊後，現貨作品於 3 至 5 個工作天內完成防潮抗震包裝並寄出；含框或需手工裝裱之作品約 7 至 10 個工作天。</li>
+                                <li><b>台灣本島：</b>免運費，以郵局掛號包裹或專業宅配寄送，寄出後約 2 至 3 個工作天送達。</li>
+                                <li><b>海外寄送：</b>單筆固定運費 NT$1,000，以中華郵政國際航空包裹或國際快遞寄送，寄出後約 7 至 14 個工作天送達（實際時效依目的地海關與郵政處理速度為準）。</li>
+                            </ul>
+                            <ul lang="en" class="has-de">
+                                <li><b>Dispatch:</b> once payment and shipping details are confirmed, works in stock are packed against moisture and impact and shipped within 3–5 working days; framed or custom-mounted works within 7–10 working days.</li>
+                                <li><b>Taiwan:</b> free shipping by registered post or courier, delivered in about 2–3 working days.</li>
+                                <li><b>International:</b> flat rate of NT$1,000 per order, by Chunghwa Post international air parcel or express courier, delivered in about 7–14 working days (subject to customs and local postal services).</li>
+                            </ul>
+                            <ul lang="de">
+                                <li><b>Versandvorbereitung:</b> Nach Bestätigung von Zahlung und Lieferadresse werden vorrätige Werke feuchtigkeits- und stoßgeschützt verpackt und innerhalb von 3–5 Werktagen versendet; gerahmte oder individuell montierte Werke innerhalb von 7–10 Werktagen.</li>
+                                <li><b>Taiwan:</b> kostenloser Versand per Einschreiben oder Kurierdienst, Zustellung in etwa 2–3 Werktagen.</li>
+                                <li><b>International:</b> Pauschale von NT$1,000 pro Bestellung, als internationales Luftpostpaket von Chunghwa Post oder per Expresskurier, Zustellung in etwa 7–14 Werktagen (abhängig von Zoll und örtlicher Post).</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="policy" name="policies">
+                        <summary><span lang="en" data-de="Rückgabe &amp;amp; Erstattung">Returns &amp; refunds</span><span lang="zh-Hant">退換貨與退款</span></summary>
+                        <div class="policy-body">
+                            <ul lang="zh-Hant">
+                                <li><b>7 日猶豫期：</b>依《消費者保護法》第 19 條，通訊交易享有商品到貨次日起 7 天之猶豫期（猶豫期並非試用期）。</li>
+                                <li><b>退貨條件：</b>退回之作品須維持全新、無刮痕折損與指紋髒污，並完整保留防護外盒、保證文件及所有原裝包材。</li>
+                                <li><b>申請方式：</b>請於猶豫期內來信 arts.lonp@gmail.com，附上訂購姓名、作品編號、退款帳戶及原因。確認受理後請妥善包裝寄回；驗收無誤後 7 至 10 個工作天內循原付款管道退款。</li>
+                                <li><b>運送毀損：</b>收件時若外包裝嚴重受損導致作品瑕疵，請於到貨 48 小時內拍照並來信，將優先安排更換或全額退款。</li>
+                            </ul>
+                            <ul lang="en" class="has-de">
+                                <li><b>7-day cooling-off period:</b> under Article 19 of Taiwan’s Consumer Protection Act, distance purchases may be returned within 7 days from the day after delivery (this is not a trial period).</li>
+                                <li><b>Condition:</b> returned works must be in their original condition, free of scratches, creases and fingerprints, with the protective box, documentation and all original packaging.</li>
+                                <li><b>How to return:</b> email arts.lonp@gmail.com within the period with your name, the work’s number, refund account and reason. Once accepted, pack the work securely and send it back; refunds are issued to the original payment method within 7–10 working days of inspection.</li>
+                                <li><b>Damage in transit:</b> if the parcel arrives badly damaged and the work is affected, photograph it and email within 48 hours of delivery; a replacement or full refund will be arranged first.</li>
+                            </ul>
+                            <ul lang="de">
+                                <li><b>7-tägige Widerrufsfrist:</b> Nach Artikel 19 des taiwanischen Verbraucherschutzgesetzes können Fernabsatzkäufe innerhalb von 7 Tagen ab dem Tag nach der Lieferung zurückgegeben werden (dies ist keine Testphase).</li>
+                                <li><b>Zustand:</b> Zurückgesandte Werke müssen im Originalzustand sein – ohne Kratzer, Knicke oder Fingerabdrücke – mit Schutzbox, Dokumenten und der gesamten Originalverpackung.</li>
+                                <li><b>Rücksendung:</b> Schreiben Sie innerhalb der Frist an arts.lonp@gmail.com mit Ihrem Namen, der Werknummer, Ihrer Bankverbindung für die Erstattung und dem Grund. Nach Bestätigung verpacken Sie das Werk sicher und senden es zurück; die Erstattung erfolgt innerhalb von 7–10 Werktagen nach Prüfung über die ursprüngliche Zahlungsart.</li>
+                                <li><b>Transportschäden:</b> Kommt das Paket stark beschädigt an und ist das Werk betroffen, fotografieren Sie den Schaden und schreiben Sie innerhalb von 48 Stunden nach Zustellung; Ersatz oder volle Erstattung wird vorrangig veranlasst.</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="policy" name="policies">
+                        <summary><span lang="en" data-de="AGB &amp;amp; Datenschutz">Terms &amp; privacy</span><span lang="zh-Hant">服務條款與隱私權</span></summary>
+                        <div class="policy-body">
+                            <ul lang="zh-Hant">
+                                <li><b>服務條款：</b>於本網站完成訂購即視為同意本站交易規範。所有作品之著作權與智慧財產權歸原創作者所有，僅供個人收藏，未經書面許可不得作商業用途、重製或二次發行。準據法為中華民國法律。</li>
+                                <li><b>隱私權：</b>您於訂單中填寫之姓名、電話、電子信箱、地址與對帳資訊，僅用於處理訂單、寄送作品、對帳及售後聯繫，不會公開、出租、轉售或提供予無關第三方。</li>
+                            </ul>
+                            <ul lang="en" class="has-de">
+                                <li><b>Terms:</b> placing an order on this site means agreeing to these terms. Copyright and all intellectual property in the works remain with the artist. Works are sold for private collection; commercial use, reproduction or redistribution requires written permission. Governed by the laws of Taiwan (R.O.C.).</li>
+                                <li><b>Privacy:</b> the name, phone number, email, address and payment reference in your order are used only to process the order, ship the work, reconcile payment and provide after-sales support. They are never published, rented, sold or shared with unrelated third parties.</li>
+                            </ul>
+                            <ul lang="de">
+                                <li><b>Bedingungen:</b> Mit einer Bestellung auf dieser Website stimmen Sie diesen Bedingungen zu. Urheberrecht und alle geistigen Eigentumsrechte an den Werken verbleiben bei lonlon. Die Werke werden für private Sammlungen verkauft; kommerzielle Nutzung, Vervielfältigung oder Weiterverbreitung bedarf einer schriftlichen Genehmigung. Es gilt das Recht Taiwans (R.O.C.).</li>
+                                <li><b>Datenschutz:</b> Name, Telefonnummer, E-Mail, Adresse und Zahlungsreferenz Ihrer Bestellung werden ausschließlich zur Abwicklung der Bestellung, zum Versand, zum Zahlungsabgleich und für den Kundenservice verwendet. Sie werden niemals veröffentlicht, vermietet, verkauft oder an unbeteiligte Dritte weitergegeben.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+                <div class="ask">
+                    <p><span lang="en" data-de="Fragen zu einem Werk, zur Rahmung oder zum Versand?">Questions about a work, framing or shipping?</span><span lang="zh-Hant">對作品、裱框或寄送有任何問題？</span></p>
+                    <a class="btn" href="mailto:arts.lonp@gmail.com?subject=Collecting%20inquiry"><span lang="en" data-de="An das Studio schreiben">Write to the studio</span><span lang="zh-Hant">來信詢問</span> <span class="arr">→</span></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap footer-inner">
+            <span>© 2026 lonlon 冷冷</span>
+            <nav aria-label="Footer">
+                <a href="index.html#works" data-page><span lang="en" data-de="Werke">Works</span><span lang="zh-Hant">作品</span></a>
+                <a href="index.html#cv" data-page>CV</a>
+                <a href="https://instagram.com/arts.lonlon" target="_blank" rel="noopener">Instagram ↗</a>
+                <a href="https://ko-fi.com/lonsthx" target="_blank" rel="noopener"><span lang="en" data-de="Das Studio unterstützen ↗">Support the studio ↗</span><span lang="zh-Hant">支持工作室 ↗</span></a>
+            </nav>
         </div>
+    </footer>
+
+    <!-- 作品細節 / 結帳 -->
+    <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="pTitle" hidden>
+        <div class="viewer-bar">
+            <span class="crumb" id="crumb"></span>
+            <button type="button" class="viewer-close" id="vClose"><span lang="en" data-de="Schließen">Close</span><span lang="zh-Hant">關閉</span> <span class="x" aria-hidden="true">×</span></button>
+        </div>
+        <div class="stage" id="stage">
+            <span class="stage-hint"><span lang="en" data-de="Zum Vergrößern klicken">Click to zoom</span><span lang="zh-Hant">點擊放大細節</span></span>
+            <button type="button" class="stage-nav prev" id="sPrev" aria-label="Previous image">←</button>
+            <img id="sImg" alt="">
+            <button type="button" class="stage-nav next" id="sNext" aria-label="Next image">→</button>
+            <div class="stage-thumbs" id="sThumbs"></div>
+        </div>
+        <div class="panel" id="panel"></div>
     </div>
-
-    <!-- 圖片放大檢視視窗 -->
-    <div id="lightboxModal" class="lightbox-overlay" onclick="if(event.target === this || event.target.classList.contains('lightbox-stage')) closeLightbox()">
-        <div class="lightbox-top">
-            <span id="lightboxCaption"></span>
-            <div class="lightbox-top-actions">
-                <button type="button" id="lbZoomBtn" class="lb-zoom-btn" onclick="toggleLightboxZoom()">[ + 局部放大 ]</button>
-                <button type="button" class="close-btn" onclick="closeLightbox()">✕ CLOSE</button>
-            </div>
-        </div>
-        <div id="lightboxStage" class="lightbox-stage">
-            <img id="lightboxImg" src="" alt="Artwork Preview" draggable="false">
-        </div>
-        <div class="lightbox-bottom">
-            <div id="lightboxThumbs" class="lightbox-thumbs"></div>
-            <div class="lightbox-controls">
-                <button type="button" id="lbPrevBtn" class="lb-nav-btn" onclick="changeLightboxImg(-1)">[ ← PREV ]</button>
-                <span id="lightboxCounter" style="font-size: 0.85rem;">1 / 1</span>
-                <button type="button" id="lbNextBtn" class="lb-nav-btn" onclick="changeLightboxImg(1)">[ NEXT → ]</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 結帳彈出視窗 -->
-    <div id="checkoutModal" class="modal-overlay" onclick="if(event.target === this) closeModal()">
-        <div class="modal-box">
-            <div class="modal-header">
-                <span id="modalTitle">ORDER // 結帳</span>
-                <button type="button" class="close-btn" onclick="closeModal()">✕</button>
-            </div>
-
-            <div id="modalItemInfo" style="font-size: 0.9rem; opacity: 0.9;"></div>
-
-            <!-- 步驟 1：選擇支付方式 -->
-            <div>
-                <p id="step1Title" style="font-size: 0.85rem; margin-bottom: 0.5rem;">STEP 1. 選擇支付方式並完成付款：</p>
-                <div class="pay-tabs">
-                    <button type="button" class="pay-tab active" onclick="switchQR('jkopay', this)">街口等<br>TWQR</button>
-                    <button type="button" class="pay-tab" onclick="switchQR('linepay', this)">LinePay</button>
-                    <button type="button" id="tabNewebpay" class="pay-tab" data-pay="newebpay" onclick="switchQR('newebpay', this)">信用卡 轉帳<br>ApplePay</button>
-                    <button type="button" class="pay-tab" onclick="switchQR('paypal', this)">PayPal<br>Ko-fi</button>
-                    <button type="button" id="tabAlipay" class="pay-tab" data-pay="alipay" onclick="switchQR('alipay', this)">Alipay</button>
-                </div>
-                <div class="qr-display" style="margin-top: 0.5rem;">
-                    <img id="qrImage" src="" alt="QR Code">
-                    <div id="linkWrap" style="display:none; padding: 2rem 0; width: 100%;">
-                        <a id="linkBtn" href="#" target="_blank" class="modal-submit-btn" style="display:block; text-align:center; text-decoration:none;">[ 前往安全支付頁面 ↗ ]</a>
-                    </div>
-                    <span id="qrHint" style="font-size: 0.8rem; opacity: 0.75; line-height: 1.8;"></span>
-                </div>
-            </div>
-
-            <!-- 步驟 2：填寫收件與對帳資訊 -->
-            <form class="order-form" onsubmit="submitOrder(event)">
-                <p id="step2Title" style="font-size: 0.85rem;">STEP 2. 填寫收件與對帳資訊：</p>
-                <div class="form-group">
-                    <label id="labelBuyerName">姓名 / Name *</label>
-                    <input type="text" id="buyerName" required>
-                </div>
-                <div class="form-group">
-                    <label id="labelBuyerContact">聯絡信箱與電話 / Email &amp; Phone *</label>
-                    <input type="text" id="buyerContact" required>
-                </div>
-                <div class="form-group">
-                    <label id="labelBuyerAddress">收件地址（海外寄送請填英文） / Shipping Address *</label>
-                    <input type="text" id="buyerAddress" placeholder="含郵遞區號 / Include Postal Code" required>
-                </div>
-                <div class="form-group">
-                    <label id="labelBuyerPaymentNote">對帳資訊（付款方式 + 帳號末五碼或暱稱）*</label>
-                    <input type="text" id="buyerPaymentNote" placeholder="例：藍新信用卡 / PayPal 暱稱" required>
-                </div>
-                <button type="submit" id="modalSubmitBtn" class="modal-submit-btn" style="margin-top: 0.5rem;">
-                    [ 產生訂單信件並送出 / SUBMIT ORDER ]
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <button id="backToTop" class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ top</button>
 
     <script>
-        // 1. Google 試算表 ID 與來源設定
-        const SHEET_ID = "1fKrjchIbhegt8-6ob7EiMgNLN8AF5wIt3ZC5wr_xgec";
-        const PROXY_SHEET_URL = "/api/sheet";
-        const DIRECT_GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRDYEUjBDASJpi7A3o0vWfWd0oQVl-_2p4UvnnOiUpYjdNjqe1z7QCqCTUas9Jb9h8HUq0neCkObBu-/pub?gid=0&single=true&output=csv";
-
-        // 2. 收款設定
-        const QR_CODES = {
-            jkopay: { 
-                type: "qr", 
-                img: "images/qr-jkopay.jpg", //http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23
-                hint_zh: "<br>(所有台灣的支付方式2027/1/1才會開放!請選擇其他支付~)請使用 街口、全支付、悠遊付、台灣Pay、台新Pay、玉山Wallet 等支援 TWQR 之 APP 掃描上方條碼。<br><br><a href='' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>", 
-                hint_en: "<br>Scan with JKOPay or TWQR supported apps and enter the amount.<br><br><a href='' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Click here to open JKPay App on Mobile</a>",
-                hint_de: "<br>Scannen Sie den QR-Code mit JKOPay oder einer TWQR-unterstützten App und geben Sie den Betrag ein.<br><br><a href='' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Hier klicken, um die App auf dem Handy zu öffnen</a>" 
-            },
-            linepay: { 
-                type: "qr", 
-                img: "images/qr-linepay.jpg", //https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE
-                hint_zh: "<br>(所有台灣的支付方式2027/1/1才會開放!請選擇其他支付~)請使用 LinePay 掃描上方 QR Code 並輸入商品金額。<br><br><a href='' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>",
-                hint_en: "<br>Please scan the QR Code above with LinePay.<br><br><a href='' target='_blank' style='display:inline-block; padding:0.5rem 1rem; border-radius:4px;'>Click here to open LinePay App on Mobile</a>",
-                hint_de: "<br>Bitte scannen Sie den obigen QR-Code mit LinePay.<br><br><a href='' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Hier klicken, um LinePay auf dem Handy zu öffnen</a>" 
-            },
-            alipay: { 
-                type: "qr", 
-                img: "images/qr-alipay.jpg", 
-                hint_zh: "<br>請掃描上方條碼完成支付。記得加上海外運費！<br><br><a href='https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>手機端請點擊這裡喚起 APP 跳轉</a>", 
-                hint_en: "<br>Please scan the QR code above with Alipay to complete your payment. Please remember to add overseas shipping!<br><br><a href='https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Click here to open Alipay App on Mobile</a>",
-                hint_de: "<br>Bitte scannen Sie den obigen QR-Code mit Alipay, um die Zahlung abzuschließen. Bitte denken Sie daran, die internationalen Versandkosten hinzuzufügen!<br><br><a href='https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4' target='_blank' style='display:inline-block; padding:0.5rem 1rem; background:#1677ff; color:#fff; text-decoration:none; border-radius:4px;'>Hier klicken, um Alipay auf dem Handy zu öffnen</a>" 
-            },
-            newebpay: { 
-                type: "link", 
-                url: "請在這裡貼上你的藍新收款網址", 
-                btnText_zh: "[ Go to NewebPay Secure Checkout ↗ ]<br>前往藍新安全支付頁面", 
-                btnText_en: "[ Go to NewebPay Secure Checkout ↗ ]<br>Go to NewebPay Secure Checkout", 
-                btnText_de: "[ Zur sicheren NewebPay-Kasse ↗ ]<br>Zur sicheren NewebPay-Zahlungsseite", 
-                hint_zh: "(所有台灣的支付方式2027/1/1才會開放!請選擇其他支付~)點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、信用卡與 Apple Pay 繳費。", 
-                hint_en: "Click the button above to pay securely via NewebPay (Transfer / Credit Card / CVS / Apple Pay).",
-                hint_de: "Klicken Sie auf die Schaltfläche oben, um sicher über NewebPay zu bezahlen (Überweisung, Kreditkarte, Apple Pay)." 
-            },
-            paypal: { 
-                type: "link", 
-                url: "https://ko-fi.com/lonsthx", 
-                btnText_zh: "[ Go to Ko-fi / PayPal Checkout ↗ ]<br>前往 Ko-fi / PayPal 支付頁面", 
-                btnText_en: "[ Go to Ko-fi / PayPal Checkout ↗ ]<br>Go to Ko-fi / PayPal Checkout", 
-                btnText_de: "[ Zu Ko-fi / PayPal Checkout ↗ ]<br>Zu Ko-fi / PayPal Checkout", 
-                hint_zh: "海外請點擊上方按鈕前往 Ko-fi 頁面，支援 PayPal 與跨國信用卡。記得加上海外運費！", 
-                hint_en: "Click above to pay via Ko-fi (supports PayPal & Credit Cards). Please remember to add overseas shipping!",
-                hint_de: "Klicken Sie oben, um über Ko-fi zu bezahlen (unterstützt PayPal & internationale Kreditkarten). Bitte denken Sie an die internationalen Versandkosten!" 
-            }
+        /* =========================================
+           設定
+        ========================================= */
+        const STUDIO_EMAIL = 'arts.lonp@gmail.com';
+        const PROXY_SHEET_URL = '/api/sheet';
+        const DIRECT_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRDYEUjBDASJpi7A3o0vWfWd0oQVl-_2p4UvnnOiUpYjdNjqe1z7QCqCTUas9Jb9h8HUq0neCkObBu-/pub?gid=0&single=true&output=csv';
+        const SHIPPING = { tw: 0, intl: 1000 };
+        // 台灣本地支付（街口、LINE Pay、藍新）2027/1/1 台灣時間開放
+        const TW_LOCAL_OPEN = Date.parse('2027-01-01T00:00:00+08:00');
+        const PAY = {
+            jkopay:   { local: true, type: 'qr', img: 'images/qr-jkopay.jpg', app: 'http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23',
+                        en: 'JKOPay / TWQR', zh: '街口／TWQR', de: 'JKOPay / TWQR', hint_en: 'Scan with JKOPay or any TWQR app and enter', hint_zh: '用街口、全支付、悠遊付、台灣 Pay 等支援 TWQR 的 App 掃描，輸入', hint_de: 'Mit JKOPay oder einer TWQR-App scannen und eingeben:' },
+            linepay:  { local: true, type: 'qr', img: 'images/qr-linepay.jpg', app: 'https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE',
+                        en: 'LINE Pay', zh: 'LINE Pay', de: 'LINE Pay', hint_en: 'Scan with LINE Pay and enter', hint_zh: '用 LINE Pay 掃描，輸入', hint_de: 'Mit LINE Pay scannen und eingeben:' },
+            newebpay: { local: true, type: 'link', url: '', /* 藍新收款網址貼這裡（https 開頭） */
+                        en: 'Card / bank transfer (NewebPay)', zh: '信用卡／轉帳（藍新）', de: 'Karte / Überweisung (NewebPay)', hint_en: 'Pay securely on NewebPay:', hint_zh: '在藍新安全支付頁面付款：', hint_de: 'Sicher über NewebPay bezahlen:' },
+            paypal:   { type: 'link', url: 'https://ko-fi.com/lonsthx',
+                        en: 'PayPal / card (Ko-fi)', zh: 'PayPal／信用卡（Ko-fi）', de: 'PayPal / Karte (Ko-fi)', hint_en: 'On Ko-fi, enter the equivalent of', hint_zh: '在 Ko-fi 輸入等值金額', hint_de: 'Auf Ko-fi bitte den Gegenwert eingeben:' },
+            alipay:   { type: 'qr', img: 'images/qr-alipay.jpg', app: 'https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4',
+                        en: 'Alipay', zh: '支付寶', de: 'Alipay', hint_en: 'Scan with Alipay and pay the equivalent of', hint_zh: '用支付寶掃描，支付等值（依當日匯率換算）', hint_de: 'Mit Alipay scannen und den Gegenwert bezahlen:' }
         };
+        const PAY_ORDER = { tw: ['jkopay', 'linepay', 'newebpay', 'paypal'], intl: ['paypal', 'alipay'] };
+        // 試算表裡的英文錯字，改好試算表後可刪
+        const TYPO_FIX = [[/desappeared/g, 'disappeared']];
+        // 試算表連不上時的備用資料（與目前上架的三件相同）
+        const FALLBACK_CSV = 'id,category,title,title-en,specs,price,stock,顯示控制,售價含框標記,,,image\n'
+            + 'PRT-001-1,print,我也消失在聲音裡，永無止盡 1,"i also disappeared in sounds, endlessly 1","2025，水印木刻版畫，B5尺寸，獨版 water-based woodblock print, B5 size, unique","NT$8,500",1,1,1,,,prt1-1.jpg\n'
+            + 'PRT-002-1,print,消失在海浪刷洗的沙灘上 1,vanishing on the shore washed by waves 1,"2024，木刻版畫，B5尺寸，版數：3 woodblock print, B5 size, Ed. of 3","NT$8,500",3,1,1,,,"prt2-1-1.jpg, prt2-1-3.jpg, prt2-1-4.jpg"\n'
+            + 'PHO-001,photo,在天空中的某處，遠離人類,"somewhere in the sky, away from humans","2024，數位微噴、無酸藝術紙，尺寸，版數：30 archival pigment print on fine art paper, size, Ed. of 30","NT$2,400",30,1,1,,,"pho1-1.jpg, pho1-2.jpg, pho1-3.jpg, pho1-4.jpg"\n';
 
-        // 3. 多語系字典（中文、英文、德文）
-        const UI_TEXT = {
-            zh: {
-                loading: "LOADING ARCHIVE... // 正在同步試算表商品資料",
-                stockZero: "庫存: 0", stockAvail: (n) => `剩餘數量: ${n}`,
-                soldOutBtn: "[ SOLD OUT / 已售罄 ]", orderBtn: "[ ORDER / 購買 ]",
-                imgZoomTitle: "點擊放大檢視圖片", lbZoomIn: "[ + 局部放大 ]", lbZoomReset: "[ - 還原比例 ]",
-                framedNote: "(售價含框)",
-                modalTitle: "ORDER // 結帳",
-                modalItem: (id, title, price, isFramed) => `選購作品：<strong>[${id}] ${title}</strong><br>應付金額：<strong>${price}</strong> ${isFramed ? `<span style="font-size:0.85rem; opacity:0.8;">(含框)</span>` : ''}<br><span style="font-size:0.8rem; opacity:0.8;">(台灣免運 / 海外寄送請自行於付款時外加 NT$ 1,000 運費)</span>`,
-                step1Title: "STEP 1. 選擇支付方式並完成付款：",
-                tabNewebpay: "信用卡 轉帳<br>ApplePay",
-                tabAlipay: "Alipay",
-                step2Title: "STEP 2. 填寫收件與對帳資訊：",
-                labelName: "姓名 / Name *",
-                labelContact: "聯絡信箱與電話 / Email & Phone *",
-                labelAddress: "收件地址（海外寄送請填英文） / Shipping Address *",
-                labelPayNote: "對帳資訊（付款方式 + 帳號末五碼或暱稱）*",
-                placeholderPayNote: "例：藍新信用卡 / PayPal 暱稱",
-                submitBtn: "[ 產生訂單信件並送出 / SUBMIT ORDER ]"
-            },
-            en: {
-                loading: "LOADING ARCHIVE... // Syncing artwork data...",
-                stockZero: "Out of Stock: 0", stockAvail: (n) => `Available: ${n}`,
-                soldOutBtn: "[ SOLD OUT ]", orderBtn: "[ ORDER ]",
-                imgZoomTitle: "Click to enlarge image", lbZoomIn: "[ + ZOOM IN ]", lbZoomReset: "[ - RESET ZOOM ]",
-                framedNote: "(Framed)",
-                modalTitle: "ORDER // CHECKOUT",
-                modalItem: (id, title, price, isFramed) => `Selected Artwork: <strong>[${id}] ${title}</strong><br>Item Price: <strong>${price}</strong> ${isFramed ? `<span style="font-size:0.85rem; opacity:0.8;">(Framed)</span>` : ''}<br><span style="font-size:0.8rem; opacity:0.8;">(Please manually add flat rate NT$ 1,000 for overseas shipping during payment)</span>`,
-                step1Title: "STEP 1. Select a payment method and complete payment:",
-                tabNewebpay: "CreditCard<br>ApplePay",
-                tabAlipay: "Alipay",
-                step2Title: "STEP 2. Fill in shipping and payment verification details:",
-                labelName: "Name *",
-                labelContact: "Email & Phone *",
-                labelAddress: "Shipping Address (Include Postal Code) *",
-                labelPayNote: "Payment Verification (Method + Last 5 digits or Account Name) *",
-                placeholderPayNote: "e.g., Credit Card / PayPal Name",
-                submitBtn: "[ GENERATE & SUBMIT ORDER EMAIL ]"
-            },
-            de: {
-                loading: "ARCHIV WIRD GELADEN... // Kunstwerkdaten werden synchronisiert...",
-                stockZero: "Ausverkauft: 0", stockAvail: (n) => `Verfügbar: ${n}`,
-                soldOutBtn: "[ AUSVERKAUFT ]", orderBtn: "[ BESTELLEN ]",
-                imgZoomTitle: "Klicken, um das Bild zu vergrößern", lbZoomIn: "[ + ANSICHT VERGRÖßERN ]", lbZoomReset: "[ - ZURÜCKSETZEN ]",
-                framedNote: "(Gerahmt)",
-                modalTitle: "BESTELLUNG // KASSE",
-                modalItem: (id, title, price, isFramed) => `Ausgewähltes Werk: <strong>[${id}] ${title}</strong><br>Preis: <strong>${price}</strong> ${isFramed ? `<span style="font-size:0.85rem; opacity:0.8;">(Gerahmt)</span>` : ''}<br><span style="font-size:0.8rem; opacity:0.8;">(Kostenloser Versand in Taiwan / Bitte fügen Sie beim Bezahlen eigenständig die internationale Pauschale von NT$ 1.000 hinzu)</span>`,
-                step1Title: "SCHRITT 1. Zahlungsmethode wählen und Bezahlung abschließen:",
-                tabNewebpay: "Kreditkarte<br>ApplePay",
-                tabAlipay: "Alipay",
-                step2Title: "SCHRITT 2. Liefer- und Zahlungsbestätigungsdaten eingeben:",
-                labelName: "Name / Name *",
-                labelContact: "E-Mail & Telefonnummer / E-Mail & Phone *",
-                labelAddress: "Lieferadresse (Bitte auf Englisch bei Auslandsversand) / Shipping Address *",
-                labelPayNote: "Zahlungsnachweis (Zahlungsart + letzte 5 Ziffern oder Kontoname) *",
-                placeholderPayNote: "z. B. Kreditkarte / PayPal-Name",
-                submitBtn: "[ BESTELL-E-MAIL GENERIEREN & ABSENDEN ]"
-            }
+        const html = document.documentElement;
+        const ui = () => (html.classList.contains('ui-zh') ? 'zh' : html.classList.contains('ui-de') ? 'de' : 'en');
+        const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        // 程式產生的文字：英文、中文，德文沒給就查 DE_TXT
+        const DE_TXT = {
+            'Print': 'Druckgrafik', 'Photography': 'Fotografie', 'Sold': 'Verkauft', 'Available': 'Verfügbar', 'framed': 'gerahmt',
+            'Year': 'Jahr', 'Medium': 'Medium', 'Size': 'Abmessungen', 'Dimensions on request': 'Maße auf Anfrage', 'Edition': 'Auflage',
+            'Framing': 'Rahmung', 'Framed, frame included in price': 'Gerahmt, Rahmen im Preis enthalten', 'Ref.': 'Ref.',
+            'Acquire this work': 'Dieses Werk erwerben', 'Ask about similar works': 'Nach ähnlichen Werken fragen', 'Ask a question first': 'Vorab eine Frage stellen',
+            'Available works': 'Verfügbare Werke', 'Back to the work': 'Zurück zum Werk', 'Shipping to': 'Versand nach', 'Taiwan': 'Taiwan',
+            'Free': 'Kostenlos', 'Outside Taiwan': 'Außerhalb Taiwans', 'Work': 'Werk', 'Shipping': 'Versand', 'Total': 'Gesamt', 'Payment': 'Zahlung',
+            'Taiwanese local payments (JKOPay, LINE Pay, NewebPay) open on 1 January 2027. Until then, please use PayPal, or write to ask about other options.':
+                'Lokale Zahlungsarten in Taiwan (JKOPay, LINE Pay, NewebPay) sind ab 1. Januar 2027 verfügbar. Bis dahin nutzen Sie bitte PayPal oder fragen Sie nach anderen Möglichkeiten.',
+            'Your details': 'Ihre Angaben', 'Name': 'Name', 'Phone': 'Telefon', 'Shipping address, with postal code': 'Lieferadresse mit Postleitzahl',
+            'Payment reference': 'Zahlungsreferenz', 'Note (optional)': 'Anmerkung (optional)', 'Create order email': 'Bestell-E-Mail erstellen',
+            'Your email app opens with the order filled in; check it and press send. The work is reserved for you once the studio confirms.':
+                'Ihr E-Mail-Programm öffnet sich mit der ausgefüllten Bestellung; bitte prüfen und absenden. Das Werk ist für Sie reserviert, sobald das Studio bestätigt.',
+            'Open the app on your phone': 'App auf dem Smartphone öffnen', 'Order email created': 'Bestell-E-Mail erstellt', 'Thank you.': 'Vielen Dank.',
+            'Your email app should now show the order. Please check it and send it to ': 'Ihr E-Mail-Programm sollte nun die Bestellung zeigen. Bitte prüfen Sie sie und senden Sie sie an ',
+            '. If nothing opened, copy the details below into an email.': '. Falls sich nichts geöffnet hat, kopieren Sie die Angaben unten in eine E-Mail.',
+            'Copy order details': 'Bestelldaten kopieren', 'Back to available works': 'Zurück zu den verfügbaren Werken', 'Copied': 'Kopiert'
         };
-
-        const FALLBACK_PRODUCTS = [{ id: "000-000", category: "print", title: "資料讀取中", enTitle: "loading data", specs: "", price: "NT$8,500", stock: 25, images: ["PRT-001-1-1.jpg"], isFramed: true }];
-
-        let PRODUCTS = []; let currentProduct = null; let currentFilter = 'all'; let currentLang = 'zh'; let currentQRType = 'jkopay'; let sheetLoaded = false;
-        let lbProduct = null; let lbIndex = 0; let lbScale = 1; let lbPanX = 0; let lbPanY = 0; let isDragging = false; let dragMoved = false; let startX = 0; let startY = 0;
-        const ZOOM_ICON_SVG = `<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="6.5" cy="6.5" r="4.8"></circle><line x1="10.2" y1="10.2" x2="14.8" y2="14.8"></line></svg>`;
-
-        function setShopLang(lang) {
-            currentLang = lang; const t = UI_TEXT[lang];
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-lang') === lang));
-            document.getElementById('noticeTextZh').style.display = lang === 'zh' ? 'inline' : 'none';
-            document.getElementById('noticeTextEn').style.display = lang === 'en' ? 'inline' : 'none';
-            document.getElementById('noticeTextDe').style.display = lang === 'de' ? 'inline' : 'none';
-            const loadingEl = document.getElementById('loadingText'); if (loadingEl) loadingEl.textContent = t.loading;
-            
-            document.getElementById('modalTitle').textContent = t.modalTitle;
-            document.getElementById('step1Title').textContent = t.step1Title;
-            
-            document.getElementById('tabNewebpay').innerHTML = t.tabNewebpay;
-            document.getElementById('tabAlipay').innerHTML = t.tabAlipay;
-            
-            document.getElementById('step2Title').textContent = t.step2Title;
-            document.getElementById('labelBuyerName').textContent = t.labelName;
-            document.getElementById('labelBuyerContact').textContent = t.labelContact;
-            document.getElementById('labelBuyerAddress').textContent = t.labelAddress;
-            document.getElementById('labelBuyerPaymentNote').textContent = t.labelPayNote;
-            document.getElementById('buyerPaymentNote').placeholder = t.placeholderPayNote;
-            document.getElementById('modalSubmitBtn').textContent = t.submitBtn;
-
-            if (currentProduct) {
-                document.getElementById('modalItemInfo').innerHTML = t.modalItem(escapeHTML(currentProduct.id), escapeHTML(currentProduct.title), escapeHTML(currentProduct.price), currentProduct.isFramed);
-            }
-            switchQR(currentQRType, document.querySelector(`#checkoutModal .pay-tab[data-pay="${currentQRType}"]`));
-            applyLightboxTransform(); if (PRODUCTS.length > 0) renderProducts(currentFilter);
+        const bi = (en, zh, de) => {
+            if (de === undefined) de = DE_TXT[en];
+            return '<span lang="en"' + (de !== undefined && de !== en ? ' data-de="' + esc(de) + '"' : '') + '>' + en + '</span><span lang="zh-Hant">' + zh + '</span>';
+        };
+        // 試算表裡的英文規格 → 德文
+        function deTerm(en) {
+            const map = { 'Water-based woodblock print': 'Wasserbasierter Holzschnitt', 'Woodblock print': 'Holzschnitt', 'Archival pigment print on fine art paper': 'Archival Pigment Print auf Fine-Art-Papier', 'Unique': 'Unikat' };
+            if (map[en]) return map[en];
+            const m = String(en || '').match(/^Edition of (\d+)$/);
+            return m ? 'Auflage ' + m[1] : en;
         }
-
-        // 圖片路徑轉換：支援純檔名自動補齊 images/products/，並相容既有 Google Drive 與自訂 URL
-        function formatImageUrl(url) {
-            if (!url) return "";
-            const clean = String(url).trim();
-            if (clean.includes("drive.google.com")) {
-                const match = clean.match(/(?:\/d\/|id=)([a-zA-Z0-9_-]{15,})/);
-                return match && match[1] ? `https://drive.google.com/thumbnail?id=${match[1]}&sz=w2200` : clean;
+        // 德文：英文元素上的 data-de 換進去，切回來時還原
+        function localizeEl(el) {
+            if (ui() === 'de') {
+                if (!el.hasAttribute('data-en-html')) el.setAttribute('data-en-html', el.innerHTML);
+                if (el.lang !== 'de') { el.innerHTML = el.getAttribute('data-de'); el.lang = 'de'; }
+            } else if (el.lang === 'de') {
+                el.innerHTML = el.getAttribute('data-en-html'); el.lang = 'en';
             }
-            if (clean.startsWith("http://") || clean.startsWith("https://") || clean.startsWith("/") || clean.startsWith("images/")) {
-                return clean;
-            }
-            return `images/products/${clean}`;
         }
+        function localize(root) { (root || document).querySelectorAll('[data-de]').forEach(localizeEl); }
+        // 之後動態加進來的內容也自動翻成德文
+        new MutationObserver(ms => {
+            if (ui() !== 'de') return;
+            ms.forEach(m => m.addedNodes.forEach(n => {
+                if (n.nodeType !== 1) return;
+                if (n.hasAttribute('data-de')) localizeEl(n);
+                localize(n);
+            }));
+        }).observe(document.body, { childList: true, subtree: true });
+        const money = n => 'NT$' + Number(n).toLocaleString('en-US');
 
-        function escapeHTML(str) { return String(str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+        /* ---------- 語言 ---------- */
+        function setUi(next) {
+            html.classList.remove('ui-en', 'ui-zh', 'ui-de');
+            html.classList.add('ui-' + next);
+            html.lang = next === 'zh' ? 'zh-Hant-TW' : next;
+            try { localStorage.setItem('lon-lang', next); } catch (e) {}
+            document.querySelectorAll('[data-ui]').forEach(b => b.setAttribute('aria-pressed', b.dataset.ui === next ? 'true' : 'false'));
+            localize();
+            updateCount();
+            const oRef = document.getElementById('oRef');
+            if (oRef) oRef.placeholder = refPlaceholder();
+            const inq = document.getElementById('inq');
+            if (inq && cur) inq.href = inquireHref(cur);
+        }
+        function refPlaceholder() {
+            return ui() === 'zh' ? '例：PayPal 名稱、帳號末五碼' : ui() === 'de' ? 'z. B. PayPal-Name oder letzte 5 Ziffern' : 'e.g. PayPal name or last 5 digits';
+        }
+        document.querySelectorAll('[data-ui]').forEach(b => b.addEventListener('click', () => setUi(b.dataset.ui)));
 
-        function rowsToProducts(rows) {
-            const validRows = rows.filter(r => r.some(cell => String(cell).trim() !== ''));
-            if (validRows.length === 0) return [];
-            const firstRowLower = validRows[0].map(h => String(h).toLowerCase().trim());
-            const hasHeader = firstRowLower.includes('id') || firstRowLower.includes('title') || firstRowLower.includes('price');
-            const headers = hasHeader ? firstRowLower : ['id', 'category', 'title', 'enTitle', 'specs', 'price', 'stock', 'showFlag', 'framedFlag', 'empty1', 'empty2', 'image'];
-            const dataRows = hasHeader ? validRows.slice(1) : validRows;
-            
-            return dataRows.filter(r => {
-                const showFlag = String(r[7] !== undefined ? r[7] : '').trim();
-                return showFlag === '1';
-            }).map((r, rowIdx) => {
-                const obj = {}; const rawImages = [];
-                headers.forEach((h, idx) => { obj[h] = String(r[idx] !== undefined ? r[idx] : '').trim(); });
-                
-                let isFramed = false;
-                const framedFlag = String(r[8] !== undefined ? r[8] : '').trim();
-                if (framedFlag === '1') { isFramed = true; }
+        /* ---------- 在 *.new1.html 預覽時，站內連結指到同版本 ---------- */
+        (function () {
+            const m = location.pathname.match(/\.(new\d+)\.html$/);
+            if (!m) return;
+            document.querySelectorAll('a[data-page]').forEach(a => {
+                a.href = a.getAttribute('href').replace(/^(shop|index)\.html/, '$1.' + m[1] + '.html');
+            });
+        })();
 
-                r.forEach((val, idx) => {
-                    const strVal = String(val !== undefined ? val : '').trim(); const h = headers[idx] || '';
-                    if ((h.startsWith('image') || h.startsWith('img') || idx >= 11) && strVal) {
-                        strVal.split(/[\n,;]+/).forEach(part => { 
-                            if (part.trim()) rawImages.push(formatImageUrl(part.trim())); 
-                        });
-                    }
-                });
-                
-                const stockVal = parseInt(String(r[6] !== undefined && r[6] !== '' ? r[6] : obj.stock).replace(/[^\d-]/g, ''), 10);
+        /* =========================================
+           試算表 → 作品資料
+           欄位：id, category, title, title-en, specs, price, stock, 顯示控制(=1 才顯示), 售價含框標記, , , image...
+        ========================================= */
+        function parseCSV(text) {
+            const rows = []; let row = [], cur = '', q = false;
+            for (let i = 0; i < text.length; i++) {
+                const c = text[i], n = text[i + 1];
+                if (q) { if (c === '"' && n === '"') { cur += '"'; i++; } else if (c === '"') q = false; else cur += c; }
+                else if (c === '"') q = true;
+                else if (c === ',') { row.push(cur.trim()); cur = ''; }
+                else if (c === '\n' || c === '\r') { if (c === '\r' && n === '\n') i++; row.push(cur.trim()); rows.push(row); row = []; cur = ''; }
+                else cur += c;
+            }
+            if (cur !== '' || row.length) { row.push(cur.trim()); rows.push(row); }
+            return rows;
+        }
+        const CJK = /[㐀-鿿　-〿＀-￯《》]/;
+        function imgUrl(s) {
+            s = s.trim();
+            if (/^(https?:)?\/\//.test(s) || s.startsWith('/') || s.startsWith('images/')) return s;
+            return 'images/products/' + s;
+        }
+        // 「中文 English」→ 從第一個「後面不再有中文」的英文字開始切
+        function splitZhEn(s) {
+            s = String(s || '').trim();
+            const re = /\s+(?=[A-Za-z])/g; let m;
+            while ((m = re.exec(s))) {
+                const rest = s.slice(m.index);
+                if (!CJK.test(rest)) return { zh: s.slice(0, m.index).trim(), en: rest.trim() };
+            }
+            return CJK.test(s) ? { zh: s, en: '' } : { zh: '', en: s };
+        }
+        function cleanTitle(s) { return String(s || '').replace(/[《》]/g, '').trim(); }
+        function parseSpecs(raw) {
+            const { zh, en } = splitZhEn(raw);
+            const out = { year: '', medium: { zh: '', en: '' }, size: { zh: '', en: '' }, edition: { zh: '', en: '' } };
+            const zp = zh.split(/[，,]/).map(s => s.trim()).filter(Boolean);
+            const zMedium = [];
+            zp.forEach(p => {
+                if (/^\d{4}$/.test(p)) out.year = p;
+                else if (/尺寸/.test(p)) out.size.zh = p.replace(/尺寸/, '').trim();
+                else if (/版數|獨版/.test(p)) out.edition.zh = p === '獨版' ? '獨版' : '版數 ' + p.replace(/[^\d]/g, '');
+                else zMedium.push(p);
+            });
+            out.medium.zh = zMedium.join('，');
+            const ep = en.split(/,\s*/).map(s => s.trim()).filter(Boolean);
+            const eMedium = [];
+            ep.forEach(p => {
+                if (/\bsize\b/i.test(p)) out.size.en = p.replace(/\bsize\b/i, '').trim();
+                else if (/^unique$/i.test(p)) out.edition.en = 'Unique';
+                else if (/\bed(\.|ition)?\s*of\s*\d+/i.test(p)) out.edition.en = 'Edition of ' + p.replace(/[^\d]/g, '');
+                else eMedium.push(p);
+            });
+            const em = eMedium.join(', ');
+            out.medium.en = em ? em.charAt(0).toUpperCase() + em.slice(1) : '';
+            out.raw = raw;
+            return out;
+        }
+        function rowsToWorks(rows) {
+            const data = rows.filter(r => r.some(c => c !== ''));
+            if (!data.length) return [];
+            const head = data[0].map(h => h.toLowerCase());
+            const body = (head.includes('id') || head.includes('price')) ? data.slice(1) : data;
+            return body.filter(r => (r[7] || '').trim() === '1').map((r, i) => {
+                let zhTitle = cleanTitle(r[2]), enTitle = cleanTitle(r[3]);
+                if (!enTitle) { const s = splitZhEn(zhTitle); zhTitle = s.zh; enTitle = s.en; }
+                TYPO_FIX.forEach(([a, b]) => { enTitle = enTitle.replace(a, b); });
+                const imgs = [];
+                r.slice(11).forEach(v => String(v || '').split(/[\n,;]+/).forEach(p => { if (p.trim()) imgs.push(imgUrl(p)); }));
+                const stock = parseInt(String(r[6] || '').replace(/[^\d-]/g, ''), 10);
+                const specs = parseSpecs(r[4]);
+                const priceNum = parseInt(String(r[5] || '').replace(/[^\d]/g, ''), 10) || 0;
                 return {
-                    _uid: rowIdx, id: (obj.id || r[0] || 'N/A').trim(), category: (obj.category || r[1] || 'print').trim().toLowerCase(),
-                    title: (obj.title || r[2] || '').trim(), enTitle: (obj.enTitle || r[3] || '').trim(), specs: (obj.specs || r[4] || '').trim(), price: (obj.price || r[5] || '').trim(),
-                    stock: isNaN(stockVal) ? 0 : stockVal, images: rawImages.length > 0 ? rawImages : [''], isFramed: isFramed
+                    uid: i,
+                    id: (r[0] || '').trim(),
+                    cat: (r[1] || 'print').trim().toLowerCase(),
+                    zh: zhTitle, en: enTitle || zhTitle,
+                    specs, priceNum,
+                    priceText: priceNum ? money(priceNum) : (r[5] || ''),
+                    stock: isNaN(stock) ? 0 : stock,
+                    framed: (r[8] || '').trim() === '1',
+                    images: imgs
                 };
             });
         }
 
-        function parseCSV(text) {
-            const rows = []; let row = []; let cur = ''; let inQuotes = false;
-            for (let i = 0; i < text.length; i++) {
-                const ch = text[i]; const next = text[i + 1];
-                if (inQuotes) { if (ch === '"' && next === '"') { cur += '"'; i++; } else if (ch === '"') { inQuotes = false; } else { cur += ch; } }
-                else { if (ch === '"') { inQuotes = true; } else if (ch === ',') { row.push(cur.trim()); cur = ''; } else if (ch === '\n' || (ch === '\r' && next === '\n')) { row.push(cur.trim()); rows.push(row); row = []; cur = ''; if (ch === '\r') i++; } else if (ch !== '\r') { cur += ch; } }
+        let WORKS = [];
+        async function load() {
+            const tryUrl = async url => {
+                const res = await fetch(url, { cache: 'no-store' });
+                if (!res.ok) throw new Error(res.status);
+                const w = rowsToWorks(parseCSV(await res.text()));
+                if (!w.length) throw new Error('empty');
+                return w;
+            };
+            try { WORKS = await tryUrl(PROXY_SHEET_URL); }
+            catch (e) {
+                try { WORKS = await tryUrl(DIRECT_SHEET_URL); }
+                catch (e2) { WORKS = rowsToWorks(parseCSV(FALLBACK_CSV)); }
             }
-            if (cur !== '' || row.length > 0) { row.push(cur.trim()); rows.push(row); }
-            return rowsToProducts(rows);
+            render();
+            openFromHash();
         }
 
-        async function initShop() {
-            const normalizeFallback = () => FALLBACK_PRODUCTS.map((p, idx) => ({ 
-                ...p, 
-                _uid: idx, 
-                images: (p.images || [p.image || '']).map(formatImageUrl) 
-            }));
-
-            // 1. 優先嘗試同網域代理 /api/sheet
-            try {
-                const response = await fetch(PROXY_SHEET_URL, { cache: "no-store" });
-                if (response.ok) {
-                    const parsed = parseCSV(await response.text());
-                    if (parsed.length > 0) {
-                        sheetLoaded = true;
-                        PRODUCTS = parsed;
-                        renderProducts();
-                        return;
-                    }
-                }
-            } catch (err) {
-                console.warn("同網域代理讀取失敗，嘗試直連備援", err);
-            }
-
-            // 2. 若代理失敗（如本地端測試或尚未部署），嘗試直連 Google CSV
-            if (!sheetLoaded) {
-                try {
-                    const fallbackRes = await fetch(DIRECT_GOOGLE_SHEET_URL, { cache: "no-store" });
-                    if (fallbackRes.ok) {
-                        const parsed = parseCSV(await fallbackRes.text());
-                        if (parsed.length > 0) {
-                            sheetLoaded = true;
-                            PRODUCTS = parsed;
-                            renderProducts();
-                            return;
-                        }
-                    }
-                } catch (err) {
-                    console.warn("直連 Google CSV 備援失敗", err);
-                }
-            }
-
-            // 3. 全數失敗時使用本地靜態預設
-            if (!sheetLoaded) {
-                PRODUCTS = normalizeFallback();
-                renderProducts();
-            }
+        /* ---------- 卡片 ---------- */
+        const catLabel = { print: bi('Print', '版畫'), photo: bi('Photography', '攝影') };
+        function mediumLine(w) {
+            const s = w.specs;
+            const en = [s.medium.en, s.edition.en].filter(Boolean).join(', ');
+            const zh = [s.medium.zh, s.edition.zh].filter(Boolean).join('，');
+            const de = [deTerm(s.medium.en), deTerm(s.edition.en)].filter(Boolean).join(', ');
+            return bi(esc(en), esc(zh), esc(de));
+        }
+        function statusHtml(w) {
+            if (w.stock <= 0) return '<span class="status sold">' + bi('Sold', '已售出') + '</span>';
+            const edition = /Edition/.test(w.specs.edition.en);
+            return '<span class="status">' + (edition && w.stock > 1
+                ? bi('Available · ' + w.stock + ' remaining', '可收藏 · 尚餘 ' + w.stock + ' 件', 'Verfügbar · noch ' + w.stock)
+                : bi('Available', '可收藏')) + '</span>';
+        }
+        function priceHtml(w) {
+            return esc(w.priceText) + (w.framed ? '<small>' + bi('framed', '含框') + '</small>' : '');
+        }
+        function render() {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = WORKS.map(w => {
+                const cover = w.images[0] || '';
+                return '<article class="item reveal" data-cat="' + esc(w.cat) + '" id="' + esc(w.id) + '">'
+                    + '<button type="button" class="item-btn" data-uid="' + w.uid + '" aria-label="' + esc(w.en) + '">'
+                    + '<div class="item-media">' + (cover ? '<img src="' + esc(cover) + '" alt="' + esc(w.en) + '" loading="lazy">' : '')
+                    + (w.images.length > 1 ? '<span class="n">1 / ' + w.images.length + '</span>' : '') + '</div>'
+                    + '<div class="item-info">'
+                    + '<span class="t"><span class="work-title-en">' + esc(w.en) + '</span>' + (w.zh ? '<span class="work-title-zh">' + esc(w.zh) + '</span>' : '') + '</span>'
+                    + '<span class="y">' + esc(w.specs.year) + '</span>'
+                    + '<span class="m">' + mediumLine(w) + '</span>'
+                    + '<span class="p"><span>' + priceHtml(w) + '</span>' + statusHtml(w) + '</span>'
+                    + '</div></button></article>';
+            }).join('');
+            grid.querySelectorAll('.item-btn').forEach(b => b.addEventListener('click', () => openWork(+b.dataset.uid)));
+            reveal();
+            applyFilter(currentFilter);
+        }
+        function reveal() {
+            const els = document.querySelectorAll('.reveal:not(.in)');
+            if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('in')); return; }
+            const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -6% 0px' });
+            els.forEach(e => io.observe(e));
         }
 
-        function getPlaceholderSVG(text) { return `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='450'><rect width='100%' height='100%' fill='%23cbcbcb'/><text x='50%' y='50%' fill='%23555' font-family='monospace' font-size='16' text-anchor='middle'>${encodeURIComponent(text)}</text></svg>`; }
+        /* ---------- 篩選 ---------- */
+        let currentFilter = 'all';
+        const filterBtns = [...document.querySelectorAll('[data-filter]')];
+        function applyFilter(f) {
+            currentFilter = f;
+            filterBtns.forEach(b => b.setAttribute('aria-pressed', b.dataset.filter === f ? 'true' : 'false'));
+            document.querySelectorAll('#grid .item').forEach(el => { el.hidden = !(f === 'all' || el.dataset.cat === f); if (!el.hidden) el.classList.add('in'); });
+            updateCount();
+        }
+        function updateCount() {
+            const n = document.querySelectorAll('#grid .item:not([hidden]):not(.skeleton)').length;
+            const el = document.getElementById('count');
+            if (el && WORKS.length) el.textContent = ui() === 'zh' ? n + ' 件作品' : ui() === 'de' ? n + (n === 1 ? ' Werk' : ' Werke') : n + (n === 1 ? ' work' : ' works');
+        }
+        filterBtns.forEach(b => b.addEventListener('click', () => applyFilter(b.dataset.filter)));
 
-        function renderProducts(filter = currentFilter) {
-            currentFilter = filter; const t = UI_TEXT[currentLang]; const grid = document.getElementById('productGrid'); grid.innerHTML = '';
-            PRODUCTS.filter(p => filter === 'all' || p.category === filter).forEach(item => {
-                const isSoldOut = item.stock <= 0; const safeTitle = escapeHTML(item.title); const validImgs = (item.images || []).filter(u => u.trim() !== '');
-                const coverImg = validImgs[0] || getPlaceholderSVG(item.id);
-                const card = document.createElement('div'); card.className = 'product-card';
-                
-                const framedHtml = item.isFramed ? `<span style="font-size: 0.75rem; opacity: 0.6; margin-left: 0.4rem; letter-spacing: 0.5px; vertical-align: middle;">${t.framedNote}</span>` : '';
-                const enTitleHtml = item.enTitle ? `<span class="product-title-en">${escapeHTML(item.enTitle)}</span>` : '';
+        /* =========================================
+           作品檢視
+        ========================================= */
+        const viewer = document.getElementById('viewer');
+        const stage = document.getElementById('stage');
+        const sImg = document.getElementById('sImg');
+        const panel = document.getElementById('panel');
+        let cur = null, idx = 0, lastFocus = null;
 
-                card.innerHTML = `
-                    <div>
-                        <div class="product-img-wrap" onclick="openLightbox(${item._uid}, 0)" title="${t.imgZoomTitle}">
-                            <img src="${coverImg}" alt="${escapeHTML(item.id)}" onerror="this.src=&quot;${getPlaceholderSVG(item.id)}&quot;">
-                        </div>
-                        <div class="product-meta" style="margin-top: 1rem;">
-                            <div class="product-id-row"><span class="product-id">[${escapeHTML(item.id)}]</span>
-                            <span class="meta-zoom-info" onclick="openLightbox(${item._uid}, 0)" title="${t.imgZoomTitle}"><span>1 / ${Math.max(1, validImgs.length)}</span>${ZOOM_ICON_SVG}</span></div>
-                            <h2 class="product-title">${safeTitle}${enTitleHtml}</h2><p class="product-specs">${escapeHTML(item.specs)}</p>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="product-footer" style="margin-bottom: 1rem;"><span class="product-price">${escapeHTML(item.price)}${framedHtml}</span><span class="product-stock">${isSoldOut ? t.stockZero : t.stockAvail(item.stock)}</span></div>
-                        <button class="buy-btn" ${isSoldOut ? 'disabled' : ''} onclick="openModal(${item._uid})">${isSoldOut ? t.soldOutBtn : t.orderBtn}</button>
-                    </div>`;
-                grid.appendChild(card);
-            });
+        function showImage() {
+            const imgs = cur.images;
+            stage.classList.remove('zoomed');
+            sImg.src = imgs[idx] || '';
+            sImg.alt = cur.en + (imgs.length > 1 ? ' (' + (idx + 1) + '/' + imgs.length + ')' : '');
+            const many = imgs.length > 1;
+            document.getElementById('sPrev').hidden = document.getElementById('sNext').hidden = !many;
+            const th = document.getElementById('sThumbs');
+            th.innerHTML = many ? imgs.map((src, i) => '<button type="button" aria-label="Image ' + (i + 1) + '"' + (i === idx ? ' aria-current="true"' : '') + '><img src="' + esc(src) + '" alt=""></button>').join('') : '';
+            th.querySelectorAll('button').forEach((b, i) => b.addEventListener('click', () => { idx = i; showImage(); }));
+        }
+        function step(d) { if (!cur || cur.images.length < 2) return; idx = (idx + d + cur.images.length) % cur.images.length; showImage(); }
+
+        function specRows(w) {
+            const s = w.specs, rows = [];
+            if (s.year) rows.push([bi('Year', '年份'), esc(s.year)]);
+            if (s.medium.en || s.medium.zh) rows.push([bi('Medium', '媒材'), bi(esc(s.medium.en), esc(s.medium.zh), esc(deTerm(s.medium.en)))]);
+            rows.push([bi('Size', '尺寸'), (s.size.en || s.size.zh) ? bi(esc(s.size.en || s.size.zh), esc(s.size.zh || s.size.en)) : bi('Dimensions on request', '尺寸請來信詢問')]);
+            if (s.edition.en || s.edition.zh) rows.push([bi('Edition', '版數'), bi(esc(s.edition.en), esc(s.edition.zh), esc(deTerm(s.edition.en)))]);
+            if (w.framed) rows.push([bi('Framing', '裱框'), bi('Framed, frame included in price', '含框，售價已含框')]);
+            rows.push([bi('Ref.', '編號'), esc(w.id)]);
+            return '<dl class="spec">' + rows.map(r => '<dt>' + r[0] + '</dt><dd>' + r[1] + '</dd>').join('') + '</dl>';
+        }
+        function inquireHref(w) {
+            const subj = 'Inquiry · ' + w.en + ' (' + w.id + ')';
+            const body = ui() === 'zh'
+                ? '您好，\n\n我想詢問這件作品：' + w.zh + '（' + w.id + '）\n\n'
+                : ui() === 'de'
+                ? 'Guten Tag,\n\nich interessiere mich für ' + w.en + ' (' + w.id + ').\n\n'
+                : 'Hello,\n\nI would like to ask about ' + w.en + ' (' + w.id + ').\n\n';
+            return 'mailto:' + STUDIO_EMAIL + '?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
+        }
+        function renderDetail() {
+            viewer.classList.remove('checkout');
+            const w = cur, sold = w.stock <= 0;
+            panel.innerHTML =
+                '<h2 id="pTitle"><span class="work-title-en">' + esc(w.en) + '</span>' + (w.zh ? '<span class="work-title-zh">' + esc(w.zh) + '</span>' : '') + '</h2>'
+                + specRows(w)
+                + '<div class="price-row"><span class="price">' + priceHtml(w) + '</span>' + statusHtml(w) + '</div>'
+                + '<div class="actions">'
+                + (sold ? '' : '<button type="button" class="btn solid" id="toCheckout">' + bi('Acquire this work', '收藏這件作品') + ' <span class="arr">→</span></button>')
+                + '<a class="btn" id="inq" href="' + inquireHref(w) + '">' + bi(sold ? 'Ask about similar works' : 'Ask a question first', sold ? '詢問相近作品' : '先來信詢問') + '</a>'
+                + '</div>'
+                + '<p class="fine">' + bi('Free shipping within Taiwan · international NT$1,000. Ships from Taipei in 3–5 working days' + (w.framed ? ' (framed works 7–10)' : '') + '.',
+                    '台灣免運 · 海外運費 NT$1,000。' + (w.framed ? '含框作品 7–10 個工作天' : '3–5 個工作天') + '內從台北寄出。',
+                    'Kostenloser Versand innerhalb Taiwans · international NT$1,000. Versand aus Taipeh innerhalb von ' + (w.framed ? '7–10 Werktagen (gerahmt)' : '3–5 Werktagen') + '.') + '</p>';
+            const go = document.getElementById('toCheckout');
+            if (go) go.addEventListener('click', renderCheckout);
+            document.getElementById('crumb').innerHTML = bi('Available works', '可收藏作品') + ' / ' + esc(w.id);
         }
 
-        function filterProducts(category, btn) { document.querySelectorAll('.filter-btn').forEach(el => el.classList.remove('active')); btn.classList.add('active'); renderProducts(category); }
-
-        function resetLightboxZoom() { lbScale = 1; lbPanX = 0; lbPanY = 0; isDragging = false; applyLightboxTransform(); }
-        function applyLightboxTransform() {
-            const img = document.getElementById('lightboxImg'); const stage = document.getElementById('lightboxStage'); const zoomBtn = document.getElementById('lbZoomBtn');
-            if (!img || !stage) return; img.style.transform = `translate(${lbPanX}px, ${lbPanY}px) scale(${lbScale})`; stage.classList.toggle('is-zoomed', lbScale > 1);
-            if (zoomBtn) { if (lbScale > 1) { zoomBtn.textContent = UI_TEXT[currentLang].lbZoomReset; zoomBtn.classList.add('active'); } else { zoomBtn.textContent = UI_TEXT[currentLang].lbZoomIn; zoomBtn.classList.remove('active'); } }
+        function openWork(uid, fromHash) {
+            cur = WORKS.find(w => w.uid === uid); if (!cur) return;
+            idx = 0;
+            lastFocus = document.activeElement;
+            showImage();
+            renderDetail();
+            viewer.hidden = false; viewer.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            panel.scrollTop = 0; viewer.scrollTop = 0;
+            document.getElementById('vClose').focus();
+            if (!fromHash) history.replaceState(null, '', '#' + cur.id);
         }
-        function toggleLightboxZoom(e) {
-            if (lbScale > 1) { resetLightboxZoom(); } else {
-                lbScale = 2.2;
-                if (e && e.clientX !== undefined) { const rect = document.getElementById('lightboxImg').getBoundingClientRect(); lbPanX = (rect.left + rect.width / 2 - e.clientX) * 1.1; lbPanY = (rect.top + rect.height / 2 - e.clientY) * 1.1; }
-                else { lbPanX = 0; lbPanY = 0; }
-                applyLightboxTransform();
-            }
+        function closeWork() {
+            viewer.classList.remove('open', 'checkout'); viewer.hidden = true;
+            document.body.style.overflow = '';
+            history.replaceState(null, '', location.pathname + location.search);
+            if (lastFocus) lastFocus.focus();
         }
-
-        (function setupLightboxZoomEvents() {
-            const stage = document.getElementById('lightboxStage'); const img = document.getElementById('lightboxImg');
-            img.addEventListener('mousedown', (e) => { e.preventDefault(); dragMoved = false; if (lbScale > 1) { isDragging = true; startX = e.clientX - lbPanX; startY = e.clientY - lbPanY; stage.classList.add('is-dragging'); } });
-            window.addEventListener('mousemove', (e) => { if (!isDragging) return; dragMoved = true; lbPanX = e.clientX - startX; lbPanY = e.clientY - startY; applyLightboxTransform(); });
-            window.addEventListener('mouseup', () => { if (isDragging) { isDragging = false; stage.classList.remove('is-dragging'); } });
-            img.addEventListener('click', (e) => { e.stopPropagation(); if (!dragMoved) toggleLightboxZoom(e); dragMoved = false; });
-            stage.addEventListener('wheel', (e) => { e.preventDefault(); const nextScale = Math.min(3.5, Math.max(1, lbScale + (e.deltaY < 0 ? 0.35 : -0.35))); if (nextScale === 1) resetLightboxZoom(); else { lbScale = nextScale; applyLightboxTransform(); } }, { passive: false });
-            img.addEventListener('touchstart', (e) => { if (e.touches.length === 1) { dragMoved = false; if (lbScale > 1) { isDragging = true; startX = e.touches[0].clientX - lbPanX; startY = e.touches[0].clientY - lbPanY; stage.classList.add('is-dragging'); } } }, { passive: true });
-            img.addEventListener('touchmove', (e) => { if (!isDragging || e.touches.length !== 1) return; e.preventDefault(); dragMoved = true; lbPanX = e.touches[0].clientX - startX; lbPanY = e.touches[0].clientY - startY; applyLightboxTransform(); }, { passive: false });
-            img.addEventListener('touchend', () => { if (isDragging) { isDragging = false; stage.classList.remove('is-dragging'); } });
-        })();
-
-        function openLightbox(uid, startIndex = 0) { lbProduct = PRODUCTS.find(p => p._uid === uid); if (!lbProduct) return; lbIndex = startIndex; resetLightboxZoom(); updateLightboxView(); document.getElementById('lightboxModal').classList.add('active'); }
-        function closeLightbox() { resetLightboxZoom(); document.getElementById('lightboxModal').classList.remove('active'); }
-        function changeLightboxImg(step) { if (!lbProduct) return; const total = (lbProduct.images || []).filter(u => u.trim() !== '').length || 1; if (total <= 1) return; lbIndex = (lbIndex + step + total) % total; resetLightboxZoom(); updateLightboxView(); }
-        function updateLightboxView() {
-            const validImgs = (lbProduct.images || []).filter(u => u.trim() !== ''); const imgList = validImgs.length > 0 ? validImgs : ['']; const total = imgList.length;
-            const mainImg = document.getElementById('lightboxImg'); mainImg.src = imgList[lbIndex] || getPlaceholderSVG(lbProduct.id); mainImg.onerror = () => { mainImg.src = getPlaceholderSVG(`${lbProduct.id} (${lbIndex + 1}/${total})`); };
-            document.getElementById('lightboxCaption').innerHTML = `<strong>[${escapeHTML(lbProduct.id)}]</strong> ${escapeHTML(lbProduct.title)}`; document.getElementById('lightboxCounter').textContent = `${lbIndex + 1} / ${total}`;
-            document.getElementById('lbPrevBtn').disabled = total <= 1; document.getElementById('lbNextBtn').disabled = total <= 1;
-            const thumbsContainer = document.getElementById('lightboxThumbs'); thumbsContainer.innerHTML = '';
-            if (total > 1) { imgList.forEach((src, idx) => { const thumb = document.createElement('img'); thumb.className = 'lb-thumb' + (idx === lbIndex ? ' active' : ''); thumb.src = src || getPlaceholderSVG(idx + 1); thumb.onerror = () => { thumb.src = getPlaceholderSVG(idx + 1); }; thumb.onclick = () => { lbIndex = idx; resetLightboxZoom(); updateLightboxView(); }; thumbsContainer.appendChild(thumb); }); }
+        function openFromHash() {
+            const id = decodeURIComponent(location.hash.slice(1));
+            if (!id) return;
+            const w = WORKS.find(x => x.id === id);
+            if (w) openWork(w.uid, true);
         }
 
-        window.addEventListener('keydown', (e) => { const lbActive = document.getElementById('lightboxModal').classList.contains('active'); if (lbActive) { if (e.key === 'ArrowLeft') changeLightboxImg(-1); if (e.key === 'ArrowRight') changeLightboxImg(1); if (e.key === 'Escape') closeLightbox(); } else if (e.key === 'Escape') closeModal(); });
-
-        /* modal control */
-        function openModal(uid) {
-            currentProduct = PRODUCTS.find(p => p._uid === uid);
-            if (!currentProduct) return;
-            document.getElementById('modalItemInfo').innerHTML = UI_TEXT[currentLang].modalItem(escapeHTML(currentProduct.id), escapeHTML(currentProduct.title), escapeHTML(currentProduct.price), currentProduct.isFramed);
-            switchQR('jkopay', document.querySelector('#checkoutModal .pay-tab'));
-            document.getElementById('checkoutModal').classList.add('active');
-        }
-        function closeModal() { document.getElementById('checkoutModal').classList.remove('active'); }
-
-        function switchQR(type, btn) {
-            currentQRType = type;
-            document.querySelectorAll('#checkoutModal .pay-tab').forEach(el => el.classList.remove('active'));
-            if (btn) btn.classList.add('active');
-            
-            const data = QR_CODES[type];
-            const imgEl = document.getElementById('qrImage');
-            const linkWrap = document.getElementById('linkWrap');
-            const linkBtn = document.getElementById('linkBtn');
-            
-            if (data.type === 'link') {
-                imgEl.style.display = 'none';
-                linkWrap.style.display = 'block';
-                linkBtn.href = data.url;
-                linkBtn.innerHTML = currentLang === 'en' ? data.btnText_en : (currentLang === 'de' ? data.btnText_de : data.btnText_zh);
-            } else {
-                imgEl.style.display = 'block';
-                linkWrap.style.display = 'none';
-                imgEl.src = formatImageUrl(data.img);
-            }
-            
-            document.getElementById('qrHint').innerHTML = currentLang === 'en' ? data.hint_en : (currentLang === 'de' ? data.hint_de : data.hint_zh);
-        }
-
-        function submitOrder(e) {
-            e.preventDefault();
-            const name = document.getElementById('buyerName').value;
-            const contact = document.getElementById('buyerContact').value;
-            const address = document.getElementById('buyerAddress').value;
-            const note = document.getElementById('buyerPaymentNote').value;
-            const cleanTitle = currentProduct.title.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
-            
-            let subject = encodeURIComponent(`[作品訂購] ${currentProduct.id} ${cleanTitle} - ${name}`);
-            let bodyText = `您好，我已完成付款，以下為訂購資訊：\n\n【訂購作品】[${currentProduct.id}] ${cleanTitle}\n【作品規格】${currentProduct.specs}\n【應付金額】${currentProduct.price}\n【對帳資訊】${note} (若含海外運費請在此備註)\n\n【收件姓名】${name}\n【聯絡方式】${contact}\n【收件地址/門市】${address}\n`;
-
-            if (currentLang === 'en') {
-                subject = encodeURIComponent(`[Artwork Order] ${currentProduct.id} ${cleanTitle} - ${name}`);
-                bodyText = `Hello, I have completed the payment. Here are my order details:\n\n[Artwork] [${currentProduct.id}] ${cleanTitle}\n[Specs] ${currentProduct.specs}\n[Item Price] ${currentProduct.price}\n[Payment Verification] ${note} (Include info if overseas shipping was added)\n\n[Recipient Name] ${name}\n[Contact Info] ${contact}\n[Shipping Address] ${address}\n`;
-            } else if (currentLang === 'de') {
-                subject = encodeURIComponent(`[Kunstwerk-Bestellung] ${currentProduct.id} ${cleanTitle} - ${name}`);
-                bodyText = `Hallo, ich habe die Zahlung abgeschlossen. Hier sind meine Bestelldaten:\n\n[Kunstwerk] [${currentProduct.id}] ${cleanTitle}\n[Spezifikationen] ${currentProduct.specs}\n[Preis] ${currentProduct.price}\n[Zahlungsnachweis] ${note} (inkl. Hinweis, falls internationale Versandkosten hinzugefügt wurden)\n\n[Empfängername] ${name}\n[Kontakt] ${contact}\n[Lieferadresse] ${address}\n`;
-            }
-
-            window.location.href = `mailto:arts.lonp@gmail.com?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
-            closeModal();
-        }
-
-        const backToTopBtn = document.getElementById('backToTop');
-        window.addEventListener('scroll', () => { backToTopBtn.classList.toggle('visible', window.scrollY > 300); });
-
-        // 綁定手風琴收合展開與單一展開互斥監聽
-        const policyItems = document.querySelectorAll('.policy-item');
-        policyItems.forEach(item => {
-            item.addEventListener('toggle', () => {
-                const icon = item.querySelector('.policy-summary-icon');
-                if (icon) {
-                    icon.textContent = item.open ? '[ − ]' : '[ + ]';
-                }
-                if (item.open) {
-                    policyItems.forEach(other => {
-                        if (other !== item && other.open) {
-                            other.open = false;
-                        }
-                    });
-                }
-            });
+        document.getElementById('vClose').addEventListener('click', closeWork);
+        document.getElementById('sPrev').addEventListener('click', () => step(-1));
+        document.getElementById('sNext').addEventListener('click', () => step(1));
+        // 點圖放大，放大後跟著滑鼠移動看細節
+        sImg.addEventListener('click', e => {
+            const r = sImg.getBoundingClientRect();
+            sImg.style.transformOrigin = ((e.clientX - r.left) / r.width * 100) + '% ' + ((e.clientY - r.top) / r.height * 100) + '%';
+            stage.classList.toggle('zoomed');
+        });
+        sImg.addEventListener('mousemove', e => {
+            if (!stage.classList.contains('zoomed')) return;
+            const r = sImg.getBoundingClientRect();
+            // 放大時 rect 是放大後的尺寸，換算回原本比例
+            sImg.style.transformOrigin = Math.min(100, Math.max(0, (e.clientX - r.left) / r.width * 100)) + '% ' + Math.min(100, Math.max(0, (e.clientY - r.top) / r.height * 100)) + '%';
+        });
+        let sx = null;
+        stage.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+        stage.addEventListener('touchend', e => { if (sx === null || stage.classList.contains('zoomed')) { sx = null; return; } const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1); sx = null; });
+        addEventListener('keydown', e => {
+            if (!viewer.classList.contains('open')) return;
+            if (e.key === 'Escape') { if (stage.classList.contains('zoomed')) stage.classList.remove('zoomed'); else closeWork(); }
+            const typing = /INPUT|TEXTAREA/.test(document.activeElement.tagName);
+            if (!typing && e.key === 'ArrowLeft') step(-1);
+            if (!typing && e.key === 'ArrowRight') step(1);
         });
 
-        initShop();
+        /* =========================================
+           結帳
+        ========================================= */
+        function defaultRegion() {
+            const langs = navigator.languages || [navigator.language || ''];
+            let tz = '';
+            try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+            return (tz === 'Asia/Taipei' || langs.some(l => /^zh-(tw|hant)/i.test(l))) ? 'tw' : 'intl';
+        }
+        let region = defaultRegion(), method = null;
+        function payState(key) {
+            const p = PAY[key];
+            if (p.local && Date.now() < TW_LOCAL_OPEN) return { ok: false, en: 'From 1 Jan 2027', zh: '2027/1/1 開放', de: 'Ab 1. Jan. 2027' };
+            if (p.type === 'link' && !/^https:\/\//.test(p.url)) return { ok: false, en: 'Coming soon', zh: '準備中', de: 'Demnächst' };
+            return { ok: true };
+        }
+        function total() { return cur.priceNum + SHIPPING[region]; }
+
+        function renderCheckout() {
+            viewer.classList.add('checkout');
+            const w = cur;
+            // 還不能用的付款方式排到後面
+            const order = PAY_ORDER[region].filter(k => payState(k).ok).concat(PAY_ORDER[region].filter(k => !payState(k).ok));
+            if (!method || !order.includes(method) || !payState(method).ok) method = order.find(k => payState(k).ok) || null;
+            const pausedLocal = region === 'tw' && Date.now() < TW_LOCAL_OPEN;
+
+            panel.innerHTML =
+                '<button type="button" class="back" id="back">← ' + bi('Back to the work', '回到作品') + '</button>'
+                + '<h2 id="pTitle"><span class="work-title-en">' + esc(w.en) + '</span>' + (w.zh ? '<span class="work-title-zh">' + esc(w.zh) + '</span>' : '') + '</h2>'
+
+                + '<div class="co-step"><p class="eyebrow"><span class="no">01</span>' + bi('Shipping to', '寄送地區') + '</p>'
+                + '<div class="choice" role="radiogroup">'
+                + '<label><input type="radio" name="ship" value="tw"' + (region === 'tw' ? ' checked' : '') + '><span>' + bi('Taiwan', '台灣') + '</span><span class="side">' + bi('Free', '免運') + '</span></label>'
+                + '<label><input type="radio" name="ship" value="intl"' + (region === 'intl' ? ' checked' : '') + '><span>' + bi('Outside Taiwan', '台灣以外地區') + '</span><span class="side">+ NT$1,000</span></label>'
+                + '</div>'
+                + '<dl class="summary">'
+                + '<dt>' + bi('Work', '作品') + (w.framed ? ' <small>(' + bi('framed', '含框') + ')</small>' : '') + '</dt><dd>' + esc(money(w.priceNum)) + '</dd>'
+                + '<dt>' + bi('Shipping', '運費') + '</dt><dd>' + (SHIPPING[region] ? money(SHIPPING[region]) : bi('Free', '免運')) + '</dd>'
+                + '<dt class="total">' + bi('Total', '總計') + '</dt><dd class="total">' + money(total()) + '</dd>'
+                + '</dl></div>'
+
+                + '<div class="co-step"><p class="eyebrow"><span class="no">02</span>' + bi('Payment', '付款方式') + '</p>'
+                + '<div class="choice" role="radiogroup">'
+                + order.map(k => {
+                    const p = PAY[k], st = payState(k);
+                    return '<label' + (st.ok ? '' : ' class="off"') + '><input type="radio" name="pay" value="' + k + '"' + (k === method ? ' checked' : '') + (st.ok ? '' : ' disabled') + '><span>' + bi(p.en, p.zh, p.de) + '</span><span class="side">' + (st.ok ? '' : bi(st.en, st.zh, st.de)) + '</span></label>';
+                }).join('')
+                + '</div>'
+                + (pausedLocal ? '<p class="note">' + bi('Taiwanese local payments (JKOPay, LINE Pay, NewebPay) open on 1 January 2027. Until then, please use PayPal, or write to ask about other options.', '台灣本地支付（街口、LINE Pay、藍新）將於 2027/1/1 開放，目前請使用 PayPal，或來信詢問其他付款方式。') + '</p>' : '')
+                + '<div class="pay-box" id="payBox"></div></div>'
+
+                + '<div class="co-step"><p class="eyebrow"><span class="no">03</span>' + bi('Your details', '收件與對帳資訊') + '</p>'
+                + '<form class="form" id="orderForm">'
+                + '<div class="two"><div class="field"><label for="oName">' + bi('Name', '姓名') + ' *</label><input id="oName" autocomplete="name" required></div>'
+                + '<div class="field"><label for="oPhone">' + bi('Phone', '電話') + ' *</label><input id="oPhone" type="tel" autocomplete="tel" required></div></div>'
+                + '<div class="field"><label for="oEmail">' + bi('Email', 'Email', 'E-Mail') + ' *</label><input id="oEmail" type="email" autocomplete="email" required></div>'
+                + '<div class="field"><label for="oAddr">' + bi('Shipping address, with postal code', '收件地址（含郵遞區號）') + ' *</label><textarea id="oAddr" rows="2" autocomplete="street-address" required></textarea></div>'
+                + '<div class="field"><label for="oRef">' + bi('Payment reference', '對帳資訊') + ' *</label><input id="oRef" required placeholder="' + refPlaceholder() + '"></div>'
+                + '<div class="field"><label for="oNote">' + bi('Note (optional)', '備註（選填）') + '</label><textarea id="oNote" rows="2"></textarea></div>'
+                + '<button type="submit" class="btn solid"' + (method ? '' : ' disabled') + '>' + bi('Create order email', '產生訂單信件') + ' <span class="arr">→</span></button>'
+                + '<p class="note" style="margin-top:0">' + bi('Your email app opens with the order filled in; check it and press send. The work is reserved for you once the studio confirms.', '會開啟你的郵件程式並自動帶入訂單，確認後按下寄出。工作室回信確認後即為你保留作品。') + '</p>'
+                + '</form></div>';
+
+            document.getElementById('back').addEventListener('click', () => { renderDetail(); panel.scrollTop = 0; });
+            panel.querySelectorAll('input[name="ship"]').forEach(r => r.addEventListener('change', () => { region = r.value; const y = panel.scrollTop; renderCheckout(); panel.scrollTop = y; }));
+            panel.querySelectorAll('input[name="pay"]').forEach(r => r.addEventListener('change', () => { method = r.value; renderPayBox(); }));
+            document.getElementById('orderForm').addEventListener('submit', submitOrder);
+            renderPayBox();
+            panel.scrollTop = 0; viewer.scrollTop = 0;
+        }
+        function renderPayBox() {
+            const box = document.getElementById('payBox');
+            if (!method) { box.hidden = true; return; }
+            box.hidden = false;
+            const p = PAY[method], amt = '<span class="amt">' + money(total()) + '</span>';
+            if (p.type === 'qr') {
+                box.innerHTML = '<img src="' + esc(p.img) + '" alt="' + esc(p.en) + ' QR code">'
+                    + '<p>' + bi(p.hint_en + ' ' + amt, p.hint_zh + ' ' + amt, p.hint_de + ' ' + amt) + '</p>'
+                    + (p.app ? '<a class="btn" href="' + esc(p.app) + '" target="_blank" rel="noopener">' + bi('Open the app on your phone', '手機請點這裡開啟 App') + ' ↗</a>' : '');
+            } else {
+                box.innerHTML = '<p>' + bi(p.hint_en + ' ' + amt, p.hint_zh + ' ' + amt, p.hint_de + ' ' + amt) + '</p>'
+                    + '<a class="btn solid" href="' + esc(p.url) + '" target="_blank" rel="noopener">' + bi('Pay with ' + p.en, '前往' + p.zh + '付款', 'Mit ' + p.de + ' bezahlen') + ' ↗</a>';
+            }
+        }
+        function submitOrder(e) {
+            e.preventDefault();
+            const w = cur, zh = ui() === 'zh', de = ui() === 'de', p = PAY[method];
+            const v = id => document.getElementById(id).value.trim();
+            const ship = SHIPPING[region];
+            const s = w.specs;
+            const lines = zh ? [
+                '您好，我已完成付款，以下為訂購資訊：', '',
+                '【作品】' + w.zh + '（' + w.en + '）', '【編號】' + w.id,
+                '【規格】' + [s.year, s.medium.zh, s.size.zh, s.edition.zh].filter(Boolean).join('，') + (w.framed ? '，含框' : ''),
+                '【作品金額】' + money(w.priceNum),
+                '【運費】' + (ship ? money(ship) + '（海外）' : '免運（台灣）'),
+                '【總計】' + money(total()),
+                '【付款方式】' + p.zh, '【對帳資訊】' + v('oRef'), '',
+                '【收件人】' + v('oName'), '【電話】' + v('oPhone'), '【Email】' + v('oEmail'), '【地址】' + v('oAddr'),
+                v('oNote') ? '【備註】' + v('oNote') : ''
+            ] : de ? [
+                'Guten Tag, ich habe die Zahlung abgeschlossen. Meine Bestellung:', '',
+                'Werk: ' + w.en + (w.zh ? ' / ' + w.zh : ''), 'Ref.: ' + w.id,
+                'Angaben: ' + [s.year, deTerm(s.medium.en), s.size.en, deTerm(s.edition.en)].filter(Boolean).join(', ') + (w.framed ? ', gerahmt' : ''),
+                'Preis: ' + money(w.priceNum),
+                'Versand: ' + (ship ? money(ship) + ' (international)' : 'kostenlos (Taiwan)'),
+                'Gesamt: ' + money(total()),
+                'Bezahlt mit: ' + p.de, 'Zahlungsreferenz: ' + v('oRef'), '',
+                'Name: ' + v('oName'), 'Telefon: ' + v('oPhone'), 'E-Mail: ' + v('oEmail'), 'Adresse: ' + v('oAddr'),
+                v('oNote') ? 'Anmerkung: ' + v('oNote') : ''
+            ] : [
+                'Hello, I have completed the payment. My order:', '',
+                'Work: ' + w.en + (w.zh ? ' / ' + w.zh : ''), 'Ref.: ' + w.id,
+                'Details: ' + [s.year, s.medium.en, s.size.en, s.edition.en].filter(Boolean).join(', ') + (w.framed ? ', framed' : ''),
+                'Price: ' + money(w.priceNum),
+                'Shipping: ' + (ship ? money(ship) + ' (international)' : 'free (Taiwan)'),
+                'Total: ' + money(total()),
+                'Paid with: ' + p.en, 'Payment reference: ' + v('oRef'), '',
+                'Name: ' + v('oName'), 'Phone: ' + v('oPhone'), 'Email: ' + v('oEmail'), 'Address: ' + v('oAddr'),
+                v('oNote') ? 'Note: ' + v('oNote') : ''
+            ];
+            const text = lines.filter((l, i) => l !== '' || i < lines.length - 1).join('\n').trim();
+            const subject = (zh ? '[作品訂購] ' : de ? '[Bestellung] ' : '[Order] ') + w.id + ' ' + (zh ? w.zh : w.en) + ' — ' + v('oName');
+            location.href = 'mailto:' + STUDIO_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(text);
+
+            panel.innerHTML = '<div class="done">'
+                + '<p class="eyebrow">' + bi('Order email created', '訂單信件已產生') + '</p>'
+                + '<h3>' + bi('Thank you.', '謝謝你。') + '</h3>'
+                + '<p>' + bi('Your email app should now show the order. Please check it and send it to ', '郵件程式應該已經開啟並帶入訂單，請確認後寄出到 ')
+                + '<a class="link" href="mailto:' + STUDIO_EMAIL + '">' + STUDIO_EMAIL + '</a>'
+                + bi('. If nothing opened, copy the details below into an email.', '。如果沒有開啟，請複製下面的內容寄出。') + '</p>'
+                + '<pre id="orderText"></pre>'
+                + '<div class="actions"><button type="button" class="btn" id="copyOrder">' + bi('Copy order details', '複製訂單內容') + '</button>'
+                + '<button type="button" class="btn" id="doneClose">' + bi('Back to available works', '回到作品列表') + '</button></div></div>';
+            document.getElementById('orderText').textContent = 'To: ' + STUDIO_EMAIL + '\nSubject: ' + subject + '\n\n' + text;
+            document.getElementById('copyOrder').addEventListener('click', ev => {
+                const b = ev.currentTarget;
+                const ok = () => { b.innerHTML = bi('Copied', '已複製'); };
+                if (navigator.clipboard) navigator.clipboard.writeText(document.getElementById('orderText').textContent).then(ok, () => {});
+            });
+            document.getElementById('doneClose').addEventListener('click', closeWork);
+            panel.scrollTop = 0; viewer.scrollTop = 0;
+        }
+
+        addEventListener('hashchange', openFromHash);
+        setUi(ui());
+        load();
     </script>
 </body>
 </html>

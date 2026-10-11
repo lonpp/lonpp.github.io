@@ -1,1275 +1,1092 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>lonlon 冷冷</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>lonlon 冷冷 — Artist</title>
+    <meta name="description" content="lonlon 冷冷 is an artist based in Taipei working across moving image, performance and water-based woodblock printmaking. Works shown in Athens, Venice, Zurich, Yogyakarta and Taipei.">
+    <meta name="theme-color" content="#f5f4f0">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="lonlon 冷冷 — Artist">
+    <meta property="og:description" content="Moving image, performance and water-based woodblock printmaking. Based in Taipei.">
+    <link rel="canonical" href="https://lonp.pages.dev/">
+    <meta property="og:url" content="https://lonp.pages.dev/">
+    <meta property="og:image" content="https://lonp.pages.dev/images/works/wind-continues-in-motion.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "lonlon",
+        "alternateName": "冷冷",
+        "jobTitle": "Artist",
+        "url": "https://lonp.pages.dev/",
+        "email": "mailto:arts.lonp@gmail.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Taipei", "addressCountry": "TW" },
+        "sameAs": ["https://instagram.com/arts.lonlon"]
+    }
+    </script>
+    <script>
+        // 介面語言：自己選過的 > 瀏覽器語言清單裡第一個中文／德文／英文 > 英文
+        (function () {
+            var pick = null, ui = null;
+            try { pick = localStorage.getItem('lon-lang'); } catch (e) {}
+            if (pick === 'zh' || pick === 'en' || pick === 'de') ui = pick;
+            var langs = navigator.languages || [navigator.language || ''];
+            for (var i = 0; !ui && i < langs.length; i++) {
+                var m = String(langs[i]).toLowerCase().match(/^(zh|de|en)/);
+                if (m) ui = m[1];
+            }
+            ui = ui || 'en';
+            document.documentElement.className = 'ui-' + ui + ' js';
+            document.documentElement.lang = ui === 'zh' ? 'zh-Hant-TW' : ui;
+            // 字型非同步載入，連不上也不會卡住畫面
+            var l = document.createElement('link');
+            l.rel = 'stylesheet';
+            l.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@400;500&display=swap';
+            document.head.appendChild(l);
+        })();
+    </script>
     <style>
-        /* reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* =========================================
+           lonlon 冷冷 — artist site
+           白牆展間：紙白底、墨黑字、版畫的群青藍做點綴。
+        ========================================= */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --bg-color: #000000;
-            --text-color: #ffffff;
-            --border-color: #ffffff;
-            --border-heavy: 3px solid #ffffff;
-            --border-light: 1px solid #333333;
-            /* 彈窗按鈕專用統一色系：炭黑與淺灰立體陰影 */
-            --charcoal-black: #252525;
-            --charcoal-hover: #151515;
-            --brutal-shadow: #c4c4c4;
+            --paper: #f5f4f0;
+            --paper-2: #ecebe5;
+            --wall: #e6e3dc;
+            --ink: #161616;
+            --ink-2: #3a3a3a;
+            --muted: #6e6c67;
+            --rule: #d9d6ce;
+            --accent: #23408e;      /* 版畫的群青 */
+            --sold: #b8322a;        /* 已售紅點 */
+            --sans: 'Inter', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', system-ui, -apple-system, sans-serif;
+            --serif: 'Newsreader', 'Noto Serif TC', 'Songti TC', Georgia, serif;
+            --wrap: 1240px;
+            --pad: clamp(1.25rem, 4vw, 3rem);
+            --header-h: 64px;
         }
-
-        html {
-            scroll-behavior: smooth;
-            overflow-y: scroll; /* 強制隨時顯示垂直捲軸，消弭因捲軸出現/消失造成的畫面跳動 */
-        }
-
+        html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 16px); -webkit-text-size-adjust: 100%; }
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Courier New', Courier, 'PingFang TC', 'SF Pro TC', 'Microsoft JhengHei Light', 'Microsoft JhengHei', sans-serif;
-            font-weight: 300;
-            line-height: 1.6;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: var(--sans);
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.65;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            padding-bottom: 5vh;
             overflow-x: clip;
         }
+        img { display: block; max-width: 100%; }
+        a { color: inherit; text-decoration: none; }
+        button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+        :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+        ::selection { background: var(--accent); color: #fff; }
 
-        a {
-            color: var(--text-color);
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
+        /* 語言：英文與中文並存於 HTML；德文寫在英文元素的 data-de，切到 DE 時替換 */
+        html.ui-zh body [lang="en"], html.ui-zh body [lang="de"] { display: none !important; }
+        html.ui-en body [lang="zh-Hant"], html.ui-en body [lang="de"] { display: none !important; }
+        html.ui-de body [lang="zh-Hant"], html.ui-de body .has-de { display: none !important; }
 
-        .desktop-br { display: inline; }
-        .desktop-br-hint { display: inline; }
-
-        /* 響應式顯隱輔助類 */
-        .desktop-only { display: block; }
-        .mobile-only { display: none; }
-
-        /* -------------------------------------
-           support banner (外層贊助與商店橫幅)
-        -------------------------------------- */
-        .support-banner {
-            position: -webkit-sticky;
-            position: sticky;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            width: 100%;
-            border-bottom: 2px solid var(--border-color);
-            padding: 1.2rem 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            background-color: var(--text-color);
-            color: var(--bg-color);
-            font-weight: bold;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
-        }
-
-        .banner-title {
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            margin-bottom: 0.2rem;
-        }
-
-        /* 橫幅三個按鈕容器：等高等寬配置 */
-        .link-group {
-            display: flex;
-            align-items: stretch;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-            width: 100%;
-            max-width: 480px;
-        }
-
-        /* 外層按鈕基本款：純黑底白字 (#000000) */
-        .brutal-btn {
-            flex: 1 1 0px;
-            min-width: 0;
-            height: 34px;
-            background-color: #000000;
-            color: #ffffff;
-            border: 2px solid #000000;
-            padding: 0.25rem 0.8rem;
-            font-family: inherit;
-            font-size: 0.9rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 3px 3px 0px #000000;
-            transition: transform 0.1s, box-shadow 0.1s, background-color 0.1s;
-            white-space: nowrap;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            box-sizing: border-box;
-        }
-
-        .brutal-btn:hover {
-            transform: translate(2px, 2px);
-            box-shadow: 1px 1px 0px #000000;
-            background-color: #222222;
-            color: #ffffff;
-        }
-
-        .brutal-btn:active {
-            transform: translate(3px, 3px);
-            box-shadow: 0px 0px 0px #000000;
-        }
-
-        /* shop 商店專屬顏色：反相白底、純黑邊框與硬陰影 */
-        .shop-banner-btn {
-            background-color: #ffffff !important;
-            color: #000000 !important;
-            border: 2px solid #000000 !important;
-            box-shadow: 3px 3px 0px #000000 !important;
-            text-decoration: none;
-        }
-
-        .shop-banner-btn:hover {
-            background-color: #000000 !important;
-            color: #ffffff !important;
-            transform: translate(2px, 2px);
-            box-shadow: 1px 1px 0px #000000 !important;
-        }
-
-        .shop-banner-btn:active {
-            transform: translate(3px, 3px);
-            box-shadow: 0px 0px 0px #000000 !important;
-        }
-
-        /* -------------------------------------
-           layout (置中主欄位)
-        -------------------------------------- */
-        .container {
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 3rem 2rem 2rem 2rem;
-            display: flex;
-            justify-content: center;
-        }
-
-        /* -------------------------------------
-           導覽按鈕列
-        -------------------------------------- */
-        .nav-wrapper {
-            margin-top: 3rem;
-            margin-bottom: 5rem;
-            width: 100%;
-        }
-
-        .social-links {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: stretch;
-            border-top: none;
-            border-bottom: none;
-            width: 100%;
-            gap: 0;
-        }
-
-        .social-links a {
-            flex: 1;
-            padding: 0.8rem 0.2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: background-color 0.15s ease, color 0.15s ease;
-            cursor: pointer;
-            font-size: 0.95rem;
-            border-bottom: none;
-            margin: 0;
-        }
-
-        .social-links a:hover, .social-links a.active {
-            background-color: var(--charcoal-black);
-            color: #ffffff;
-        }
-
-        .link-label {
-            font-family: inherit;
-            white-space: nowrap;
-        }
-
-        .social-links .link-middle {
-            display: none;
-        }
-
-        .arrow {
-            display: none !important;
-        }
-
-        /* -------------------------------------
-           中間內容區塊
-        -------------------------------------- */
-        main {
-            max-width: 680px;
-            width: 100%;
-            min-width: 0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .page-tab {
-            display: none;
-            width: 100%;
-            min-width: 0;
-            animation: fadeIn 0.25s ease-in-out;
-        }
-
-        .page-tab.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(4px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .tab-header {
-            margin-top: 0;
-            margin-bottom: 4rem;
-            display: flex;
-            flex-direction: column;
-            gap: 3.2rem;
-            width: 100%;
-            height: auto;
-        }
-
-        .tab-back-bar {
-            height: 1.5rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .tab-back-btn {
-            font-size: 0.9rem;
-            opacity: 0.6;
-            cursor: pointer;
-            transition: opacity 0.2s ease;
-        }
-        .tab-back-btn:hover {
-            opacity: 1;
-        }
-
-        .page-title {
-            font-size: 2.3rem;
-            font-weight: normal;
-            letter-spacing: 2px;
-            line-height: 1.1;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            text-align: left;
-            display: grid;
-            grid-template-columns: 185px auto;
-            align-items: baseline;
-        }
-
-        .page-title .title-en {
-            white-space: nowrap;
-        }
-
-        .page-title .title-zh {
-            white-space: nowrap;
-            letter-spacing: 0.25em;
-        }
-
-        /* -------------------------------------
-           自我介紹 (Statement)
-        -------------------------------------- */
-        .statement {
-            font-size: 1rem;
-            line-height: 2;
-            letter-spacing: 0.5px;
-            text-align: left;
-            width: 100%;
-            border-left: none;
-            padding-left: 0;
-            font-weight: 300;
-            word-break: break-word;
-            overflow-wrap: break-word;
-        }
-
-        .statement p {
-            margin-bottom: 1.5rem;
-            opacity: 0.9;
-            text-align: left;
-        }
-
-        .lang-btn {
-            opacity: 0.4;
-            transition: opacity 0.2s ease;
-            cursor: pointer;
-        }
-        .lang-btn:hover, .lang-btn.active { opacity: 1; }
-
-        .lang-section, .greeting { display: none; }
-        .lang-section.active { display: block; }
-        .greeting.active { display: inline; }
-
-        /* -------------------------------------
-           CV 跡 內頁樣式
-        -------------------------------------- */
-        .cv-container {
-            display: flex;
-            flex-direction: column;
-            gap: 4rem;
-            word-break: break-word;
-            overflow-wrap: break-word;
-        }
-        .cv-statement {
-            font-size: 1rem;
-            line-height: 1.8;
-            opacity: 0.9;
-        }
-        .statement-en {
-            display: block;
-            font-size: 0.88rem;
-            opacity: 0.65;
-            line-height: 1.6;
-            margin-top: 0.3rem;
-        }
-        .cv-section {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-        .section-title {
-            font-size: 0.85rem;
+        .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--pad); }
+        .eyebrow {
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.16em;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            padding-bottom: 0.8rem;
-            display: block;
-            width: 100%;
-            opacity: 0.6;
+            color: var(--muted);
         }
-        .cv-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-        .cv-item {
-            display: grid;
-            grid-template-columns: 140px 1fr;
-            gap: 2rem;
-            align-items: baseline;
-        }
-        .year {
-            font-weight: 300;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            opacity: 0.6;
-        }
-        .details h3 {
-            font-size: 1.05rem;
-            font-weight: normal;
-            letter-spacing: 0.5px;
-            line-height: 1.4;
-            margin-bottom: 0.3rem;
-        }
-        .details p {
-            font-size: 0.9rem;
-            opacity: 0.7;
-            font-weight: 300;
-            line-height: 1.6;
-        }
+        .work-title-en { font-family: var(--serif); font-style: italic; font-weight: 400; }
+        .work-title-zh { font-family: var(--serif); font-weight: 400; }
+        .skip { position: absolute; left: -999px; top: 0; background: var(--ink); color: #fff; padding: 0.5rem 1rem; z-index: 100; }
+        .skip:focus { left: 1rem; top: 1rem; }
 
-        /* -------------------------------------
-           INFO 訊 內頁樣式
-        -------------------------------------- */
-        .info-container {
-            display: flex;
-            flex-direction: column;
-            gap: 3.5rem;
-            word-break: break-word;
-            overflow-wrap: break-word;
+        /* ---------- header ---------- */
+        .site-header {
+            position: sticky; top: 0; z-index: 50;
+            background: rgba(245, 244, 240, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s;
         }
-        .info-social-links {
-            display: flex;
-            flex-direction: column;
-            font-size: 1rem;
-        }
-        .info-social-links > a {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 0.8rem 0;
-            display: grid;
-            grid-template-columns: 100px 1fr;
-            align-items: center;
-            transition: all 0.2s ease;
-        }
-        .info-social-links > a:hover {
-            background-color: var(--text-color);
-            color: var(--bg-color);
-            padding-left: 0.5rem;
-            padding-right: 0.5rem;
-        }
-        .newsletter-section {
-            margin-top: 1rem;
-            padding-top: 2.5rem;
-            border-top: 1px dashed rgba(255, 255, 255, 0.3);
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-            max-width: 650px;
-        }
-        .nl-zh { font-size: 0.9rem; opacity: 0.9; }
-        .nl-en { font-size: 0.8rem; opacity: 0.6; }
-        .nl-form { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
-        .nl-form input {
-            flex: 1; background: transparent; border: 1px solid #cbcbcb; color: var(--text-color);
-            padding: 0.6rem 0.8rem; font-family: inherit; font-size: 0.85rem;
-        }
-        .nl-form input:focus { outline: none; border-color: var(--text-color); background: rgba(255, 255, 255, 0.05); }
-        .nl-form button {
-            background: #000000; color: #ffffff; border: 2px solid #ffffff; padding: 0.6rem 1.2rem;
-            font-family: inherit; font-size: 0.85rem; font-weight: bold; cursor: pointer; box-shadow: 3px 3px 0px #ffffff; transition: all 0.1s ease;
-        }
-        .nl-form button:hover { background: #ffffff; color: #000000; transform: translate(2px, 2px); box-shadow: 1px 1px 0px #ffffff; }
+        .site-header.scrolled { border-bottom-color: var(--rule); }
+        .header-inner { height: var(--header-h); display: flex; align-items: center; gap: 2rem; }
+        .brand { display: inline-flex; align-items: baseline; gap: 0.55rem; font-size: 1.05rem; font-weight: 500; letter-spacing: 0.02em; white-space: nowrap; }
+        .brand .zh { font-family: var(--serif); font-weight: 400; color: var(--muted); }
+        .site-nav { display: flex; gap: 1.75rem; margin-left: auto; font-size: 0.86rem; }
+        .site-nav a { position: relative; color: var(--ink-2); padding: 0.4rem 0; white-space: nowrap; }
+        .site-nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0.15rem; height: 1px; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform 0.25s ease; }
+        .site-nav a:hover::after, .site-nav a.is-active::after { transform: scaleX(1); }
+        .site-nav a.is-active { color: var(--ink); }
+        .lang-toggle { display: inline-flex; gap: 0.15rem; font-size: 0.78rem; letter-spacing: 0.06em; }
+        .lang-toggle button { padding: 0.35rem 0.4rem; color: var(--muted); min-height: 36px; }
+        .lang-toggle button[aria-pressed="true"] { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
 
-        /* -------------------------------------
-           WORKS / SOUND / GAMES 內頁樣式
-        -------------------------------------- */
-        .generic-tab-container {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 2.5rem;
-            width: 100%;
-            min-width: 0;
-            box-sizing: border-box;
+        /* ---------- hero ---------- */
+        .hero { padding: clamp(3rem, 8vw, 6.5rem) 0 clamp(3rem, 7vw, 5.5rem); }
+        .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(2rem, 6vw, 5.5rem); align-items: center; }
+        .hero h1 { font-family: var(--serif); font-weight: 300; font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 1.02; letter-spacing: -0.01em; }
+        .hero h1 .zh { display: block; font-size: 0.5em; color: var(--muted); margin-top: 0.6rem; letter-spacing: 0.2em; }
+        .hero-lede { margin-top: 2rem; font-size: clamp(1.02rem, 1.6vw, 1.2rem); line-height: 1.7; color: var(--ink-2); max-width: 30em; }
+        .hero-actions { margin-top: 2.4rem; display: flex; flex-wrap: wrap; gap: 0.8rem; }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+            min-height: 46px; padding: 0.7rem 1.4rem;
+            border: 1px solid var(--ink);
+            font-size: 0.86rem; font-weight: 500; letter-spacing: 0.04em;
+            transition: background-color 0.2s, color 0.2s, border-color 0.2s;
         }
-        .generic-tab-container p {
-            opacity: 0.9;
-            line-height: 1.9;
-            word-break: break-word;
-            overflow-wrap: break-word;
-            max-width: 100%;
-        }
-        .tab-action-btn {
-            display: inline-block;
-            width: 100%;
-            padding: 0.8rem 1.4rem;
-            white-space: normal;
-            line-height: 1.5;
-            max-width: 100%;
-            box-sizing: border-box;
-            word-break: break-word;
-            height: auto;
-        }
+        .btn:hover { background: var(--ink); color: var(--paper); }
+        .btn.solid { background: var(--ink); color: var(--paper); }
+        .btn.solid:hover { background: var(--accent); border-color: var(--accent); }
+        .btn .arr { transition: transform 0.2s; }
+        .btn:hover .arr { transform: translateX(3px); }
+        .hero-figure { margin: 0; }
+        .hero-figure .frame { background: var(--wall); aspect-ratio: 653 / 737; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .hero-figure img { width: 100%; height: 100%; object-fit: cover; }
+        .caption { margin-top: 0.8rem; font-size: 0.78rem; line-height: 1.5; color: var(--muted); }
+        .caption i { font-family: var(--serif); font-size: 0.9rem; color: var(--ink-2); }
 
-        /* -------------------------------------
-           底部欄位
-        -------------------------------------- */
-        footer {
-            width: 100%;
-            margin-top: 8rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            font-size: 0.85rem;
-            opacity: 0.6;
-            text-align: left;
-            font-weight: 300;
-        }
+        /* ---------- sections ---------- */
+        .section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; border-top: 1px solid var(--rule); }
+        .section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 1rem 2rem; margin-bottom: clamp(2rem, 4vw, 3.2rem); }
+        .section-head h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(1.9rem, 3.6vw, 2.8rem); line-height: 1.1; }
+        .section-head h2 .zh { font-size: 0.55em; color: var(--muted); margin-left: 0.8rem; letter-spacing: 0.2em; }
 
-        /* -------------------------------------
-           support modal (炭黑 + 淺灰硬陰影)
-        -------------------------------------- */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            z-index: 2000;
+        /* ---------- works ---------- */
+        .filters { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; font-size: 0.86rem; }
+        .filters button { color: var(--muted); padding: 0.3rem 0; min-height: 36px; border-bottom: 1px solid transparent; }
+        .filters button:hover { color: var(--ink); }
+        .filters button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+        .works-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 3.4rem) clamp(1.4rem, 3vw, 2.4rem); }
+        .work[hidden] { display: none; }
+        .work-btn { display: block; width: 100%; text-align: left; }
+        .work-media {
+            position: relative;
+            aspect-ratio: 4 / 5;
+            background: var(--wall);
+            overflow: hidden;
+        }
+        .work-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(.2,.7,.2,1); }
+        .work-btn:hover .work-media img { transform: scale(1.025); }
+        /* 大圖區只放實體作品：整張照片完整放在同一片牆色底上，框不會被裁切，三件大小一致（與收藏頁相同） */
+        .works-grid .work-media { display: flex; align-items: center; justify-content: center; padding: 9%; }
+        .works-grid .work-media img { object-fit: contain; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.12)); }
+        /* 影片是 2.35:1 寬銀幕，YouTube 縮圖上下有黑邊：放大裁掉 */
+        .work-media.video { background: #111; }
+        .work-media.video img { transform: scale(1.33); }
+        .work-btn:hover .work-media.video img { transform: scale(1.37); }
+        .work-media .badge {
+            position: absolute; left: 0.8rem; top: 0.8rem;
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            background: rgba(245, 244, 240, 0.92);
+            padding: 0.3rem 0.6rem;
+            font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+        }
+        .work-media .badge .tri { width: 0; height: 0; border-left: 7px solid var(--ink); border-top: 4.5px solid transparent; border-bottom: 4.5px solid transparent; }
+        /* 沒有圖片的作品：用文字當作品牌卡 */
+        .work-media.text {
+            display: flex; flex-direction: column; justify-content: space-between;
+            padding: clamp(1.2rem, 2.5vw, 1.8rem);
+            background: var(--paper-2);
+            border: 1px solid var(--rule);
+            transition: background-color 0.3s;
+        }
+        .work-btn:hover .work-media.text { background: var(--wall); }
+        .work-media.text .t-en { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1.15; }
+        .work-media.text .t-zh { font-family: var(--serif); font-size: 1.05rem; color: var(--muted); margin-top: 0.6rem; letter-spacing: 0.15em; }
+        .work-media.text .t-meta { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+        .work-info { margin-top: 1rem; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.15rem 1rem; }
+        .work-info .t { font-size: 1.02rem; line-height: 1.35; }
+        .work-info .t .work-title-zh { display: block; font-size: 0.92rem; color: var(--muted); margin-top: 0.15rem; }
+        .work-info .y { font-size: 0.84rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+        .work-info .m { grid-column: 1 / -1; font-size: 0.84rem; color: var(--muted); }
+        .work-info .avail { grid-column: 1 / -1; display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.78rem; color: var(--accent); margin-top: 0.2rem; }
+        .work-info .avail::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+        .work-detail { display: none; }
+
+        /* ---------- 文字清單（沒有圖片的作品） ---------- */
+        .index-head { margin-top: clamp(3.5rem, 7vw, 5.5rem); padding-bottom: 0.9rem; border-bottom: 1px solid var(--ink); }
+        .index-head[hidden] { display: none; }
+        .works-index .work { border-bottom: 1px solid var(--rule); }
+        .works-index .work-media { display: none; }
+        .works-index .work-btn { padding: 1.35rem 0; transition: background-color 0.25s, padding 0.25s; }
+        .works-index .work-btn:hover { background: var(--paper-2); padding-left: 0.9rem; padding-right: 0.9rem; }
+        .works-index .work-info { margin: 0; grid-template-columns: 5.5rem minmax(0, 1.5fr) minmax(0, 1fr) 1.5rem; align-items: baseline; gap: 0.2rem 1.5rem; }
+        .works-index .work-info .y { order: -1; font-size: 0.9rem; }
+        .works-index .work-info .t { font-size: clamp(1.15rem, 1.7vw, 1.4rem); }
+        .works-index .work-info .t .work-title-zh { font-size: 0.95rem; }
+        .works-index .work-info .m { grid-column: auto; font-size: 0.88rem; }
+        .works-index .work-info::after { content: '→'; color: var(--muted); text-align: right; transition: transform 0.25s, color 0.25s; }
+        .works-index .work-btn:hover .work-info::after { color: var(--ink); transform: translateX(3px); }
+
+        /* ---------- CV ---------- */
+        .cv-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem 2rem; align-items: baseline; }
+        .cv-intro { color: var(--ink-2); max-width: 36em; }
+        .cv-block { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 1rem 2rem; padding: 2rem 0; border-top: 1px solid var(--rule); }
+        .cv-block:first-of-type { border-top: none; }
+        .cv-block h3 { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); padding-top: 0.3rem; }
+        .cv-list { list-style: none; display: flex; flex-direction: column; gap: 1.1rem; }
+        .cv-list li { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1.2rem; }
+        .cv-list .yr { font-size: 0.9rem; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+        .cv-list .what { font-size: 0.98rem; line-height: 1.55; }
+        .cv-list .what .work-title-en { font-size: 1.05rem; }
+        .cv-list .where { display: block; font-size: 0.88rem; color: var(--muted); margin-top: 0.15rem; }
+
+        /* ---------- about ---------- */
+        .about-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 5rem); }
+        .statement p { font-size: clamp(1.05rem, 1.5vw, 1.18rem); line-height: 1.8; color: var(--ink-2); }
+        .statement p + p { margin-top: 1.2rem; }
+        .facts { list-style: none; border-top: 1px solid var(--rule); }
+        .facts li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--rule); font-size: 0.92rem; }
+        .facts .k { color: var(--muted); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; padding-top: 0.15rem; }
+        .facts a { border-bottom: 1px solid var(--rule); }
+        .facts a:hover { border-bottom-color: var(--ink); }
+
+        /* ---------- contact ---------- */
+        .contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(2rem, 6vw, 5rem); }
+        .contact-lede { font-size: clamp(1.05rem, 1.5vw, 1.2rem); line-height: 1.7; color: var(--ink-2); }
+        .contact-mail { display: inline-block; margin-top: 1.6rem; font-family: var(--serif); font-size: clamp(1.4rem, 2.6vw, 2rem); border-bottom: 1px solid var(--ink); line-height: 1.3; word-break: break-all; }
+        .contact-mail:hover { color: var(--accent); border-bottom-color: var(--accent); }
+        .contact-meta { margin-top: 1.6rem; font-size: 0.9rem; color: var(--muted); }
+        .contact-meta a { color: var(--ink); border-bottom: 1px solid var(--rule); }
+        .form { display: grid; gap: 1.1rem; }
+        .field { display: grid; gap: 0.4rem; }
+        .field label { font-size: 0.74rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+        .field input, .field select, .field textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--rule);
+            padding: 0.6rem 0;
+            font: inherit; font-size: 16px;
+            color: var(--ink);
+            border-radius: 0;
+            transition: border-color 0.2s;
+        }
+        .field select { appearance: none; -webkit-appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%); background-position: calc(100% - 10px) 55%, calc(100% - 5px) 55%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 1.5rem; }
+        .field textarea { resize: vertical; min-height: 6rem; }
+        .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-bottom-color: var(--ink); }
+        .two { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+        .form-note { font-size: 0.8rem; color: var(--muted); }
+        .mailing { margin-top: 2.4rem; padding-top: 1.6rem; border-top: 1px solid var(--rule); font-size: 0.9rem; color: var(--muted); }
+        .mailing a { color: var(--ink); border-bottom: 1px solid var(--rule); }
+
+        /* ---------- footer ---------- */
+        .site-footer { border-top: 1px solid var(--rule); padding: 2.2rem 0 2.6rem; font-size: 0.82rem; color: var(--muted); }
+        .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem 2rem; }
+        .footer-inner nav { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; }
+        .footer-inner a:hover { color: var(--ink); }
+
+        /* ---------- work dialog ---------- */
+        .viewer {
+            position: fixed; inset: 0; z-index: 200;
+            background: var(--paper);
             display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 1.5rem;
-            overflow-y: auto;
-            color: #000;
+            grid-template-columns: minmax(0, 1.5fr) minmax(320px, 1fr);
+            grid-template-rows: auto minmax(0, 1fr);
+        }
+        .viewer.open { display: grid; }
+        .viewer-bar { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: var(--header-h); padding: 0 var(--pad); border-bottom: 1px solid var(--rule); }
+        .viewer-bar .count { font-size: 0.82rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+        .viewer-close { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 40px; font-size: 0.86rem; }
+        .viewer-close .x { font-size: 1.3rem; line-height: 1; }
+        .viewer-stage { position: relative; background: var(--wall); display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 0; padding: clamp(1rem, 4vw, 3rem); }
+        .viewer-stage img { max-width: 100%; max-height: 100%; object-fit: contain; user-select: none; -webkit-user-drag: none; }
+        .viewer-stage .text-plate { max-width: 34rem; text-align: center; }
+        .viewer-stage .text-plate .t-en { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.1; }
+        .viewer-stage .text-plate .t-zh { font-family: var(--serif); font-size: 1.2rem; color: var(--muted); margin-top: 1rem; letter-spacing: 0.2em; }
+        /* 影片：先顯示封面，按下才載入 YouTube */
+        .play { position: relative; display: block; padding: 0; cursor: pointer; }
+        .play::after { content: ''; position: absolute; left: 50%; top: 50%; width: 76px; height: 76px; margin: -38px 0 0 -38px; border-radius: 50%; background: rgba(245, 244, 240, 0.9) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7l9 5-9 5z' fill='%23161616'/%3E%3C/svg%3E") center / 34px no-repeat; transition: transform 0.2s; }
+        .play:hover::after { transform: scale(1.08); }
+        .video-box { position: relative; width: 100%; aspect-ratio: 2.333 / 1; background: #111; overflow: hidden; }
+        .video-box .play, .video-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+        .video-box .play img { width: 100%; height: 100%; max-width: none; max-height: none; object-fit: cover; }
+        #stageContent { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        #stageContent .video-box { width: min(100%, 1100px); }
+        .reel { margin: 0 0 clamp(2.6rem, 5vw, 4rem); }
+        .reel[hidden] { display: none; }
+        .reel-cap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.3rem 2rem; margin-top: 0.9rem; font-size: 0.86rem; color: var(--muted); }
+        .reel-cap i { font-family: var(--serif); font-size: 0.95rem; color: var(--ink-2); }
+        .stage-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; background: rgba(245, 244, 240, 0.85); font-size: 1.1rem; }
+        .stage-nav:hover { background: var(--paper); }
+        .stage-nav.prev { left: 1rem; } .stage-nav.next { right: 1rem; }
+        .stage-nav[hidden] { display: none; }
+        .thumbs { position: absolute; left: 0; right: 0; bottom: 1rem; display: flex; justify-content: center; gap: 0.5rem; }
+        .thumbs button { width: 8px; height: 8px; border-radius: 50%; background: rgba(22, 22, 22, 0.25); padding: 0; min-height: 0; }
+        .thumbs button[aria-current="true"] { background: var(--ink); }
+        .viewer-text { overflow-y: auto; padding: clamp(1.5rem, 4vw, 3rem) var(--pad); border-left: 1px solid var(--rule); }
+        .viewer-text h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(1.7rem, 2.6vw, 2.3rem); line-height: 1.15; }
+        .viewer-text h2 .work-title-zh { display: block; font-size: 0.6em; color: var(--muted); margin-top: 0.5rem; letter-spacing: 0.15em; }
+        .viewer-text .spec { margin-top: 1.4rem; display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 0.55rem 1rem; font-size: 0.92rem; }
+        .viewer-text .spec dt { color: var(--muted); font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 0.15rem; }
+        .viewer-text .history { margin-top: 1.8rem; padding-top: 1.4rem; border-top: 1px solid var(--rule); }
+        .viewer-text .history ul { list-style: none; margin-top: 0.7rem; display: grid; gap: 0.5rem; font-size: 0.92rem; }
+        .viewer-text .actions { margin-top: 2rem; display: grid; gap: 0.6rem; }
+        .viewer-text .note { margin-top: 1rem; font-size: 0.8rem; color: var(--muted); }
+
+        /* ---------- reveal ---------- */
+        .js .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .js .reveal.in { opacity: 1; transform: none; }
+
+        /* ---------- responsive ---------- */
+        @media (max-width: 980px) {
+            .works-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .works-index .work-info { grid-template-columns: 4rem minmax(0, 1fr) 1.2rem; }
+            .works-index .work-info .m { grid-column: 2; grid-row: 2; }
+            .works-index .work-info::after { grid-column: 3; grid-row: 1; }
+            .cv-block { grid-template-columns: 1fr; gap: 1rem; }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 760px) {
+            :root { --header-h: 56px; }
+            /* backdrop-filter 會讓 fixed 的子元素跟著 header 走，手機版底部導覽要拿掉 */
+            .site-header { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(245, 244, 240, 0.97); }
+            .header-inner { gap: 1rem; }
+            .site-nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; justify-content: space-around; gap: 0; margin: 0; padding: 0.3rem 0.5rem calc(0.3rem + env(safe-area-inset-bottom)); background: rgba(245, 244, 240, 0.96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid var(--rule); font-size: 0.8rem; }
+            .site-nav a { padding: 0.65rem 0.4rem; }
+            .site-nav a::after { bottom: 0.4rem; }
+            .lang-toggle { margin-left: auto; }
+            body { padding-bottom: calc(56px + env(safe-area-inset-bottom)); }
+            .hero-grid { grid-template-columns: 1fr; }
+            .hero-figure { order: -1; }
+            .hero-figure .frame { aspect-ratio: 4 / 4.2; }
+            .works-grid { grid-template-columns: minmax(0, 1fr); }
+            .cv-list li { grid-template-columns: 4rem minmax(0, 1fr); gap: 0.8rem; }
+            .cv-list .yr { font-size: 0.84rem; }
+            .facts li { grid-template-columns: 6rem minmax(0, 1fr); }
+            .two { grid-template-columns: 1fr; }
+            .viewer { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 55vh) minmax(0, 1fr); }
+            .viewer-text { border-left: none; border-top: 1px solid var(--rule); }
+            .stage-nav { width: 40px; height: 40px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .js .reveal { opacity: 1; transform: none; transition: none; }
+            *, *::before, *::after { transition-duration: 0.01ms !important; }
         }
 
-        .modal-overlay.active { display: flex; }
-
-        .modal-box {
-            background-color: #ffffff;
-            color: #000000;
-            border: 3px solid var(--charcoal-black);
-            box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.9);
-            max-width: 520px;
-            width: 100%;
-            padding: 2rem;
-            max-height: 88vh;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+        /* ---------- 列印：只印 CV（「下載 CV」按鈕用） ---------- */
+        @media print {
+            @page { margin: 18mm 16mm; }
+            body { background: #fff; font-size: 10.5pt; padding: 0; }
+            body.print-cv .site-header, body.print-cv .site-nav, body.print-cv main > section:not(#cv), body.print-cv .site-footer, body.print-cv .viewer, body.print-cv .no-print { display: none !important; }
+            body.print-cv #cv { border-top: none; padding: 0; }
+            body.print-cv .print-head { display: block !important; margin-bottom: 8mm; }
+            .js .reveal { opacity: 1 !important; transform: none !important; }
+            .cv-block { grid-template-columns: 38mm 1fr; padding: 4mm 0; break-inside: avoid; }
+            a { color: inherit; }
         }
-
-        .modal-box::-webkit-scrollbar { width: 8px; }
-        .modal-box::-webkit-scrollbar-track { background: #f0f0f0; border-left: 1px solid var(--charcoal-black); }
-        .modal-box::-webkit-scrollbar-thumb { background: var(--charcoal-black); }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            border-bottom: 2px solid var(--charcoal-black);
-            padding-bottom: 0.8rem;
-            font-weight: bold;
-            font-size: 1.05rem;
-        }
-
-        .close-btn {
-            background-color: #ffffff;
-            border: 2px solid var(--charcoal-black);
-            color: var(--charcoal-black);
-            font-family: inherit;
-            font-size: 0.9rem;
-            font-weight: 900;
-            padding: 0.25rem 0.65rem;
-            cursor: pointer;
-            box-shadow: 3px 3px 0px var(--brutal-shadow);
-            transition: all 0.1s ease;
-        }
-        .close-btn:hover { 
-            background-color: var(--charcoal-black); 
-            color: #ffffff; 
-            transform: translate(1px, 1px);
-            box-shadow: 2px 2px 0px var(--brutal-shadow);
-        }
-
-        /* 讓支付按鈕採用 Grid 排版，並讓每格等高且內容垂直置中 */
-        .pay-tabs {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.6rem;
-        }
-
-        .pay-tab {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 0.6rem 0.3rem;
-            min-height: 52px;
-            background: #ffffff;
-            color: var(--charcoal-black);
-            border: 2px solid var(--charcoal-black);
-            font-family: inherit;
-            font-size: 0.88rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 3px 3px 0px var(--brutal-shadow);
-            transition: all 0.1s ease;
-            text-align: center;
-            line-height: 1.3;
-        }
-        .pay-tab:hover {
-            transform: translate(1px, 1px);
-            box-shadow: 2px 2px 0px var(--brutal-shadow);
-            background: #f4f4f4;
-        }
-        .pay-tab.active { 
-            background: var(--charcoal-black) !important; 
-            color: #ffffff !important; 
-            border-color: var(--charcoal-black) !important; 
-            box-shadow: 3px 3px 0px var(--brutal-shadow);
-            transform: translate(2px, 2px);
-        }
-
-        /* 針對 Alipay 按鈕做跨欄處理，讓它在 2 欄網格中寬度對齊上方兩個按鈕組合或獨立填滿 */
-        .pay-tab.tab-overseas:nth-child(3) {
-            grid-column: 1 / -1;
-        }
-
-        .qr-display {
-            border: 2px dashed var(--charcoal-black);
-            background-color: #fafafa;
-            padding: 1.4rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .qr-display img {
-            width: 180px;
-            height: 180px;
-            object-fit: contain;
-            background-color: #ffffff;
-            border: 2px solid var(--charcoal-black);
-            padding: 0.5rem;
-            box-shadow: 4px 4px 0px var(--brutal-shadow);
-        }
-
-        #supportQrHint {
-            font-size: 0.85rem;
-            color: #333333;
-            line-height: 1.8;
-            display: block;
-            width: 100%;
-        }
-
-        .brutal-launch-btn {
-            display: inline-block;
-            padding: 0.75rem 1.4rem;
-            background-color: var(--charcoal-black) !important;
-            color: #ffffff !important;
-            border: 2px solid var(--charcoal-black) !important;
-            font-family: inherit;
-            font-size: 0.95rem;
-            font-weight: bold;
-            text-decoration: none;
-            cursor: pointer;
-            box-shadow: 4px 4px 0px var(--brutal-shadow);
-            transition: all 0.1s ease;
-        }
-        .brutal-launch-btn:hover {
-            background-color: var(--charcoal-hover) !important;
-            color: #ffffff !important;
-            box-shadow: 2px 2px 0px var(--brutal-shadow);
-            transform: translate(2px, 2px);
-        }
-
-        .support-form { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 1rem; 
-            border-top: 2px solid var(--charcoal-black);
-            padding-top: 1.2rem;
-        }
-        .form-group { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.85rem; font-weight: bold; }
-        .form-group input, .form-group textarea {
-            background-color: #ffffff;
-            border: 2px solid var(--charcoal-black);
-            color: var(--charcoal-black);
-            padding: 0.65rem;
-            font-family: inherit;
-            font-size: 0.9rem;
-            resize: vertical;
-        }
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            background-color: #fff;
-            border-color: var(--charcoal-black);
-            box-shadow: 3px 3px 0px var(--brutal-shadow);
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 0.8rem;
-            background-color: var(--charcoal-black);
-            color: #ffffff;
-            border: 2px solid var(--charcoal-black);
-            font-family: inherit;
-            font-size: 0.95rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 4px 4px 0px var(--brutal-shadow);
-            transition: all 0.1s ease;
-        }
-        .submit-btn:hover { 
-            background-color: var(--charcoal-hover); 
-            color: #ffffff; 
-            box-shadow: 2px 2px 0px var(--brutal-shadow);
-            transform: translate(2px, 2px);
-        }
-
-        .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 900;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            border: 2px solid var(--border-color);
-            padding: 0.5rem 0.8rem;
-            font-family: inherit;
-            font-size: 0.85rem;
-            font-weight: 300;
-            letter-spacing: 1px;
-            cursor: pointer;
-            opacity: 0;
-            pointer-events: none;
-            box-shadow: 3px 3px 0px rgba(255,255,255,0.4);
-            transition: all 0.2s ease;
-        }
-        .back-to-top.visible { opacity: 0.9; pointer-events: auto; }
-        .back-to-top:hover { 
-            opacity: 1; 
-            background-color: var(--charcoal-black); 
-            color: #ffffff; 
-            border-color: var(--charcoal-black);
-            transform: translate(1px, 1px);
-            box-shadow: 1px 1px 0px rgba(255,255,255,0.4);
-        }
-
-        /* -------------------------------------
-           RWD 響應式配置
-        -------------------------------------- */
-        @media (max-width: 860px) {
-            .container { 
-                padding: 1.5rem 1.5rem 2.5rem 1.5rem !important; 
-            }
-            main {
-                max-width: 100%;
-            }
-
-            .nav-wrapper {
-                margin-top: 1.5rem !important;
-                margin-bottom: 2.5rem !important;
-            }
-
-            .social-links {
-                flex-direction: column;
-                width: 100%;
-                gap: 0;
-            }
-            .social-links a {
-                border-right: none;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-                display: grid;
-                grid-template-columns: 70px auto;
-                justify-content: start;
-                padding: 0.75rem 0.5rem;
-            }
-            .social-links .link-middle {
-                display: inline-block !important;
-                margin-left: 0.8rem;
-            }
-
-            .support-banner { padding: 1rem 1.2rem; }
-            
-            .link-group { 
-                flex-direction: row; 
-                gap: 0.5rem; 
-                width: 100%; 
-                max-width: 100%;
-            }
-            .link-group .brutal-btn { 
-                flex: 1 1 0px;
-                width: auto; 
-                min-width: 0; 
-                height: 32px; 
-                min-height: 32px;
-                white-space: nowrap; 
-                padding: 0.2rem 0.2rem;
-                font-size: 0.9rem;
-            }
-
-            .tab-header {
-                margin-top: 0.5rem;
-                margin-bottom: 3rem;
-                gap: 2rem;
-            }
-
-            .tab-back-bar {
-                top: -2.2rem;
-            }
-
-            .page-title {
-                grid-template-columns: 160px auto;
-            }
-
-            footer {
-                margin-top: 6rem;
-            }
-            
-            .modal-box { padding: 1.5rem; max-height: 90vh; }
-            .cv-item { grid-template-columns: 1fr; gap: 0.5rem; }
-            .year { border-left: 2px solid rgba(255,255,255,0.2); padding-left: 0.8rem; }
-            .details { padding-left: 0.8rem; }
-            .nl-form { flex-direction: column; gap: 0.8rem; }
-            
-            .tab-action-btn {
-                width: 100% !important;
-                display: block !important;
-                text-align: center;
-                padding: 0.8rem 1rem !important;
-            }
-            
-            .back-to-top { bottom: 1.5rem; right: 1.5rem; padding: 0.4rem 0.7rem; }
-        }
+        .print-head { display: none; }
     </style>
 </head>
 <body>
+    <a class="skip" href="#main">Skip to content</a>
 
-    <!-- 外層贊助與商店橫幅 -->
-    <div class="support-banner">
-        <span class="banner-title">FUEL THE ART & CODE / 請我一杯咖啡，支持數位創作與深夜除錯</span>
-        
-        <div class="link-group">
-            <button type="button" class="brutal-btn" onclick="openSupportModal('local')">台灣請客</button>
-            <button type="button" class="brutal-btn" onclick="openSupportModal('overseas')">海外 DONATE</button>
-            <a href="shop.html" id="shopBannerBtn" class="brutal-btn shop-banner-btn">SHOP</a>
+    <header class="site-header" id="siteHeader">
+        <div class="wrap header-inner">
+            <a class="brand" href="#top">lonlon <span class="zh">冷冷</span></a>
+            <nav class="site-nav" aria-label="Main">
+                <a href="#works"><span lang="en" data-de="Werke">Works</span><span lang="zh-Hant">作品</span></a>
+                <a href="shop.html" data-page="shop"><span lang="en" data-de="Erwerben">Collect</span><span lang="zh-Hant">收藏</span></a>
+                <a href="#cv">CV</a>
+                <a href="#about"><span lang="en" data-de="Über">About</span><span lang="zh-Hant">關於</span></a>
+                <a href="#contact"><span lang="en" data-de="Kontakt">Contact</span><span lang="zh-Hant">聯絡</span></a>
+            </nav>
+            <div class="lang-toggle" role="group" aria-label="Language">
+                <button type="button" data-ui="en">EN</button>
+                <button type="button" data-ui="de">DE</button>
+                <button type="button" data-ui="zh">中文</button>
+            </div>
         </div>
-    </div>
+    </header>
 
-    <div class="container">
-        <main>
-            <!-- 導覽按鈕列 -->
-            <div class="nav-wrapper">
-                <nav class="social-links">
-                    <a href="javascript:void(0)" onclick="switchTab('statement')" class="tab-link active" data-tab="statement">
-                        <span class="link-label">home</span>
-                        <span class="link-middle">冷</span>
-                    </a>
-                    <a href="javascript:void(0)" onclick="switchTab('works')" class="tab-link" data-tab="works">
-                        <span class="link-label">works</span>
-                        <span class="link-middle">視</span>
-                    </a>
-                    <a href="javascript:void(0)" onclick="switchTab('sound')" class="tab-link" data-tab="sound">
-                        <span class="link-label">sound</span>
-                        <span class="link-middle">音</span>
-                    </a>
-                    <a href="javascript:void(0)" onclick="switchTab('games')" class="tab-link" data-tab="games">
-                        <span class="link-label">games</span>
-                        <span class="link-middle">遊</span>
-                    </a>
-                    <a href="javascript:void(0)" onclick="switchTab('cv')" class="tab-link" data-tab="cv">
-                        <span class="link-label">cv</span>
-                        <span class="link-middle">跡</span>
-                    </a>
-                    <a href="javascript:void(0)" onclick="switchTab('info')" class="tab-link" data-tab="info">
-                        <span class="link-label">info</span>
-                        <span class="link-middle">訊</span>
-                    </a>
-                </nav>
-            </div>
-
-            <!-- 內頁 1：自我介紹 -->
-            <div id="tab-statement" class="page-tab active">
-                <div class="tab-header">
-                    <h2 class="page-title"><span class="title-en">lonlon</span><span class="title-zh">冷冷</span></h2>
-                </div>
-                <div class="statement">
-                    <p style="margin-bottom: 2rem;">
-                        <span id="greeting-zh" class="greeting active">歡迎來到我的主頁！ options<br></span>
-                        <span id="greeting-en" class="greeting">Welcome to my creative space!<br></span>
-                        <span id="greeting-de" class="greeting">Willkommen auf meiner Seite!<br></span>
-                        <span>( <a href="javascript:void(0)" onclick="setLang('zh')" class="lang-btn active" data-lang="zh">中文</a> / <a href="javascript:void(0)" onclick="setLang('en')" class="lang-btn" data-lang="en">EN</a> / <a href="javascript:void(0)" onclick="setLang('de')" class="lang-btn" data-lang="de">DE</a> )</span>
+    <main id="main">
+        <!-- 首屏 -->
+        <section class="hero" id="top">
+            <div class="wrap hero-grid">
+                <div class="reveal">
+                    <h1>lonlon<span class="zh">冷冷</span></h1>
+                    <p class="hero-lede">
+                        <span lang="en" data-de="Arbeitet mit Bewegtbild, Performance und wasserbasiertem Holzschnitt. Lebt in Taipeh.">Artist working with moving image, performance and water-based woodblock printmaking. Based in Taipei.</span>
+                        <span lang="zh-Hant">藝術家，創作橫跨錄像、行為表演與水印木刻版畫，現居台北。</span>
                     </p>
-
-                    <div id="content-zh" class="lang-section active">
-                        <p>我是冷冷，一名遊走於數位媒體、視覺藝術與程式碼之間的科技藝術家與開發者。</p>
-                        <p>我的創作軌跡主要分為兩個平行的領域：</p>
-                        <p>1. 數位與錄像藝術：<br>
-                        我的藝術實踐聚焦於錄像、多媒體行為裝置、AI 生成工作流，以及傳統的水印木刻版畫。我的數位與視覺作品曾於雅典、威尼斯、蘇黎世以及日惹等藝術節與跨國展覽中展出。</p>
-                        <p>2. RimWorld 模組開發與實況：<br>
-                        在遊戲領域，我同時也是一名 RimWorld 模組作者。我致力於編寫 C# 底層邏輯補丁，修復破壞沉浸感的翻譯亂碼、解決複雜的模組衝突並淨化遊戲機制。此外，我也會透過實況分享我的遊戲日常與創作過程。</p>
-                        <p>為什麼需要你的支持？<br>
-                        無論你是剛被我的補丁拯救了存檔的邊緣世界玩家、實況台的觀眾，還是在歐洲的展覽中對我的錄像作品產生共鳴的觀展人——都非常感謝你來到這裡。</p>
-                        <p>你們贊助的每一杯咖啡，都將直接化為我升級硬體設備、維持深夜除錯的咖啡因濃度，以及投入下一件跨領域藝術專案的最大動力。☕✨</p>
-                    </div>
-
-                    <div id="content-en" class="lang-section">
-                        <p>I am Lonlon, a tech artist and developer navigating the intersections of digital media, visual arts, and code。</p>
-                        <p>My creative journey is split into two main parallel tracks:</p>
-                        <p>1. Digital & Video Art:<br>
-                        My artistic practice focuses on video, multimedia installations, AI generative workflows, and traditional woodcut printmaking. My visual works and installations have been exhibited at art festivals and galleries across Eurasia, including Athens, Venice, Zurich, and Yogyakarta.</p>
-                        <p>2. RimWorld Modding & Streaming:<br>
-                        In the gaming sphere, I develop C# core-logic patches and quality-of-life mods for RimWorld. I focus on sanitizing game mechanics, fixing immersion-breaking bugs, and resolving complex mod conflicts. I also stream my gameplay and creative processes to connect with the community.</p>
-                        <p>Why support?<br>
-                        Whether you are a RimWorld colonist whose savefile I just rescued, a viewer hanging out in my streams, or an audience member who connected with my video art at an exhibition in Europe—thank you for being here.</p>
-                        <p>Your tips and coffees directly fund my caffeine supply, hardware maintenance, and upcoming cross-disciplinary art projects. Every contribution keeps the momentum going for both my late-night coding sessions and digital creations. ☕✨</p>
-                    </div>
-
-                    <div id="content-de" class="lang-section">
-                        <p>Ich bin Lonlon, ein Tech-Künstler und Entwickler, der sich an der Schnittstelle von digitalen Medien, visueller Kunst und Programmierung bewegt。</p>
-                        <p>Meine creative Reise teilt sich hauptsächlich in zwei parallele Bereiche auf:</p>
-                        <p>1. Digitale & Videokunst:<br>
-                        Meine künstlerische Praxis konzentriert sich auf Video, multimediale Installationen, KI-gestützte Workflows und traditionellen Holzschnitt. Meine visuellen Werke und Installationen wurden bereits auf Kunstfestivals und in Galerien in ganz Eurasien ausgestellt, darunter in Athen, Venedig, Zürich und Yogyakarta.</p>
-                        <p>2. RimWorld Modding & Streaming:<br>
-                        Im Gaming-Bereich entwickle ich C#-Core-Logic-Patches und Quality-of-Life-Mods für RimWorld. Mein Fokus liegt darauf, Spielmechaniken zu bereinigen, störende Bugs zu beheben und komplexe Mod-Konflikte zu lösen. Außerdem streame ich meinen Spiel- und Arbeitsprozess, um mich mit der Community auszutauschen。</p>
-                        <p>Warum unterstützen?<br>
-                        Ob du ein RimWorld-Kolonist bist, dessen Spielstand ich gerade gerettet habe, ein Zuschauer in meinem Stream oder ein Besucher, den meine Videokunst auf einer Ausstellung in Europe berührt hat – vielen Dank, dass du hier bist。</p>
-                        <p>Eure Spenden und Kaffees fließen direkt in meinen Koffeinnachschub, die Instandhaltung meiner Hardware und in kommende interdisziplinäre Kunstprojekte. Jeder Beitrag ist ein riesiger Motivationsschub für meine nächtlichen Programmier-Sessions und digitalen Kreationen. ☕✨</p>
+                    <div class="hero-actions">
+                        <a class="btn solid" href="#works"><span lang="en" data-de="Werke ansehen">View works</span><span lang="zh-Hant">瀏覽作品</span> <span class="arr">↓</span></a>
+                        <a class="btn" href="shop.html" data-page="shop"><span lang="en" data-de="Verfügbare Werke">Available works</span><span lang="zh-Hant">可收藏作品</span> <span class="arr">→</span></a>
                     </div>
                 </div>
+                <figure class="hero-figure reveal">
+                    <div class="frame">
+                        <img src="images/products/prt2-1-1.jpg" alt="vanishing on the shore washed by waves 1, woodblock print, framed" width="653" height="737">
+                    </div>
+                    <figcaption class="caption">
+                        <span lang="en" data-de="&lt;i&gt;vanishing on the shore washed by waves 1&lt;/i&gt;, 2024. Holzschnitt."><i>vanishing on the shore washed by waves 1</i>, 2024. Woodblock print.</span>
+                        <span lang="zh-Hant">《消失在海浪刷洗的沙灘上 1》，2024，木刻版畫。</span>
+                    </figcaption>
+                </figure>
             </div>
+        </section>
 
-            <!-- 內頁 2：CV 跡 -->
-            <div id="tab-cv" class="page-tab">
-                <div class="tab-header">
-                    <h2 class="page-title"><span class="title-en">CV</span><span class="title-zh">跡</span></h2>
-                </div>
-                <div class="cv-container">
-                    <div class="cv-statement">
-                        冷冷 (lonlon) <br>
-                        現居台北。遊走於數位媒體、虛擬現實與視覺語彙之間。<br>
-                        <span class="statement-en">Based in Taipei. Working across digital media, virtual reality, and visual syntax.</span>
+        <!-- 作品 -->
+        <section class="section" id="works" aria-labelledby="works-h">
+            <div class="wrap">
+                <div class="section-head">
+                    <h2 id="works-h"><span lang="en" data-de="Ausgewählte Werke">Selected Works</span><span lang="zh-Hant">作品</span></h2>
+                    <div class="filters" role="group" aria-label="Filter works">
+                        <button type="button" data-filter="all" aria-pressed="true"><span lang="en" data-de="Alle">All</span><span lang="zh-Hant">全部</span></button>
+                        <button type="button" data-filter="video" aria-pressed="false"><span lang="en" data-de="Bewegtbild">Moving image</span><span lang="zh-Hant">錄像</span></button>
+                        <button type="button" data-filter="performance" aria-pressed="false"><span lang="en">Performance</span><span lang="zh-Hant">表演</span></button>
+                        <button type="button" data-filter="print" aria-pressed="false"><span lang="en" data-de="Druckgrafik &amp;amp; Fotografie">Prints &amp; photography</span><span lang="zh-Hant">版畫與攝影</span></button>
+                        <button type="button" data-filter="book" aria-pressed="false"><span lang="en" data-de="Publikation">Publication</span><span lang="zh-Hant">出版</span></button>
                     </div>
-
-                    <section class="cv-section">
-                        <div class="section-title">Education</div>
-                        <ul class="cv-list">
-                            <li class="cv-item">
-                                <div class="year">2024 - 2025</div>
-                                <div class="details">
-                                    <h3>國立臺北藝術大學 美術學系</h3>
-                                    <p>Studies in Fine Arts, Taipei National University of the Arts</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </section>
-
-                    <section class="cv-section">
-                        <div class="section-title">Residencies</div>
-                        <ul class="cv-list">
-                            <li class="cv-item">
-                                <div class="year">2025.01</div>
-                                <div class="details">
-                                    <h3>跨文化合作計畫 (Transcultural Collaboration Program)</h3>
-                                    <p>受蘇黎世藝術大學邀請從事藝術交流與工作<br>
-                                    Invited by Zurich University of the Arts (ZHdK), Zurich, Switzerland</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </section>
-
-                    <section class="cv-section">
-                        <div class="section-title">Selected Exhibitions</div>
-                        <ul class="cv-list">
-                            <li class="cv-item">
-                                <div class="year">2025</div>
-                                <div class="details">
-                                    <h3>studies on incest</h3>
-                                    <p>Group Exhibition / Toni-Areal of ZHdK (Zurich, Switzerland)</p>
-                                </div>
-                            </li>
-                            <li class="cv-item">
-                                <div class="year"></div>
-                                <div class="details">
-                                    <h3>studies on synchronicity</h3>
-                                    <p>Group Trans-disciplinary Performance / Galeri Lorong (Yogyakarta, Indonesia)</p>
-                                </div>
-                            </li>
-                            <li class="cv-item">
-                                <div class="year">2024</div>
-                                <div class="details">
-                                    <h3>最終章：白色 finale: white</h3>
-                                    <p>National Center of Photography and Images &amp; Taipei Art Book Fair (Taipei, Taiwan)<br>
-                                    Art Book / Exhibited at Art Book Fair of Venice Biennale (Venice, Italy)</p>
-                                </div>
-                            </li>
-                            <li class="cv-item">
-                                <div class="year"></div>
-                                <div class="details">
-                                    <h3>風行不止 wind continues in motion</h3>
-                                    <p>Experimental Theater of NTU (Taipei, Taiwan)<br>
-                                    Video Art / Athens Digital Arts Festival (Athens, Greece)</p>
-                                </div>
-                            </li>
-                            <li class="cv-item">
-                                <div class="year">2023</div>
-                                <div class="details">
-                                    <h3>滲人 seeping</h3>
-                                    <p>Collaborative Performance &amp; Theater / Umay Theater (Taipei, Taiwan)</p>
-                                </div>
-                            </li>
-                            <li class="cv-item">
-                                <div class="year">2022</div>
-                                <div class="details">
-                                    <h3>愛麗絲的新生 carnival to alice, a story of reconstruction</h3>
-                                    <p>Video Art / Experimental Theater of NTU (Taipei, Taiwan)</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </section>
-
-                    <section class="cv-section">
-                        <div class="section-title">Projects &amp; Development</div>
-                        <ul class="cv-list">
-                            <li class="cv-item">
-                                <div class="year">Ongoing</div>
-                                <div class="details">
-                                    <h3>RimWorld Modding &amp; C# Core-Logic Patches</h3>
-                                    <p>獨立開發者。專注於編寫 C# 遊戲底層邏輯補丁，修復模組衝突並淨化遊戲機制。</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </section>
                 </div>
-            </div>
 
-            <!-- 內頁 3：INFO 訊 -->
-            <div id="tab-info" class="page-tab">
-                <div class="tab-header">
-                    <h2 class="page-title"><span class="title-en">INFO</span><span class="title-zh">訊</span></h2>
-                </div>
-                <div class="info-container">
-                    <div class="info-social-links">
-                        <a href="mailto:arts.lonp@gmail.com">
-                            <span class="link-label">email</span>
-                            <span class="link-middle">arts.lonp@gmail.com</span>
-                        </a>
-                        
-                        <a href="https://instagram.com/arts.lonlon" target="_blank">
-                            <span class="link-label">ig</span>
-                            <span class="link-middle">@arts.lonlon</span>
-                        </a>
+                <!-- 作品預覽片段合併（影片網址在下方 script 的 VIDEOS） -->
+                <figure class="reel reveal" id="reel">
+                    <div class="video-box" data-player="reel">
+                        <button type="button" class="play" aria-label="Play showreel"><img src="images/works/wind-continues-in-motion.jpg" alt="Still from wind continues in motion" width="1280" height="720"></button>
                     </div>
+                    <figcaption class="reel-cap">
+                        <span class="eyebrow">Showreel · 5 min</span>
+                        <span lang="en" data-de="Ausschnitte aus &lt;i&gt;wind continues in motion&lt;/i&gt; (2024), &lt;i&gt;carnival to alice, a story of reconstruction&lt;/i&gt; (2022) und &lt;i&gt;seeping&lt;/i&gt; (2023).">Excerpts from <i>wind continues in motion</i> (2024), <i>carnival to alice, a story of reconstruction</i> (2022) and <i>seeping</i> (2023).</span>
+                        <span lang="zh-Hant">作品預覽片段：《風行不止》（2024）、《愛麗絲的新生》（2022）、《滲人》（2023）。</span>
+                    </figcaption>
+                </figure>
 
-                    <div class="newsletter-section">
-                        <div>
-                            <p class="nl-zh">newsletter // 留下信箱，不定期接收最新展覽資訊、作品發佈與專案更新。</p>
-                            <p class="nl-en">Subscribe to receive occasional updates on exhibitions, new artworks, and projects.</p>
+                <div class="works-grid">
+                    <!--
+                        每件作品一個 <article class="work">。
+                        data-id：網址用的代號（例如 #work/wind-continues-in-motion）。
+                        data-cat：篩選分類（video / performance / print / book，可多個，用空白分開）。
+                        data-images：大圖，逗號分隔；沒有就顯示文字卡。
+                        data-video：點開後播放 VIDEOS 裡的哪支影片。
+                        .work-detail 裡的內容會出現在點開後的右側說明。
+                    -->
+
+                    <article class="work reveal" data-id="vanishing-on-the-shore" data-cat="print" data-images="images/products/prt2-1-1.jpg, images/products/prt2-1-3.jpg, images/products/prt2-1-4.jpg">
+                        <button type="button" class="work-btn">
+                            <div class="work-media">
+                                <img src="images/products/prt2-1-1.jpg" alt="vanishing on the shore washed by waves 1" loading="lazy" width="653" height="737">
+                            </div>
+                            <div class="work-info">
+                                <span class="t"><span class="work-title-en">vanishing on the shore washed by waves 1</span><span class="work-title-zh">消失在海浪刷洗的沙灘上 1</span></span>
+                                <span class="y">2024</span>
+                                <span class="m"><span lang="en" data-de="Holzschnitt, Auflage 3">Woodblock print, edition of 3</span><span lang="zh-Hant">木刻版畫，版數 3</span></span>
+                                <span class="avail"><span lang="en" data-de="Verfügbar">Available</span><span lang="zh-Hant">可收藏</span></span>
+                            </div>
+                        </button>
+                        <div class="work-detail">
+                            <dl class="spec">
+                                <dt><span lang="en" data-de="Jahr">Year</span><span lang="zh-Hant">年份</span></dt><dd>2024</dd>
+                                <dt><span lang="en">Medium</span><span lang="zh-Hant">媒材</span></dt><dd><span lang="en" data-de="Holzschnitt">Woodblock print</span><span lang="zh-Hant">木刻版畫</span></dd>
+                                <dt><span lang="en" data-de="Abmessungen">Size</span><span lang="zh-Hant">尺寸</span></dt><dd>B5</dd>
+                                <dt><span lang="en" data-de="Auflage">Edition</span><span lang="zh-Hant">版數</span></dt><dd><span lang="en" data-de="Auflage 3">Edition of 3</span><span lang="zh-Hant">3 版</span></dd>
+                            </dl>
+                            <div class="actions">
+                                <a class="btn solid" href="shop.html#PRT-002-1" data-page="shop"><span lang="en" data-de="Zu den verfügbaren Werken">View in Collect</span><span lang="zh-Hant">前往收藏頁</span> <span class="arr">→</span></a>
+                                <a class="btn" data-inquire="Acquisition · vanishing on the shore washed by waves 1 (PRT-002-1)"><span lang="en" data-de="Zu diesem Werk anfragen">Ask about this work</span><span lang="zh-Hant">詢問這件作品</span></a>
+                            </div>
                         </div>
-                        <form class="nl-form" onsubmit="event.preventDefault(); alert('維護中 unavailable at the moment--(感謝訂閱 前端展示版)');">
-                            <input type="email" placeholder="email address / 電子信箱 (維護中 unavailable at the moment)" required>
-                            <button type="submit">[ SUBSCRIBE ]</button>
-                        </form>
+                    </article>
+
+
+                    <article class="work reveal" data-id="i-also-disappeared-in-sounds" data-cat="print" data-images="images/products/prt1-1.jpg">
+                        <button type="button" class="work-btn">
+                            <div class="work-media">
+                                <img src="images/products/prt1-1.jpg" alt="i also disappeared in sounds, endlessly 1" loading="lazy" width="609" height="796">
+                            </div>
+                            <div class="work-info">
+                                <span class="t"><span class="work-title-en">i also disappeared in sounds, endlessly 1</span><span class="work-title-zh">我也消失在聲音裡，永無止盡 1</span></span>
+                                <span class="y">2025</span>
+                                <span class="m"><span lang="en" data-de="Wasserbasierter Holzschnitt, Unikat">Water-based woodblock print, unique</span><span lang="zh-Hant">水印木刻版畫，獨版</span></span>
+                                <span class="avail"><span lang="en" data-de="Verfügbar">Available</span><span lang="zh-Hant">可收藏</span></span>
+                            </div>
+                        </button>
+                        <div class="work-detail">
+                            <dl class="spec">
+                                <dt><span lang="en" data-de="Jahr">Year</span><span lang="zh-Hant">年份</span></dt><dd>2025</dd>
+                                <dt><span lang="en">Medium</span><span lang="zh-Hant">媒材</span></dt><dd><span lang="en" data-de="Wasserbasierter Holzschnitt">Water-based woodblock print</span><span lang="zh-Hant">水印木刻版畫</span></dd>
+                                <dt><span lang="en" data-de="Abmessungen">Size</span><span lang="zh-Hant">尺寸</span></dt><dd>B5</dd>
+                                <dt><span lang="en" data-de="Auflage">Edition</span><span lang="zh-Hant">版數</span></dt><dd><span lang="en" data-de="Unikat">Unique</span><span lang="zh-Hant">獨版</span></dd>
+                            </dl>
+                            <div class="actions">
+                                <a class="btn solid" href="shop.html#PRT-001-1" data-page="shop"><span lang="en" data-de="Zu den verfügbaren Werken">View in Collect</span><span lang="zh-Hant">前往收藏頁</span> <span class="arr">→</span></a>
+                                <a class="btn" data-inquire="Acquisition · i also disappeared in sounds, endlessly 1 (PRT-001-1)"><span lang="en" data-de="Zu diesem Werk anfragen">Ask about this work</span><span lang="zh-Hant">詢問這件作品</span></a>
+                            </div>
+                        </div>
+                    </article>
+
+
+
+                    <article class="work reveal" data-id="somewhere-in-the-sky" data-cat="print" data-images="images/products/pho1-1.jpg, images/products/pho1-2.jpg, images/products/pho1-3.jpg, images/products/pho1-4.jpg">
+                        <button type="button" class="work-btn">
+                            <div class="work-media">
+                                <img src="images/products/pho1-1.jpg" alt="somewhere in the sky, away from humans" loading="lazy" width="689" height="582">
+                            </div>
+                            <div class="work-info">
+                                <span class="t"><span class="work-title-en">somewhere in the sky, away from humans</span><span class="work-title-zh">在天空中的某處，遠離人類</span></span>
+                                <span class="y">2024</span>
+                                <span class="m"><span lang="en" data-de="Archival Pigment Print, Auflage 30">Archival pigment print, edition of 30</span><span lang="zh-Hant">數位微噴，版數 30</span></span>
+                                <span class="avail"><span lang="en" data-de="Verfügbar">Available</span><span lang="zh-Hant">可收藏</span></span>
+                            </div>
+                        </button>
+                        <div class="work-detail">
+                            <dl class="spec">
+                                <dt><span lang="en" data-de="Jahr">Year</span><span lang="zh-Hant">年份</span></dt><dd>2024</dd>
+                                <dt><span lang="en">Medium</span><span lang="zh-Hant">媒材</span></dt><dd><span lang="en" data-de="Archival Pigment Print auf Fine-Art-Papier">Archival pigment print on fine art paper</span><span lang="zh-Hant">數位微噴、無酸藝術紙</span></dd>
+                                <dt><span lang="en" data-de="Auflage">Edition</span><span lang="zh-Hant">版數</span></dt><dd><span lang="en" data-de="Auflage 30">Edition of 30</span><span lang="zh-Hant">30 版</span></dd>
+                            </dl>
+                            <div class="actions">
+                                <a class="btn solid" href="shop.html#PHO-001" data-page="shop"><span lang="en" data-de="Zu den verfügbaren Werken">View in Collect</span><span lang="zh-Hant">前往收藏頁</span> <span class="arr">→</span></a>
+                                <a class="btn" data-inquire="Acquisition · somewhere in the sky, away from humans (PHO-001)"><span lang="en" data-de="Zu diesem Werk anfragen">Ask about this work</span><span lang="zh-Hant">詢問這件作品</span></a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 沒有圖片的作品：文字清單，點開一樣有詳細資料 -->
+                <div class="index-head" id="indexHead">
+                    <h3 class="eyebrow"><span lang="en" data-de="Weitere Arbeiten">More works</span><span lang="zh-Hant">更多作品</span></h3>
+                </div>
+                <div class="works-index">
+                    <article class="work reveal" data-id="studies-on-synchronicity" data-cat="performance">
+                        <button type="button" class="work-btn">
+                            <div class="work-media text">
+                                <div><div class="t-en">studies on synchronicity</div></div>
+                                <div class="t-meta"><span lang="en">Performance · 2025</span><span lang="zh-Hant">表演 · 2025</span></div>
+                            </div>
+                            <div class="work-info">
+                                <span class="t"><span class="work-title-en">studies on synchronicity</span></span>
+                                <span class="y">2025</span>
+                                <span class="m"><span lang="en" data-de="Transdisziplinäre Gruppenperformance">Transdisciplinary group performance</span><span lang="zh-Hant">跨領域聯合演出</span></span>
+                            </div>
+                        </button>
+                        <div class="work-detail">
+                            <dl class="spec">
+                                <dt><span lang="en" data-de="Jahr">Year</span><span lang="zh-Hant">年份</span></dt><dd>2025</dd>
+                                <dt><span lang="en" data-de="Format">Format</span><span lang="zh-Hant">形式</span></dt><dd><span lang="en" data-de="Transdisziplinäre Gruppenperformance">Transdisciplinary group performance</span><span lang="zh-Hant">跨領域聯合演出</span></dd>
+                            </dl>
+                            <div class="history">
+                                <p class="eyebrow"><span lang="en" data-de="Aufgeführt">Presented</span><span lang="zh-Hant">演出</span></p>
+                                <ul><li><span lang="en" data-de="Galeri Lorong, Yogyakarta, Indonesien">Galeri Lorong, Yogyakarta, Indonesia</span><span lang="zh-Hant">Galeri Lorong，印尼日惹</span></li></ul>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="work reveal" data-id="studies-on-incest" data-cat="exhibition">
+                        <button type="button" class="work-btn">
+                            <div class="work-media text">
+                                <div><div class="t-en">studies on incest</div></div>
+                                <div class="t-meta"><span lang="en" data-de="Gruppenausstellung · 2025">Group exhibition · 2025</span><span lang="zh-Hant">聯展 · 2025</span></div>
+                            </div>
+                            <div class="work-info">
+                                <span class="t"><span class="work-title-en">studies on incest</span></span>
+                                <span class="y">2025</span>
+                                <span class="m"><span lang="en" data-de="Gruppenausstellung">Group exhibition</span><span lang="zh-Hant">聯展</span></span>
+                            </div>
+                        </button>
+                        <div class="work-detail">
+                            <dl class="spec">
+                                <dt><span lang="en" data-de="Jahr">Year</span><span lang="zh-Hant">年份</span></dt><dd>2025</dd>
+                                <dt><span lang="en" data-de="Format">Format</span><span lang="zh-Hant">形式</span></dt><dd><span lang="en" data-de="Gruppenausstellung">Group exhibition</span><span lang="zh-Hant">聯展</span></dd>
+                            </dl>
+                            <div class="history">
+                                <p class="eyebrow"><span lang="en" data-de="Ausgestellt">Exhibited</span><span lang="zh-Hant">展出</span></p>
+                                <ul><li><span lang="en" data-de="Toni-Areal, Zürcher Hochschule der Künste (ZHdK), Zürich, Schweiz">Toni-Areal, Zurich University of the Arts (ZHdK), Zurich, Switzerland</span><span lang="zh-Hant">蘇黎世藝術大學 Toni-Areal，瑞士蘇黎世</span></li></ul>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="work reveal" data-id="wind-continues-in-motion" data-cat="video" data-video="reel">
+                        <button type="button" class="work-btn">
+                            <div class="work-media video">
+                                <img src="images/works/wind-continues-in-motion.jpg" alt="wind continues in motion, video still" loading="lazy" width="1280" height="720">
+                                <span class="badge"><span class="tri"></span>Video · 8 min</span>
+                            </div>
+                            <div class="work-info">
+                                <span class="t"><span class="work-title-en">wind continues in motion</span><span class="work-title-zh">風行不止</span></span>
+                                <span class="y">2024</span>
+                                <span class="m"><span lang="en">Video</span><span lang="zh-Hant">錄像</span></span>
+                            </div>
+                        </button>
+                        <div class="work-detail">
+                            <dl class="spec">
+                                <dt><span lang="en" data-de="Jahr">Year</span><span lang="zh-Hant">年份</span></dt><dd>2024</dd>
+                                <dt><span lang="en">Medium</span><span lang="zh-Hant">媒材</span></dt><dd><span lang="en">Video</span><span lang="zh-Hant">錄像</span></dd>
+                                <dt><span lang="en" data-de="Dauer">Duration</span><span lang="zh-Hant">片長</span></dt><dd>8 min</dd>
+                                <dt><span lang="en" data-de="Ausschnitt">Excerpt</span><span lang="zh-Hant">片段</span></dt><dd><span lang="en" data-de="Im Showreel (5 Min.)">In the showreel (5 min)</span><span lang="zh-Hant">收錄於作品預覽（5 分鐘）</span></dd>
+                            </dl>
+                            <div class="history">
+                                <p class="eyebrow"><span lang="en" data-de="Ausgestellt">Exhibited</span><span lang="zh-Hant">展出</span></p>
+                                <ul>
+                                    <li><span lang="en" data-de="Athens Digital Arts Festival (Einladung), Athen, Griechenland">Athens Digital Arts Festival (invited), Athens, Greece</span><span lang="zh-Hant">雅典數位藝術節（受邀發表），希臘雅典</span></li>
+                                    <li><span lang="en" data-de="Experimental Theater der National Taiwan University, Taipeh, Taiwan">Experimental Theater of NTU, Taipei, Taiwan</span><span lang="zh-Hant">臺大實驗劇場，台北</span></li>
+                                </ul>
+                            </div>
+                            <div class="actions">
+                                <a class="btn solid" data-inquire="Viewing link · wind continues in motion"><span lang="en" data-de="Sichtungslink anfragen">Request a viewing link</span><span lang="zh-Hant">索取觀看連結</span></a>
+                                <a class="btn" data-inquire="Screening · wind continues in motion"><span lang="en" data-de="Screening anfragen">Screening inquiry</span><span lang="zh-Hant">放映洽詢</span></a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="work reveal" data-id="finale-white" data-cat="book">
+                        <button type="button" class="work-btn">
+                            <div class="work-media text">
+                                <div><div class="t-en">finale: white</div><div class="t-zh">最終章：白色</div></div>
+                                <div class="t-meta"><span lang="en" data-de="Künstlerbuch · 2024">Art book · 2024</span><span lang="zh-Hant">藝術書 · 2024</span></div>
+                            </div>
+                            <div class="work-info">
+                                <span class="t"><span class="work-title-en">finale: white</span><span class="work-title-zh">最終章：白色</span></span>
+                                <span class="y">2024</span>
+                                <span class="m"><span lang="en" data-de="Künstlerbuch">Art book</span><span lang="zh-Hant">藝術書</span></span>
+                            </div>
+                        </button>
+                        <div class="work-detail">
+                            <dl class="spec">
+                                <dt><span lang="en" data-de="Jahr">Year</span><span lang="zh-Hant">年份</span></dt><dd>2024</dd>
+                                <dt><span lang="en">Medium</span><span lang="zh-Hant">媒材</span></dt><dd><span lang="en" data-de="Künstlerbuch">Art book</span><span lang="zh-Hant">藝術書</span></dd>
+                            </dl>
+                            <div class="history">
+                                <p class="eyebrow"><span lang="en" data-de="Ausgestellt">Exhibited</span><span lang="zh-Hant">展出</span></p>
+                                <ul>
+                                    <li><span lang="en" data-de="National Center of Photography and Images, Taipeh, Taiwan">National Center of Photography and Images, Taipei, Taiwan</span><span lang="zh-Hant">國家攝影文化中心，台北</span></li>
+                                    <li><span lang="en" data-de="Taipei Art Book Fair, Taipeh, Taiwan">Taipei Art Book Fair, Taipei, Taiwan</span><span lang="zh-Hant">台北藝術書展，台北</span></li>
+                                    <li><span lang="en" data-de="Art Book Fair der Biennale di Venezia, Venedig, Italien">Art Book Fair of Venice Biennale, Venice, Italy</span><span lang="zh-Hant">威尼斯雙年展藝術書展，義大利威尼斯</span></li>
+                                </ul>
+                            </div>
+                            <div class="actions">
+                                <a class="btn" data-inquire="Publication · finale: white"><span lang="en" data-de="Zu diesem Buch anfragen">Ask about this book</span><span lang="zh-Hant">詢問這本書</span></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="work reveal" data-id="seeping" data-cat="performance" data-video="reel">
+                        <button type="button" class="work-btn">
+                            <div class="work-media text">
+                                <div><div class="t-en">seeping</div><div class="t-zh">滲人</div></div>
+                                <div class="t-meta"><span lang="en">Performance · 2023</span><span lang="zh-Hant">表演 · 2023</span></div>
+                            </div>
+                            <div class="work-info">
+                                <span class="t"><span class="work-title-en">seeping</span><span class="work-title-zh">滲人</span></span>
+                                <span class="y">2023</span>
+                                <span class="m"><span lang="en" data-de="Kollaborative Performance &amp;amp; Theater">Collaborative performance &amp; theatre</span><span lang="zh-Hant">合作演出與劇場</span></span>
+                            </div>
+                        </button>
+                        <div class="work-detail">
+                            <dl class="spec">
+                                <dt><span lang="en" data-de="Jahr">Year</span><span lang="zh-Hant">年份</span></dt><dd>2023</dd>
+                                <dt><span lang="en" data-de="Format">Format</span><span lang="zh-Hant">形式</span></dt><dd><span lang="en" data-de="Kollaborative Performance &amp;amp; Theater, Koproduktion">Collaborative performance &amp; theatre, co-production</span><span lang="zh-Hant">跨域表演，共同製作演出</span></dd>
+                                <dt><span lang="en" data-de="Dauer">Duration</span><span lang="zh-Hant">片長</span></dt><dd>15 min</dd>
+                                <dt><span lang="en" data-de="Ausschnitt">Excerpt</span><span lang="zh-Hant">片段</span></dt><dd><span lang="en" data-de="Im Showreel (5 Min.)">In the showreel (5 min)</span><span lang="zh-Hant">收錄於作品預覽（5 分鐘）</span></dd>
+                            </dl>
+                            <div class="history">
+                                <p class="eyebrow"><span lang="en" data-de="Aufgeführt">Presented</span><span lang="zh-Hant">演出</span></p>
+                                <ul><li><span lang="en" data-de="Umay Theater, Taipeh, Taiwan">Umay Theater, Taipei, Taiwan</span><span lang="zh-Hant">Umay Theater，台北</span></li></ul>
+                            </div>
+                            <div class="actions">
+                                <a class="btn" data-inquire="Viewing link · seeping"><span lang="en" data-de="Sichtungslink anfragen">Request a viewing link</span><span lang="zh-Hant">索取觀看連結</span></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="work reveal" data-id="carnival-to-alice" data-cat="video" data-video="reel">
+                        <button type="button" class="work-btn">
+                            <div class="work-media text">
+                                <div><div class="t-en">carnival to alice, a story of reconstruction</div><div class="t-zh">愛麗絲的新生</div></div>
+                                <div class="t-meta"><span lang="en">Video · 2022</span><span lang="zh-Hant">錄像 · 2022</span></div>
+                            </div>
+                            <div class="work-info">
+                                <span class="t"><span class="work-title-en">carnival to alice, a story of reconstruction</span><span class="work-title-zh">愛麗絲的新生</span></span>
+                                <span class="y">2022</span>
+                                <span class="m"><span lang="en">Video</span><span lang="zh-Hant">錄像</span></span>
+                            </div>
+                        </button>
+                        <div class="work-detail">
+                            <dl class="spec">
+                                <dt><span lang="en" data-de="Jahr">Year</span><span lang="zh-Hant">年份</span></dt><dd>2022</dd>
+                                <dt><span lang="en">Medium</span><span lang="zh-Hant">媒材</span></dt><dd><span lang="en">Video</span><span lang="zh-Hant">錄像</span></dd>
+                                <dt><span lang="en" data-de="Dauer">Duration</span><span lang="zh-Hant">片長</span></dt><dd>12 min</dd>
+                                <dt><span lang="en" data-de="Ausschnitt">Excerpt</span><span lang="zh-Hant">片段</span></dt><dd><span lang="en" data-de="Im Showreel (5 Min.)">In the showreel (5 min)</span><span lang="zh-Hant">收錄於作品預覽（5 分鐘）</span></dd>
+                            </dl>
+                            <div class="history">
+                                <p class="eyebrow"><span lang="en" data-de="Aufgeführt">Presented</span><span lang="zh-Hant">展出</span></p>
+                                <ul><li><span lang="en" data-de="Experimental Theater der National Taiwan University, Taipeh, Taiwan">Experimental Theater of NTU, Taipei, Taiwan</span><span lang="zh-Hant">臺大實驗劇場，台北</span></li></ul>
+                            </div>
+                            <div class="actions">
+                                <a class="btn" data-inquire="Viewing link · carnival to alice, a story of reconstruction"><span lang="en" data-de="Sichtungslink anfragen">Request a viewing link</span><span lang="zh-Hant">索取觀看連結</span></a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- CV -->
+        <section class="section" id="cv" aria-labelledby="cv-h">
+            <div class="wrap">
+                <div class="print-head">
+                    <p style="font-family: var(--serif); font-size: 20pt;">lonlon 冷冷</p>
+                    <p style="color: #555;">arts.lonp@gmail.com · instagram.com/arts.lonlon · lonp.pages.dev</p>
+                </div>
+                <div class="section-head">
+                    <h2 id="cv-h">CV <span class="zh" lang="zh-Hant">履歷</span></h2>
+                    <button type="button" class="btn no-print" id="printCv"><span lang="en" data-de="CV herunterladen (PDF)">Download CV (PDF)</span><span lang="zh-Hant">下載 CV（PDF）</span> <span class="arr">↓</span></button>
+                </div>
+                <p class="cv-intro">
+                    <span lang="en" data-de="lonlon (冷冷). Lebt und arbeitet in Taipeh, Taiwan. Bewegt sich zwischen digitalen Medien, virtueller Realität und visueller Syntax.">lonlon (冷冷). Lives and works in Taipei, Taiwan. Working across digital media, virtual reality and visual syntax.</span>
+                    <span lang="zh-Hant">冷冷（lonlon），現居台北。遊走於數位媒體、虛擬現實與視覺語彙之間。</span>
+                </p>
+
+                <div class="cv-block">
+                    <h3><span lang="en" data-de="Ausbildung">Education</span><span lang="zh-Hant">學歷</span></h3>
+                    <ul class="cv-list">
+                        <li><span class="yr">2024–25</span><span class="what"><span lang="en" data-de="Studium der Bildenden Kunst, Taipei National University of the Arts">Studies in Fine Arts, Taipei National University of the Arts</span><span lang="zh-Hant">國立臺北藝術大學 美術學系</span></span></li>
+                    </ul>
+                </div>
+                <div class="cv-block">
+                    <h3><span lang="en" data-de="Residenzen &amp;amp; Programme">Residencies &amp; programmes</span><span lang="zh-Hant">駐村與交流</span></h3>
+                    <ul class="cv-list">
+                        <li><span class="yr">2025</span><span class="what"><span lang="en" data-de="Transcultural Collaboration Program, auf Einladung der Zürcher Hochschule der Künste (ZHdK)">Transcultural Collaboration Program, by invitation of Zurich University of the Arts (ZHdK)</span><span lang="zh-Hant">跨文化合作計畫，受蘇黎世藝術大學邀請從事藝術交流與工作</span><span class="where">Zurich, Switzerland · 2025.01</span></span></li>
+                    </ul>
+                </div>
+                <div class="cv-block">
+                    <h3><span lang="en" data-de="Ausgewählte Ausstellungen &amp;amp; Aufführungen">Selected exhibitions &amp; performances</span><span lang="zh-Hant">展演經歷</span></h3>
+                    <ul class="cv-list">
+                        <li><span class="yr">2025</span><span class="what"><span class="work-title-en">studies on incest</span><span class="where"><span lang="en" data-de="Gruppenausstellung, Toni-Areal, ZHdK, Zürich, Schweiz">Group exhibition, Toni-Areal, ZHdK, Zurich, Switzerland</span><span lang="zh-Hant">聯展，蘇黎世藝術大學 Toni-Areal，瑞士蘇黎世</span></span></span></li>
+                        <li><span class="yr">2025</span><span class="what"><span class="work-title-en">studies on synchronicity</span><span class="where"><span lang="en" data-de="Transdisziplinäre Gruppenperformance, Galeri Lorong, Yogyakarta, Indonesien">Transdisciplinary group performance, Galeri Lorong, Yogyakarta, Indonesia</span><span lang="zh-Hant">跨領域聯合演出，Galeri Lorong，印尼日惹</span></span></span></li>
+                        <li><span class="yr">2024</span><span class="what"><span class="work-title-en">finale: white</span> <span class="work-title-zh">最終章：白色</span><span class="where"><span lang="en" data-de="Künstlerbuch. National Center of Photography and Images &amp;amp; Taipei Art Book Fair, Taipeh; Art Book Fair der Biennale di Venezia, Venedig, Italien">Art book. National Center of Photography and Images &amp; Taipei Art Book Fair, Taipei; Art Book Fair of Venice Biennale, Venice, Italy</span><span lang="zh-Hant">藝術書。國家攝影文化中心、台北藝術書展；威尼斯雙年展藝術書展，義大利威尼斯</span></span></span></li>
+                        <li><span class="yr">2024</span><span class="what"><span class="work-title-en">wind continues in motion</span> <span class="work-title-zh">風行不止</span><span class="where"><span lang="en" data-de="Video. Athens Digital Arts Festival, Athen, Griechenland; Experimental Theater der NTU, Taipeh">Video. Athens Digital Arts Festival, Athens, Greece; Experimental Theater of NTU, Taipei</span><span lang="zh-Hant">錄像。雅典數位藝術節，希臘雅典；臺大實驗劇場，台北</span></span></span></li>
+                        <li><span class="yr">2023</span><span class="what"><span class="work-title-en">seeping</span> <span class="work-title-zh">滲人</span><span class="where"><span lang="en" data-de="Kollaborative Performance &amp;amp; Theater, Umay Theater, Taipeh">Collaborative performance &amp; theatre, Umay Theater, Taipei</span><span lang="zh-Hant">合作演出與劇場，Umay Theater，台北</span></span></span></li>
+                        <li><span class="yr">2022</span><span class="what"><span class="work-title-en">carnival to alice, a story of reconstruction</span> <span class="work-title-zh">愛麗絲的新生</span><span class="where"><span lang="en" data-de="Video. Experimental Theater der NTU, Taipeh">Video. Experimental Theater of NTU, Taipei</span><span lang="zh-Hant">錄像。臺大實驗劇場，台北</span></span></span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 關於 -->
+        <section class="section" id="about" aria-labelledby="about-h">
+            <div class="wrap">
+                <div class="section-head">
+                    <h2 id="about-h"><span lang="en" data-de="Über">About</span><span lang="zh-Hant">關於</span></h2>
+                </div>
+                <div class="about-grid">
+                    <div class="statement reveal">
+                        <p lang="en" data-de="lonlon (冷冷) lebt und arbeitet in Taipeh. Die künstlerische Praxis bewegt sich zwischen Video, multimedialer Performance und Installation, KI-gestützten Arbeitsprozessen und traditionellem wasserbasiertem Holzschnitt.">lonlon (冷冷) is an artist based in Taipei. The practice moves between video, multimedia performance and installation, AI-generated workflows and traditional water-based woodblock printmaking.</p>
+                        <p lang="en" data-de="Die Arbeiten wurden auf Festivals, in Theatern und Ausstellungen in Athen, Venedig, Zürich, Yogyakarta und Taipeh gezeigt, darunter beim Athens Digital Arts Festival und auf der Art Book Fair der Biennale di Venezia. 2025 nahm lonlon am Transcultural Collaboration Program der Zürcher Hochschule der Künste teil.">Works have been shown at festivals, theatres and exhibitions in Athens, Venice, Zurich, Yogyakarta and Taipei, including the Athens Digital Arts Festival and the Art Book Fair of Venice Biennale. In 2025 lonlon took part in the Transcultural Collaboration Program at Zurich University of the Arts.</p>
+                        <p lang="zh-Hant">冷冷（lonlon），現居台北的藝術家。創作遊走於錄像、多媒體行為與裝置、AI 生成工作流，以及傳統的水印木刻版畫之間。</p>
+                        <p lang="zh-Hant">作品曾於雅典、威尼斯、蘇黎世、日惹與台北的藝術節、劇場與展覽中呈現，包括雅典數位藝術節與威尼斯雙年展藝術書展。2025 年受邀參與蘇黎世藝術大學跨文化合作計畫。</p>
                     </div>
+                    <ul class="facts reveal">
+                        <li><span class="k"><span lang="en" data-de="Lebt in">Based in</span><span lang="zh-Hant">現居</span></span><span><span lang="en" data-de="Taipeh, Taiwan">Taipei, Taiwan</span><span lang="zh-Hant">台灣台北</span></span></li>
+                        <li><span class="k"><span lang="en" data-de="Medien">Media</span><span lang="zh-Hant">媒材</span></span><span><span lang="en" data-de="Video, Performance, Installation, Holzschnitt">Video, performance, installation, woodblock print</span><span lang="zh-Hant">錄像、行為、裝置、木刻版畫</span></span></li>
+                        <li><span class="k"><span lang="en" data-de="Verkauf">Sales</span><span lang="zh-Hant">銷售</span></span><span><span lang="en" data-de="Direkt über das Studio. ">Directly through the studio. </span><span lang="zh-Hant">由工作室直接銷售。</span><a href="shop.html" data-page="shop"><span lang="en" data-de="Verfügbare Werke">Available works</span><span lang="zh-Hant">可收藏作品</span></a></span></li>
+                        <li><span class="k">Instagram</span><span><a href="https://instagram.com/arts.lonlon" target="_blank" rel="noopener">@arts.lonlon</a></span></li>
+                        <li><span class="k"><span lang="en" data-de="Außerdem">Also</span><span lang="zh-Hant">其他</span></span><span><span lang="en" data-de="Spieleentwicklung &amp;amp; Streaming: ">Game development &amp; streaming: </span><span lang="zh-Hant">遊戲開發與實況：</span><a href="https://couchinc.pages.dev" target="_blank" rel="noopener">Human Leather Couch Factory ↗</a></span></li>
+                    </ul>
                 </div>
             </div>
+        </section>
 
-            <!-- 內頁 4：WORKS 視 -->
-            <div id="tab-works" class="page-tab">
-                <div class="tab-header">
-                    <h2 class="page-title"><span class="title-en">WORKS</span><span class="title-zh">視</span></h2>
+        <!-- 聯絡 -->
+        <section class="section" id="contact" aria-labelledby="contact-h">
+            <div class="wrap">
+                <div class="section-head">
+                    <h2 id="contact-h"><span lang="en" data-de="Kontakt">Contact</span><span lang="zh-Hant">聯絡</span></h2>
                 </div>
-                <div class="generic-tab-container">
-                    <p>
-                        我的藝術實踐聚焦於錄像、多媒體行為裝置、AI 生成工作流，以及傳統的水印木刻版畫。我的數位與視覺作品曾於雅典、威尼斯、蘇黎世以及日惹等藝術節與跨國展覽中展出。<br><br>
-                        My artistic practice focuses on video art, multimedia performance installations, AI generative workflows, and traditional Mokuhanga woodblock printmaking. My digital and visual works have been exhibited at international art festivals and group exhibitions across Athens, Venice, Zurich, and Yogyakarta.
-                    </p>
-                    <div style="margin-top: 1.5rem; width: 100%;">
-                        <a href="https://youtube.com/@arts.lonlon" target="_blank" class="brutal-btn tab-action-btn">
-                            [ 前往 YOUTUBE 頁面 ↗ ]
-                        </a>
+                <div class="contact-grid">
+                    <div class="reveal">
+                        <p class="contact-lede">
+                            <span lang="en" data-de="Für Ausstellungen, Screenings, Ankäufe und Presse schreiben Sie bitte an das Studio.">For exhibitions, screenings, acquisitions and press, write to the studio.</span>
+                            <span lang="zh-Hant">展覽、放映、收藏與媒體邀約，歡迎來信工作室。</span>
+                        </p>
+                        <a class="contact-mail" href="mailto:arts.lonp@gmail.com">arts.lonp@gmail.com</a>
+                        <p class="contact-meta">
+                            <span lang="en" data-de="Taipeh, Taiwan · Antwort innerhalb von 2 Werktagen">Taipei, Taiwan · Replies within 2 working days</span>
+                            <span lang="zh-Hant">台灣台北 · 2 個工作天內回覆</span><br>
+                            Instagram <a href="https://instagram.com/arts.lonlon" target="_blank" rel="noopener">@arts.lonlon</a>
+                        </p>
                     </div>
+                    <form class="form reveal" id="inquiryForm">
+                        <div class="field">
+                            <label for="qType"><span lang="en" data-de="Anliegen">Inquiry</span><span lang="zh-Hant">詢問類型</span></label>
+                            <select id="qType">
+                                <option value="Exhibition" data-de="Ausstellung" data-zh="展覽邀約">Exhibition</option>
+                                <option value="Screening" data-de="Screening" data-zh="放映">Screening</option>
+                                <option value="Acquisition" data-de="Ankauf" data-zh="收藏作品">Acquisition</option>
+                                <option value="Press" data-de="Presse" data-zh="媒體採訪">Press</option>
+                                <option value="Other" data-de="Sonstiges" data-zh="其他">Other</option>
+                            </select>
+                        </div>
+                        <div class="two">
+                            <div class="field"><label for="qName"><span lang="en">Name</span><span lang="zh-Hant">姓名</span></label><input id="qName" autocomplete="name" required></div>
+                            <div class="field"><label for="qOrg"><span lang="en" data-de="Institution">Organisation</span><span lang="zh-Hant">單位</span></label><input id="qOrg" autocomplete="organization"></div>
+                        </div>
+                        <div class="field"><label for="qMsg"><span lang="en" data-de="Nachricht">Message</span><span lang="zh-Hant">內容</span></label><textarea id="qMsg" rows="4" required></textarea></div>
+                        <div>
+                            <button type="submit" class="btn solid"><span lang="en" data-de="E-Mail verfassen">Write email</span><span lang="zh-Hant">產生郵件</span> <span class="arr">→</span></button>
+                            <p class="form-note" style="margin-top: 0.7rem;"><span lang="en" data-de="Öffnet Ihr E-Mail-Programm mit der ausgefüllten Nachricht.">Opens your email app with the message filled in.</span><span lang="zh-Hant">會開啟你的郵件程式，內容已自動填好。</span></p>
+                        </div>
+                    </form>
                 </div>
+                <p class="mailing">
+                    <span lang="en" data-de="Newsletter: gelegentlich Neuigkeiten zu Ausstellungen und neuen Arbeiten. ">Mailing list: occasional news on exhibitions and new work. </span>
+                    <span lang="zh-Hant">郵件名單：不定期收到展覽與新作消息。</span>
+                    <a href="mailto:arts.lonp@gmail.com?subject=Mailing%20list%20%2F%20%E8%A8%82%E9%96%B1%E9%83%B5%E4%BB%B6%E5%90%8D%E5%96%AE&amp;body=Please%20add%20me%20to%20the%20mailing%20list.%20%2F%20%E8%AB%8B%E6%8A%8A%E6%88%91%E5%8A%A0%E5%85%A5%E9%83%B5%E4%BB%B6%E5%90%8D%E5%96%AE%E3%80%82"><span lang="en" data-de="Per E-Mail eintragen →">Join by email →</span><span lang="zh-Hant">寄信加入 →</span></a>
+                </p>
             </div>
+        </section>
+    </main>
 
-            <!-- 內頁 5：SOUND 音 -->
-            <div id="tab-sound" class="page-tab">
-                <div class="tab-header">
-                    <h2 class="page-title"><span class="title-en">SOUND</span><span class="title-zh">音</span></h2>
-                </div>
-                <div class="generic-tab-container">
-                    <p>
-                        探索聲響與空間氛圍的相互作用，涵蓋實驗音訊、聲音行為紀錄以及多媒體展演的聲學設計。<br><br>
-                        Exploring the interaction between sound and spatial atmosphere, encompassing experimental audio, sound performance documentation, and acoustic design for multimedia exhibitions.
-                    </p>
-                    <div style="margin-top: 1.5rem; width: 100%;">
-                        <a href="https://youtube.com/@arts.lonlon" target="_blank" class="brutal-btn tab-action-btn">
-                            [ 前往 YOUTUBE 頁面 ↗ ]
-                        </a>
-                    </div>
-                </div>
-            </div>
+    <footer class="site-footer">
+        <div class="wrap footer-inner">
+            <span>© 2026 lonlon 冷冷</span>
+            <nav aria-label="Footer">
+                <a href="#works"><span lang="en" data-de="Werke">Works</span><span lang="zh-Hant">作品</span></a>
+                <a href="shop.html" data-page="shop"><span lang="en" data-de="Erwerben">Collect</span><span lang="zh-Hant">收藏</span></a>
+                <a href="#cv">CV</a>
+                <a href="https://instagram.com/arts.lonlon" target="_blank" rel="noopener">Instagram ↗</a>
+                <a href="https://ko-fi.com/lonsthx" target="_blank" rel="noopener"><span lang="en" data-de="Das Studio unterstützen ↗">Support the studio ↗</span><span lang="zh-Hant">支持工作室 ↗</span></a>
+            </nav>
+        </div>
+    </footer>
 
-            <!-- 內頁 6：GAMES 遊 -->
-            <div id="tab-games" class="page-tab">
-                <div class="tab-header">
-                    <h2 class="page-title"><span class="title-en">GAMES</span><span class="title-zh">遊</span></h2>
-                </div>
-                <div class="generic-tab-container">
-                    <p>
-                        在遊戲領域，我同時也是一名 RimWorld 模組作者。我致力於編寫 C# 底層邏輯補丁，修復破壞沉浸感的翻譯亂碼、解決複雜的模組衝突並淨化遊戲機制。此外，我也會透過實況分享我的遊戲日常與創作過程。<br><br>
-                        In the gaming sphere, I am also a RimWorld modder. I am dedicated to writing C# core-logic patches, fixing immersion-breaking translation glitches, resolving complex mod conflicts, and purifying game mechanics. Additionally, I share my daily gaming life and creative processes through live streaming.
-                    </p>
-                    <div style="margin-top: 1.5rem; width: 100%;">
-                        <a href="https://couchinc.pages.dev" target="_blank" class="brutal-btn tab-action-btn">
-                            [ 前往遊戲主頁 ↗ ]
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <footer>
-                &copy; 2026 lonlon. All Rights Reserved.
-            </footer>
-        </main>
-    </div>
-
-    <!-- 掃碼贊助與留言彈出視窗 -->
-    <div id="supportModal" class="modal-overlay" onclick="if(event.target === this) closeSupportModal()">
-        <div class="modal-box">
-            <div class="modal-header">
-                <span id="modalHeaderTitle">SUPPORT // 贊助與留言</span>
-                <button class="close-btn" onclick="closeSupportModal()">✕</button>
-            </div>
-
-            <div>
-                <p style="font-size: 0.88rem; font-weight: bold; margin-bottom: 0.8rem;">STEP 1. 選擇支付方式並完成贊助：</p>
-                <div class="pay-tabs" id="supportTabs">
-                    <!-- 台灣本地選項 -->
-                    <button type="button" class="pay-tab tab-local" onclick="switchSupportQR('jkopay', this)">街口等<br>TWQR</button>
-                    <button type="button" class="pay-tab tab-local" onclick="switchSupportQR('linepay', this)">LinePay</button>
-                    <button type="button" class="pay-tab tab-local" onclick="switchSupportQR('newebpay', this)">信用卡 轉帳<br>ApplePay</button>
-                    
-                    <!-- 海外選項 -->
-                    <button type="button" class="pay-tab tab-overseas" onclick="switchSupportQR('paypal', this)">PayPal<br>Ko-fi</button>
-                    <button type="button" class="pay-tab tab-overseas" onclick="switchSupportQR('newebpay_os', this)">Credit Card<br>Apple Pay</button>
-                    
-                    <button type="button" class="pay-tab tab-overseas" onclick="switchSupportQR('alipay', this)">Alipay</button>
-                </div>
-
-                <div class="qr-display" style="margin-top: 0.8rem;">
-                    <img id="supportQrImage" src="" alt="QR Code" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'180\' height=\'180\'><rect width=\'100%\' height=\'100%\' fill=\'%23fff\'/><text x=\'50%\' y=\'50%\' fill=\'%23000\' font-family=\'monospace\' font-size=\'14\' text-anchor=\'middle\'>QR CODE</text></svg>'">
-                    
-                    <div id="linkWrap" style="display:none; padding: 1.5rem 0; width: 100%;">
-                        <a id="linkBtn" href="#" target="_blank" class="brutal-launch-btn" style="display:block; text-align:center;">[ 前往安全支付頁面 ↗ ]</a>
-                    </div>
-
-                    <span id="supportQrHint"></span>
-                </div>
-            </div>
-
-            <form class="support-form" onsubmit="submitSupportMessage(event)">
-                <p style="font-size: 0.88rem; font-weight: bold;">STEP 2. 留下你的資訊與想說的話（選填）：</p>
-                
-                <div class="form-group">
-                    <label>你的名字或暱稱 / Name (Optional)</label>
-                    <input type="text" id="supporterName" placeholder="匿名支持者">
-                </div>
-
-                <div class="form-group">
-                    <label>聯絡信箱 / Email (Optional)</label>
-                    <input type="email" id="supporterEmail" placeholder="若希望收到回覆可填寫">
-                </div>
-
-                <div class="form-group">
-                    <label>想和我說的話 / Message (Optional)</label>
-                    <textarea id="supporterMessage" rows="3" placeholder="無論是關於版畫創作、RimWorld 模組或實況的感想都歡迎留言..."></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn" style="margin-top: 0.5rem;">
-                    [ 寄出留言信件 / SEND MESSAGE ]
-                </button>
-            </form>
+    <!-- 作品檢視 -->
+    <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="viewerTitle" hidden>
+        <div class="viewer-bar">
+            <span class="count" id="viewerCount"></span>
+            <button type="button" class="viewer-close" id="viewerClose"><span lang="en" data-de="Schließen">Close</span><span lang="zh-Hant">關閉</span> <span class="x" aria-hidden="true">×</span></button>
+        </div>
+        <div class="viewer-stage" id="viewerStage">
+            <button type="button" class="stage-nav prev" id="stagePrev" aria-label="Previous image">←</button>
+            <div id="stageContent"></div>
+            <button type="button" class="stage-nav next" id="stageNext" aria-label="Next image">→</button>
+            <div class="thumbs" id="stageDots"></div>
+        </div>
+        <div class="viewer-text">
+            <h2 id="viewerTitle"></h2>
+            <div id="viewerBody"></div>
         </div>
     </div>
-
-    <button id="backToTop" class="back-to-top" onclick="scrollToTop()" aria-label="Back to top">↑ top</button>
 
     <script>
-        function switchTab(tabId) {
-            document.querySelectorAll('.page-tab').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.social-links a').forEach(el => el.classList.remove('active'));
-            
-            const target = document.getElementById('tab-' + tabId);
-            if (target) {
-                target.classList.add('active');
-            }
-            const activeNav = document.querySelector(`.social-links a[data-tab="${tabId}"]`);
-            if (activeNav) {
-                activeNav.classList.add('active');
-            }
-        }
-        //暫時不開放linepay https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE // http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23
-        const SUPPORT_QR_CODES = {
-            jkopay:  { type: "qr", img: "images/qr-jkopay.jpg",  hint: "<br>(所有台灣的支付方式2027/1/1才會開放!請選擇其他支付~)請使用 街口、全支付、悠遊付、台灣Pay、台新Pay、玉山Wallet 等支援 TWQR 之 APP 掃描上方條碼，<span class='desktop-br-hint'><br></span>金額不限，每一份支持都是推動我持續創作的動力。<br><br><a href='' target='_blank' class='brutal-launch-btn'>手機端請點擊這裡喚起 APP 跳轉 ↗</a>" },
-            linepay: { type: "qr", img: "images/qr-linepay.jpg", hint: "<br>(所有台灣的支付方式2027/1/1才會開放!請選擇其他支付~)請使用 Line Pay 掃描上方條碼，金額不限，每一份支持都是推動我持續創作的動力。<br><br><a href='' target='_blank' class='brutal-launch-btn'>手機端請點擊這裡喚起 APP 跳轉 ↗</a>" },
-            alipay:  { type: "qr", img: "images/qr-alipay.jpg",  hint: "<br>請掃描上方條碼，金額不限，每一份支持都是推動我持續創作的動力。<br><br>Please scan the QR code above with Alipay to complete your payment. Enter any amount you wish—every little bit helps!<br><br><a href='https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4' target='_blank' class='brutal-launch-btn'>手機端請點擊這裡喚起 APP 跳轉 ↗</a>" },
-            newebpay: { type: "link", url: "請在這裡貼上你的藍新收款網址", btnText: "前往藍新安全支付頁面 ↗", hint: "(所有台灣的支付方式2027/1/1才會開放!請選擇其他支付~)點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、信用卡與 Apple Pay，金額不限，每一份支持都是推動我持續創作的動力。" },
-            newebpay_os: { type: "link", url: "請在這裡貼上你的藍新收款網址", btnText: "Go to NewebPay Secure Checkout ↗", hint: "(所有台灣的支付方式2027/1/1才會開放!請選擇其他支付~)點擊上方按鈕前往藍新金流安全支付頁面，支援轉帳、跨國信用卡與 Apple Pay，金額不限，每一份支持都是推動我持續創作的動力。<br><br>Click the button above to pay securely via NewebPay, supporting international Credit Cards and Apple Pay. Enter any amount you wish—every little bit helps!" },
-            paypal: { type: "link", url: "https://ko-fi.com/lonsthx", btnText: "Go to Ko-fi / PayPal Checkout ↗", hint: "點擊上方按鈕前往 Ko-fi 頁面，支援 PayPal 與跨國信用卡，金額不限，每一份支持都是推動我持續創作的動力。<br><br>Click the button above to go to the Ko-fi page, supporting PayPal and international Credit Cards. Enter any amount you wish—every little bit helps!" }
+        /* =========================================
+           影片網址：之後換網址只要改這裡
+           embed: true = 在網站裡直接播放（YouTube 要開「允許嵌入」）；false = 連到 YouTube 觀看
+           poster: 播放前顯示的封面圖
+        ========================================= */
+        const VIDEOS = {
+            // 作品預覽片段合併：風行不止、愛麗絲的新生、滲人（5 分鐘）
+            reel: { url: 'https://youtu.be/NE2zB_j3s1E', embed: true, poster: 'images/works/wind-continues-in-motion.jpg' }
         };
+        const STUDIO_EMAIL = 'arts.lonp@gmail.com';
 
-        let currentPayMethod = 'TWQR 街口等';
+        const html = document.documentElement;
+        const ui = () => (html.classList.contains('ui-zh') ? 'zh' : html.classList.contains('ui-de') ? 'de' : 'en');
+        function videoId(url) { const m = String(url).match(/(?:v=|youtu\.be\/|embed\/)([\w-]{11})/); return m ? m[1] : ''; }
 
-        function openSupportModal(region) {
-            const localTabs = document.querySelectorAll('.tab-local');
-            const overseasTabs = document.querySelectorAll('.tab-overseas');
-            
-            if (region === 'local') {
-                document.getElementById('modalHeaderTitle').textContent = "台灣本地 // 請我喝一杯咖啡";
-                localTabs.forEach(el => el.style.display = 'flex');
-                overseasTabs.forEach(el => el.style.display = 'none');
-                switchSupportQR('jkopay', localTabs[0]);
-            } else {
-                document.getElementById('modalHeaderTitle').textContent = "BUY ME A COFFEE // 海外";
-                localTabs.forEach(el => el.style.display = 'none');
-                overseasTabs.forEach(el => el.style.display = 'flex');
-                switchSupportQR('paypal', overseasTabs[0]);
-            }
-
-            document.getElementById('supportModal').classList.add('active');
+        /* ---------- 語言 ---------- */
+        // 德文：英文元素上的 data-de 換進去，切回來時還原
+        function localize(root) {
+            const de = ui() === 'de';
+            (root || document).querySelectorAll('[data-de]').forEach(el => {
+                if (el.tagName === 'OPTION') return;
+                if (de) {
+                    if (!el.hasAttribute('data-en-html')) el.setAttribute('data-en-html', el.innerHTML);
+                    if (el.lang !== 'de') { el.innerHTML = el.getAttribute('data-de'); el.lang = 'de'; }
+                } else if (el.lang === 'de') {
+                    el.innerHTML = el.getAttribute('data-en-html'); el.lang = 'en';
+                }
+            });
         }
-
-        function closeSupportModal() {
-            document.getElementById('supportModal').classList.remove('active');
+        function setUi(next) {
+            html.classList.remove('ui-en', 'ui-zh', 'ui-de');
+            html.classList.add('ui-' + next);
+            html.lang = next === 'zh' ? 'zh-Hant-TW' : next;
+            try { localStorage.setItem('lon-lang', next); } catch (e) {}
+            document.querySelectorAll('[data-ui]').forEach(b => b.setAttribute('aria-pressed', b.dataset.ui === next ? 'true' : 'false'));
+            document.querySelectorAll('#qType option').forEach(o => { o.textContent = next === 'zh' ? o.dataset.zh : next === 'de' ? o.dataset.de : o.value; });
+            localize();
+            if (typeof bindInquire === 'function') bindInquire(document);
         }
+        document.querySelectorAll('[data-ui]').forEach(b => b.addEventListener('click', () => setUi(b.dataset.ui)));
+        setUi(ui());
 
-        function switchSupportQR(type, btn) {
-            document.querySelectorAll('#supportModal .pay-tab').forEach(el => el.classList.remove('active'));
-            if(btn) btn.classList.add('active');
-            
-            currentPayMethod = btn ? btn.innerHTML.replace(/<br>/g, ' ') : type; 
-            
-            const data = SUPPORT_QR_CODES[type];
-            const imgEl = document.getElementById('supportQrImage');
-            const linkWrap = document.getElementById('linkWrap');
-            const linkBtn = document.getElementById('linkBtn');
-            
-            if (data.type === 'link') {
-                imgEl.style.display = 'none';
-                linkWrap.style.display = 'block';
-                linkBtn.href = data.url;
-                linkBtn.innerHTML = data.btnText;
-            } else {
-                imgEl.style.display = 'block';
-                linkWrap.style.display = 'none';
-                imgEl.src = data.img;
-            }
-            
-            document.getElementById('supportQrHint').innerHTML = data.hint;
+        /* ---------- 新版檔名：在 *.new1.html 預覽時，站內連結指到 new1 版本 ---------- */
+        (function () {
+            const m = location.pathname.match(/\.(new\d+)\.html$/);
+            if (!m) return;
+            document.querySelectorAll('a[data-page]').forEach(a => {
+                a.href = a.getAttribute('href').replace(/^(shop|index)\.html/, '$1.' + m[1] + '.html');
+            });
+        })();
+
+        /* ---------- 影片：按下封面才載入播放器 ---------- */
+        function videoBox(key) {
+            const v = VIDEOS[key];
+            const poster = '<img src="' + v.poster + '" alt="">';
+            if (!v.embed) return '<div class="video-box"><a class="play" href="' + v.url + '" target="_blank" rel="noopener" aria-label="Watch on YouTube">' + poster + '</a></div>';
+            return '<div class="video-box" data-player="' + key + '"><button type="button" class="play" aria-label="Play video">' + poster + '</button></div>';
         }
-
-        function submitSupportMessage(e) {
-            e.preventDefault();
-            const name = document.getElementById('supporterName').value.trim() || '匿名支持者';
-            const email = document.getElementById('supporterEmail').value.trim() || '未提供';
-            const message = document.getElementById('supporterMessage').value.trim() || '（無額外留言，純贊助支持 ☕）';
-
-            const subject = encodeURIComponent(`[贊助與留言] 來自 ${name} 的支持`);
-            const body = encodeURIComponent(
-`冷冷你好，我已透過「${currentPayMethod}」完成贊助！
-
-【支持者暱稱】${name}
-【聯絡信箱】${email}
-【想對你說的話】
-${message}
-`
-            );
-
-            window.location.href = `mailto:arts.lonp@gmail.com?subject=${subject}&body=${body}`;
-            closeSupportModal();
+        function playIn(box) {
+            const v = VIDEOS[box.dataset.player]; if (!v) return;
+            // 直接雙擊檔案（file://）開啟時 YouTube 拿不到來源網址會出現「錯誤 153」，改開 YouTube 分頁；上線或用本機伺服器時正常嵌入
+            if (location.protocol === 'file:') { window.open(v.url, '_blank', 'noopener'); return; }
+            box.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + videoId(v.url) + '?autoplay=1&rel=0&playsinline=1" title="Showreel" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';
         }
-
-        function setLang(lang) {
-            document.querySelectorAll('.lang-section, .greeting').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.lang-btn[data-lang]').forEach(el => el.classList.remove('active'));
-            document.getElementById('content-' + lang).classList.add('active');
-            document.getElementById('greeting-' + lang).classList.add('active');
-            document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
-        }
-
-        const backToTopBtn = document.getElementById('backToTop');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) backToTopBtn.classList.add('visible');
-            else backToTopBtn.classList.remove('visible');
+        document.addEventListener('click', e => {
+            const btn = e.target.closest('.video-box[data-player] .play');
+            if (btn) playIn(btn.parentNode);
         });
-        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        // 首頁的影片：沒開放嵌入時改成連到 YouTube
+        (function () {
+            const box = document.querySelector('#reel .video-box');
+            if (box && !VIDEOS.reel.embed) box.outerHTML = videoBox('reel');
+        })();
+        function stopVideo(root) {
+            root.querySelectorAll('.video-box[data-player] iframe').forEach(f => { f.parentNode.outerHTML = videoBox(f.parentNode.dataset.player); });
+        }
+
+        /* ---------- 詢問按鈕：開郵件 ---------- */
+        function mailto(subject, body) {
+            return 'mailto:' + STUDIO_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body || '');
+        }
+        function bindInquire(root) {
+            root.querySelectorAll('[data-inquire]').forEach(a => {
+                a.href = mailto(a.dataset.inquire, ui() === 'zh' ? '您好，\n\n' : ui() === 'de' ? 'Guten Tag,\n\n' : 'Hello,\n\n');
+            });
+        }
+        bindInquire(document);
+
+        /* ---------- header 滾動線、目前段落 ---------- */
+        const header = document.getElementById('siteHeader');
+        addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 8), { passive: true });
+        const navLinks = [...document.querySelectorAll('.site-nav a[href^="#"]')];
+        if ('IntersectionObserver' in window) {
+            const spy = new IntersectionObserver(entries => entries.forEach(e => {
+                if (!e.isIntersecting) return;
+                navLinks.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#' + e.target.id));
+            }), { rootMargin: '-45% 0px -50% 0px' });
+            ['works', 'cv', 'about', 'contact'].forEach(id => spy.observe(document.getElementById(id)));
+            const rev = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); rev.unobserve(e.target); } }), { rootMargin: '0px 0px -6% 0px' });
+            document.querySelectorAll('.reveal').forEach(el => rev.observe(el));
+        } else document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+
+        /* ---------- 篩選 ---------- */
+        const filterBtns = [...document.querySelectorAll('[data-filter]')];
+        const works = [...document.querySelectorAll('.work')];
+        filterBtns.forEach(b => b.addEventListener('click', () => {
+            const f = b.dataset.filter;
+            filterBtns.forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+            works.forEach(w => { w.hidden = !(f === 'all' || w.dataset.cat.split(' ').includes(f)); if (!w.hidden) w.classList.add('in'); });
+            document.getElementById('indexHead').hidden = !document.querySelector('.works-index .work:not([hidden])');
+            const reel = document.getElementById('reel');
+            reel.hidden = !(f === 'all' || f === 'video' || f === 'performance');
+            if (reel.hidden) stopVideo(reel); else reel.classList.add('in');
+        }));
+
+        /* ---------- 作品檢視 ---------- */
+        const viewer = document.getElementById('viewer');
+        const stage = document.getElementById('stageContent');
+        const dots = document.getElementById('stageDots');
+        const prevBtn = document.getElementById('stagePrev');
+        const nextBtn = document.getElementById('stageNext');
+        let current = null, images = [], idx = 0, lastFocus = null;
+
+        function renderStage() {
+            stage.innerHTML = '';
+            const vkey = current.dataset.video;
+            if (vkey && VIDEOS[vkey]) {
+                stage.innerHTML = videoBox(vkey);
+            } else if (images.length) {
+                const img = document.createElement('img');
+                img.src = images[idx]; img.alt = current.querySelector('.work-title-en').textContent;
+                stage.appendChild(img);
+            } else {
+                const plate = current.querySelector('.work-media.text').cloneNode(true);
+                plate.className = 'text-plate';
+                plate.querySelector('.t-meta') && plate.querySelector('.t-meta').remove();
+                stage.appendChild(plate);
+            }
+            const many = images.length > 1;
+            prevBtn.hidden = nextBtn.hidden = !many;
+            dots.innerHTML = many ? images.map((_, i) => '<button type="button" aria-label="Image ' + (i + 1) + '"' + (i === idx ? ' aria-current="true"' : '') + '></button>').join('') : '';
+            dots.querySelectorAll('button').forEach((d, i) => d.addEventListener('click', () => { idx = i; renderStage(); }));
+            document.getElementById('viewerCount').textContent = many ? (idx + 1) + ' / ' + images.length : '';
+        }
+        function openWork(work, push) {
+            current = work;
+            images = (work.dataset.images || '').split(',').map(s => s.trim()).filter(Boolean);
+            idx = 0;
+            const t = work.querySelector('.work-info .t').cloneNode(true);
+            document.getElementById('viewerTitle').innerHTML = t.innerHTML;
+            stopVideo(document.getElementById('reel'));
+            const body = work.querySelector('.work-detail').cloneNode(true);
+            body.style.display = 'block';
+            const vb = document.getElementById('viewerBody'); vb.innerHTML = ''; vb.appendChild(body);
+            bindInquire(vb);
+            renderStage();
+            lastFocus = document.activeElement;
+            viewer.hidden = false; viewer.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('viewerClose').focus();
+            if (push !== false) history.replaceState(null, '', '#work/' + work.dataset.id);
+        }
+        function closeWork() {
+            stage.innerHTML = '';  // 關掉視窗時停止播放
+            viewer.classList.remove('open'); viewer.hidden = true;
+            document.body.style.overflow = '';
+            if (location.hash.indexOf('#work/') === 0) history.replaceState(null, '', '#works');
+            if (lastFocus) lastFocus.focus();
+        }
+        function step(d) { if (images.length < 2) return; idx = (idx + d + images.length) % images.length; renderStage(); }
+        works.forEach(w => w.querySelector('.work-btn').addEventListener('click', () => openWork(w)));
+        document.getElementById('viewerClose').addEventListener('click', closeWork);
+        prevBtn.addEventListener('click', () => step(-1));
+        nextBtn.addEventListener('click', () => step(1));
+        addEventListener('keydown', e => {
+            if (!viewer.classList.contains('open')) return;
+            if (e.key === 'Escape') closeWork();
+            if (e.key === 'ArrowLeft') step(-1);
+            if (e.key === 'ArrowRight') step(1);
+        });
+        // 手機左右滑動換圖
+        let sx = null;
+        document.getElementById('viewerStage').addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+        document.getElementById('viewerStage').addEventListener('touchend', e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1); sx = null; });
+        // 分享連結：#work/作品代號 直接打開
+        function fromHash() {
+            const m = location.hash.match(/^#work\/([\w-]+)/);
+            if (!m) return;
+            const w = works.find(x => x.dataset.id === m[1]);
+            if (w) openWork(w, false);
+        }
+        fromHash();
+        addEventListener('hashchange', fromHash);
+
+        /* ---------- 下載 CV：用瀏覽器的「另存 PDF」 ---------- */
+        document.getElementById('printCv').addEventListener('click', () => {
+            document.body.classList.add('print-cv');
+            setTimeout(() => window.print(), 50);
+        });
+        addEventListener('afterprint', () => document.body.classList.remove('print-cv'));
+
+        /* ---------- 聯絡表單 → 郵件 ---------- */
+        document.getElementById('inquiryForm').addEventListener('submit', e => {
+            e.preventDefault();
+            const type = document.getElementById('qType').value;
+            const name = document.getElementById('qName').value.trim();
+            const org = document.getElementById('qOrg').value.trim();
+            const msg = document.getElementById('qMsg').value.trim();
+            const subject = type + ' inquiry — ' + name + (org ? ' (' + org + ')' : '');
+            const body = msg + '\n\n— ' + name + (org ? '\n' + org : '');
+            location.href = mailto(subject, body);
+        });
     </script>
 </body>
 </html>
