@@ -46,7 +46,7 @@
             // 字型非同步載入，連不上也不會卡住畫面
             var l = document.createElement('link');
             l.rel = 'stylesheet';
-            l.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@400;500&display=swap';
+            l.href = 'https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Newsreader:opsz,wght@6..72,300&family=Noto+Sans+TC:wght@400&family=Noto+Serif+TC:wght@400&display=swap';
             document.head.appendChild(l);
         })();
     </script>
@@ -386,6 +386,111 @@
             a { color: inherit; }
         }
         .print-head { display: none; }
+
+        /* =========================================
+           字體統一
+           英文：全部 EB Garamond（不用斜體）
+           中文：全部思源黑體 Noto Sans TC（不用粗體），最大 15px
+           例外：首頁最上方的大字「lonlon 冷冷」維持原本的 Newsreader／思源宋體
+        ========================================= */
+        :root {
+            --sans: 'EB Garamond', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', Georgia, serif;
+            --serif: 'EB Garamond', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', Georgia, serif;
+            --zh-max: 15px; /* 中文最大字級；不想限制就把這行改成 999px */
+        }
+        body, button, input, select, textarea { font-family: var(--sans); }
+        body *, body *::before, body *::after { font-style: normal !important; }
+        /* 中文：統一字體、不加粗、不超過 15px */
+        [lang="zh-Hant"], .work-title-zh, .t-zh, .brand .zh, .section-head h2 .zh {
+            font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            font-weight: 400 !important;
+            font-size: min(1em, var(--zh-max)) !important;
+        }
+        html.ui-zh body .btn, html.ui-zh body .eyebrow, html.ui-zh body .field label,
+        html.ui-zh body .cv-block h3, html.ui-zh body .brand, html.ui-zh body .site-nav a { font-weight: 400; }
+        /* 首頁大字維持原樣 */
+        .hero h1 { font-family: 'Newsreader', 'Noto Serif TC', 'Songti TC', Georgia, serif; }
+        .hero h1 .zh { font-family: 'Noto Serif TC', 'Songti TC', serif; }
+
+        /* 首頁主圖：只露出中間的紙，蓋掉鋁框和白色卡紙
+           紙在原圖（653×737）裡的範圍：x 149–508、y 122–647 像素 */
+        .hero-figure { justify-self: end; width: fit-content; max-width: 100%; }
+        .hero-figure .frame.paper-only {
+            position: relative; display: block;
+            aspect-ratio: 359 / 525;
+            height: min(68vh, 600px); max-width: 100%;
+            background: none;
+        }
+        .hero-figure .frame.paper-only img {
+            position: absolute;
+            width: 181.894%; height: 140.381%;
+            left: -41.504%; top: -23.238%;
+            max-width: none; object-fit: fill;
+        }
+        @media (max-width: 760px) {
+            .hero-figure { justify-self: stretch; width: auto; }
+            .hero-figure .frame.paper-only { height: auto; width: min(100%, 360px); margin: 0 auto; aspect-ratio: 359 / 525; }
+        }
+
+        /* 區塊標題（作品、CV 履歷、關於、聯絡）：固定大小，英文與中文取中間值 */
+        .section-head { min-height: 48px; align-items: center; }
+        .section-head h2 { font-size: 24px; line-height: 32px; font-weight: 400; }
+        .section-head h2 [lang="zh-Hant"], .section-head h2 .zh { font-size: 20px !important; letter-spacing: 0.06em; }
+        .section-head h2 .zh { margin-left: 0.5rem; }
+        /* 更多作品清單：英文作品名淡一點，滑過時才變深 */
+        .works-index .work-info .t .work-title-en { color: #57544e; transition: color 0.2s; }
+        .works-index .work-btn:hover .work-title-en { color: var(--ink); }
+
+        /* 作品格子：只露出紙（蓋掉鋁框與卡紙），紙放在牆色底的中間 */
+        .works-grid .work-media.paper { display: flex; align-items: center; justify-content: center; padding: 12%; }
+        .paper-crop { position: relative; overflow: hidden; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.10); transition: transform 0.6s cubic-bezier(.2,.7,.2,1); }
+        .paper-crop.fit-h { height: 100%; width: auto; }
+        .paper-crop.fit-w { width: 100%; height: auto; }
+        .works-grid .work-media .paper-crop img {
+            position: absolute; left: var(--ix); top: var(--iy);
+            width: var(--iw); height: var(--ih); max-width: none;
+            object-fit: fill; filter: none; transform: none !important;
+        }
+        .work-btn:hover .paper-crop { transform: scale(1.02); }
+
+        /* 區塊小標題：英文中文同樣 20px、同樣的灰色 */
+        .section-head h2, .section-head h2 * { color: var(--muted); }
+        .section-head h2 { font-size: 20px; line-height: 32px; }
+        .section-head h2 [lang="zh-Hant"], .section-head h2 [lang="en"], .section-head h2 [lang="de"], .section-head h2 .zh { font-size: 20px !important; margin-left: 0; }
+
+        /* 關於：右欄（台灣台北等）跟左邊的標籤一樣大小、一樣顏色 */
+        .facts li > span:last-child, .facts li > span:last-child * { font-size: 0.78rem; color: var(--muted); }
+        .facts a { white-space: normal; }
+
+        /* 聯絡：信箱跟上面那段文字一樣大小 */
+        .contact-mail { font-size: 17px; margin-top: 0.9rem; line-height: 1.6; } /* EB Garamond 字面小，17px 看起來跟 15px 的中文一樣大 */
+        html:not(.ui-zh) .contact-mail { font-size: clamp(1.05rem, 1.5vw, 1.2rem); }
+
+        /* 作品格子：拿掉牆色底框，圖片靠左下，左緣和下方文字的第一個字對齊 */
+        .works-grid .work-media.paper { background: none; padding: 0; justify-content: flex-start; align-items: flex-end; }
+        .paper-crop { box-shadow: none; transform-origin: left bottom; }
+        /* 開頭是「《」時往左縮半格，讓字和圖片左緣對齊（全形括號左半邊是空白） */
+        .hang { margin-left: -0.5em; }
+
+        /* 關於區每一列：標籤、內容、連結全部同一個字級 */
+        .facts li, .facts li *, .facts .k { font-size: 13px !important; letter-spacing: 0.02em; }
+        .facts .k { text-transform: none; }
+
+        /* 作品格子：每張都是同一個比例（7:10），只露出紙，等比例放大後置中，左右多出來的裁掉 */
+        .works-grid .work-media.paper { position: relative; display: block; aspect-ratio: 7 / 10; padding: 0; background: none; }
+        .works-grid .work-media.paper .paper-crop { position: absolute; inset: 0; width: auto; height: auto; aspect-ratio: auto; box-shadow: none; }
+        .works-grid .work-media.paper .paper-crop img { opacity: 0; transition: opacity 0.4s; }
+        .works-grid .work-media.paper .paper-crop.ready img { opacity: 1; }
+        .work-info .avail.sold { color: var(--sold); }
+        .work-info .avail.sold::before { background: var(--sold); }
+
+        /* 作品檢視：點圖片局部放大，移動滑鼠（手機用手指拖）看細節，再點一下縮回 */
+        #stageContent img.zoomable { cursor: zoom-in; transition: transform 0.25s ease; }
+        .viewer-stage.zoomed #stageContent img.zoomable { transform: scale(2.4); cursor: zoom-out; }
+        .viewer-stage.zoomed { touch-action: none; }
+        .zoom-hint { display: none; position: absolute; top: 0.9rem; left: 50%; transform: translateX(-50%); z-index: 2; font-size: 12px; color: var(--muted); letter-spacing: 0.04em; pointer-events: none; }
+        .viewer-stage.can-zoom .zoom-hint { display: block; }
+        .viewer-stage.zoomed .zoom-hint { display: none; }
     </style>
 </head>
 <body>
@@ -425,12 +530,12 @@
                     </div>
                 </div>
                 <figure class="hero-figure reveal">
-                    <div class="frame">
-                        <img src="images/products/prt2-1-1.jpg" alt="vanishing on the shore washed by waves 1, woodblock print, framed" width="653" height="737">
+                    <div class="frame paper-only">
+                        <img src="images/products/prt2-1-1.jpg" alt="vanishing on the shore washed by waves 1, woodblock print" width="653" height="737">
                     </div>
                     <figcaption class="caption">
                         <span lang="en" data-de="&lt;i&gt;vanishing on the shore washed by waves 1&lt;/i&gt;, 2024. Holzschnitt."><i>vanishing on the shore washed by waves 1</i>, 2024. Woodblock print.</span>
-                        <span lang="zh-Hant">《消失在海浪刷洗的沙灘上 1》，2024，木刻版畫。</span>
+                        <span lang="zh-Hant"><span class="hang">《</span>消失在海浪刷洗的沙灘上 1》，2024，木刻版畫。</span>
                     </figcaption>
                 </figure>
             </div>
@@ -462,7 +567,7 @@
                     </figcaption>
                 </figure>
 
-                <div class="works-grid">
+                <div class="works-grid" id="sheetGrid" aria-live="polite">
                     <!--
                         每件作品一個 <article class="work">。
                         data-id：網址用的代號（例如 #work/wind-continues-in-motion）。
@@ -472,85 +577,7 @@
                         .work-detail 裡的內容會出現在點開後的右側說明。
                     -->
 
-                    <article class="work reveal" data-id="vanishing-on-the-shore" data-cat="print" data-images="images/products/prt2-1-1.jpg, images/products/prt2-1-3.jpg, images/products/prt2-1-4.jpg">
-                        <button type="button" class="work-btn">
-                            <div class="work-media">
-                                <img src="images/products/prt2-1-1.jpg" alt="vanishing on the shore washed by waves 1" loading="lazy" width="653" height="737">
-                            </div>
-                            <div class="work-info">
-                                <span class="t"><span class="work-title-en">vanishing on the shore washed by waves 1</span><span class="work-title-zh">消失在海浪刷洗的沙灘上 1</span></span>
-                                <span class="y">2024</span>
-                                <span class="m"><span lang="en" data-de="Holzschnitt, Auflage 3">Woodblock print, edition of 3</span><span lang="zh-Hant">木刻版畫，版數 3</span></span>
-                                <span class="avail"><span lang="en" data-de="Verfügbar">Available</span><span lang="zh-Hant">可收藏</span></span>
-                            </div>
-                        </button>
-                        <div class="work-detail">
-                            <dl class="spec">
-                                <dt><span lang="en" data-de="Jahr">Year</span><span lang="zh-Hant">年份</span></dt><dd>2024</dd>
-                                <dt><span lang="en">Medium</span><span lang="zh-Hant">媒材</span></dt><dd><span lang="en" data-de="Holzschnitt">Woodblock print</span><span lang="zh-Hant">木刻版畫</span></dd>
-                                <dt><span lang="en" data-de="Abmessungen">Size</span><span lang="zh-Hant">尺寸</span></dt><dd>B5</dd>
-                                <dt><span lang="en" data-de="Auflage">Edition</span><span lang="zh-Hant">版數</span></dt><dd><span lang="en" data-de="Auflage 3">Edition of 3</span><span lang="zh-Hant">3 版</span></dd>
-                            </dl>
-                            <div class="actions">
-                                <a class="btn solid" href="shop.html#PRT-002-1" data-page="shop"><span lang="en" data-de="Zu den verfügbaren Werken">View in Collect</span><span lang="zh-Hant">前往收藏頁</span> <span class="arr">→</span></a>
-                                <a class="btn" data-inquire="Acquisition · vanishing on the shore washed by waves 1 (PRT-002-1)"><span lang="en" data-de="Zu diesem Werk anfragen">Ask about this work</span><span lang="zh-Hant">詢問這件作品</span></a>
-                            </div>
-                        </div>
-                    </article>
-
-
-                    <article class="work reveal" data-id="i-also-disappeared-in-sounds" data-cat="print" data-images="images/products/prt1-1.jpg">
-                        <button type="button" class="work-btn">
-                            <div class="work-media">
-                                <img src="images/products/prt1-1.jpg" alt="i also disappeared in sounds, endlessly 1" loading="lazy" width="609" height="796">
-                            </div>
-                            <div class="work-info">
-                                <span class="t"><span class="work-title-en">i also disappeared in sounds, endlessly 1</span><span class="work-title-zh">我也消失在聲音裡，永無止盡 1</span></span>
-                                <span class="y">2025</span>
-                                <span class="m"><span lang="en" data-de="Wasserbasierter Holzschnitt, Unikat">Water-based woodblock print, unique</span><span lang="zh-Hant">水印木刻版畫，獨版</span></span>
-                                <span class="avail"><span lang="en" data-de="Verfügbar">Available</span><span lang="zh-Hant">可收藏</span></span>
-                            </div>
-                        </button>
-                        <div class="work-detail">
-                            <dl class="spec">
-                                <dt><span lang="en" data-de="Jahr">Year</span><span lang="zh-Hant">年份</span></dt><dd>2025</dd>
-                                <dt><span lang="en">Medium</span><span lang="zh-Hant">媒材</span></dt><dd><span lang="en" data-de="Wasserbasierter Holzschnitt">Water-based woodblock print</span><span lang="zh-Hant">水印木刻版畫</span></dd>
-                                <dt><span lang="en" data-de="Abmessungen">Size</span><span lang="zh-Hant">尺寸</span></dt><dd>B5</dd>
-                                <dt><span lang="en" data-de="Auflage">Edition</span><span lang="zh-Hant">版數</span></dt><dd><span lang="en" data-de="Unikat">Unique</span><span lang="zh-Hant">獨版</span></dd>
-                            </dl>
-                            <div class="actions">
-                                <a class="btn solid" href="shop.html#PRT-001-1" data-page="shop"><span lang="en" data-de="Zu den verfügbaren Werken">View in Collect</span><span lang="zh-Hant">前往收藏頁</span> <span class="arr">→</span></a>
-                                <a class="btn" data-inquire="Acquisition · i also disappeared in sounds, endlessly 1 (PRT-001-1)"><span lang="en" data-de="Zu diesem Werk anfragen">Ask about this work</span><span lang="zh-Hant">詢問這件作品</span></a>
-                            </div>
-                        </div>
-                    </article>
-
-
-
-                    <article class="work reveal" data-id="somewhere-in-the-sky" data-cat="print" data-images="images/products/pho1-1.jpg, images/products/pho1-2.jpg, images/products/pho1-3.jpg, images/products/pho1-4.jpg">
-                        <button type="button" class="work-btn">
-                            <div class="work-media">
-                                <img src="images/products/pho1-1.jpg" alt="somewhere in the sky, away from humans" loading="lazy" width="689" height="582">
-                            </div>
-                            <div class="work-info">
-                                <span class="t"><span class="work-title-en">somewhere in the sky, away from humans</span><span class="work-title-zh">在天空中的某處，遠離人類</span></span>
-                                <span class="y">2024</span>
-                                <span class="m"><span lang="en" data-de="Archival Pigment Print, Auflage 30">Archival pigment print, edition of 30</span><span lang="zh-Hant">數位微噴，版數 30</span></span>
-                                <span class="avail"><span lang="en" data-de="Verfügbar">Available</span><span lang="zh-Hant">可收藏</span></span>
-                            </div>
-                        </button>
-                        <div class="work-detail">
-                            <dl class="spec">
-                                <dt><span lang="en" data-de="Jahr">Year</span><span lang="zh-Hant">年份</span></dt><dd>2024</dd>
-                                <dt><span lang="en">Medium</span><span lang="zh-Hant">媒材</span></dt><dd><span lang="en" data-de="Archival Pigment Print auf Fine-Art-Papier">Archival pigment print on fine art paper</span><span lang="zh-Hant">數位微噴、無酸藝術紙</span></dd>
-                                <dt><span lang="en" data-de="Auflage">Edition</span><span lang="zh-Hant">版數</span></dt><dd><span lang="en" data-de="Auflage 30">Edition of 30</span><span lang="zh-Hant">30 版</span></dd>
-                            </dl>
-                            <div class="actions">
-                                <a class="btn solid" href="shop.html#PHO-001" data-page="shop"><span lang="en" data-de="Zu den verfügbaren Werken">View in Collect</span><span lang="zh-Hant">前往收藏頁</span> <span class="arr">→</span></a>
-                                <a class="btn" data-inquire="Acquisition · somewhere in the sky, away from humans (PHO-001)"><span lang="en" data-de="Zu diesem Werk anfragen">Ask about this work</span><span lang="zh-Hant">詢問這件作品</span></a>
-                            </div>
-                        </div>
-                    </article>
+                    <!-- 這裡的作品由 Google 試算表自動產生（跟收藏頁同一份資料，見下方 script 的 SHEET 設定） -->
                 </div>
 
                 <!-- 沒有圖片的作品：文字清單，點開一樣有詳細資料 -->
@@ -738,7 +765,7 @@
                     <p style="color: #555;">arts.lonp@gmail.com · instagram.com/arts.lonlon · lonp.pages.dev</p>
                 </div>
                 <div class="section-head">
-                    <h2 id="cv-h">CV <span class="zh" lang="zh-Hant">履歷</span></h2>
+                    <h2 id="cv-h"><span lang="en">CV</span><span lang="zh-Hant">履歷</span></h2>
                     <button type="button" class="btn no-print" id="printCv"><span lang="en" data-de="CV herunterladen (PDF)">Download CV (PDF)</span><span lang="zh-Hant">下載 CV（PDF）</span> <span class="arr">↓</span></button>
                 </div>
                 <p class="cv-intro">
@@ -790,7 +817,7 @@
                         <li><span class="k"><span lang="en" data-de="Medien">Media</span><span lang="zh-Hant">媒材</span></span><span><span lang="en" data-de="Video, Performance, Installation, Holzschnitt">Video, performance, installation, woodblock print</span><span lang="zh-Hant">錄像、行為、裝置、木刻版畫</span></span></li>
                         <li><span class="k"><span lang="en" data-de="Verkauf">Sales</span><span lang="zh-Hant">銷售</span></span><span><span lang="en" data-de="Direkt über das Studio. ">Directly through the studio. </span><span lang="zh-Hant">由工作室直接銷售。</span><a href="shop.html" data-page="shop"><span lang="en" data-de="Verfügbare Werke">Available works</span><span lang="zh-Hant">可收藏作品</span></a></span></li>
                         <li><span class="k">Instagram</span><span><a href="https://instagram.com/arts.lonlon" target="_blank" rel="noopener">@arts.lonlon</a></span></li>
-                        <li><span class="k"><span lang="en" data-de="Außerdem">Also</span><span lang="zh-Hant">其他</span></span><span><span lang="en" data-de="Spieleentwicklung &amp;amp; Streaming: ">Game development &amp; streaming: </span><span lang="zh-Hant">遊戲開發與實況：</span><a href="https://couchinc.pages.dev" target="_blank" rel="noopener">Human Leather Couch Factory ↗</a></span></li>
+                        <li><span class="k"><span lang="en" data-de="Außerdem">Also</span><span lang="zh-Hant">其他</span></span><span><span lang="en" data-de="Spieleentwicklung &amp;amp; Streaming: ">Game development &amp; streaming: </span><span lang="zh-Hant">遊戲開發與實況：</span><a href="https://couchinc.pages.dev" target="_blank" rel="noopener">Human Leather Couch Factory</a></span></li>
                     </ul>
                 </div>
             </div>
@@ -866,6 +893,7 @@
             <button type="button" class="viewer-close" id="viewerClose"><span lang="en" data-de="Schließen">Close</span><span lang="zh-Hant">關閉</span> <span class="x" aria-hidden="true">×</span></button>
         </div>
         <div class="viewer-stage" id="viewerStage">
+            <span class="zoom-hint"><span lang="en" data-de="Zum Vergrößern klicken">Click to zoom</span><span lang="zh-Hant">點擊放大細節</span></span>
             <button type="button" class="stage-nav prev" id="stagePrev" aria-label="Previous image">←</button>
             <div id="stageContent"></div>
             <button type="button" class="stage-nav next" id="stageNext" aria-label="Next image">→</button>
@@ -920,14 +948,15 @@
         document.querySelectorAll('[data-ui]').forEach(b => b.addEventListener('click', () => setUi(b.dataset.ui)));
         setUi(ui());
 
-        /* ---------- 新版檔名：在 *.new1.html 預覽時，站內連結指到 new1 版本 ---------- */
-        (function () {
+        /* ---------- 新版檔名：在 *.newN.html 預覽時，站內連結指到同一版本 ---------- */
+        function fixPageLinks(root) {
             const m = location.pathname.match(/\.(new\d+)\.html$/);
             if (!m) return;
-            document.querySelectorAll('a[data-page]').forEach(a => {
+            (root || document).querySelectorAll('a[data-page]').forEach(a => {
                 a.href = a.getAttribute('href').replace(/^(shop|index)\.html/, '$1.' + m[1] + '.html');
             });
-        })();
+        }
+        fixPageLinks();
 
         /* ---------- 影片：按下封面才載入播放器 ---------- */
         function videoBox(key) {
@@ -982,11 +1011,11 @@
 
         /* ---------- 篩選 ---------- */
         const filterBtns = [...document.querySelectorAll('[data-filter]')];
-        const works = [...document.querySelectorAll('.work')];
+        const allWorks = () => [...document.querySelectorAll('.work')];
         filterBtns.forEach(b => b.addEventListener('click', () => {
             const f = b.dataset.filter;
             filterBtns.forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
-            works.forEach(w => { w.hidden = !(f === 'all' || w.dataset.cat.split(' ').includes(f)); if (!w.hidden) w.classList.add('in'); });
+            allWorks().forEach(w => { w.hidden = !(f === 'all' || w.dataset.cat.split(' ').includes(f)); if (!w.hidden) w.classList.add('in'); });
             document.getElementById('indexHead').hidden = !document.querySelector('.works-index .work:not([hidden])');
             const reel = document.getElementById('reel');
             reel.hidden = !(f === 'all' || f === 'video' || f === 'performance');
@@ -995,6 +1024,7 @@
 
         /* ---------- 作品檢視 ---------- */
         const viewer = document.getElementById('viewer');
+        const vStage = document.getElementById('viewerStage');
         const stage = document.getElementById('stageContent');
         const dots = document.getElementById('stageDots');
         const prevBtn = document.getElementById('stagePrev');
@@ -1003,12 +1033,14 @@
 
         function renderStage() {
             stage.innerHTML = '';
+            vStage.classList.remove('zoomed', 'can-zoom');
             const vkey = current.dataset.video;
             if (vkey && VIDEOS[vkey]) {
                 stage.innerHTML = videoBox(vkey);
             } else if (images.length) {
                 const img = document.createElement('img');
                 img.src = images[idx]; img.alt = current.querySelector('.work-title-en').textContent;
+                img.className = 'zoomable';
                 stage.appendChild(img);
             } else {
                 const plate = current.querySelector('.work-media.text').cloneNode(true);
@@ -1016,6 +1048,7 @@
                 plate.querySelector('.t-meta') && plate.querySelector('.t-meta').remove();
                 stage.appendChild(plate);
             }
+            if (stage.querySelector('img.zoomable')) vStage.classList.add('can-zoom');
             const many = images.length > 1;
             prevBtn.hidden = nextBtn.hidden = !many;
             dots.innerHTML = many ? images.map((_, i) => '<button type="button" aria-label="Image ' + (i + 1) + '"' + (i === idx ? ' aria-current="true"' : '') + '></button>').join('') : '';
@@ -1048,29 +1081,220 @@
             if (lastFocus) lastFocus.focus();
         }
         function step(d) { if (images.length < 2) return; idx = (idx + d + images.length) % images.length; renderStage(); }
-        works.forEach(w => w.querySelector('.work-btn').addEventListener('click', () => openWork(w)));
+        document.addEventListener('click', e => {
+            const b = e.target.closest('.work-btn');
+            if (b && b.closest('.work')) openWork(b.closest('.work'));
+        });
         document.getElementById('viewerClose').addEventListener('click', closeWork);
         prevBtn.addEventListener('click', () => step(-1));
         nextBtn.addEventListener('click', () => step(1));
         addEventListener('keydown', e => {
             if (!viewer.classList.contains('open')) return;
-            if (e.key === 'Escape') closeWork();
+            if (e.key === 'Escape') { if (vStage.classList.contains('zoomed')) vStage.classList.remove('zoomed'); else closeWork(); return; }
             if (e.key === 'ArrowLeft') step(-1);
             if (e.key === 'ArrowRight') step(1);
         });
         // 手機左右滑動換圖
         let sx = null;
         document.getElementById('viewerStage').addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
-        document.getElementById('viewerStage').addEventListener('touchend', e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1); sx = null; });
+        document.getElementById('viewerStage').addEventListener('touchend', e => { if (sx === null || vStage.classList.contains('zoomed')) { sx = null; return; } const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1); sx = null; });
+        // 局部放大：以點的位置為中心放大，滑鼠或手指移到哪就看哪
+        function zoomOrigin(img, x, y) {
+            const r = img.getBoundingClientRect();
+            const fx = Math.min(1, Math.max(0, (x - r.left) / r.width)), fy = Math.min(1, Math.max(0, (y - r.top) / r.height));
+            img.style.transformOrigin = (fx * 100) + '% ' + (fy * 100) + '%';
+        }
+        stage.addEventListener('click', e => {
+            const img = e.target.closest('img.zoomable'); if (!img) return;
+            if (!vStage.classList.contains('zoomed')) zoomOrigin(img, e.clientX, e.clientY);
+            vStage.classList.toggle('zoomed');
+        });
+        stage.addEventListener('mousemove', e => {
+            if (!vStage.classList.contains('zoomed')) return;
+            const img = stage.querySelector('img.zoomable'); if (img) zoomOrigin(img, e.clientX, e.clientY);
+        });
+        stage.addEventListener('touchmove', e => {
+            if (!vStage.classList.contains('zoomed')) return;
+            const img = stage.querySelector('img.zoomable'); if (!img) return;
+            e.preventDefault();
+            zoomOrigin(img, e.touches[0].clientX, e.touches[0].clientY);
+        }, { passive: false });
         // 分享連結：#work/作品代號 直接打開
         function fromHash() {
             const m = location.hash.match(/^#work\/([\w-]+)/);
             if (!m) return;
-            const w = works.find(x => x.dataset.id === m[1]);
+            const w = allWorks().find(x => x.dataset.id === m[1]);
             if (w) openWork(w, false);
         }
         fromHash();
         addEventListener('hashchange', fromHash);
+
+        /* =========================================
+           版畫與攝影：讀收藏頁的同一份 Google 試算表，自動產生作品格子
+           欄位：A id、B 分類、C 中文名、D 英文名、E 規格、F 價格、G 數量、
+                 H 顯示控制（1 才顯示）、I 含框（1）、J 販售（1 或空白＝販售；0 或「非賣」＝非賣品）、
+                 K 裁切（選填，照片裡紙的範圍，左,上,右,下 的百分比，例如 23,17,78,88）、L 之後 圖片檔名
+           非賣品：首頁照常顯示，但不標「可收藏」；收藏頁不會出現。
+        ========================================= */
+        const SHEET = {
+            proxy: '/api/sheet',
+            direct: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRDYEUjBDASJpi7A3o0vWfWd0oQVl-_2p4UvnnOiUpYjdNjqe1z7QCqCTUas9Jb9h8HUq0neCkObBu-/pub?gid=0&single=true&output=csv',
+            ratio: 7 / 10  // 作品格子的長寬比
+        };
+        // 已上架照片裡「紙」的範圍（左,上,右,下，佔原圖的比例）；新照片沒填就用整張圖
+        const CROP_HINTS = {
+            'prt2-1-1.jpg': [149 / 653, 122 / 737, 508 / 653, 647 / 737],
+            'prt1-1.jpg': [114 / 609, 116 / 796, 498 / 609, 638 / 796],
+            'pho1-1.jpg': [132 / 689, 50 / 582, 560 / 689, 518 / 582]
+        };
+        const SHEET_FALLBACK = 'id,category,title,title-en,specs,price,stock,顯示控制,售價含框標記,販售,裁切,image\n'
+            + 'PRT-001-1,print,我也消失在聲音裡，永無止盡 1,"i also disappeared in sounds, endlessly 1","2025，水印木刻版畫，B5尺寸，獨版 water-based woodblock print, B5 size, unique","NT$8,500",1,1,1,,,prt1-1.jpg\n'
+            + 'PRT-002-1,print,消失在海浪刷洗的沙灘上 1,vanishing on the shore washed by waves 1,"2024，木刻版畫，B5尺寸，版數：3 woodblock print, B5 size, Ed. of 3","NT$8,500",3,1,1,,,"prt2-1-1.jpg, prt2-1-3.jpg, prt2-1-4.jpg"\n'
+            + 'PHO-001,photo,在天空中的某處，遠離人類,"somewhere in the sky, away from humans","2024，數位微噴、無酸藝術紙，尺寸，版數：30 archival pigment print on fine art paper, size, Ed. of 30","NT$2,400",30,1,1,,,"pho1-1.jpg, pho1-2.jpg, pho1-3.jpg, pho1-4.jpg"\n';
+        const TYPO_FIX = [[/desappeared/g, 'disappeared']];
+
+        const escH = v => String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        const bi3 = (en, zh, de) => '<span lang="en"' + (de && de !== en ? ' data-de="' + escH(de) + '"' : '') + '>' + en + '</span><span lang="zh-Hant">' + zh + '</span>';
+        function parseCSV(text) {
+            const rows = []; let row = [], cur = '', q = false;
+            for (let i = 0; i < text.length; i++) {
+                const c = text[i], n = text[i + 1];
+                if (q) { if (c === '"' && n === '"') { cur += '"'; i++; } else if (c === '"') q = false; else cur += c; }
+                else if (c === '"') q = true;
+                else if (c === ',') { row.push(cur.trim()); cur = ''; }
+                else if (c === '\n' || c === '\r') { if (c === '\r' && n === '\n') i++; row.push(cur.trim()); rows.push(row); row = []; cur = ''; }
+                else cur += c;
+            }
+            if (cur !== '' || row.length) { row.push(cur.trim()); rows.push(row); }
+            return rows;
+        }
+        const CJK = /[㐀-鿿　-〿＀-￯《》]/;
+        function splitZhEn(v) {
+            v = String(v || '').trim();
+            const re = /\s+(?=[A-Za-z])/g; let m;
+            while ((m = re.exec(v))) { const rest = v.slice(m.index); if (!CJK.test(rest)) return { zh: v.slice(0, m.index).trim(), en: rest.trim() }; }
+            return CJK.test(v) ? { zh: v, en: '' } : { zh: '', en: v };
+        }
+        function deTerm(en) {
+            const map = { 'Water-based woodblock print': 'Wasserbasierter Holzschnitt', 'Woodblock print': 'Holzschnitt', 'Archival pigment print on fine art paper': 'Archival Pigment Print auf Fine-Art-Papier', 'Unique': 'Unikat' };
+            if (map[en]) return map[en];
+            const m = String(en || '').match(/^Edition of (\d+)$/);
+            return m ? 'Auflage ' + m[1] : en;
+        }
+        function parseSpecs(raw) {
+            const { zh, en } = splitZhEn(raw);
+            const o = { year: '', medium: { zh: '', en: '' }, size: { zh: '', en: '' }, edition: { zh: '', en: '' } };
+            const zm = [];
+            zh.split(/[，,]/).map(x => x.trim()).filter(Boolean).forEach(p => {
+                if (/^\d{4}$/.test(p)) o.year = p;
+                else if (/尺寸/.test(p)) o.size.zh = p.replace(/尺寸/, '').trim();
+                else if (/版數|獨版/.test(p)) o.edition.zh = p === '獨版' ? '獨版' : '版數 ' + p.replace(/[^\d]/g, '');
+                else zm.push(p);
+            });
+            o.medium.zh = zm.join('，');
+            const em = [];
+            en.split(/,\s*/).map(x => x.trim()).filter(Boolean).forEach(p => {
+                if (/\bsize\b/i.test(p)) o.size.en = p.replace(/\bsize\b/i, '').trim();
+                else if (/^unique$/i.test(p)) o.edition.en = 'Unique';
+                else if (/\bed(\.|ition)?\s*of\s*\d+/i.test(p)) o.edition.en = 'Edition of ' + p.replace(/[^\d]/g, '');
+                else em.push(p);
+            });
+            const e = em.join(', ');
+            o.medium.en = e ? e.charAt(0).toUpperCase() + e.slice(1) : '';
+            return o;
+        }
+        const notForSale = v => /^(0|非賣|非賣品|否|no|n|false|nfs)$/i.test(String(v || '').trim());
+        function rowsToItems(rows) {
+            const data = rows.filter(r => r.some(c => c !== ''));
+            if (!data.length) return [];
+            const head = data[0].map(h => h.toLowerCase());
+            const body = (head.includes('id') || head.includes('price')) ? data.slice(1) : data;
+            return body.filter(r => (r[7] || '').trim() === '1').map(r => {
+                let zhT = String(r[2] || '').replace(/[《》]/g, '').trim(), enT = String(r[3] || '').replace(/[《》]/g, '').trim();
+                if (!enT) { const sp = splitZhEn(zhT); zhT = sp.zh; enT = sp.en; }
+                TYPO_FIX.forEach(([a, b]) => { enT = enT.replace(a, b); });
+                const imgs = [];
+                r.slice(11).forEach(v => String(v || '').split(/[\n,;]+/).forEach(p => { p = p.trim(); if (p) imgs.push(/^(https?:)?\/\/|^\/|^images\//.test(p) ? p : 'images/products/' + p); }));
+                const crop = String(r[10] || '').split(/[,\s]+/).map(Number).filter(n => !isNaN(n));
+                const stock = parseInt(String(r[6] || '').replace(/[^\d-]/g, ''), 10);
+                return {
+                    id: (r[0] || '').trim(), cat: (r[1] || 'print').trim().toLowerCase(),
+                    zh: zhT, en: enT || zhT, specs: parseSpecs(r[4]),
+                    stock: isNaN(stock) ? 0 : stock, sale: !notForSale(r[9]),
+                    crop: crop.length === 4 ? crop.map(n => n / 100) : null, images: imgs
+                };
+            }).filter(it => it.id && it.images.length);
+        }
+        function itemHtml(it) {
+            const s = it.specs, cover = it.images[0];
+            const slug = it.id.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            const medEn = [s.medium.en, s.edition.en].filter(Boolean).join(', ');
+            const medZh = [s.medium.zh, s.edition.zh].filter(Boolean).join('，');
+            const medDe = [deTerm(s.medium.en), deTerm(s.edition.en)].filter(Boolean).join(', ');
+            const avail = !it.sale ? '' : it.stock > 0
+                ? '<span class="avail">' + bi3('Available', '可收藏', 'Verfügbar') + '</span>'
+                : '<span class="avail sold">' + bi3('Sold', '已售出', 'Verkauft') + '</span>';
+            const rows = [];
+            if (s.year) rows.push([bi3('Year', '年份', 'Jahr'), escH(s.year)]);
+            if (s.medium.en || s.medium.zh) rows.push([bi3('Medium', '媒材', 'Medium'), bi3(escH(s.medium.en), escH(s.medium.zh), escH(deTerm(s.medium.en)))]);
+            if (s.size.en || s.size.zh) rows.push([bi3('Size', '尺寸', 'Abmessungen'), escH(s.size.en || s.size.zh)]);
+            if (s.edition.en || s.edition.zh) rows.push([bi3('Edition', '版數', 'Auflage'), bi3(escH(s.edition.en), escH(s.edition.zh.replace(/^版數\s*(\d+)$/, '$1 版')), escH(deTerm(s.edition.en)))]);
+            const buy = it.sale && it.stock > 0
+                ? '<a class="btn solid" href="shop.html#' + escH(it.id) + '" data-page="shop">' + bi3('View in Collect', '前往收藏頁', 'Zu den verfügbaren Werken') + ' <span class="arr">→</span></a>' : '';
+            const file = cover.split('/').pop().split('?')[0];
+            const crop = it.crop || CROP_HINTS[file] || [0, 0, 1, 1];
+            return '<article class="work reveal in" data-id="' + escH(slug) + '" data-cat="print" data-images="' + escH(it.images.join(', ')) + '">'
+                + '<button type="button" class="work-btn"><div class="work-media paper"><div class="paper-crop" data-crop="' + crop.join(',') + '">'
+                + '<img src="' + escH(cover) + '" alt="' + escH(it.en) + '" loading="lazy"></div></div>'
+                + '<div class="work-info"><span class="t"><span class="work-title-en">' + escH(it.en) + '</span>' + (it.zh ? '<span class="work-title-zh">' + escH(it.zh) + '</span>' : '') + '</span>'
+                + '<span class="y">' + escH(s.year) + '</span>'
+                + '<span class="m">' + bi3(escH(medEn), escH(medZh), escH(medDe)) + '</span>' + avail + '</div></button>'
+                + '<div class="work-detail"><dl class="spec">' + rows.map(x => '<dt>' + x[0] + '</dt><dd>' + x[1] + '</dd>').join('') + '</dl>'
+                + '<div class="actions">' + buy + '<a class="btn" data-inquire="' + escH('Inquiry · ' + it.en + ' (' + it.id + ')') + '">' + bi3('Ask about this work', '詢問這件作品', 'Zu diesem Werk anfragen') + '</a></div></div>'
+                + '</article>';
+        }
+        // 等比例放大後置中：先取紙的範圍，再切成固定比例（多的左右或上下平均裁掉）
+        function fitCrop(box) {
+            const img = box.querySelector('img');
+            const apply = () => {
+                const W = img.naturalWidth, H = img.naturalHeight;
+                if (!W || !H) return;
+                let [x0, y0, x1, y1] = box.dataset.crop.split(',').map(Number);
+                x0 *= W; x1 *= W; y0 *= H; y1 *= H;
+                let w = x1 - x0, h = y1 - y0;
+                if (w / h > SHEET.ratio) { const nw = h * SHEET.ratio; x0 += (w - nw) / 2; w = nw; }
+                else { const nh = w / SHEET.ratio; y0 += (h - nh) / 2; h = nh; }
+                box.style.setProperty('--iw', (W / w * 100) + '%');
+                box.style.setProperty('--ih', (H / h * 100) + '%');
+                box.style.setProperty('--ix', (-x0 / w * 100) + '%');
+                box.style.setProperty('--iy', (-y0 / h * 100) + '%');
+                box.classList.add('ready');
+            };
+            if (img.complete && img.naturalWidth) apply(); else img.addEventListener('load', apply, { once: true });
+        }
+        async function loadSheetWorks() {
+            const grid = document.getElementById('sheetGrid');
+            let items = [];
+            for (const url of [SHEET.proxy, SHEET.direct]) {
+                try {
+                    const res = await fetch(url, { cache: 'no-cache' });
+                    if (!res.ok) continue;
+                    items = rowsToItems(parseCSV(await res.text()));
+                    if (items.length) break;
+                } catch (e) {}
+            }
+            if (!items.length) items = rowsToItems(parseCSV(SHEET_FALLBACK));
+            grid.insertAdjacentHTML('beforeend', items.map(itemHtml).join(''));
+            grid.querySelectorAll('.paper-crop').forEach(fitCrop);
+            fixPageLinks(grid);
+            localize(grid);
+            bindInquire(grid);
+            const active = document.querySelector('[data-filter][aria-pressed="true"]');
+            if (active && active.dataset.filter !== 'all') active.click();
+            fromHash();
+        }
+        loadSheetWorks();
+
 
         /* ---------- 下載 CV：用瀏覽器的「另存 PDF」 ---------- */
         document.getElementById('printCv').addEventListener('click', () => {

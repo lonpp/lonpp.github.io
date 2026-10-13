@@ -30,7 +30,7 @@
             document.documentElement.lang = ui === 'zh' ? 'zh-Hant-TW' : ui;
             var l = document.createElement('link');
             l.rel = 'stylesheet';
-            l.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@400;500&display=swap';
+            l.href = 'https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Noto+Sans+TC:wght@400&display=swap';
             document.head.appendChild(l);
         })();
     </script>
@@ -175,7 +175,8 @@
         .viewer-close .x { font-size: 1.3rem; line-height: 1; }
         .stage { position: relative; background: var(--wall); display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 0; padding: clamp(1.5rem, 5vw, 4rem); }
         .stage img { max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 14px 26px rgba(0, 0, 0, 0.14)); cursor: zoom-in; transition: transform 0.25s ease; user-select: none; -webkit-user-drag: none; }
-        .stage.zoomed img { transform: scale(2.2); cursor: zoom-out; filter: none; }
+        .stage.zoomed img { transform: scale(2.4); cursor: zoom-out; filter: none; }
+        .stage.zoomed .stage-hint { display: none; }
         .stage-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; background: rgba(245, 244, 240, 0.85); font-size: 1.1rem; z-index: 2; }
         .stage-nav:hover { background: var(--paper); }
         .stage-nav.prev { left: 1rem; } .stage-nav.next { right: 1rem; }
@@ -256,13 +257,62 @@
             .viewer.checkout .stage { display: none; }
             .panel { border-left: none; overflow: visible; }
             .stage-nav { width: 40px; height: 40px; }
-            .stage-hint { display: none; }
+            .stage-hint { top: 0.6rem; }
+            .stage.zoomed { touch-action: none; }
             .two { grid-template-columns: 1fr; }
         }
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
             .js .reveal { opacity: 1; transform: none; transition: none; }
             *, *::before, *::after { transition-duration: 0.01ms !important; animation: none !important; }
+        }
+
+        /* =========================================
+           字體統一（跟首頁一樣）
+           英文：全部 EB Garamond（不用斜體）；中文：全部思源黑體（不用粗體），最大 15px
+           標題：20px、灰色，中英文同大小
+        ========================================= */
+        :root {
+            --sans: 'EB Garamond', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', Georgia, serif;
+            --serif: 'EB Garamond', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', Georgia, serif;
+            --zh-max: 15px;
+        }
+        body, button, input, select, textarea { font-family: var(--sans); }
+        body *, body *::before, body *::after { font-style: normal !important; }
+        [lang="zh-Hant"], .work-title-zh, .zh {
+            font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            font-weight: 400 !important;
+            font-size: min(1em, var(--zh-max)) !important;
+        }
+        html.ui-zh body .btn, html.ui-zh body .eyebrow, html.ui-zh body .field label, html.ui-zh body .brand, html.ui-zh body .site-nav a { font-weight: 400; }
+        .intro h1, .section h2 { font-size: 20px; line-height: 32px; font-weight: 400; color: var(--muted); }
+        .intro h1 [lang], .section h2 [lang] { font-size: 20px !important; color: var(--muted); }
+        .panel h2 { font-weight: 400; }
+        .item-info .t .work-title-en { color: #57544e; }
+
+        /* ---------- 跟首頁一致的細節 ---------- */
+        /* 縮圖：拿掉牆色底框和陰影，只留紙，統一比例，左緣和下方文字切齊 */
+        .item-media { aspect-ratio: 7 / 10; background: none; padding: 0; display: block; }
+        .item-media .paper-crop { position: absolute; inset: 0; overflow: hidden; }
+        .item-media .paper-crop img { position: absolute; max-width: none; object-fit: fill; filter: none; opacity: 0; transition: opacity 0.4s; }
+        .item-media .paper-crop.ready img { opacity: 1; }
+        .item-btn:hover .item-media img { transform: none; }
+        .item-media .n { background: rgba(245, 244, 240, 0.85); padding: 0.1rem 0.4rem; right: 0.5rem; bottom: 0.5rem; }
+        /* 寄送條件：跟首頁「關於」那一欄一樣，標籤和內容同大小、同灰色 */
+        .terms { display: grid; }
+        .terms li { display: grid; grid-template-columns: 9rem minmax(0, 1fr); justify-content: start; font-size: 13px; color: var(--muted); }
+        .terms li > *, .terms li b { font-size: 13px !important; font-weight: 400; color: var(--muted); text-align: left; }
+        /* 底部提問：跟首頁聯絡區的文字一樣大小 */
+        .ask p { font-size: clamp(1.05rem, 1.5vw, 1.2rem); font-weight: 400; color: var(--ink-2); }
+        /* 價格、狀態列：價格用內文色，不加粗 */
+        .item-info .p { font-size: 0.9rem; }
+        .price-row .price { font-size: 1.15rem; }
+
+        /* 開頭說明（中文）：寬螢幕上一行放完，不換行；英德文較長照常換行；窄螢幕自然換行 */
+        .intro p { max-width: none; }
+        @media (min-width: 981px) {
+            html.ui-zh .intro-grid { grid-template-columns: max-content minmax(260px, 1fr); }
+            html.ui-zh .intro p { white-space: nowrap; }
         }
     </style>
 </head>
@@ -628,7 +678,9 @@
             if (!data.length) return [];
             const head = data[0].map(h => h.toLowerCase());
             const body = (head.includes('id') || head.includes('price')) ? data.slice(1) : data;
-            return body.filter(r => (r[7] || '').trim() === '1').map((r, i) => {
+            // J 欄「販售」：0 或「非賣」的作品不在收藏頁出現（首頁照常顯示）
+            const notForSale = v => /^(0|非賣|非賣品|否|no|n|false|nfs)$/i.test(String(v || '').trim());
+            return body.filter(r => (r[7] || '').trim() === '1' && !notForSale(r[9])).map((r, i) => {
                 let zhTitle = cleanTitle(r[2]), enTitle = cleanTitle(r[3]);
                 if (!enTitle) { const s = splitZhEn(zhTitle); zhTitle = s.zh; enTitle = s.en; }
                 TYPO_FIX.forEach(([a, b]) => { enTitle = enTitle.replace(a, b); });
@@ -646,6 +698,8 @@
                     priceText: priceNum ? money(priceNum) : (r[5] || ''),
                     stock: isNaN(stock) ? 0 : stock,
                     framed: (r[8] || '').trim() === '1',
+                    // K 欄「裁切」：照片裡紙的範圍（左,上,右,下 百分比），沒填就用預設或整張
+                    crop: (function () { const c = String(r[10] || '').split(/[,\s]+/).map(Number).filter(n => !isNaN(n)); return c.length === 4 ? c.map(n => n / 100) : null; })(),
                     images: imgs
                 };
             });
@@ -688,13 +742,38 @@
         function priceHtml(w) {
             return esc(w.priceText) + (w.framed ? '<small>' + bi('framed', '含框') + '</small>' : '');
         }
+        /* 縮圖：只露出紙，統一 7:10，等比例放大後置中（跟首頁一樣） */
+        const THUMB_RATIO = 7 / 10;
+        const CROP_HINTS = {
+            'prt2-1-1.jpg': [149 / 653, 122 / 737, 508 / 653, 647 / 737],
+            'prt1-1.jpg': [114 / 609, 116 / 796, 498 / 609, 638 / 796],
+            'pho1-1.jpg': [132 / 689, 50 / 582, 560 / 689, 518 / 582]
+        };
+        function fitCrop(box) {
+            const img = box.querySelector('img');
+            const apply = () => {
+                const W = img.naturalWidth, H = img.naturalHeight;
+                if (!W || !H) return;
+                let [x0, y0, x1, y1] = box.dataset.crop.split(',').map(Number);
+                x0 *= W; x1 *= W; y0 *= H; y1 *= H;
+                let w = x1 - x0, h = y1 - y0;
+                if (w / h > THUMB_RATIO) { const nw = h * THUMB_RATIO; x0 += (w - nw) / 2; w = nw; }
+                else { const nh = w / THUMB_RATIO; y0 += (h - nh) / 2; h = nh; }
+                img.style.width = (W / w * 100) + '%';
+                img.style.height = (H / h * 100) + '%';
+                img.style.left = (-x0 / w * 100) + '%';
+                img.style.top = (-y0 / h * 100) + '%';
+                box.classList.add('ready');
+            };
+            if (img.complete && img.naturalWidth) apply(); else img.addEventListener('load', apply, { once: true });
+        }
         function render() {
             const grid = document.getElementById('grid');
             grid.innerHTML = WORKS.map(w => {
                 const cover = w.images[0] || '';
                 return '<article class="item reveal" data-cat="' + esc(w.cat) + '" id="' + esc(w.id) + '">'
                     + '<button type="button" class="item-btn" data-uid="' + w.uid + '" aria-label="' + esc(w.en) + '">'
-                    + '<div class="item-media">' + (cover ? '<img src="' + esc(cover) + '" alt="' + esc(w.en) + '" loading="lazy">' : '')
+                    + '<div class="item-media">' + (cover ? '<div class="paper-crop" data-crop="' + (w.crop || CROP_HINTS[cover.split('/').pop()] || [0, 0, 1, 1]).join(',') + '"><img src="' + esc(cover) + '" alt="' + esc(w.en) + '" loading="lazy"></div>' : '')
                     + (w.images.length > 1 ? '<span class="n">1 / ' + w.images.length + '</span>' : '') + '</div>'
                     + '<div class="item-info">'
                     + '<span class="t"><span class="work-title-en">' + esc(w.en) + '</span>' + (w.zh ? '<span class="work-title-zh">' + esc(w.zh) + '</span>' : '') + '</span>'
@@ -704,6 +783,7 @@
                     + '</div></button></article>';
             }).join('');
             grid.querySelectorAll('.item-btn').forEach(b => b.addEventListener('click', () => openWork(+b.dataset.uid)));
+            grid.querySelectorAll('.paper-crop').forEach(fitCrop);
             reveal();
             applyFilter(currentFilter);
         }
@@ -830,6 +910,13 @@
             // 放大時 rect 是放大後的尺寸，換算回原本比例
             sImg.style.transformOrigin = Math.min(100, Math.max(0, (e.clientX - r.left) / r.width * 100)) + '% ' + Math.min(100, Math.max(0, (e.clientY - r.top) / r.height * 100)) + '%';
         });
+        // 手機：放大後用手指拖動看細節
+        sImg.addEventListener('touchmove', e => {
+            if (!stage.classList.contains('zoomed')) return;
+            e.preventDefault();
+            const r = sImg.getBoundingClientRect(), x = e.touches[0].clientX, y = e.touches[0].clientY;
+            sImg.style.transformOrigin = Math.min(100, Math.max(0, (x - r.left) / r.width * 100)) + '% ' + Math.min(100, Math.max(0, (y - r.top) / r.height * 100)) + '%';
+        }, { passive: false });
         let sx = null;
         stage.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
         stage.addEventListener('touchend', e => { if (sx === null || stage.classList.contains('zoomed')) { sx = null; return; } const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1); sx = null; });
