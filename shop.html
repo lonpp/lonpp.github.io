@@ -521,9 +521,11 @@
             paypal:   { type: 'link', url: 'https://ko-fi.com/lonsthx',
                         en: 'PayPal / card (Ko-fi)', zh: 'PayPal／信用卡（Ko-fi）', de: 'PayPal / Karte (Ko-fi)', hint_en: 'On Ko-fi, enter the equivalent of', hint_zh: '在 Ko-fi 輸入等值金額', hint_de: 'Auf Ko-fi bitte den Gegenwert eingeben:' },
             alipay:   { type: 'qr', img: 'images/qr-alipay.jpg', app: 'https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4',
-                        en: 'Alipay', zh: '支付寶', de: 'Alipay', hint_en: 'Scan with Alipay and pay the equivalent of', hint_zh: '用支付寶掃描，支付等值（依當日匯率換算）', hint_de: 'Mit Alipay scannen und den Gegenwert bezahlen:' }
+                        en: 'Alipay', zh: '支付寶', de: 'Alipay', hint_en: 'Scan with Alipay and pay the equivalent of', hint_zh: '用支付寶掃描，支付等值（依當日匯率換算）', hint_de: 'Mit Alipay scannen und den Gegenwert bezahlen:' },
+            wechat:   { type: 'qr', img: 'images/qr-wechat.jpg',
+                        en: 'WeChat Pay', zh: '微信支付', de: 'WeChat Pay', hint_en: 'Scan with WeChat Pay and pay the equivalent of', hint_zh: '用微信掃描，支付等值（依當日匯率換算）', hint_de: 'Mit WeChat Pay scannen und den Gegenwert bezahlen:' }
         };
-        const PAY_ORDER = { tw: ['jkopay', 'linepay', 'newebpay', 'paypal'], intl: ['paypal', 'alipay'] };
+        const PAY_ORDER = { tw: ['jkopay', 'linepay', 'newebpay', 'paypal'], intl: ['paypal', 'alipay', 'wechat'] };
         // 試算表裡的英文錯字，改好試算表後可刪
         const TYPO_FIX = [[/desappeared/g, 'disappeared']];
         // 試算表連不上時的備用資料（與目前上架的三件相同）
