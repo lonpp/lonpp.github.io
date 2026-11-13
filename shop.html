@@ -511,14 +511,12 @@
         const PROXY_SHEET_URL = '/api/sheet';
         const DIRECT_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRDYEUjBDASJpi7A3o0vWfWd0oQVl-_2p4UvnnOiUpYjdNjqe1z7QCqCTUas9Jb9h8HUq0neCkObBu-/pub?gid=0&single=true&output=csv';
         const SHIPPING = { tw: 0, intl: 1000 };
-        // 台灣本地支付（街口、LINE Pay、藍新）2027/1/1 台灣時間開放
-        const TW_LOCAL_OPEN = Date.parse('2027-01-01T00:00:00+08:00');
+        // 台灣本地支付（街口、藍新）2026-11-14 起已開放
+        const TW_LOCAL_OPEN = Date.parse('2026-11-14T00:00:00+08:00');
         const PAY = {
-            jkopay:   { local: true, type: 'qr', img: 'images/qr-jkopay.jpg', app: 'http://www.jkos.com/index.html?j=S%2344234c39-bcaa-11f1-8ac0-c81f66f0c432%3AP%23',
+            jkopay:   { local: true, type: 'qr', img: 'images/qr-twqr.jpg', app: 'http://www.jkos.com/index.html?j=S%23f06b4e6f-da7d-11f1-8ac0-c81f66f0c432%3AP%23',
                         en: 'JKOPay / TWQR', zh: '街口／TWQR', de: 'JKOPay / TWQR', hint_en: 'Scan with JKOPay or any TWQR app and enter', hint_zh: '用街口、全支付、悠遊付、台灣 Pay 等支援 TWQR 的 App 掃描，輸入', hint_de: 'Mit JKOPay oder einer TWQR-App scannen und eingeben:' },
-            linepay:  { local: true, type: 'qr', img: 'images/qr-linepay.jpg', app: 'https://qrcodepay.line.me/qr/payment/VZOOBJ5y7WSsSkslC9BcR3B0xvW49AvRzmQ3bA%252BUGlhnls2hfP6lLE5grrpI5xTE',
-                        en: 'LINE Pay', zh: 'LINE Pay', de: 'LINE Pay', hint_en: 'Scan with LINE Pay and enter', hint_zh: '用 LINE Pay 掃描，輸入', hint_de: 'Mit LINE Pay scannen und eingeben:' },
-            newebpay: { local: true, type: 'link', url: '', /* 藍新收款網址貼這裡（https 開頭） */
+            newebpay: { local: true, type: 'link', url: 'https://core.newebpay.com/EPG/lonlon/ZPIH5v', /* 藍新收款網址貼這裡（https 開頭） */
                         en: 'Card / bank transfer (NewebPay)', zh: '信用卡／轉帳（藍新）', de: 'Karte / Überweisung (NewebPay)', hint_en: 'Pay securely on NewebPay:', hint_zh: '在藍新安全支付頁面付款：', hint_de: 'Sicher über NewebPay bezahlen:' },
             paypal:   { type: 'link', url: 'https://ko-fi.com/couchinc',
                         en: 'PayPal / card (Ko-fi)', zh: 'PayPal／信用卡（Ko-fi）', de: 'PayPal / Karte (Ko-fi)', hint_en: 'On Ko-fi, enter the equivalent of', hint_zh: '在 Ko-fi 輸入等值金額', hint_de: 'Auf Ko-fi bitte den Gegenwert eingeben:' },
@@ -527,7 +525,7 @@
             wechat:   { type: 'qr', img: 'images/qr-wechat.jpg',
                         en: 'WeChat Pay', zh: '微信支付', de: 'WeChat Pay', hint_en: 'Scan with WeChat Pay and pay the equivalent of', hint_zh: '用微信掃描，支付等值（依當日匯率換算）', hint_de: 'Mit WeChat Pay scannen und den Gegenwert bezahlen:' }
         };
-        const PAY_ORDER = { tw: ['jkopay', 'linepay', 'newebpay', 'paypal'], intl: ['paypal', 'alipay', 'wechat'] };
+        const PAY_ORDER = { tw: ['jkopay', 'newebpay', 'paypal'], intl: ['paypal', 'alipay', 'wechat'] };
         // 試算表裡的英文錯字，改好試算表後可刪
         const TYPO_FIX = [[/desappeared/g, 'disappeared']];
         // 試算表連不上時的備用資料（與目前上架的三件相同）
