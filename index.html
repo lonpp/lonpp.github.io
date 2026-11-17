@@ -24,7 +24,7 @@
         "alternateName": "冷冷",
         "jobTitle": "Artist",
         "url": "https://lonp.pages.dev/",
-        "email": "mailto:arts.lonp@gmail.com",
+        "email": "mailto:lonlon.projekt@gmail.com",
         "address": { "@type": "PostalAddress", "addressLocality": "Taipei", "addressCountry": "TW" },
         "sameAs": ["https://instagram.com/lon.projekt"]
     }
@@ -313,6 +313,10 @@
         .video-box .play img { width: 100%; height: 100%; max-width: none; max-height: none; object-fit: cover; }
         #stageContent { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
         #stageContent .video-box { width: min(100%, 1100px); }
+        .vsw { display: inline-flex; flex-wrap: wrap; gap: 0.4rem; }
+        .vsw button { border: 1px solid var(--line, currentColor); padding: 0.25rem 0.7rem; min-height: 32px; font: inherit; font-size: 0.85rem; color: var(--muted); background: transparent; cursor: pointer; }
+        .vsw button:hover { color: var(--ink); }
+        .vsw button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
         .reel { margin: 0 0 clamp(2.6rem, 5vw, 4rem); }
         .reel[hidden] { display: none; }
         .reel-cap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.3rem 2rem; margin-top: 0.9rem; font-size: 0.86rem; color: var(--muted); }
@@ -586,6 +590,33 @@
                     <h3 class="eyebrow"><span lang="en" data-de="Weitere Arbeiten">More works</span><span lang="zh-Hant">更多作品</span></h3>
                 </div>
                 <div class="works-index">
+                    <article class="work reveal" data-id="the-newborn-series" data-cat="video" data-video="newborn">
+                        <button type="button" class="work-btn">
+                            <div class="work-media video">
+                                <img src="images/works/newborn-series.jpg" alt="THE NEWBORN SERIES, video still" loading="lazy" width="1280" height="720">
+                                <span class="badge"><span class="tri"></span>Video · 20 min</span>
+                            </div>
+                            <div class="work-info">
+                                <span class="t"><span class="work-title-en">THE NEWBORN SERIES</span></span>
+                                <span class="y">2026</span>
+                                <span class="m"><span lang="en">Video</span><span lang="zh-Hant">錄像</span></span>
+                            </div>
+                        </button>
+                        <div class="work-detail">
+                            <dl class="spec">
+                                <dt><span lang="en" data-de="Jahr">Year</span><span lang="zh-Hant">年份</span></dt><dd>2026</dd>
+                                <dt><span lang="en">Medium</span><span lang="zh-Hant">媒材</span></dt><dd><span lang="en">Video</span><span lang="zh-Hant">錄像</span></dd>
+                                <dt><span lang="en" data-de="Dauer">Duration</span><span lang="zh-Hant">片長</span></dt><dd>20 min</dd>
+                                <dt><span lang="en" data-de="Sprache">Language</span><span lang="zh-Hant">語言版本</span></dt><dd>
+                                    <span class="vsw" role="group" aria-label="Language version">
+                                        <button type="button" data-vsw="zh" aria-pressed="false">中文</button>
+                                        <button type="button" data-vsw="deen" aria-pressed="false">Deutsch · English</button>
+                                    </span>
+                                </dd>
+                            </dl>
+                        </div>
+                    </article>
+
                     <article class="work reveal" data-id="studies-on-synchronicity" data-cat="performance">
                         <button type="button" class="work-btn">
                             <div class="work-media text">
@@ -763,7 +794,7 @@
             <div class="wrap">
                 <div class="print-head">
                     <p style="font-family: var(--serif); font-size: 20pt;">lonlon 冷冷</p>
-                    <p style="color: #555;">arts.lonp@gmail.com · instagram.com/lon.projekt · lonp.pages.dev</p>
+                    <p style="color: #555;">lonlon.projekt@gmail.com · instagram.com/lon.projekt · lonp.pages.dev</p>
                 </div>
                 <div class="section-head">
                     <h2 id="cv-h"><span lang="en">CV</span><span lang="zh-Hant">履歷</span></h2>
@@ -836,7 +867,7 @@
                             <span lang="en" data-de="Für Ausstellungen, Screenings, Ankäufe und Presse schreiben Sie bitte an das Studio.">For exhibitions, screenings, acquisitions and press, write to the studio.</span>
                             <span lang="zh-Hant">展覽、放映、收藏與媒體邀約，歡迎來信工作室。</span>
                         </p>
-                        <a class="contact-mail" href="mailto:arts.lonp@gmail.com">arts.lonp@gmail.com</a>
+                        <a class="contact-mail" href="mailto:lonlon.projekt@gmail.com">lonlon.projekt@gmail.com</a>
                         <p class="contact-meta">
                             <span lang="en" data-de="Taipeh, Taiwan · Antwort innerhalb von 2 Werktagen">Taipei, Taiwan · Replies within 2 working days</span>
                             <span lang="zh-Hant">台灣台北 · 2 個工作天內回覆</span><br>
@@ -868,7 +899,7 @@
                 <p class="mailing">
                     <span lang="en" data-de="Newsletter: gelegentlich Neuigkeiten zu Ausstellungen und neuen Arbeiten. ">Mailing list: occasional news on exhibitions and new work. </span>
                     <span lang="zh-Hant">郵件名單：不定期收到展覽與新作消息。</span>
-                    <a href="mailto:arts.lonp@gmail.com?subject=Mailing%20list%20%2F%20%E8%A8%82%E9%96%B1%E9%83%B5%E4%BB%B6%E5%90%8D%E5%96%AE&amp;body=Please%20add%20me%20to%20the%20mailing%20list.%20%2F%20%E8%AB%8B%E6%8A%8A%E6%88%91%E5%8A%A0%E5%85%A5%E9%83%B5%E4%BB%B6%E5%90%8D%E5%96%AE%E3%80%82"><span lang="en" data-de="Per E-Mail eintragen →">Join by email →</span><span lang="zh-Hant">寄信加入 →</span></a>
+                    <a href="mailto:lonlon.projekt@gmail.com?subject=Mailing%20list%20%2F%20%E8%A8%82%E9%96%B1%E9%83%B5%E4%BB%B6%E5%90%8D%E5%96%AE&amp;body=Please%20add%20me%20to%20the%20mailing%20list.%20%2F%20%E8%AB%8B%E6%8A%8A%E6%88%91%E5%8A%A0%E5%85%A5%E9%83%B5%E4%BB%B6%E5%90%8D%E5%96%AE%E3%80%82"><span lang="en" data-de="Per E-Mail eintragen →">Join by email →</span><span lang="zh-Hant">寄信加入 →</span></a>
                 </p>
             </div>
         </section>
@@ -916,9 +947,18 @@
         ========================================= */
         const VIDEOS = {
             // 作品預覽片段合併：風行不止、愛麗絲的新生、滲人（5 分鐘）
-            reel: { url: 'https://youtu.be/NE2zB_j3s1E', embed: true, poster: 'images/works/wind-continues-in-motion.jpg' }
+            reel: { url: 'https://youtu.be/NE2zB_j3s1E', embed: true, poster: 'images/works/wind-continues-in-motion.jpg' },
+            // THE NEWBORN SERIES（20 分鐘）：zh = 中文版、deen = 德文／英文版；可在作品視窗切換
+            newborn: { url: 'https://youtu.be/mb5S88szJZM', embed: true, poster: 'images/works/newborn-series.jpg',
+                alt: { zh: 'https://youtu.be/mb5S88szJZM', deen: 'https://youtu.be/thrXpBKozIY' } }
         };
-        const STUDIO_EMAIL = 'arts.lonp@gmail.com';
+        const vSel = {};  // 使用者選的語言版本
+        function videoUrl(key) {
+            const v = VIDEOS[key];
+            if (!v.alt) return v.url;
+            return v.alt[vSel[key] || (ui() === 'zh' ? 'zh' : 'deen')];
+        }
+        const STUDIO_EMAIL = 'lonlon.projekt@gmail.com';
 
         const html = document.documentElement;
         const ui = () => (html.classList.contains('ui-zh') ? 'zh' : html.classList.contains('ui-de') ? 'de' : 'en');
@@ -965,14 +1005,15 @@
         function videoBox(key) {
             const v = VIDEOS[key];
             const poster = '<img src="' + v.poster + '" alt="">';
-            if (!v.embed) return '<div class="video-box"><a class="play" href="' + v.url + '" target="_blank" rel="noopener" aria-label="Watch on YouTube">' + poster + '</a></div>';
+            if (!v.embed) return '<div class="video-box"><a class="play" href="' + videoUrl(key) + '" target="_blank" rel="noopener" aria-label="Watch on YouTube">' + poster + '</a></div>';
             return '<div class="video-box" data-player="' + key + '"><button type="button" class="play" aria-label="Play video">' + poster + '</button></div>';
         }
         function playIn(box) {
             const v = VIDEOS[box.dataset.player]; if (!v) return;
             // 直接雙擊檔案（file://）開啟時 YouTube 拿不到來源網址會出現「錯誤 153」，改開 YouTube 分頁；上線或用本機伺服器時正常嵌入
-            if (location.protocol === 'file:') { window.open(v.url, '_blank', 'noopener'); return; }
-            box.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + videoId(v.url) + '?autoplay=1&rel=0&playsinline=1" title="Showreel" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';
+            const url = videoUrl(box.dataset.player);
+            if (location.protocol === 'file:') { window.open(url, '_blank', 'noopener'); return; }
+            box.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + videoId(url) + '?autoplay=1&rel=0&playsinline=1" title="Showreel" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';
         }
         document.addEventListener('click', e => {
             const btn = e.target.closest('.video-box[data-player] .play');
@@ -983,6 +1024,24 @@
             const box = document.querySelector('#reel .video-box');
             if (box && !VIDEOS.reel.embed) box.outerHTML = videoBox('reel');
         })();
+        // 語言版本切換（THE NEWBORN SERIES）：按下後直接換片播放
+        function syncVsw(root) {
+            const key = current && current.dataset.video;
+            if (!key || !VIDEOS[key] || !VIDEOS[key].alt) return;
+            const sel = vSel[key] || (ui() === 'zh' ? 'zh' : 'deen');
+            (root || document).querySelectorAll('.vsw button').forEach(b => b.setAttribute('aria-pressed', b.dataset.vsw === sel ? 'true' : 'false'));
+        }
+        document.addEventListener('click', e => {
+            const b = e.target.closest('.vsw button');
+            if (!b || !current) return;
+            const key = current.dataset.video;
+            if (!key || !VIDEOS[key]) return;
+            vSel[key] = b.dataset.vsw;
+            stage.innerHTML = videoBox(key);
+            syncVsw(document.getElementById('viewerBody'));
+            const box = stage.querySelector('.video-box[data-player]');
+            if (box) playIn(box);
+        });
         function stopVideo(root) {
             root.querySelectorAll('.video-box[data-player] iframe').forEach(f => { f.parentNode.outerHTML = videoBox(f.parentNode.dataset.player); });
         }
@@ -1069,6 +1128,7 @@
             body.style.display = 'block';
             const vb = document.getElementById('viewerBody'); vb.innerHTML = ''; vb.appendChild(body);
             bindInquire(vb);
+            syncVsw(vb);
             renderStage();
             lastFocus = document.activeElement;
             viewer.hidden = false; viewer.classList.add('open');
