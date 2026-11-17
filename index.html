@@ -313,6 +313,7 @@
         .video-box .play img { width: 100%; height: 100%; max-width: none; max-height: none; object-fit: cover; }
         #stageContent { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
         #stageContent .video-box { width: min(100%, 1100px); }
+        #stageContent img.lowres { width: auto; height: auto; max-width: min(100%, 1000px); max-height: 100%; image-rendering: auto; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18); }
         .vsw { display: inline-flex; flex-wrap: wrap; gap: 0.4rem; }
         .vsw button { border: 1px solid var(--line, currentColor); padding: 0.25rem 0.7rem; min-height: 32px; font: inherit; font-size: 0.85rem; color: var(--muted); background: transparent; cursor: pointer; }
         .vsw button:hover { color: var(--ink); }
@@ -617,7 +618,7 @@
                         </div>
                     </article>
 
-                    <article class="work reveal" data-id="studies-on-synchronicity" data-cat="performance">
+                    <article class="work reveal" data-id="studies-on-synchronicity" data-cat="performance" data-nozoom data-images="images/works/synchronicity-1.jpg, images/works/synchronicity-2.jpg, images/works/synchronicity-3.jpg">
                         <button type="button" class="work-btn">
                             <div class="work-media text">
                                 <div><div class="t-en">studies on synchronicity</div></div>
@@ -1102,7 +1103,8 @@
             } else if (images.length) {
                 const img = document.createElement('img');
                 img.src = images[idx]; img.alt = current.querySelector('.work-title-en').textContent;
-                img.className = 'zoomable';
+                // 低解析度的紀錄照片：不放大、不顯示放大提示，只以原尺寸以內顯示，避免糊掉
+                img.className = current.hasAttribute('data-nozoom') ? 'lowres' : 'zoomable';
                 stage.appendChild(img);
             } else {
                 const plate = current.querySelector('.work-media.text').cloneNode(true);
