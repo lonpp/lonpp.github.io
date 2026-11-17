@@ -850,7 +850,7 @@
                         <li><span class="k"><span lang="en" data-de="Medien">Media</span><span lang="zh-Hant">媒材</span></span><span><span lang="en" data-de="Video, Performance, Installation, Holzschnitt">Video, performance, installation, woodblock print</span><span lang="zh-Hant">錄像、行為、裝置、木刻版畫</span></span></li>
                         <li><span class="k"><span lang="en" data-de="Verkauf">Sales</span><span lang="zh-Hant">銷售</span></span><span><span lang="en" data-de="Direkt über das Studio. ">Directly through the studio. </span><span lang="zh-Hant">由工作室直接銷售。</span><a href="shop.html" data-page="shop"><span lang="en" data-de="Verfügbare Werke">Available works</span><span lang="zh-Hant">可收藏作品</span></a></span></li>
                         <li><span class="k">Instagram</span><span><a href="https://instagram.com/lon.projekt" target="_blank" rel="noopener">@lon.projekt</a></span></li>
-                        <li><span class="k"><span lang="en" data-de="Außerdem">Also</span><span lang="zh-Hant">其他</span></span><span><span lang="en" data-de="Spieleentwicklung &amp;amp; Streaming: ">Game development &amp; streaming: </span><span lang="zh-Hant">遊戲開發與實況：</span><a href="https://couchinc.pages.dev" target="_blank" rel="noopener">Human Leather Couch Factory</a></span></li>
+                        <li><span class="k"><span lang="en" data-de="Außerdem">Also</span><span lang="zh-Hant">其他</span></span><span><span lang="en" data-de="Spieleentwicklung &amp;amp; Streaming: ">Game development &amp; streaming: </span><span lang="zh-Hant">遊戲開發與實況：</span><a href="https://couchinc.pages.dev" target="_blank" rel="noopener">Couch Inc</a></span></li>
                     </ul>
                 </div>
             </div>
@@ -949,7 +949,7 @@
         const VIDEOS = {
             // 作品預覽片段合併：風行不止、愛麗絲的新生、滲人（5 分鐘）
             reel: { url: 'https://youtu.be/NE2zB_j3s1E', embed: true, poster: 'images/works/wind-continues-in-motion.jpg' },
-            // THE NEWBORN SERIES（20 分鐘）：zh = 中文版、deen = 德文／英文版；可在作品視窗切換
+            // THE NEWBORN SERIES（20 分鐘）：zh = 中文版（預設）、deen = 德文／英文版；可在作品視窗切換
             newborn: { url: 'https://youtu.be/mb5S88szJZM', embed: true, poster: 'images/works/newborn-series.jpg',
                 alt: { zh: 'https://youtu.be/mb5S88szJZM', deen: 'https://youtu.be/thrXpBKozIY' } }
         };
@@ -957,7 +957,7 @@
         function videoUrl(key) {
             const v = VIDEOS[key];
             if (!v.alt) return v.url;
-            return v.alt[vSel[key] || (ui() === 'zh' ? 'zh' : 'deen')];
+            return v.alt[vSel[key] || 'zh'];  // 預設一律先播中文版，要另外按才切到德文／英文版
         }
         const STUDIO_EMAIL = 'lonlon.projekt@gmail.com';
 
@@ -1029,7 +1029,7 @@
         function syncVsw(root) {
             const key = current && current.dataset.video;
             if (!key || !VIDEOS[key] || !VIDEOS[key].alt) return;
-            const sel = vSel[key] || (ui() === 'zh' ? 'zh' : 'deen');
+            const sel = vSel[key] || 'zh';
             (root || document).querySelectorAll('.vsw button').forEach(b => b.setAttribute('aria-pressed', b.dataset.vsw === sel ? 'true' : 'false'));
         }
         document.addEventListener('click', e => {
